@@ -1,0 +1,67 @@
+flowchart TB
+  subgraph Clients[客户端与可信入口]
+    WEB[Web / React + Vite]
+    ELE[Electron 桌宠适配器\n仅验证后的原生能力]
+    WX[微信适配器 / 模拟入口]
+  end
+  subgraph LocalOnly[REQ14 独立端侧旁路]
+    TD[TextDestructionView\n私有内存缓冲]
+    FX[本地销毁动画与资源]
+    TD --> FX
+  end
+  subgraph Edge[Express 接入与安全层]
+    HTTP[REST 路由 / DTO 映射]
+    SEC[安全 Cookie · CSRF · Origin\n限流 · Zod 严格校验]
+  end
+  subgraph App[应用层：模块化单体]
+    AUTH[AuthService / ProfileService]
+    REC[RecordService / RoomService]
+    TASK[TaskCoordinator\n双代次与迟到结果拦截]
+    AGENT[AgentApplicationService\n任务受理、轮询、取消门面]
+    AIP[AIProcessingService\n上下文、安全、响应编排]
+  end
+  subgraph Domain[领域与策略]
+    MODEL[账号 · 会话 · 活动 · 记录\n授权 · 房间 · 寄存]
+    POLICY[AuthorizationPolicy / SafetyPolicy]
+  end
+  subgraph Ports[端口]
+    IDR[IdentityRepository]
+    RR[RecordRepository]
+    ROOM[RoomRepository]
+    AIC[AIClient]
+    SEARCH[SearchProvider]
+  end
+  subgraph Infra[基础设施实现]
+    PG[(PostgreSQL\n会话、记录、授权、幂等)]
+    LC[LangChainModelAdapter]
+    SP[固定检索供应商]
+  end
+  WEB --> HTTP
+  ELE --> HTTP
+  WX --> HTTP
+  WEB -. 页面内独立入口 .-> TD
+  ELE -. 本地入口 .-> TD
+  WX -. 仅跳转本地独立页 .-> TD
+  HTTP --> SEC --> AUTH
+  SEC --> REC
+  SEC --> TASK
+  SEC --> AGENT
+  AUTH --> MODEL
+  REC --> MODEL
+  TASK --> MODEL
+  AGENT --> AIP
+  AIP --> POLICY
+  AUTH --> POLICY
+  REC --> POLICY
+  AUTH --> IDR
+  REC --> RR
+  REC --> ROOM
+  AIP --> AIC
+  AGENT --> SEARCH
+  IDR --> PG
+  RR --> PG
+  ROOM --> PG
+  AIC <|.. LC
+  LC --> EXT[(受控模型供应商)]
+  SEARCH --> SP
+  TD -. 禁止连接网络/数据库/模型/搜索/日志/遥测 .- TD
