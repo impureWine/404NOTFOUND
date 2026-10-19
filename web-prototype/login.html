@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>登录 · 404NOTFOUND</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: { DEFAULT: 'var(--brand)', dark: 'var(--brand-dark)', soft: 'var(--brand-soft)', line: 'var(--brand-line)' },
+          ink: '#33403F',
+          sub: '#6B7875',
+          mist: '#F6F8F7',
+          line: '#E7EDEB',
+          sand: '#C2A08A',
+          sandsoft: '#F8F3EE'
+        }
+      }
+    }
+  };
+</script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+  }
+  ::-webkit-scrollbar { width: 0px; height: 0px; }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body class="h-full w-full m-0 overflow-hidden bg-mist text-ink antialiased">
+<div class="h-full w-full flex">
+<!-- 左侧说明 -->
+<aside class="hidden lg:flex flex-col justify-between w-[42%] xl:w-[46%] shrink-0 bg-gradient-to-b from-brand-soft via-[#F5F8F7] to-sandsoft border-r border-line p-10">
+<a class="flex items-center gap-2.5" href="home.html">
+<span class="w-16 h-9 shrink-0 rounded-xl bg-white text-brand grid place-items-center border border-brand-line">
+<img src="assets/404-mark.svg?v=4" alt="404" style="width:100%;height:auto;max-height:100%;object-fit:contain"/>
+</span>
+<span class="leading-tight">
+<span class="block text-[15px] font-semibold text-ink">NOTFOUND</span>
+<span class="block text-[11px] text-sub">情绪自助演示原型</span>
+</span>
+</a>
+<div class="max-w-[420px]">
+<h1 class="text-[26px] leading-snug font-semibold text-ink">欢迎回来，<br/>先坐下，不用急着说话</h1>
+<p class="mt-3.5 text-[13.5px] leading-relaxed text-sub">
+        登录后可以查看演示用的小满账号：首页会显示连续记录天数、最近会话与今日情绪打卡；
+        未登录的访客状态同样可以浏览全部页面。
+      </p>
+<div class="mt-7 rounded-2xl bg-white/70 backdrop-blur border border-white px-5 py-4">
+<p class="text-[12.5px] font-medium text-ink">演示账号</p>
+<div class="mt-2.5 space-y-2 text-[12.5px] text-sub">
+<p class="flex items-center justify-between gap-3"><span>账号</span><span class="text-ink">xiaoman@demo.local</span></p>
+<p class="flex items-center justify-between gap-3"><span>密码</span><span class="text-ink">demo1234</span></p>
+<p class="flex items-center justify-between gap-3"><span>状态</span><span class="text-brand-dark">已登录 6 天（模拟）</span></p>
+</div>
+</div>
+<ul class="mt-6 space-y-3">
+<li class="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-sub">
+<iconify-icon class="text-[16px] text-brand mt-0.5 shrink-0" icon="ph:check-circle"></iconify-icon>不校验真实账号，也不会发送验证码。
+        </li>
+<li class="flex items-start gap-2.5 text-[12.5px] leading-relaxed text-sub">
+<iconify-icon class="text-[16px] text-brand mt-0.5 shrink-0" icon="ph:check-circle"></iconify-icon>登录仅为演示状态切换，不向任何服务器提交信息。
+        </li>
+</ul>
+</div>
+<p class="text-[11.5px] leading-relaxed text-sub">
+      若你正在经历难以承受的状态，请及时联系当地专业机构或紧急服务；本原型不提供紧急支持。
+    </p>
+</aside>
+<!-- 右侧表单 -->
+<div class="flex-1 min-w-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<div class="min-h-full flex items-center justify-center px-4 py-8 lg:px-10">
+<div class="w-full max-w-[440px]">
+<div class="lg:hidden flex items-center gap-2.5 mb-6">
+<span class="w-16 h-9 shrink-0 rounded-xl text-brand grid place-items-center">
+<img src="assets/404-mark.svg?v=4" alt="404" style="width:100%;height:auto;max-height:100%;object-fit:contain"/>
+</span>
+<span class="text-[15px] font-semibold text-ink">404NOTFOUND</span>
+</div>
+<a class="inline-flex items-center gap-1.5 text-[12.5px] text-sub hover:text-brand-dark transition" href="home.html">
+<iconify-icon class="text-[14px]" icon="ph:arrow-left"></iconify-icon>返回首页
+        </a>
+<h2 class="mt-4 text-[22px] font-semibold text-ink">登录演示账号</h2>
+<p class="mt-2 text-[12.5px] leading-relaxed text-sub">使用下方预填的演示账号，或随意填写也可进入。</p>
+<div class="mt-6 rounded-2xl border border-line bg-white p-5 lg:p-6">
+<form id="login-form" onsubmit="return submitLogin(event)">
+<div class="space-y-4">
+<div>
+<label class="block text-[12.5px] text-ink" for="login-account">账号 <span class="text-sub">（演示预填）</span></label>
+<input class="mt-1.5 w-full rounded-xl border border-line bg-mist px-3.5 py-3 text-[13.5px] text-ink focus:outline-none focus:border-brand-line focus:bg-white transition" id="login-account" type="text" value="xiaoman@demo.local"/>
+</div>
+<div>
+<label class="block text-[12.5px] text-ink" for="login-pass">密码 <span class="text-sub">（演示预填）</span></label>
+<input class="mt-1.5 w-full rounded-xl border border-line bg-mist px-3.5 py-3 text-[13.5px] text-ink focus:outline-none focus:border-brand-line focus:bg-white transition" id="login-pass" type="password" value="demo1234"/>
+</div>
+<div class="flex items-center justify-between gap-3">
+<label class="flex items-center gap-2 text-[12.5px] text-sub">
+<input checked="" class="accent-[var(--brand)]" type="checkbox"/>在这台设备上记住我
+                </label>
+<button class="text-[12.5px] text-brand-dark hover:underline" onclick="showTip('演示环境未接入邮件或短信服务，无法发送重置邮件。')" type="button">忘记密码？</button>
+</div>
+</div>
+<p class="hidden mt-4 rounded-xl bg-sandsoft border border-sand/40 px-3.5 py-2.5 text-[12px] text-[#8A6E52]" id="login-error"></p>
+<button class="mt-5 w-full px-4 py-3 rounded-xl bg-brand text-white text-[13.5px] font-medium hover:bg-brand-dark transition" type="submit">登录（演示）</button>
+<button class="mt-2.5 w-full px-4 py-3 rounded-xl border border-line bg-white text-sub text-[13.5px] hover:bg-mist transition" onclick="guestContinue()" type="button">以访客身份继续浏览</button>
+</form>
+<p class="mt-4 text-center text-[12.5px] text-sub">
+            还没有演示账号？<a class="text-brand-dark font-medium hover:underline" href="register.html">创建一个</a>
+</p>
+</div>
+<div class="mt-5 rounded-2xl border border-dashed border-line bg-white px-5 py-4">
+<p class="flex items-start gap-2 text-[12px] leading-relaxed text-sub">
+<iconify-icon class="text-[15px] text-brand mt-0.5 shrink-0" icon="ph:info"></iconify-icon>
+<span>演示登录提示：账号与密码为固定示例，不做真实校验、不保存凭据、不发送验证码；登录成功后跳转到已登录状态的首页。</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 登录中遮罩 -->
+<div class="fixed inset-0 z-[60] hidden items-center justify-center bg-[#F6F8F7]/85" id="login-loading">
+<div class="text-center">
+<span class="mx-auto w-14 h-14 rounded-2xl bg-white border border-line text-brand grid place-items-center">
+<iconify-icon class="text-[26px] animate-spin" icon="ph:circle-notch"></iconify-icon>
+</span>
+<p class="mt-4 text-[13px] text-ink">正在进入演示环境…</p>
+<p class="mt-1 text-[11.5px] text-sub">不会向任何服务器发送你的输入内容</p>
+</div>
+</div>
+<script>
+  function submitLogin(event) {
+    if (event) event.preventDefault();
+    var account = document.getElementById('login-account').value.trim();
+    var pass = document.getElementById('login-pass').value.trim();
+    var error = document.getElementById('login-error');
+
+    if (!account || !pass) {
+      error.textContent = '请填写账号与密码（演示环境可随意填写）。';
+      error.classList.remove('hidden');
+      return false;
+    }
+    error.classList.add('hidden');
+
+    var overlay = document.getElementById('login-loading');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    setTimeout(function () {
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+      window.location.href = 'home.html';
+    }, 900);
+    return false;
+  }
+
+  function guestContinue() {
+    window.location.href = 'home.html';
+  }
+
+  function showTip(text) {
+    var tip = document.createElement('div');
+    tip.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] max-w-[92%] px-4 py-2.5 rounded-xl bg-ink text-white text-[12.5px] shadow-lg';
+    tip.textContent = text;
+    document.body.appendChild(tip);
+    setTimeout(function () { tip.remove(); }, 2600);
+  }
+</script>
+<script src="theme.js"></script>
+</body>
+</html>
