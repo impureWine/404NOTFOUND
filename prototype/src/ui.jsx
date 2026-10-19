@@ -1,0 +1,13 @@
+import React, { useEffect, useRef } from 'react';
+import { Archive, Info, X } from 'lucide-react';
+export function Button({ children, onClick, variant = 'primary', icon: Icon, type = 'button', disabled, ...rest }) { return <button type={type} disabled={disabled} className={`btn ${variant}`} onClick={onClick} {...rest}>{Icon && <Icon size={16}/>} {children}</button>; }
+export const Tag = ({children,tone='teal'}) => <span className={`tag ${tone}`}>{children}</span>;
+export const Panel = ({children,className=''}) => <section className={`panel ${className}`}>{children}</section>;
+export const DemoNote = ({children}) => <div className="demo-note"><Info size={16}/><span>{children}</span></div>;
+export const PageIntro = ({title,desc,badge='原型演示',children}) => <div className="page-intro"><div><span className="eyebrow">{badge}</span><h1 tabIndex={-1}>{title}</h1>{desc&&<p>{desc}</p>}</div>{children}</div>;
+export const EmptyState = ({title='这里还没有记录',desc,action,onAction}) => <div className="empty"><Archive size={28}/><h3>{title}</h3>{desc&&<p>{desc}</p>}{action&&<Button variant="soft" onClick={onAction}>{action}</Button>}</div>;
+export function Modal({title,body,confirm,close,confirmLabel='确认',cancelLabel='取消',danger=false}) {
+  const dialog=useRef(null);
+  useEffect(()=>{ const previous=document.activeElement; const oldOverflow=document.body.style.overflow; document.body.style.overflow='hidden'; const items=()=>[...dialog.current.querySelectorAll('button,input,textarea,select,[tabindex="0"]')]; items()[1]?.focus(); const key=e=>{if(e.key==='Escape'){e.preventDefault();close();} if(e.key==='Tab'){const list=items();const first=list[0],last=list.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}}; document.addEventListener('keydown',key); return()=>{document.removeEventListener('keydown',key);document.body.style.overflow=oldOverflow;previous?.focus?.();};},[close]);
+  return <div className="modal-backdrop" onClick={close}><div ref={dialog} className="modal" role="dialog" aria-modal="true" aria-labelledby="dialog-title" aria-describedby="dialog-body" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={close} aria-label="关闭弹窗"><X size={18}/></button><h2 id="dialog-title">{title}</h2><div id="dialog-body">{body}</div><div className="button-row"><Button variant="neutral" onClick={close}>{cancelLabel}</Button><Button variant={danger?'danger':'primary'} onClick={()=>{confirm?.();close();}}>{confirmLabel}</Button></div></div></div>;
+}
