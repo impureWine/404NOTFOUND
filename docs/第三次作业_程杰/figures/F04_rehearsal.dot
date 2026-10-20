@@ -1,0 +1,33 @@
+digraph G {
+graph [bgcolor="white", pad="0.30", nodesep="0.48", ranksep="0.70", fontname="Microsoft YaHei", fontsize=17, splines=spline];
+node [shape=box, style="rounded,filled", fillcolor="#edf3fa", color="#50657f", fontname="Microsoft YaHei", fontsize=16, margin="0.16,0.12", penwidth=1.2];
+edge [fontname="Microsoft YaHei", fontsize=13, color="#50657f", arrowsize=0.75];
+
+rankdir=TB;
+ready [width="3.38",height="0.97",label="ready 场景设置
+simulation + AI模拟说明"];
+run [width="2.47",height="0.65",label="running 角色模拟",fillcolor="#e4f0e9"];
+pause [width="2.11",height="0.97",label="paused 已暂停
+旧回复失效",fillcolor="#fff2df"];
+review [width="3.33",height="0.97",label="reviewing 选择本人表达
+停止角色 保留本轮本人消息"];
+preview [width="2.66",height="0.97",label="整理稿预览
+只用选中表达 可编辑"];
+saved [width="3.41",height="0.97",label="主动保存
+REHEARSAL_DRAFT + SAVE"];
+end [width="3.59",height="0.97",label="ended 结束会话
+正文 选择 任务 临时许可清空",fillcolor="#e5e9ee"];
+{rank=same;run;pause;}
+ready -> run [label="START"];
+run -> pause [label="PAUSE"];
+pause -> run [label="RESUME"];
+
+pause -> ready [label="RESTART",constraint=false];
+run -> review [label="FINISH_REHEARSAL"];
+pause -> review [label="FINISH_REHEARSAL"];
+review -> preview [label="SUMMARIZE"];
+preview -> saved [label="SAVE"];
+review -> end [label="END"];
+saved -> end [label="END"];
+
+}

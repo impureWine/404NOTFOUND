@@ -1,0 +1,30 @@
+digraph G {
+graph [bgcolor="white", pad="0.30", nodesep="0.48", ranksep="0.70", fontname="Microsoft YaHei", fontsize=17, splines=spline];
+node [shape=box, style="rounded,filled", fillcolor="#edf3fa", color="#50657f", fontname="Microsoft YaHei", fontsize=16, margin="0.16,0.12", penwidth=1.2];
+edge [fontname="Microsoft YaHei", fontsize=13, color="#50657f", arrowsize=0.75];
+
+rankdir=TB;
+react [width="3.01",height="0.97",label="React渲染层
+宠物 快捷面板 任务状态"];
+preload [width="4.85",height="1.29",label="preload白名单
+move / alwaysOnTop / clickThrough
+close / getCapabilities"];
+main [width="3.77",height="0.97",label="Electron主进程
+验调用窗口与参数 管窗口与退出"];
+window [width="2.78",height="1.29",label="Windows原生能力验证
+透明 置顶 拖动 穿透
+缩放 多屏 退出"];
+safe [width="4.21",height="1.29",label="安全配置
+contextIsolation与sandbox开启
+nodeIntegration关闭",shape=note,fillcolor="#fff2e5"];
+scope [width="3.22",height="1.29",label="验证工程只用合成数据
+真实DESKTOP认证另行冻结
+未实测不标AVAILABLE",shape=note,fillcolor="#fff2e5"];
+react -> preload [label="仅有限窗口方法"];
+preload -> main [label="白名单IPC"];
+main -> window [label="工作区与生命周期约束"];
+safe -> preload [style=dashed,arrowhead=none];
+scope -> window [style=dashed,arrowhead=none];
+{rank=same;preload;safe;}
+{rank=same;window;scope;}
+}

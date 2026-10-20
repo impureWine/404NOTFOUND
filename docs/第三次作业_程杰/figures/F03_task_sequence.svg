@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="1020" viewBox="0 0 1320 1020"><rect width="100%" height="100%" fill="white"/><defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#455d77"/></marker></defs><style>text{font-family:'Microsoft YaHei',sans-serif;fill:#172a3f} .msg{font-size:22px}</style><text x="660" y="42" font-size="30" text-anchor="middle">外部任务暂停与取消时序</text>
+<rect x="10" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="110" y="103" text-anchor="middle" font-size="22">用户</text><line x1="110" x2="110" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<rect x="360" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="460" y="103" text-anchor="middle" font-size="22">前端与协调器</text><line x1="460" x2="460" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<rect x="710" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="810" y="103" text-anchor="middle" font-size="22">应用 API</text><line x1="810" x2="810" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<rect x="1060" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="1160" y="103" text-anchor="middle" font-size="22">外部模型</text><line x1="1160" x2="1160" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<line x1="110" x2="460" y1="170" y2="170" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="285" y="158" text-anchor="middle">1 选择本次处理范围</text>
+<line x1="460" x2="810" y1="225" y2="225" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="213" text-anchor="middle">2 创建会话并确认用途</text>
+<line x1="810" x2="460" y1="280" y2="280" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="268" text-anchor="middle">3 会话标识 双代次 许可</text>
+<line x1="460" x2="810" y1="335" y2="335" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="323" text-anchor="middle">4 POST tasks 含requestId</text>
+<line x1="810" x2="460" y1="390" y2="390" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="378" text-anchor="middle">5 202 pending</text>
+<line x1="810" x2="1160" y1="445" y2="445" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="985" y="433" text-anchor="middle">6 受限模型调用</text>
+<line x1="460" x2="810" y1="500" y2="500" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="488" text-anchor="middle">7 按间隔轮询 最多一个在途</text>
+<line x1="110" x2="460" y1="555" y2="555" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="285" y="543" text-anchor="middle">8 暂停或切换活动</text>
+<path d="M460,610 h135 v22 h-135" fill="none" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="472" y="600" text-anchor="start">9 立即失效旧接收资格 停轮询</text>
+<line x1="460" x2="810" y1="665" y2="665" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="653" text-anchor="middle">10 PAUSE 或 switch 并申请取消</text>
+<path d="M810,720 h135 v22 h-135" fill="none" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="822" y="710" text-anchor="start">11 更新代次 撤销旧结果读取</text>
+<line x1="810" x2="460" y1="775" y2="775" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="763" text-anchor="middle">12 返回实际状态和新代次</text>
+<line x1="1160" x2="810" y1="830" y2="830" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="985" y="818" text-anchor="middle">13 供应商可能迟到返回</text>
+<path d="M810,885 h135 v22 h-135" fill="none" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="822" y="875" text-anchor="start">14 失效结果不返回正文</text>
+<path d="M460,940 h135 v22 h-135" fill="none" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="472" y="930" text-anchor="start">15 旧回调与身份代次不符则丢弃</text>
+</svg>

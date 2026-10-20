@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "date": "2026-10-20",
+  "task": "T03",
+  "sourceCommit": "8308f0735ae7c33a2055b486f10a620ec3560d31",
+  "scope": "本次设计交付包，不含业务实现、运行验收或远程提交",
+  "requirements": [
+    "REQ01",
+    "REQ02",
+    "REQ03",
+    "REQ04",
+    "REQ05",
+    "REQ06",
+    "REQ07",
+    "REQ08",
+    "REQ09",
+    "REQ10",
+    "REQ11",
+    "REQ12",
+    "REQ13",
+    "REQ14",
+    "REQ15",
+    "REQ16",
+    "REQ17"
+  ],
+  "documents": [
+    "01_前端设计章节.md",
+    "02_组件关系与依赖说明.md",
+    "03_关键状态与时序设计.md",
+    "04_多入口能力与Electron验证.md",
+    "05_前端接口使用清单.md",
+    "06_需求追踪与验收交接.md"
+  ],
+  "uniqueHttpEndpointCount": 32,
+  "runtimeValidation": "未执行",
+  "peerReview": "待专业负责人复核",
+  "gitSubmission": "未提交"
+}

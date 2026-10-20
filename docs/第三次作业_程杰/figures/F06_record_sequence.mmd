@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant User as 用户
+    participant UI as 前端
+    participant API as 应用 API
+    participant DB as PostgreSQL
+    User->>UI: 选择保存并确认范围
+    UI->>API: POST consents 用途SAVE
+    API->>UI: consentId 绑定载荷
+    UI->>API: POST records 同载荷与requestId
+    API->>DB: 记录 授权 幂等元数据同事务
+    DB->>API: 提交成功
+    API->>UI: 201 Record 与版本
+    User->>UI: 选择清除某条记录
+    UI->>API: clear-confirmations 含版本
+    API->>UI: 确认ID 范围 2分钟有效
+    UI->>User: 展示对象与范围 可取消
+    User->>UI: 明确确认 取消则不发请求
+    UI->>API: clear 含确认ID 版本 true
+    API->>DB: 事务清主从数据与关联
+    API->>UI: 200 cleared 后失效缓存

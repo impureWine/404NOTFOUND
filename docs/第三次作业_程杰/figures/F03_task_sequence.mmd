@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant User as 用户
+    participant UI as 前端与协调器
+    participant API as 应用 API
+    participant Model as 外部模型
+    User->>UI: 选择本次处理范围
+    UI->>API: 创建会话并确认用途
+    API->>UI: 会话标识 双代次 许可
+    UI->>API: POST tasks 含requestId
+    API->>UI: 202 pending
+    API->>Model: 受限模型调用
+    UI->>API: 按间隔轮询 最多一个在途
+    User->>UI: 暂停或切换活动
+    UI->>UI: 立即失效旧接收资格 停轮询
+    UI->>API: PAUSE 或 switch 并申请取消
+    API->>API: 更新代次 撤销旧结果读取
+    API->>UI: 返回实际状态和新代次
+    Model->>API: 供应商可能迟到返回
+    API->>API: 失效结果不返回正文
+    UI->>UI: 旧回调与身份代次不符则丢弃

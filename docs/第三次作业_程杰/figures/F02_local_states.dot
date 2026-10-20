@@ -1,0 +1,27 @@
+digraph G {
+graph [bgcolor="white", pad="0.30", nodesep="0.48", ranksep="0.70", fontname="Microsoft YaHei", fontsize=17, splines=spline];
+node [shape=box, style="rounded,filled", fillcolor="#edf3fa", color="#50657f", fontname="Microsoft YaHei", fontsize=16, margin="0.16,0.12", penwidth=1.2];
+edge [fontname="Microsoft YaHei", fontsize=13, color="#50657f", arrowsize=0.75];
+
+rankdir=TB;
+ready [width="2.44",height="0.97",label="ready 开始前
+零推进 零自动发声"];
+running [width="2.53",height="0.97",label="running 进行中
+训练或本地模拟推进",fillcolor="#e4f0e9"];
+paused [width="2.44",height="0.97",label="paused 已暂停
+冻结进度 停止声音",fillcolor="#fff2df"];
+complete [width="2.53",height="0.97",label="completed 已完成
+仅训练达到结束条件"];
+exited [width="3.50",height="0.97",label="exited 已退出
+清进度 循环 监听 捕获 音频",fillcolor="#e5e9ee"];
+{rank=same; running;paused;}
+ready -> running [label="START"];
+running -> paused [label="PAUSE"];
+paused -> running [label="RESUME"];
+paused -> ready [label="RESET"];
+running -> complete [label="COMPLETE"];
+complete -> ready [label="RESET"];
+running -> exited [label="STOP"];
+paused -> exited [label="STOP"];
+exited -> ready [label="REOPEN"];
+}

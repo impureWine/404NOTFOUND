@@ -1,0 +1,39 @@
+digraph G {
+graph [bgcolor="white", pad="0.30", nodesep="0.48", ranksep="0.70", fontname="Microsoft YaHei", fontsize=17, splines=spline];
+node [shape=box, style="rounded,filled", fillcolor="#edf3fa", color="#50657f", fontname="Microsoft YaHei", fontsize=16, margin="0.16,0.12", penwidth=1.2];
+edge [fontname="Microsoft YaHei", fontsize=13, color="#50657f", arrowsize=0.75];
+
+rankdir=TB;
+shell [width="2.76",height="0.97",label="普通业务入口
+AppShell / Router"];
+pages [width="3.27",height="0.97",label="业务页面
+账号 陪伴 记录 查询 排练"];
+ui [width="2.79",height="0.97",label="公共交互组件
+表单 弹窗 来源与状态"];
+mode [width="4.72",height="0.97",label="模式与任务协调
+ModeController / TaskCoordinator"];
+stores [width="2.57",height="0.97",label="内存状态
+身份 会话 记录缓存"];
+local [width="3.14",height="0.97",label="端侧活动控制
+训练 敲击 弹珠 资源释放"];
+api [width="3.38",height="0.97",label="同源接口适配
+ApiClient + 共享Zod契约"];
+server [width="2.70",height="0.97",label="应用API
+认证 授权 任务 数据",fillcolor="#e1e9f1"];
+resources [width="2.12",height="0.97",label="本地资源
+物理 音频 动画"];
+bridge [width="2.33",height="0.97",label="Electron适配
+白名单preload桥"];
+destroy [width="3.02",height="1.29",label="独立销毁入口
+TextDestructionView
+私有buffer与本地效果", fillcolor="#fff2e5",color="#946a3c"];
+rule [width="2.74",height="0.97",label="不连接账号 聊天 API
+模型 存储 日志 遥测",shape=note,fillcolor="#fffaf3",color="#946a3c"];
+{rank=same; pages;ui;destroy;}
+{rank=same; mode;stores;local;}
+{rank=same; api;resources;bridge;}
+shell -> pages; pages -> ui; pages -> mode; pages -> stores; pages -> local;
+mode -> stores; mode -> api; stores -> api; local -> resources; pages -> bridge;
+api -> server;
+destroy -> rule [style=dashed,arrowhead=none,color="#946a3c"];
+}

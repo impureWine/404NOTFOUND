@@ -1,0 +1,118 @@
+{
+  "kind": "设计交付静态自查",
+  "runtimeTests": "未执行",
+  "peerReview": "待专业负责人复核",
+  "passed": true,
+  "checks": [
+    {
+      "name": "six_documents",
+      "passed": true,
+      "detail": "五项设计正文及验收交接附件存在"
+    },
+    {
+      "name": "seventeen_requirements",
+      "passed": true,
+      "detail": [
+        "REQ01",
+        "REQ02",
+        "REQ03",
+        "REQ04",
+        "REQ05",
+        "REQ06",
+        "REQ07",
+        "REQ08",
+        "REQ09",
+        "REQ10",
+        "REQ11",
+        "REQ12",
+        "REQ13",
+        "REQ14",
+        "REQ15",
+        "REQ16",
+        "REQ17"
+      ]
+    },
+    {
+      "name": "unique_http_endpoints",
+      "passed": true,
+      "detail": "日历过滤复用列表端点，不重复计数"
+    },
+    {
+      "name": "local_links",
+      "passed": true,
+      "detail": {
+        "checked": 16,
+        "missing": []
+      }
+    },
+    {
+      "name": "seven_diagrams",
+      "passed": true,
+      "detail": "七图均有SVG PNG及DOT或Mermaid源"
+    },
+    {
+      "name": "runtime_status_honest",
+      "passed": true,
+      "detail": "12条运行验收均未标通过"
+    },
+    {
+      "name": "author_not_impersonated",
+      "passed": true,
+      "detail": "未伪造commit push或签认"
+    },
+    {
+      "name": "pdf_text_and_chinese",
+      "passed": true,
+      "detail": "中文及关键契约可提取"
+    },
+    {
+      "name": "no_blank_pdf_pages",
+      "passed": true,
+      "detail": [
+        544,
+        1020,
+        774,
+        1175,
+        1365,
+        619,
+        685,
+        931,
+        821,
+        469,
+        518,
+        430,
+        482,
+        448,
+        659,
+        904,
+        1020,
+        577,
+        1151,
+        861,
+        941,
+        993,
+        1021,
+        921,
+        1230,
+        1076,
+        875,
+        957,
+        839,
+        899,
+        493,
+        930
+      ]
+    },
+    {
+      "name": "pdf_source_match",
+      "passed": true,
+      "detail": "32条路径出现在PDF文本中"
+    }
+  ],
+  "pdf": {
+    "pages": 32,
+    "bytes": 3777637,
+    "sha256": "f755287625bc85ba3a09440b23c570c908995c5f930e31ffee155808982ae348"
+  },
+  "visualReview": "由交付者另行检查渲染页"
+}

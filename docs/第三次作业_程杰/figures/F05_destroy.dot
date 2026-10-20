@@ -1,0 +1,27 @@
+digraph G {
+graph [bgcolor="white", pad="0.30", nodesep="0.48", ranksep="0.70", fontname="Microsoft YaHei", fontsize=17, splines=spline];
+node [shape=box, style="rounded,filled", fillcolor="#edf3fa", color="#50657f", fontname="Microsoft YaHei", fontsize=16, margin="0.16,0.12", penwidth=1.2];
+edge [fontname="Microsoft YaHei", fontsize=13, color="#50657f", arrowsize=0.75];
+
+rankdir=TB;
+empty [width="1.98",height="0.97",label="EMPTY 空输入
+独立本地入口"];
+editing [width="3.30",height="0.97",label="EDITING 临时输入
+私有buffer 最多4000码点",fillcolor="#fff2e5"];
+anim [width="3.81",height="0.97",label="ANIMATING 销毁效果
+SHRED / BURN / BLACK_HOLE",fillcolor="#fff2e5"];
+clear [width="3.66",height="1.29",label="clearOwnedContent
+清buffer DOM 纹理 粒子引用
+取消帧 监听 与原文闭包",fillcolor="#e4f0e9"];
+cleared [width="2.79",height="0.97",label="CLEARED 内容已清空
+无记录 无恢复 无外发"];
+closed [width="2.11",height="0.97",label="CLOSED 已离开
+不自动恢复正文",fillcolor="#e5e9ee"];
+empty -> editing [label="INPUT"];
+editing -> anim [label="DESTROY"];
+anim -> clear [label="DONE / SKIP / ERROR"];
+editing -> clear [label="CLEAR / LEAVE"];
+clear -> cleared [label="STAY"];
+clear -> closed [label="CLOSE"];
+cleared -> editing [label="INPUT",constraint=false];
+}

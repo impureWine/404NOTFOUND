@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="1020" viewBox="0 0 1320 1020"><rect width="100%" height="100%" fill="white"/><defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#455d77"/></marker></defs><style>text{font-family:'Microsoft YaHei',sans-serif;fill:#172a3f} .msg{font-size:22px}</style><text x="660" y="42" font-size="30" text-anchor="middle">主动保存与确认清除时序</text>
+<rect x="10" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="110" y="103" text-anchor="middle" font-size="22">用户</text><line x1="110" x2="110" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<rect x="360" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="460" y="103" text-anchor="middle" font-size="22">前端</text><line x1="460" x2="460" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<rect x="710" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="810" y="103" text-anchor="middle" font-size="22">应用 API</text><line x1="810" x2="810" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<rect x="1060" y="70" width="200" height="52" rx="8" fill="#edf3fa" stroke="#50657f"/><text x="1160" y="103" text-anchor="middle" font-size="22">PostgreSQL</text><line x1="1160" x2="1160" y1="122" y2="995" stroke="#a2afbc" stroke-dasharray="6 6"/>
+<line x1="110" x2="460" y1="170" y2="170" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="285" y="158" text-anchor="middle">1 选择保存并确认范围</text>
+<line x1="460" x2="810" y1="225" y2="225" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="213" text-anchor="middle">2 POST consents 用途SAVE</text>
+<line x1="810" x2="460" y1="280" y2="280" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="268" text-anchor="middle">3 consentId 绑定载荷</text>
+<line x1="460" x2="810" y1="335" y2="335" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="323" text-anchor="middle">4 POST records 同载荷与requestId</text>
+<line x1="810" x2="1160" y1="390" y2="390" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="985" y="378" text-anchor="middle">5 记录 授权 幂等元数据同事务</text>
+<line x1="1160" x2="810" y1="445" y2="445" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="985" y="433" text-anchor="middle">6 提交成功</text>
+<line x1="810" x2="460" y1="500" y2="500" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="488" text-anchor="middle">7 201 Record 与版本</text>
+<line x1="110" x2="460" y1="555" y2="555" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="285" y="543" text-anchor="middle">8 选择清除某条记录</text>
+<line x1="460" x2="810" y1="610" y2="610" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="598" text-anchor="middle">9 clear-confirmations 含版本</text>
+<line x1="810" x2="460" y1="665" y2="665" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="653" text-anchor="middle">10 确认ID 范围 2分钟有效</text>
+<line x1="460" x2="110" y1="720" y2="720" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="285" y="708" text-anchor="middle">11 展示对象与范围 可取消</text>
+<line x1="110" x2="460" y1="775" y2="775" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="285" y="763" text-anchor="middle">12 明确确认 取消则不发请求</text>
+<line x1="460" x2="810" y1="830" y2="830" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="818" text-anchor="middle">13 clear 含确认ID 版本 true</text>
+<line x1="810" x2="1160" y1="885" y2="885" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="985" y="873" text-anchor="middle">14 事务清主从数据与关联</text>
+<line x1="810" x2="460" y1="940" y2="940" stroke="#455d77" stroke-width="2" marker-end="url(#arrow)"/><text class="msg" x="635" y="928" text-anchor="middle">15 200 cleared 后失效缓存</text>
+</svg>
