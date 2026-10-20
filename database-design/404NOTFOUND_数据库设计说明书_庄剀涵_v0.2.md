@@ -2,7 +2,7 @@
 
 **版本**：v0.2（2026-10-20）
 **主责**：庄剀涵（102400435，搜索 / 数据工程）
-**文档状态**：已同步团队技术基线的设计修订稿，未宣称已部署或已执行测试
+**文档状态**：已完成跨文档交叉评审的设计修订稿，未宣称已部署或已执行运行测试
 **关联课程要求**：[团队第三次作业——概要设计与数据库设计](https://bbs.csdn.net/topics/620554714)
 
 ## 0. 阅读说明与范围冻结
@@ -58,7 +58,7 @@
 |---|---|---|---|
 | 账号与个人中心 | REQ16、REQ17 | `user_accounts`、`password_credentials`、`login_sessions`、`user_profiles`、`account_preferences`、`entry_points` | 凭据只存摘要；资料仅本人可见；不含找回/公开主页 |
 | 陪伴与沟通 | REQ01、REQ09、REQ11 | `saved_records`、`saved_messages`、`rehearsal_drafts` | 普通聊天/排练默认临时；只保存选定消息或认可表达 |
-| 记录与整理 | REQ08、REQ10、REQ12 | `emotion_records`、`worry_objects`、`room_objects`、`worry_deposits` | 分别授权；物件外观与正文分离；寄存到期只变状态 |
+| 记录与整理 | REQ08、REQ10、REQ12 | `emotion_records`、`worry_objects`、`rooms`、`room_objects`、`worry_deposits` | 分别授权；房间按账号+入口聚合物件外观；寄存到期只变状态 |
 | 压力缓解 | REQ02、REQ13～REQ15 | 无持久业务正文；仅允许不含正文的最小 `audit_events` | 运行态端侧；REQ14 正文禁止任何持久化 |
 | 信息支持 | REQ03 | `saved_queries`、`sources`、`claims`、`evidence_links` | 查询结果/来源仅在用户主动保存时持久化；临时结果不落库 |
 | 基础与多端 | REQ04～REQ07 | `consent_grants`、`retention_policies`、`deletion_jobs`、`deletion_targets`、`deletion_outbox`、`audit_events` | 模式状态临时；授权、留存和删除元数据持久化 |
@@ -81,7 +81,7 @@
 - `UserAccount` 1:1 `PasswordCredential`、1:1 `UserProfile`、1:1 `AccountPreferences`，并拥有多个 `LoginSession`。
 - `EntryPoint` 1:N `LoginSession` 和 `SavedRecord`。`SavedRecord` 的 `(account_id, entry_point_id)` 是所有持久业务对象的隔离边界。
 - `SavedRecord` 是主动保存快照的父实体；`SavedMessage`、`EmotionRecord`、`WorryObject`、`RehearsalDraft`、`WorryDeposit`、`SavedQuery` 按记录类型扩展，避免各表重复定义所有权和版本语义。
-- `WorryObject` 可通过 `RoomObject` 放入房间；移除 `RoomObject` 只解除外观关联，不等于删除 `WorryObject` 正文。
+- `UserAccount` 和 `EntryPoint` 共同限定 `PetRoom`（`rooms`）的唯一归属；`PetRoom` 通过 `RoomObject` 聚合 `WorryObject` 外观。房间、关联和物件必须属于同一账号与入口，移除 `RoomObject` 只解除外观关联，不等于删除 `WorryObject` 正文。
 - `SavedQuery` 1:N `Claim`；`Claim` N:M `Source` 通过 `EvidenceLink` 关联。一个来源可支撑多个主张，也可被多个保存查询引用。
 - `UserAccount` 1:N `DeletionJob`；`DeletionJob` 1:N `DeletionTarget`，删除事务同时写入 `DeletionOutbox`，再复制到独立清除日志。
 - `ConsentGrant` 统一记录 SAVE、AI_PROCESS、SEARCH_PROCESS、ANALYZE 或 CROSS_ENTRY 用途；用户显式确认保存后生成 SAVE 授权，不能由登录或其他用途授权推导。
@@ -109,13 +109,13 @@
 
 | 表 | 字段（类型） | 可空/默认 | 约束与索引 | 用途/敏感等级 |
 |---|---|---|---|---|
-| `user_accounts` | `id uuid`、`login_identifier_normalized varchar(160)` | 否 | PK、UQ | 账号主体和登录标识；高 |
+| `user_accounts` | `id uuid`、`login_identifier/login_identifier_normalized varchar(64)` | 否 | PK、UQ(normalized)；normalized 匹配 `[a-z0-9_]{3,64}` | 账号主体和登录标识；高 |
 |  | `status account_status`、`created_at/updated_at` | 否/ACTIVE、now() | ACTIVE/LOCKED；锁定是认证保护状态 | 账号生命周期；中 |
 | `password_credentials` | `id uuid`、`account_id uuid` | 否 | PK、FK、UQ(account_id) | 与账号一对一；高 |
 |  | `password_digest varchar(255)`、`algorithm varchar(16)`、`parameters jsonb` | 否 | algorithm=ARGON2ID；禁止明文 | 密码摘要和成本参数；高 |
-| `user_profiles` | `id uuid`、`account_id uuid`、`nickname varchar(64)` | 否 | PK、FK、UQ(account_id) | 私密个人资料；中高 |
-|  | `avatar_ref varchar(512)`、`bio_ciphertext bytea`、`cipher_key_version int` | 是 | 正文存在时要求密钥版本 | 私密资料正文；高 |
-| `account_preferences` | `id uuid`、`account_id uuid`、`preferences jsonb` | 否/'{}' | PK、FK、UQ(account_id) | 账号级偏好；中 |
+| `user_profiles` | `id uuid`、`account_id uuid`、`nickname varchar(32)`、`avatar_key varchar(64)` | 否 | PK、FK、UQ(account_id)；nickname 1～32 | 私密个人资料；中高 |
+|  | `bio_ciphertext bytea`、`cipher_key_version int`、`timezone_name varchar(64)`、`version_no int` | 正文可空；version=1 | 正文存在时要求密钥版本；version>0 | 私密资料正文和乐观锁；高 |
+| `account_preferences` | `id uuid`、`account_id uuid`、`preferences jsonb`、`version_no int` | 否/'{}'/1 | PK、FK、UQ(account_id)；version>0 | 账号级偏好与乐观锁；中 |
 | `entry_points` | `id uuid`、`code varchar(32)`、`capability_state jsonb` | 否 | PK、UQ(code) | WEB/DESKTOP/WECHAT_SIMULATED；低 |
 | `login_sessions` | `id`、`account_id`、`entry_point_id`、`device_id` | 否；device 可空 | PK、FK；账号+入口索引 | 可撤销登录会话；高 |
 |  | `token_digest bytea`、`issued_at`、`last_seen_at`、`expires_at`、`revoked_at` | 否；revoked 可空 | UQ(token_digest)；过期/撤销 CHECK | 会话凭据摘要；高 |
@@ -127,18 +127,19 @@
 | 表 | 字段（类型） | 可空/默认 | 约束与索引 | 用途/敏感等级 |
 |---|---|---|---|---|
 | `saved_records` | `id`、`account_id`、`entry_point_id`、`record_kind` | 否 | PK、FK；类型统一为 CONVERSATION/EMOTION/WORRY_OBJECT/REHEARSAL_DRAFT/DEPOSIT/QUERY | 主动保存快照父表；中高 |
-|  | `request_id varchar(128)`、`version_no int`、`deleted_at` | 否；deleted 可空 | UQ(account_id,request_id)；乐观锁 | 幂等、并发和删除传播；中 |
+|  | `title_ciphertext bytea`、`title_key_version int`、`request_id varchar(128)`、`version_no int`、`deleted_at` | title/deleted 可空 | UQ(account,entry,request)；乐观锁；标题存在时要求密钥版本 | 通用加密标题、幂等、并发和删除传播；高 |
 | `saved_messages` | `id`、`saved_record_id`、`sequence_no`、`role` | 否 | FK；UQ(record,sequence) | 用户选定的会话消息；高 |
 |  | `content_ciphertext bytea`、`cipher_key_version int` | 否 | 应用层加密 | 不保存未选上下文；高 |
-| `emotion_records` | `saved_record_id`、`record_date`、`emotion_code`、`intensity` | 否 | PK/FK；intensity 1..5 | 日历只记录不分析；中高 |
+| `emotion_records` | `saved_record_id`、`record_date`、`emotion_codes varchar(20)[]`、`intensity`、`timezone_name` | 否 | PK/FK；情绪词 1～5 个且无 NULL；intensity 1..5 | 日历只记录不分析；中高 |
 |  | `event_ciphertext bytea`、`cipher_key_version int` | 可空 | 正文存在时要求密钥版本 | 可选事件正文；高 |
-| `worry_objects` | `saved_record_id`、`shape_code`、`title/body_ciphertext` | shape 否；正文可空 | PK/FK；正文密钥 CHECK | 可只保存外观；高 |
-| `room_objects` | `id`、`account_id`、`entry_point_id`、`worry_object_id` | 否 | PK、FK、UQ(account,entry,object) | 房间外观关联；中 |
-| `rehearsal_drafts` | `saved_record_id`、`expression_ciphertext`、`cipher_key_version` | 否 | PK/FK | 只保存用户认可表达；高 |
-| `worry_deposits` | `saved_record_id`、`title/body_ciphertext`、`reopen_at`、`status` | 否 | PK/FK；状态为 STORED/AVAILABLE/RETRIEVED；到期索引 | 到期只变 AVAILABLE，主动取回后变 RETRIEVED；高 |
+| `worry_objects` | `saved_record_id`、`shape_code`、`body_ciphertext` | shape 否；正文可空 | PK/FK；shape 为 TANGLE/STONE/NOTE；正文密钥 CHECK | 标题继承父表，可只保存外观；高 |
+| `rooms` | `id`、`account_id`、`entry_point_id`、`version_no` | 否/1 | PK、FK、UQ(account,entry)、UQ(id,account,entry) | 本人当前入口唯一房间聚合与乐观锁；中 |
+| `room_objects` | `id`、`room_id`、`account_id`、`entry_point_id`、`worry_object_id`、`position_x/y` | 否 | 复合 FK 强制房间与物件同账号同入口；UQ(room,object)；坐标 0..1 | 房间外观关联；中 |
+| `rehearsal_drafts` | `saved_record_id`、`scene_ciphertext`、`expressions_ciphertext`、`expression_count`、`cipher_key_version` | 否 | PK/FK；表达数量 1～20 | 保存必要场景和用户认可表达列表；高 |
+| `worry_deposits` | `saved_record_id`、`body_ciphertext`、`reopen_at`、`status` | 否 | PK/FK；标题继承父表；状态为 STORED/AVAILABLE/RETRIEVED；到期索引 | 到期只变 AVAILABLE，主动取回后变 RETRIEVED；高 |
 | `saved_queries` | `saved_record_id`、`raw/normalized_query_ciphertext`、`status` | 否 | PK/FK；持久状态 SUCCESS/PARTIAL_SUCCESS/CONFLICTED/STALE_SOURCE | 主动保存的查询快照；高 |
 |  | `uncertainty_note varchar(1000)`、`trace_id varchar(128)` | 可空/否 | trace 索引 | 不确定性与追踪；中 |
-| `sources` | `id uuid`、`canonical_url varchar(2048)` | 否 | PK、UQ(canonical_url) | 去重来源元数据；中 |
+| `sources` | `id uuid`、`canonical_url varchar(2048)`、`quality source_quality` | 否 | PK、UQ(canonical_url)；quality 为 CURRENT/STALE/UNKNOWN | 去重来源元数据与新鲜度；中 |
 | `claims` | `id`、`saved_query_id`、`claim_text_ciphertext`、`status` | 否 | FK；状态 CHECK | 主张及支持状态；中高 |
 | `evidence_links` | `claim_id`、`source_id`、`relation` | 否 | PK(claim,source) | 主张—来源关系；中 |
 
@@ -147,7 +148,7 @@
 | 表 | 字段（类型） | 可空/默认 | 约束与索引 | 用途/敏感等级 |
 |---|---|---|---|---|
 | `retention_policies` | `id`、`data_class`、`retention_days`、`backup_grace_days` | 否 | UQ(data_class)；备份窗口固定 7 天 | 备份基线 7 天；中 |
-| `deletion_jobs` | `id`、`account_id`、`request_id`、`requested_at`、`status` | 否 | PK；UQ(account,request)；状态索引 | 删除传播总任务；高 |
+| `deletion_jobs` | `id`、`account_id`、`entry_point_id`、`request_id`、`requested_at`、`status` | 否 | PK；UQ(account,entry,request)；状态索引 | 入口作用域内的删除传播总任务；高 |
 | `deletion_targets` | `id`、`deletion_job_id`、`target_kind/ref`、`status` | 否 | 状态/重试索引 | 主库、缓存、索引和派生物；高 |
 | `deletion_outbox` | `id`、`deletion_job_id`、`payload`、`published_at` | 否；published 可空 | UQ(deletion_job_id) | 事务内可靠产生清除事件；高 |
 | `deletion_log_entries` | `id`、`deletion_job_id`、`account_id`、`object_kind/ref`、`deleted_at`、`retain_until`、`checksum` | 否 | retain_until 至少晚于删除 8 天 | 独立于业务备份的恢复重放依据；高 |
@@ -235,39 +236,35 @@
 
 `明确问题 → 保留限制词的规范化 → 入口/授权校验 → SearchAdapter 检索 → URL/标题/内容指纹去重 → Claim/Evidence/Source 绑定 → 展示状态与不确定性 → 用户选择是否保存`
 
-### 7.2 QueryRequest / Answer 契约
+### 7.2 `/api/search/tasks` 请求与完成结果契约
 
-请求（`QueryRequest`）只在任务生命周期内存在；`SavedQuery` 仅在用户主动保存后落库。
+检索任务通过 `POST /api/search/tasks` 受理，客户端提交业务会话、活动代次、问题和用途授权引用；账号和当前入口必须由服务端从有效会话推导，不能信任客户端自报字段。请求只在任务生命周期内存在，`SavedQuery` 仅在用户主动保存有效结果后落库。
 
 ```json
 {
   "requestId": "uuid",
-  "entryPointId": "uuid",
-  "mode": "FACT_QUERY",
-  "rawQuery": "用户问题",
-  "normalizedQuery": "保留时间、地区、版本限制的规范化问题",
-  "locale": "zh-CN",
-  "timeConstraint": {"from": null, "to": "2026-10-13"},
-  "filters": {},
-  "traceId": "opaque",
-  "saveIntent": "NONE|ASKED|CONFIRMED"
+  "sessionId": "uuid",
+  "activityId": "uuid",
+  "sessionGeneration": 1,
+  "activityGeneration": 1,
+  "question": "用户问题",
+  "selectedContextIds": [],
+  "consentId": "uuid",
+  "aiConsentId": null
 }
 ```
 
 ```json
 {
-  "answerId": "uuid",
   "searchState": "SUCCESS|EMPTY",
   "partial": false,
   "hasConflict": false,
-  "summary": "不超过界面限制的摘要",
   "claims": [{"id": "uuid", "summary": "事实主张", "sourceIds": ["uuid"]}],
-  "sources": [{"id": "uuid", "title": "标题", "url": "https://example.org", "publishedAt": null, "retrievedAt": "2026-10-20T00:00:00Z", "quality": "CURRENT|STALE|UNKNOWN"}],
-  "uncertaintyNote": null,
-  "canSave": true,
-  "traceId": "opaque"
+  "sources": [{"id": "uuid", "title": "标题", "url": "https://example.org", "publishedAt": null, "retrievedAt": "2026-10-20T00:00:00Z", "quality": "CURRENT|STALE|UNKNOWN"}]
 }
 ```
+
+服务端在保存时从本人当前入口的已完成任务复制问题、主张、来源和不确定性，并写入规范化查询、持久状态和追踪标识；客户端只提交有效 `searchRequestId`，不得提交自造证据链。使用模型整理时 `aiConsentId` 必填，否则为 `null`。
 
 ### 7.3 状态与异常
 
@@ -300,7 +297,7 @@ S1（官方原文/标准/政府公告）优先于 S2（机构解释），S2 优�
 | `ProfileService` / `UserProfile` / `AccountPreferences` | `user_profiles`、`account_preferences` | 私密主页及账号级偏好，不等于公开主页 |
 | `RecordService` / `SavedConversation` | `saved_records`、`saved_messages` | 只保存用户选定的消息快照 |
 | `EmotionRecord` | `saved_records`、`emotion_records` | 只记不分析；按账号+入口+日期访问 |
-| `WorryObject` / `PetRoom` | `saved_records`、`worry_objects`、`room_objects` | 外观关联与正文清除分离 |
+| `WorryObject` / `PetRoom` | `saved_records`、`worry_objects`、`rooms`、`room_objects` | 房间聚合独立版本；复合外键保证房间、物件同账号同入口；外观关联与正文清除分离 |
 | `RehearsalSession` / `AcceptedExpression` | `saved_records`、`rehearsal_drafts` | 只保存用户认可表达 |
 | `WorryDeposit` | `saved_records`、`worry_deposits` | 到期状态不自动展开 |
 | `SearchProvider` / `SearchOrchestrator` | `saved_records`、`saved_queries`、`sources`、`claims`、`evidence_links` | 中间结果临时，保存后形成证据链 |
@@ -312,7 +309,7 @@ S1（官方原文/标准/政府公告）优先于 S2（机构解释），S2 优�
 
 - 后端所有查询接口必须由服务端会话推导 `account_id`，禁止信任请求体中的 `userId` 或 `accountId`。
 - 前端保存按钮必须明确对象、范围和入口；保存成功以服务端返回的对象版本为准。
-- 查询页面需要展示 `status`、`verificationState`、`publishedAt/retrievedAt` 和 `uncertaintyNote`，不能只展示摘要字符串。
+- 查询页面需要展示任务 `status`、来源 `quality`、`publishedAt/retrievedAt` 和不确定性提示，不能只展示摘要字符串。
 - 退出、账号切换、模式切换和组件卸载时，后端取消任务并让迟到回复失效；数据库不接受已撤销会话的写入。
 - REQ14 不调用通用聊天/搜索/保存接口；前端清理和网络零调用是独立验收项。
 
@@ -320,29 +317,35 @@ S1（官方原文/标准/政府公告）优先于 S2（机构解释），S2 优�
 
 | 编号 | 验收场景 | 预期 | 当前状态 |
 |---|---|---|---|
-| DB-01 | A 账号读取 B 账号记录 | 服务端拒绝，审计不含正文 | 设计待执行 |
-| DB-02 | 同账号 Web 读取桌宠记录但无授权 | 拒绝；入口默认隔离 | 设计待执行 |
-| DB-03 | 主动保存后查看/删除会话 | 只读到保存范围；删除任务可追踪 | 设计待执行 |
-| DB-04 | 日历只记录不分析 | 有记录，无模型/分析写入 | 设计待执行 |
-| DB-05 | 寄存到期与取回 | 到期状态 AVAILABLE；主动取回后 RETRIEVED；正文不自动展开 | 设计待执行 |
-| DB-06 | 查询空结果/超时/冲突/过期 | 状态分别显示，不伪造来源 | 设计待执行 |
-| DB-07 | REQ14 输入唯一标记后销毁 | 数据库、网络、日志、缓存、重开均无标记 | 设计待执行 |
-| DB-08 | 并发延期同一寄存对象 | 版本冲突，不覆盖他方更新 | 设计待执行 |
-| DB-09 | 删除传播某一目标失败 | UI 显示部分失败，任务可重试 | 设计待执行 |
-| DB-10 | 恢复备份 | 已删除对象不回到在线系统 | 设计待执行 |
+| DB-01 | ER 图实体、主键、关系、基数与 v0.2 字典一致 | Mermaid、SVG 与字典静态一致 | 已执行-通过（静态） |
+| DB-02 | DDL 表名、外键、唯一约束、CHECK、索引与字典一致 | 统一复数命名且静态检查无差异 | 已执行-通过（静态） |
+| DB-03 | 账号 + 入口隔离；无授权跨入口读取被拒绝 | 服务端拒绝，审计不含正文 | 未执行 |
+| DB-04 | 主动保存后可读；未保存消息无历史 | 只读到保存范围；未保存内容不落库 | 未执行 |
+| DB-05 | 日历只记录不分析，日期按用户时区解释 | 有记录，无模型/分析写入 | 未执行 |
+| DB-06 | 寄存状态按到期与主动取回转换 | AVAILABLE/RETRIEVED 可区分，正文不自动展开 | 未执行 |
+| DB-07 | 查询空结果、超时、冲突、过期状态可区分 | 状态分别显示，不伪造来源 | 未执行 |
+| DB-08 | URL 去重和 Claim-Evidence-Source 绑定正确 | 来源和逐主张证据关系可核查 | 未执行 |
+| DB-09 | REQ14 合成标记零外泄 | 网络、数据库、日志、缓存、模型、搜索和重开均无标记 | 未执行 |
+| DB-10 | `request_id` 幂等、`version_no` 冲突不覆盖 | 重试不重复写，并发冲突返回实际状态 | 未执行 |
+| DB-11 | 删除任务、目标和 outbox 同事务产生；部分失败可重试 | 目标立即不可见，传播状态可查询 | 未执行 |
+| DB-12 | 删除日志至少保留 8 天并覆盖 7 天备份窗口 | 策略配置和清理记录可证明 | 未执行 |
+| DB-13 | 恢复先重放删除日志并撤销所有旧登录会话 | 已删除对象不回到在线系统 | 未执行 |
+| DB-14 | 密码为 Argon2id，会话凭据只存 SHA-256 摘要 | 注册/登录记录不含明文凭据 | 未执行 |
+| DB-15 | DDL 仅作为设计附件，未被描述为已部署或测试通过 | 所有交付材料保留证据边界 | 已执行-通过（静态） |
 
-本表全部是计划/设计验收，不能在没有运行证据时写“通过”。DDL 同样是约束验证附件，尚未宣称已在选定数据库执行。
+仅 DB-01、DB-02 和 DB-15 完成了静态评审并通过；DB-03～DB-14 均需要运行环境、接口、日志或恢复演练证据，不能在未执行时写“通过”。DDL 尚未宣称已在选定 PostgreSQL 实例执行。
 
 ## 10. 交付清单与变更记录
 
 | 文件 | 用途 | 状态 |
 |---|---|---|
-| `404NOTFOUND_数据库设计说明书_庄剀涵_v0.2.md` | 数据库设计说明书修订源稿 | 已同步团队技术基线，待交叉评审 |
-| `diagrams/404NOTFOUND_database_er.mmd` | ER 图可编辑源文件 | 已生成 |
-| `diagrams/404NOTFOUND_database_er.svg` | ER 图导出图 | 已生成/待视觉复核 |
-| `sql/404notfound_postgresql.sql` | PostgreSQL 设计验证 DDL | 已生成，未执行声明 |
+| `404NOTFOUND_数据库设计说明书_庄剀涵_v0.2.md` | 数据库设计说明书修订源稿 | 已完成跨文档交叉评审 |
+| `diagrams/404NOTFOUND_database_er.mmd` | ER 图可编辑源文件 | 已完成静态一致性复核 |
+| `diagrams/404NOTFOUND_database_er.svg` | ER 图导出图 | 已完成视觉复核 |
+| `sql/404notfound_postgresql.sql` | PostgreSQL 设计验证 DDL | 静态检查通过，未执行 PostgreSQL 运行验证 |
 | `类表映射与检索契约.md` | 可单独交接给李泉毅/郭昱祺的摘要 | 已生成 |
 | `数据库答辩讲稿_庄剀涵.md` | 100 秒数据库讲解与备讲提纲 | 已生成 |
-| `evidence/数据库设计验收清单.md` | 现场/交叉评审记录模板 | 已生成 |
+| `evidence/数据库设计验收清单.md` | 现场/交叉评审记录模板 | 已更新静态检查状态 |
+| `evidence/数据库设计交叉评审记录_20261020.md` | 跨文档问题、修正与证据边界 | 已生成 |
 
-**版本记录**：v0.2 于 2026-10-20 修正 REQ13～REQ17 编号，同步 PostgreSQL/pg/私网部署/7 天备份基线，统一为系统设计采用的复数表名及保存快照模型，并对齐账号、授权、记录、寄存、临时搜索和已保存查询状态枚举。未执行的运行验证继续显式标注。
+**版本记录**：v0.2 于 2026-10-20 修正 REQ13～REQ17 编号，同步 PostgreSQL/pg/私网部署/7 天备份基线，统一为系统设计采用的复数表名及保存快照模型，并对齐账号、授权、记录、寄存、临时搜索和已保存查询状态枚举。交叉评审进一步补齐房间聚合、账号/入口复合约束、资料与偏好版本、情绪词数组和时区、排练场景与表达列表、来源质量、通用加密标题及 `/api/search/tasks` 契约；未执行的运行验证继续显式标注。
