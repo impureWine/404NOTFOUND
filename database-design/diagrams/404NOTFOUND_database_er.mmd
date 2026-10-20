@@ -1,0 +1,152 @@
+erDiagram
+    USER_ACCOUNT ||--|| USER_PROFILE : owns
+    USER_ACCOUNT ||--o{ AUTH_SESSION : creates
+    ENTRY_POINT ||--o{ AUTH_SESSION : accepts
+    USER_ACCOUNT ||--o{ CONSENT_RECORD : grants
+    ENTRY_POINT ||--o{ CONSENT_RECORD : source
+    ENTRY_POINT ||--o{ CONSENT_RECORD : target
+    USER_ACCOUNT ||--o{ CONVERSATION : owns
+    ENTRY_POINT ||--o{ CONVERSATION : scopes
+    CONVERSATION ||--o{ ACCEPTED_EXPRESSION : contains
+    USER_ACCOUNT ||--o{ EMOTION_RECORD : owns
+    ENTRY_POINT ||--o{ EMOTION_RECORD : scopes
+    USER_ACCOUNT ||--o{ WORRY_OBJECT : owns
+    ENTRY_POINT ||--o{ WORRY_OBJECT : scopes
+    USER_ACCOUNT ||--o{ STORED_CONCERN : owns
+    ENTRY_POINT ||--o{ STORED_CONCERN : scopes
+    USER_ACCOUNT ||--o{ SAVED_QUERY : owns
+    ENTRY_POINT ||--o{ SAVED_QUERY : scopes
+    SAVED_QUERY ||--o{ CLAIM : contains
+    CLAIM ||--o{ EVIDENCE : supported_by
+    SOURCE ||--o{ EVIDENCE : cited_by
+    USER_ACCOUNT ||--o{ DELETION_JOB : requests
+    DELETION_JOB ||--o{ DELETION_TARGET : fans_out
+    USER_ACCOUNT ||--o{ AUDIT_EVENT : acts
+    ENTRY_POINT ||--o{ AUDIT_EVENT : records
+
+    USER_ACCOUNT {
+      uuid id PK
+      varchar login_identifier UK
+      varchar password_hash
+      account_status status
+      timestamptz created_at
+    }
+    USER_PROFILE {
+      uuid id PK
+      uuid user_id FK
+      varchar nickname
+      varchar avatar_ref
+      bytea bio_ciphertext
+    }
+    ENTRY_POINT {
+      uuid id PK
+      varchar code UK
+      jsonb capability_state
+    }
+    AUTH_SESSION {
+      uuid id PK
+      uuid user_id FK
+      uuid entry_point_id FK
+      bytea token_hash
+      timestamptz expires_at
+      timestamptz revoked_at
+    }
+    CONSENT_RECORD {
+      uuid id PK
+      uuid user_id FK
+      uuid source_entry_point_id FK
+      uuid target_entry_point_id FK
+      consent_purpose purpose
+      jsonb scope
+      timestamptz expires_at
+      timestamptz revoked_at
+    }
+    CONVERSATION {
+      uuid id PK
+      uuid owner_user_id FK
+      uuid entry_point_id FK
+      conversation_mode mode
+      bytea content_ciphertext
+      int version_no
+    }
+    ACCEPTED_EXPRESSION {
+      uuid id PK
+      uuid conversation_id FK
+      bytea expression_ciphertext
+      int version_no
+    }
+    EMOTION_RECORD {
+      uuid id PK
+      uuid owner_user_id FK
+      uuid entry_point_id FK
+      date record_date
+      varchar emotion_code
+      smallint intensity
+      bytea event_ciphertext
+    }
+    WORRY_OBJECT {
+      uuid id PK
+      uuid owner_user_id FK
+      uuid entry_point_id FK
+      varchar shape_code
+      bytea title_ciphertext
+      bytea body_ciphertext
+    }
+    STORED_CONCERN {
+      uuid id PK
+      uuid owner_user_id FK
+      uuid entry_point_id FK
+      bytea title_ciphertext
+      bytea body_ciphertext
+      timestamptz reopen_at
+      stored_concern_status status
+    }
+    SAVED_QUERY {
+      uuid id PK
+      uuid owner_user_id FK
+      uuid entry_point_id FK
+      bytea raw_query_ciphertext
+      bytea normalized_query_ciphertext
+      saved_query_status status
+    }
+    SOURCE {
+      uuid id PK
+      varchar canonical_url UK
+      varchar title
+      varchar source_tier
+      timestamptz published_at
+      timestamptz retrieved_at
+      varchar verification_state
+    }
+    CLAIM {
+      uuid id PK
+      uuid saved_query_id FK
+      bytea claim_text_ciphertext
+      varchar status
+    }
+    EVIDENCE {
+      uuid claim_id PK, FK
+      uuid source_id PK, FK
+      varchar relation
+    }
+    DELETION_JOB {
+      uuid id PK
+      uuid owner_user_id FK
+      varchar status
+      timestamptz requested_at
+    }
+    DELETION_TARGET {
+      uuid id PK
+      uuid deletion_job_id FK
+      varchar target_kind
+      varchar target_ref
+      varchar status
+      int retry_count
+    }
+    AUDIT_EVENT {
+      uuid id PK
+      uuid actor_user_id FK
+      uuid entry_point_id FK
+      varchar event_code
+      timestamptz occurred_at
+    }
