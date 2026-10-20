@@ -4,12 +4,12 @@
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-CREATE TYPE account_status AS ENUM ('ACTIVE', 'SUSPENDED', 'CLOSED');
-CREATE TYPE consent_purpose AS ENUM ('CROSS_ENTRY_READ', 'MODEL_EXTERNAL_SEND', 'SEARCH_EXTERNAL_SEND');
-CREATE TYPE saved_record_kind AS ENUM ('MESSAGE', 'EMOTION', 'WORRY_OBJECT', 'REHEARSAL', 'WORRY_DEPOSIT', 'QUERY');
+CREATE TYPE account_status AS ENUM ('ACTIVE', 'LOCKED');
+CREATE TYPE consent_purpose AS ENUM ('SAVE', 'AI_PROCESS', 'SEARCH_PROCESS', 'ANALYZE', 'CROSS_ENTRY');
+CREATE TYPE saved_record_kind AS ENUM ('CONVERSATION', 'EMOTION', 'WORRY_OBJECT', 'REHEARSAL_DRAFT', 'DEPOSIT', 'QUERY');
 CREATE TYPE message_role AS ENUM ('USER', 'ASSISTANT');
-CREATE TYPE worry_deposit_status AS ENUM ('STORED', 'READY', 'DELETED');
-CREATE TYPE saved_query_status AS ENUM ('SUCCESS', 'PARTIAL_SUCCESS', 'EMPTY_RESULT', 'TIMEOUT', 'CONFLICTED', 'STALE_SOURCE', 'DELETED');
+CREATE TYPE worry_deposit_status AS ENUM ('STORED', 'AVAILABLE', 'RETRIEVED');
+CREATE TYPE saved_query_status AS ENUM ('SUCCESS', 'PARTIAL_SUCCESS', 'CONFLICTED', 'STALE_SOURCE');
 CREATE TYPE deletion_status AS ENUM ('PENDING', 'RUNNING', 'PARTIAL_FAILURE', 'COMPLETED', 'CANCELLED');
 
 CREATE TABLE entry_points (
@@ -90,20 +90,29 @@ CREATE INDEX ix_login_sessions_active
 CREATE TABLE consent_grants (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     account_id uuid NOT NULL REFERENCES user_accounts(id) ON DELETE CASCADE,
-    source_entry_point_id uuid NOT NULL REFERENCES entry_points(id),
-    target_entry_point_id uuid NOT NULL REFERENCES entry_points(id),
+    entry_point_id uuid NOT NULL REFERENCES entry_points(id),
+    target_entry_point_id uuid REFERENCES entry_points(id),
     purpose consent_purpose NOT NULL,
+    resource_kind saved_record_kind,
+    resource_id uuid,
+    resource_version integer,
     scope jsonb NOT NULL,
     granted_at timestamptz NOT NULL DEFAULT now(),
     expires_at timestamptz,
     revoked_at timestamptz,
-    CONSTRAINT ck_consent_grants_distinct_entries CHECK (source_entry_point_id <> target_entry_point_id),
+    CONSTRAINT ck_consent_grants_target_entry CHECK (
+        (purpose = 'CROSS_ENTRY' AND target_entry_point_id IS NOT NULL AND entry_point_id <> target_entry_point_id)
+        OR (purpose <> 'CROSS_ENTRY' AND target_entry_point_id IS NULL)
+    ),
+    CONSTRAINT ck_consent_grants_resource_version CHECK (resource_version IS NULL OR resource_version > 0),
     CONSTRAINT ck_consent_grants_scope_object CHECK (jsonb_typeof(scope) = 'object'),
     CONSTRAINT ck_consent_grants_expiry CHECK (expires_at IS NULL OR expires_at > granted_at),
     CONSTRAINT ck_consent_grants_revoked CHECK (revoked_at IS NULL OR revoked_at >= granted_at)
 );
 CREATE INDEX ix_consent_grants_lookup
-    ON consent_grants (account_id, source_entry_point_id, target_entry_point_id, purpose);
+    ON consent_grants (account_id, entry_point_id, purpose, target_entry_point_id);
+CREATE INDEX ix_consent_grants_resource
+    ON consent_grants (account_id, resource_kind, resource_id, resource_version);
 
 CREATE TABLE saved_records (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
