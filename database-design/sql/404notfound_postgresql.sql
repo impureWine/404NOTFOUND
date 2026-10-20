@@ -10,6 +10,7 @@ CREATE TYPE saved_record_kind AS ENUM ('CONVERSATION', 'EMOTION', 'WORRY_OBJECT'
 CREATE TYPE message_role AS ENUM ('USER', 'ASSISTANT');
 CREATE TYPE worry_deposit_status AS ENUM ('STORED', 'AVAILABLE', 'RETRIEVED');
 CREATE TYPE saved_query_status AS ENUM ('SUCCESS', 'PARTIAL_SUCCESS', 'CONFLICTED', 'STALE_SOURCE');
+CREATE TYPE source_quality AS ENUM ('CURRENT', 'STALE', 'UNKNOWN');
 CREATE TYPE deletion_status AS ENUM ('PENDING', 'RUNNING', 'PARTIAL_FAILURE', 'COMPLETED', 'CANCELLED');
 
 CREATE TABLE entry_points (
@@ -22,12 +23,14 @@ CREATE TABLE entry_points (
 
 CREATE TABLE user_accounts (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    login_identifier varchar(160) NOT NULL,
-    login_identifier_normalized varchar(160) NOT NULL UNIQUE,
+    login_identifier varchar(64) NOT NULL,
+    login_identifier_normalized varchar(64) NOT NULL UNIQUE,
     status account_status NOT NULL DEFAULT 'ACTIVE',
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
-    CONSTRAINT ck_user_accounts_login_nonempty CHECK (length(trim(login_identifier_normalized)) > 0)
+    CONSTRAINT ck_user_accounts_login_format CHECK (
+        login_identifier_normalized ~ '^[a-z0-9_]{3,64}$'
+    )
 );
 
 CREATE TABLE password_credentials (
@@ -46,24 +49,28 @@ CREATE TABLE password_credentials (
 CREATE TABLE user_profiles (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     account_id uuid NOT NULL UNIQUE REFERENCES user_accounts(id) ON DELETE CASCADE,
-    nickname varchar(64) NOT NULL,
-    avatar_ref varchar(512),
+    nickname varchar(32) NOT NULL,
+    avatar_key varchar(64) NOT NULL,
     bio_ciphertext bytea,
     cipher_key_version integer,
     timezone_name varchar(64) NOT NULL DEFAULT 'Asia/Shanghai',
+    version_no integer NOT NULL DEFAULT 1,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
     CONSTRAINT ck_user_profiles_nickname_nonempty CHECK (length(trim(nickname)) > 0),
-    CONSTRAINT ck_user_profiles_key_version CHECK (bio_ciphertext IS NULL OR cipher_key_version IS NOT NULL)
+    CONSTRAINT ck_user_profiles_key_version CHECK (bio_ciphertext IS NULL OR cipher_key_version IS NOT NULL),
+    CONSTRAINT ck_user_profiles_version CHECK (version_no > 0)
 );
 
 CREATE TABLE account_preferences (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     account_id uuid NOT NULL UNIQUE REFERENCES user_accounts(id) ON DELETE CASCADE,
     preferences jsonb NOT NULL DEFAULT '{}'::jsonb,
+    version_no integer NOT NULL DEFAULT 1,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
-    CONSTRAINT ck_account_preferences_object CHECK (jsonb_typeof(preferences) = 'object')
+    CONSTRAINT ck_account_preferences_object CHECK (jsonb_typeof(preferences) = 'object'),
+    CONSTRAINT ck_account_preferences_version CHECK (version_no > 0)
 );
 
 CREATE TABLE login_sessions (
@@ -119,12 +126,18 @@ CREATE TABLE saved_records (
     account_id uuid NOT NULL REFERENCES user_accounts(id) ON DELETE CASCADE,
     entry_point_id uuid NOT NULL REFERENCES entry_points(id),
     record_kind saved_record_kind NOT NULL,
+    title_ciphertext bytea,
+    title_key_version integer,
     request_id varchar(128) NOT NULL,
     version_no integer NOT NULL DEFAULT 1,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
     deleted_at timestamptz,
-    CONSTRAINT uq_saved_records_account_request UNIQUE (account_id, request_id),
+    CONSTRAINT uq_saved_records_identity_scope UNIQUE (id, account_id, entry_point_id),
+    CONSTRAINT uq_saved_records_account_entry_request UNIQUE (account_id, entry_point_id, request_id),
+    CONSTRAINT ck_saved_records_title_key CHECK (
+        title_ciphertext IS NULL OR title_key_version IS NOT NULL
+    ),
     CONSTRAINT ck_saved_records_request_nonempty CHECK (length(trim(request_id)) > 0),
     CONSTRAINT ck_saved_records_version CHECK (version_no > 0),
     CONSTRAINT ck_saved_records_deleted CHECK (deleted_at IS NULL OR deleted_at >= created_at)
@@ -149,11 +162,13 @@ CREATE TABLE saved_messages (
 CREATE TABLE emotion_records (
     saved_record_id uuid PRIMARY KEY REFERENCES saved_records(id) ON DELETE CASCADE,
     record_date date NOT NULL,
-    emotion_code varchar(32) NOT NULL,
+    emotion_codes varchar(20)[] NOT NULL,
     intensity smallint NOT NULL,
+    timezone_name varchar(64) NOT NULL,
     event_ciphertext bytea,
     cipher_key_version integer,
-    CONSTRAINT ck_emotion_records_code_nonempty CHECK (length(trim(emotion_code)) > 0),
+    CONSTRAINT ck_emotion_records_codes_count CHECK (cardinality(emotion_codes) BETWEEN 1 AND 5),
+    CONSTRAINT ck_emotion_records_codes_nonnull CHECK (array_position(emotion_codes, NULL) IS NULL),
     CONSTRAINT ck_emotion_records_intensity CHECK (intensity BETWEEN 1 AND 5),
     CONSTRAINT ck_emotion_records_key_version CHECK (
         event_ciphertext IS NULL OR cipher_key_version IS NOT NULL
@@ -164,38 +179,57 @@ CREATE INDEX ix_emotion_records_date ON emotion_records (record_date);
 CREATE TABLE worry_objects (
     saved_record_id uuid PRIMARY KEY REFERENCES saved_records(id) ON DELETE CASCADE,
     shape_code varchar(32) NOT NULL,
-    title_ciphertext bytea,
     body_ciphertext bytea,
     cipher_key_version integer,
-    CONSTRAINT ck_worry_objects_shape_nonempty CHECK (length(trim(shape_code)) > 0),
+    CONSTRAINT ck_worry_objects_shape CHECK (shape_code IN ('TANGLE', 'STONE', 'NOTE')),
     CONSTRAINT ck_worry_objects_key_version CHECK (
-        (title_ciphertext IS NULL AND body_ciphertext IS NULL)
-        OR cipher_key_version IS NOT NULL
+        body_ciphertext IS NULL OR cipher_key_version IS NOT NULL
     )
+);
+
+CREATE TABLE rooms (
+    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    account_id uuid NOT NULL REFERENCES user_accounts(id) ON DELETE CASCADE,
+    entry_point_id uuid NOT NULL REFERENCES entry_points(id),
+    version_no integer NOT NULL DEFAULT 1,
+    created_at timestamptz NOT NULL DEFAULT now(),
+    updated_at timestamptz NOT NULL DEFAULT now(),
+    CONSTRAINT uq_rooms_account_entry UNIQUE (account_id, entry_point_id),
+    CONSTRAINT uq_rooms_identity_scope UNIQUE (id, account_id, entry_point_id),
+    CONSTRAINT ck_rooms_version CHECK (version_no > 0)
 );
 
 CREATE TABLE room_objects (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    room_id uuid NOT NULL,
     account_id uuid NOT NULL REFERENCES user_accounts(id) ON DELETE CASCADE,
     entry_point_id uuid NOT NULL REFERENCES entry_points(id),
     worry_object_id uuid NOT NULL REFERENCES worry_objects(saved_record_id) ON DELETE CASCADE,
-    position_state jsonb NOT NULL DEFAULT '{}'::jsonb,
+    position_x numeric(6,5) NOT NULL,
+    position_y numeric(6,5) NOT NULL,
     created_at timestamptz NOT NULL DEFAULT now(),
     updated_at timestamptz NOT NULL DEFAULT now(),
-    CONSTRAINT uq_room_objects_account_entry_object UNIQUE (account_id, entry_point_id, worry_object_id),
-    CONSTRAINT ck_room_objects_position_object CHECK (jsonb_typeof(position_state) = 'object')
+    CONSTRAINT fk_room_objects_room_scope FOREIGN KEY (room_id, account_id, entry_point_id)
+        REFERENCES rooms(id, account_id, entry_point_id) ON DELETE CASCADE,
+    CONSTRAINT fk_room_objects_record_scope FOREIGN KEY (worry_object_id, account_id, entry_point_id)
+        REFERENCES saved_records(id, account_id, entry_point_id) ON DELETE CASCADE,
+    CONSTRAINT uq_room_objects_room_object UNIQUE (room_id, worry_object_id),
+    CONSTRAINT ck_room_objects_position_x CHECK (position_x BETWEEN 0 AND 1),
+    CONSTRAINT ck_room_objects_position_y CHECK (position_y BETWEEN 0 AND 1)
 );
 
 CREATE TABLE rehearsal_drafts (
     saved_record_id uuid PRIMARY KEY REFERENCES saved_records(id) ON DELETE CASCADE,
-    expression_ciphertext bytea NOT NULL,
+    scene_ciphertext bytea NOT NULL,
+    expressions_ciphertext bytea NOT NULL,
+    expression_count smallint NOT NULL,
     cipher_key_version integer NOT NULL,
-    CONSTRAINT ck_rehearsal_drafts_key_version CHECK (cipher_key_version > 0)
+    CONSTRAINT ck_rehearsal_drafts_key_version CHECK (cipher_key_version > 0),
+    CONSTRAINT ck_rehearsal_drafts_count CHECK (expression_count BETWEEN 1 AND 20)
 );
 
 CREATE TABLE worry_deposits (
     saved_record_id uuid PRIMARY KEY REFERENCES saved_records(id) ON DELETE CASCADE,
-    title_ciphertext bytea NOT NULL,
     body_ciphertext bytea NOT NULL,
     cipher_key_version integer NOT NULL,
     reopen_at timestamptz NOT NULL,
@@ -223,6 +257,7 @@ CREATE TABLE sources (
     title varchar(512) NOT NULL,
     publisher varchar(256),
     source_tier varchar(2) NOT NULL,
+    quality source_quality NOT NULL,
     published_at timestamptz,
     retrieved_at timestamptz NOT NULL,
     verification_state varchar(16) NOT NULL,
@@ -267,12 +302,13 @@ CREATE TABLE retention_policies (
 CREATE TABLE deletion_jobs (
     id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     account_id uuid NOT NULL REFERENCES user_accounts(id) ON DELETE CASCADE,
+    entry_point_id uuid NOT NULL REFERENCES entry_points(id),
     requested_by_session_id uuid REFERENCES login_sessions(id) ON DELETE SET NULL,
     request_id varchar(128) NOT NULL,
     status deletion_status NOT NULL DEFAULT 'PENDING',
     requested_at timestamptz NOT NULL DEFAULT now(),
     completed_at timestamptz,
-    CONSTRAINT uq_deletion_jobs_account_request UNIQUE (account_id, request_id),
+    CONSTRAINT uq_deletion_jobs_account_entry_request UNIQUE (account_id, entry_point_id, request_id),
     CONSTRAINT ck_deletion_jobs_request_nonempty CHECK (length(trim(request_id)) > 0),
     CONSTRAINT ck_deletion_jobs_completion CHECK (completed_at IS NULL OR completed_at >= requested_at)
 );
