@@ -1,151 +1,175 @@
 erDiagram
-    USER_ACCOUNT ||--|| USER_PROFILE : owns
-    USER_ACCOUNT ||--o{ AUTH_SESSION : creates
-    ENTRY_POINT ||--o{ AUTH_SESSION : accepts
-    USER_ACCOUNT ||--o{ CONSENT_RECORD : grants
-    ENTRY_POINT ||--o{ CONSENT_RECORD : source
-    ENTRY_POINT ||--o{ CONSENT_RECORD : target
-    USER_ACCOUNT ||--o{ CONVERSATION : owns
-    ENTRY_POINT ||--o{ CONVERSATION : scopes
-    CONVERSATION ||--o{ ACCEPTED_EXPRESSION : contains
-    USER_ACCOUNT ||--o{ EMOTION_RECORD : owns
-    ENTRY_POINT ||--o{ EMOTION_RECORD : scopes
-    USER_ACCOUNT ||--o{ WORRY_OBJECT : owns
-    ENTRY_POINT ||--o{ WORRY_OBJECT : scopes
-    USER_ACCOUNT ||--o{ STORED_CONCERN : owns
-    ENTRY_POINT ||--o{ STORED_CONCERN : scopes
-    USER_ACCOUNT ||--o{ SAVED_QUERY : owns
-    ENTRY_POINT ||--o{ SAVED_QUERY : scopes
-    SAVED_QUERY ||--o{ CLAIM : contains
-    CLAIM ||--o{ EVIDENCE : supported_by
-    SOURCE ||--o{ EVIDENCE : cited_by
-    USER_ACCOUNT ||--o{ DELETION_JOB : requests
-    DELETION_JOB ||--o{ DELETION_TARGET : fans_out
-    USER_ACCOUNT ||--o{ AUDIT_EVENT : acts
-    ENTRY_POINT ||--o{ AUDIT_EVENT : records
+    USER_ACCOUNTS ||--|| PASSWORD_CREDENTIALS : authenticates_with
+    USER_ACCOUNTS ||--|| USER_PROFILES : owns
+    USER_ACCOUNTS ||--|| ACCOUNT_PREFERENCES : configures
+    USER_ACCOUNTS ||--o{ LOGIN_SESSIONS : creates
+    ENTRY_POINTS ||--o{ LOGIN_SESSIONS : accepts
+    USER_ACCOUNTS ||--o{ CONSENT_GRANTS : grants
+    ENTRY_POINTS ||--o{ CONSENT_GRANTS : scopes
+    USER_ACCOUNTS ||--o{ SAVED_RECORDS : owns
+    ENTRY_POINTS ||--o{ SAVED_RECORDS : scopes
+    SAVED_RECORDS ||--o{ SAVED_MESSAGES : contains
+    SAVED_RECORDS ||--o| EMOTION_RECORDS : specializes
+    SAVED_RECORDS ||--o| WORRY_OBJECTS : specializes
+    SAVED_RECORDS ||--o| REHEARSAL_DRAFTS : specializes
+    SAVED_RECORDS ||--o| WORRY_DEPOSITS : specializes
+    SAVED_RECORDS ||--o| SAVED_QUERIES : specializes
+    WORRY_OBJECTS ||--o{ ROOM_OBJECTS : appears_as
+    SAVED_QUERIES ||--o{ CLAIMS : contains
+    CLAIMS ||--o{ EVIDENCE_LINKS : supported_by
+    SOURCES ||--o{ EVIDENCE_LINKS : cited_by
+    USER_ACCOUNTS ||--o{ DELETION_JOBS : requests
+    DELETION_JOBS ||--o{ DELETION_TARGETS : fans_out
+    DELETION_JOBS ||--|| DELETION_OUTBOX : emits
+    DELETION_JOBS ||--o{ DELETION_LOG_ENTRIES : records
+    USER_ACCOUNTS ||--o{ AUDIT_EVENTS : acts
 
-    USER_ACCOUNT {
+    USER_ACCOUNTS {
       uuid id PK
-      varchar login_identifier UK
-      varchar password_hash
+      varchar login_identifier_normalized UK
       account_status status
       timestamptz created_at
     }
-    USER_PROFILE {
+    PASSWORD_CREDENTIALS {
       uuid id PK
-      uuid user_id FK
+      uuid account_id FK
+      varchar password_digest
+      varchar algorithm
+      jsonb parameters
+    }
+    USER_PROFILES {
+      uuid id PK
+      uuid account_id FK
       varchar nickname
-      varchar avatar_ref
       bytea bio_ciphertext
     }
-    ENTRY_POINT {
+    ACCOUNT_PREFERENCES {
+      uuid id PK
+      uuid account_id FK
+      jsonb preferences
+    }
+    ENTRY_POINTS {
       uuid id PK
       varchar code UK
       jsonb capability_state
     }
-    AUTH_SESSION {
+    LOGIN_SESSIONS {
       uuid id PK
-      uuid user_id FK
+      uuid account_id FK
       uuid entry_point_id FK
-      bytea token_hash
+      bytea token_digest UK
       timestamptz expires_at
       timestamptz revoked_at
     }
-    CONSENT_RECORD {
+    CONSENT_GRANTS {
       uuid id PK
-      uuid user_id FK
+      uuid account_id FK
       uuid source_entry_point_id FK
       uuid target_entry_point_id FK
       consent_purpose purpose
       jsonb scope
-      timestamptz expires_at
-      timestamptz revoked_at
     }
-    CONVERSATION {
+    SAVED_RECORDS {
       uuid id PK
-      uuid owner_user_id FK
+      uuid account_id FK
       uuid entry_point_id FK
-      conversation_mode mode
+      saved_record_kind record_kind
+      varchar request_id
+      int version_no
+      timestamptz deleted_at
+    }
+    SAVED_MESSAGES {
+      uuid id PK
+      uuid saved_record_id FK
+      int sequence_no
+      message_role role
       bytea content_ciphertext
-      int version_no
     }
-    ACCEPTED_EXPRESSION {
-      uuid id PK
-      uuid conversation_id FK
-      bytea expression_ciphertext
-      int version_no
-    }
-    EMOTION_RECORD {
-      uuid id PK
-      uuid owner_user_id FK
-      uuid entry_point_id FK
+    EMOTION_RECORDS {
+      uuid saved_record_id PK, FK
       date record_date
       varchar emotion_code
       smallint intensity
-      bytea event_ciphertext
     }
-    WORRY_OBJECT {
-      uuid id PK
-      uuid owner_user_id FK
-      uuid entry_point_id FK
+    WORRY_OBJECTS {
+      uuid saved_record_id PK, FK
       varchar shape_code
       bytea title_ciphertext
       bytea body_ciphertext
     }
-    STORED_CONCERN {
+    ROOM_OBJECTS {
       uuid id PK
-      uuid owner_user_id FK
+      uuid account_id FK
       uuid entry_point_id FK
-      bytea title_ciphertext
+      uuid worry_object_id FK
+      jsonb position_state
+    }
+    REHEARSAL_DRAFTS {
+      uuid saved_record_id PK, FK
+      bytea expression_ciphertext
+    }
+    WORRY_DEPOSITS {
+      uuid saved_record_id PK, FK
       bytea body_ciphertext
       timestamptz reopen_at
-      stored_concern_status status
+      worry_deposit_status status
     }
-    SAVED_QUERY {
-      uuid id PK
-      uuid owner_user_id FK
-      uuid entry_point_id FK
+    SAVED_QUERIES {
+      uuid saved_record_id PK, FK
       bytea raw_query_ciphertext
-      bytea normalized_query_ciphertext
       saved_query_status status
+      varchar trace_id
     }
-    SOURCE {
+    SOURCES {
       uuid id PK
       varchar canonical_url UK
-      varchar title
       varchar source_tier
-      timestamptz published_at
       timestamptz retrieved_at
-      varchar verification_state
     }
-    CLAIM {
+    CLAIMS {
       uuid id PK
       uuid saved_query_id FK
       bytea claim_text_ciphertext
       varchar status
     }
-    EVIDENCE {
+    EVIDENCE_LINKS {
       uuid claim_id PK, FK
       uuid source_id PK, FK
       varchar relation
     }
-    DELETION_JOB {
+    DELETION_JOBS {
       uuid id PK
-      uuid owner_user_id FK
-      varchar status
-      timestamptz requested_at
+      uuid account_id FK
+      varchar request_id
+      deletion_status status
     }
-    DELETION_TARGET {
+    DELETION_TARGETS {
       uuid id PK
       uuid deletion_job_id FK
       varchar target_kind
-      varchar target_ref
-      varchar status
-      int retry_count
+      deletion_status status
     }
-    AUDIT_EVENT {
+    DELETION_OUTBOX {
       uuid id PK
-      uuid actor_user_id FK
+      uuid deletion_job_id FK
+      jsonb payload
+      timestamptz published_at
+    }
+    DELETION_LOG_ENTRIES {
+      uuid id PK
+      uuid deletion_job_id
+      varchar object_ref
+      timestamptz retain_until
+    }
+    RETENTION_POLICIES {
+      uuid id PK
+      varchar data_class UK
+      int retention_days
+      int backup_grace_days
+    }
+    AUDIT_EVENTS {
+      uuid id PK
+      uuid actor_account_id FK
       uuid entry_point_id FK
       varchar event_code
       timestamptz occurred_at
