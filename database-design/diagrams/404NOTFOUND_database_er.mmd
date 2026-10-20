@@ -14,6 +14,9 @@ erDiagram
     SAVED_RECORDS ||--o| REHEARSAL_DRAFTS : specializes
     SAVED_RECORDS ||--o| WORRY_DEPOSITS : specializes
     SAVED_RECORDS ||--o| SAVED_QUERIES : specializes
+    USER_ACCOUNTS ||--o{ ROOMS : owns
+    ENTRY_POINTS ||--o{ ROOMS : scopes
+    ROOMS ||--o{ ROOM_OBJECTS : contains
     WORRY_OBJECTS ||--o{ ROOM_OBJECTS : appears_as
     SAVED_QUERIES ||--o{ CLAIMS : contains
     CLAIMS ||--o{ EVIDENCE_LINKS : supported_by
@@ -41,12 +44,15 @@ erDiagram
       uuid id PK
       uuid account_id FK
       varchar nickname
+      varchar avatar_key
       bytea bio_ciphertext
+      int version_no
     }
     ACCOUNT_PREFERENCES {
       uuid id PK
       uuid account_id FK
       jsonb preferences
+      int version_no
     }
     ENTRY_POINTS {
       uuid id PK
@@ -77,6 +83,7 @@ erDiagram
       uuid account_id FK
       uuid entry_point_id FK
       saved_record_kind record_kind
+      bytea title_ciphertext
       varchar request_id
       int version_no
       timestamptz deleted_at
@@ -91,25 +98,35 @@ erDiagram
     EMOTION_RECORDS {
       uuid saved_record_id PK, FK
       date record_date
-      varchar emotion_code
+      varchar_array emotion_codes
       smallint intensity
+      varchar timezone_name
     }
     WORRY_OBJECTS {
       uuid saved_record_id PK, FK
       varchar shape_code
-      bytea title_ciphertext
       bytea body_ciphertext
     }
-    ROOM_OBJECTS {
+    ROOMS {
       uuid id PK
       uuid account_id FK
       uuid entry_point_id FK
+      int version_no
+    }
+    ROOM_OBJECTS {
+      uuid id PK
+      uuid room_id FK
+      uuid account_id FK
+      uuid entry_point_id FK
       uuid worry_object_id FK
-      jsonb position_state
+      numeric position_x
+      numeric position_y
     }
     REHEARSAL_DRAFTS {
       uuid saved_record_id PK, FK
-      bytea expression_ciphertext
+      bytea scene_ciphertext
+      bytea expressions_ciphertext
+      smallint expression_count
     }
     WORRY_DEPOSITS {
       uuid saved_record_id PK, FK
@@ -127,6 +144,7 @@ erDiagram
       uuid id PK
       varchar canonical_url UK
       varchar source_tier
+      source_quality quality
       timestamptz retrieved_at
     }
     CLAIMS {
@@ -143,6 +161,7 @@ erDiagram
     DELETION_JOBS {
       uuid id PK
       uuid account_id FK
+      uuid entry_point_id FK
       varchar request_id
       deletion_status status
     }
