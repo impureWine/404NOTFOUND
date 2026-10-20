@@ -64,9 +64,12 @@ erDiagram
     CONSENT_GRANTS {
       uuid id PK
       uuid account_id FK
-      uuid source_entry_point_id FK
+      uuid entry_point_id FK
       uuid target_entry_point_id FK
       consent_purpose purpose
+      saved_record_kind resource_kind
+      uuid resource_id
+      int resource_version
       jsonb scope
     }
     SAVED_RECORDS {
