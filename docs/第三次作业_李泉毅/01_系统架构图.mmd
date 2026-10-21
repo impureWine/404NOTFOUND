@@ -1,67 +1,73 @@
 flowchart TB
-  subgraph Clients[客户端与可信入口]
-    WEB[Web / React + Vite]
-    ELE[Electron 桌宠适配器\n仅验证后的原生能力]
-    WX[微信适配器 / 模拟入口]
+  subgraph C[① 客户端与可信入口]
+    direction LR
+    WEB[Web<br/>React + Vite]
+    ELE[Electron<br/>受控 preload 适配]
+    WX[微信<br/>模拟或受控适配]
+    REQ14[REQ14 TextDestructionView<br/>私有内存 + 本地动画<br/>禁止网络/数据库/模型/日志]
   end
-  subgraph LocalOnly[REQ14 独立端侧旁路]
-    TD[TextDestructionView\n私有内存缓冲]
-    FX[本地销毁动画与资源]
-    TD --> FX
+
+  subgraph E[② Express 接入与安全层]
+    direction LR
+    ROUTE[REST 路由与 DTO 映射]
+    SECURITY[Cookie · X-CSRF-Token · Origin<br/>限流 · Zod 严格校验]
+    ROUTE -->|校验后放行| SECURITY
   end
-  subgraph Edge[Express 接入与安全层]
-    HTTP[REST 路由 / DTO 映射]
-    SEC[安全 Cookie · CSRF · Origin\n限流 · Zod 严格校验]
+
+  subgraph A[③ 应用层：模块化单体]
+    direction LR
+    AUTH[身份资料泳道<br/>AuthService · ProfileService]
+    RECORD[记录事务泳道<br/>RecordService · RoomService]
+    IDEM[IdempotencyService<br/>登记 · 摘要比对 · 结果核实]
+    AGENT[任务编排泳道<br/>AgentApplicationService]
+    TASK[TaskCoordinator + AIProcessingService<br/>双代次 · 安全上下文 · 取消]
+    RECORD -->|所有持久写| IDEM
+    AGENT -->|任务协调| TASK
   end
-  subgraph App[应用层：模块化单体]
-    AUTH[AuthService / ProfileService]
-    REC[RecordService / RoomService]
-    TASK[TaskCoordinator\n双代次与迟到结果拦截]
-    AGENT[AgentApplicationService\n任务受理、轮询、取消门面]
-    AIP[AIProcessingService\n上下文、安全、响应编排]
+
+  subgraph D[④ 领域模型与策略]
+    direction LR
+    MODEL[账号 · 会话 · 活动 · 记录 · 授权<br/>房间 · 寄存 · 排练阶段]
+    AP[AuthorizationPolicy<br/>账号 + 入口 + 版本 + 用途]
+    SP[SafetyPolicy<br/>输入 · 模型回复 · 来源边界]
   end
-  subgraph Domain[领域与策略]
-    MODEL[账号 · 会话 · 活动 · 记录\n授权 · 房间 · 寄存]
-    POLICY[AuthorizationPolicy / SafetyPolicy]
-  end
-  subgraph Ports[端口]
-    IDR[IdentityRepository]
-    RR[RecordRepository]
-    ROOM[RoomRepository]
-    AIC[AIClient]
+
+  subgraph P[⑤ 端口]
+    direction LR
+    IP[IdentityRepository]
+    RP[RecordRepository]
+    IDP[IdempotencyRepository]
+    AI[AIClient]
     SEARCH[SearchProvider]
   end
-  subgraph Infra[基础设施实现]
-    PG[(PostgreSQL\n会话、记录、授权、幂等)]
-    LC[LangChainModelAdapter]
-    SP[固定检索供应商]
+
+  subgraph I[⑥ 基础设施实现]
+    direction LR
+    PGI[(PostgreSQL<br/>账号 · 资料 · 登录会话)]
+    PGR[(PostgreSQL<br/>保存记录 · 授权 · 删除传播)]
+    PGD[(PostgreSQL<br/>幂等作用域 · 摘要 · 结果)]
+    LC[LangChainModelAdapter<br/>→ 受控模型供应商]
+    SA[固定检索适配器<br/>→ 允许的检索供应商]
   end
-  WEB --> HTTP
-  ELE --> HTTP
-  WX --> HTTP
-  WEB -. 页面内独立入口 .-> TD
-  ELE -. 本地入口 .-> TD
-  WX -. 仅跳转本地独立页 .-> TD
-  HTTP --> SEC --> AUTH
-  SEC --> REC
-  SEC --> TASK
-  SEC --> AGENT
-  AUTH --> MODEL
-  REC --> MODEL
-  TASK --> MODEL
-  AGENT --> AIP
-  AIP --> POLICY
-  AUTH --> POLICY
-  REC --> POLICY
-  AUTH --> IDR
-  REC --> RR
-  REC --> ROOM
-  AIP --> AIC
-  AGENT --> SEARCH
-  IDR --> PG
-  RR --> PG
-  ROOM --> PG
-  AIC <|.. LC
-  LC --> EXT[(受控模型供应商)]
-  SEARCH --> SP
-  TD -. 禁止连接网络/数据库/模型/搜索/日志/遥测 .- TD
+
+  WEB -->|HTTP / JSON| ROUTE
+  ELE -->|IPC 转 API| ROUTE
+  WX -->|HTTP / JSON| ROUTE
+  SECURITY -->|认证 / 资料| AUTH
+  SECURITY -->|记录 / 房间| RECORD
+  SECURITY -->|任务 / 查询| AGENT
+  AUTH -->|身份规则| MODEL
+  RECORD -->|记录与授权规则| AP
+  TASK -->|任务与安全规则| SP
+  AUTH -->|身份存取| IP
+  RECORD -->|记录存取| RP
+  IDEM -->|幂等存取| IDP
+  TASK -->|模型调用| AI
+  TASK -->|检索调用| SEARCH
+  IP -->|实现| PGI
+  RP -->|实现| PGR
+  IDP -->|实现| PGD
+  AI -->|实现| LC
+  SEARCH -->|实现| SA
+
+  %% REQ14 故意不连接任何服务端节点，表示零网络出口。
