@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1210" viewBox="0 0 1400 1210" font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<rect width="1400" height="1210" fill="white"/>
+<rect width="12" height="1210" fill="#C86B8C"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#8B6C7A" stroke-width="1.4"/></marker></defs>
+<text x="42" y="48" font-size="29" font-weight="700" fill="#984762">A06  退出登录／改密与身份清理</text>
+<text x="42" y="80" font-size="15" fill="#71616B">REQ16／05／06；退出保留已主动保存业务记录，改密成功后重新登录。</text>
+<rect x="40" y="110" width="264" height="1055" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="40" y="110" width="264" height="46" fill="#F9EAF0"/><text x="172" y="140" text-anchor="middle" font-size="20" fill="#984762">用户</text>
+<rect x="304" y="110" width="264" height="1055" fill="#FFFFFF" stroke="#EBCBD8"/>
+<rect x="304" y="110" width="264" height="46" fill="#F9EAF0"/><text x="436" y="140" text-anchor="middle" font-size="20" fill="#984762">界面</text>
+<rect x="568" y="110" width="264" height="1055" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="568" y="110" width="264" height="46" fill="#F9EAF0"/><text x="700" y="140" text-anchor="middle" font-size="20" fill="#984762">应用服务</text>
+<rect x="832" y="110" width="264" height="1055" fill="#FFFFFF" stroke="#EBCBD8"/>
+<rect x="832" y="110" width="264" height="46" fill="#F9EAF0"/><text x="964" y="140" text-anchor="middle" font-size="20" fill="#984762">数据存储</text>
+<rect x="1096" y="110" width="264" height="1055" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="1096" y="110" width="264" height="46" fill="#F9EAF0"/><text x="1228" y="140" text-anchor="middle" font-size="20" fill="#984762">外部模型／检索</text>
+<path d="M436.0 1088.0 L436.0 1115.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M172.0 1088.0 L172.0 1115.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M700.0 1088.0 L700.0 1115.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M172.0 202.0 L172.0 220.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M273.0 308.0 L335.0 335.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="304.0" y="311.5" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[提交]</text>
+<path d="M537.0 423.0 L599.0 450.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M801.0 538.0 L863.0 565.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="832.0" y="541.5" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[请求有效]</text>
+<path d="M867.2 653.0 L796.8 685.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M599.0 773.0 L537.0 800.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M436.0 888.0 L436.0 1000.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M172.0 308.0 L172.0 310.0 L172.0 1000.0 L172.0 1000.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="181.0" y="655.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[取消]</text>
+<path d="M807.0 485.1 L808.0 485.0 L808.0 1044.0 L807.0 1044.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="817.0" y="764.5" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[失败／状态未明]</text>
+<rect x="40" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">用户</text>
+<rect x="304" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">界面</text>
+<rect x="568" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">应用服务</text>
+<rect x="832" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="964.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">数据存储</text>
+<rect x="1096" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1228.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">外部模型／检索</text>
+<circle cx="172.0" cy="191.0" r="11.0" fill="#984762" stroke="#984762" stroke-width="2"/>
+<rect x="65.0" y="220" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="258.05" text-anchor="middle" font-size="17" fill="#342B33">选择退出登录</text>
+<text x="172.0" y="281.85" text-anchor="middle" font-size="17" fill="#342B33">或已登录修改密码</text>
+<rect x="329.0" y="335" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="373.05" text-anchor="middle" font-size="17" fill="#342B33">先遮蔽私密视图</text>
+<text x="436.0" y="396.85" text-anchor="middle" font-size="17" fill="#342B33">冻结旧身份响应</text>
+<rect x="593.0" y="450" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="476.15" text-anchor="middle" font-size="17" fill="#342B33">logout撤销当前会话</text>
+<text x="700.0" y="499.95" text-anchor="middle" font-size="17" fill="#342B33">change-password校验</text>
+<text x="700.0" y="523.75" text-anchor="middle" font-size="17" fill="#342B33">旧密</text>
+<rect x="857.0" y="565" width="214" height="88" rx="12" fill="#E8F3EC" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="964.0" y="603.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">退出：撤销登录会话</text>
+<text x="964.0" y="626.85" text-anchor="middle" font-size="17" fill="#342B33">改密：撤销全部旧会话</text>
+<rect x="593.0" y="685" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="723.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">取消旧会话任务</text>
+<text x="700.0" y="746.85" text-anchor="middle" font-size="17" fill="#342B33">旧代次／许可失效</text>
+<rect x="329.0" y="800" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="838.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">清身份缓存与临时正文</text>
+<text x="436.0" y="861.85" text-anchor="middle" font-size="17" fill="#342B33">退出到访客／改密去登录</text>
+<rect x="329.0" y="1000" width="214" height="88" rx="12" fill="#E8F3EC" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="1038.05" text-anchor="middle" font-size="17" fill="#342B33">204确认后显示完成</text>
+<text x="436.0" y="1061.85" text-anchor="middle" font-size="17" fill="#342B33">保存记录继续保留</text>
+<circle cx="436.0" cy="1126.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="436.0" cy="1126.0" r="7.04" fill="#984762"/>
+<rect x="65.0" y="1000" width="214" height="88" rx="12" fill="#FFF2D8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="1038.05" text-anchor="middle" font-size="17" fill="#342B33">提交前取消</text>
+<text x="172.0" y="1061.85" text-anchor="middle" font-size="17" fill="#342B33">恢复原表单／当前身份</text>
+<circle cx="172.0" cy="1126.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="172.0" cy="1126.0" r="7.04" fill="#984762"/>
+<rect x="593.0" y="1000" width="214" height="88" rx="12" fill="#FAE8E8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="1038.05" text-anchor="middle" font-size="17" fill="#342B33">断网：本地已遮蔽</text>
+<text x="700.0" y="1061.85" text-anchor="middle" font-size="17" fill="#342B33">服务撤销状态待确认</text>
+<circle cx="700.0" cy="1126.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="700.0" cy="1126.0" r="7.04" fill="#984762"/>
+<rect x="1110" y="400" width="210" height="340" rx="5" fill="#FDF5F8" stroke="#EBCBD8" stroke-dasharray="5 4"/>
+<text x="1215.0" y="508.40000000000003" text-anchor="middle" font-size="16" fill="#342B33">外部服务无调用。</text>
+<text x="1215.0" y="530.8000000000001" text-anchor="middle" font-size="16" fill="#342B33"></text>
+<text x="1215.0" y="553.2" text-anchor="middle" font-size="16" fill="#342B33">退出／换账号不会自动删</text>
+<text x="1215.0" y="575.6" text-anchor="middle" font-size="16" fill="#342B33">除持久记录。</text>
+<text x="1215.0" y="598.0" text-anchor="middle" font-size="16" fill="#342B33"></text>
+<text x="1215.0" y="620.4000000000001" text-anchor="middle" font-size="16" fill="#342B33">下一身份必须重新获得正</text>
+<text x="1215.0" y="642.8" text-anchor="middle" font-size="16" fill="#342B33">文范围与用途许可。</text>
+<text x="42" y="1191" font-size="13" fill="#71616B">404NOTFOUND · UX设计稿 · 仓库 fe60c90 · 2026-10-21 · 待团队复核</text></svg>

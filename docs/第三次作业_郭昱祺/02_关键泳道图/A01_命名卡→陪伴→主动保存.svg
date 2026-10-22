@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1480" viewBox="0 0 1400 1480" font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<rect width="1400" height="1480" fill="white"/>
+<rect width="12" height="1480" fill="#C86B8C"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#8B6C7A" stroke-width="1.4"/></marker></defs>
+<text x="42" y="48" font-size="29" font-weight="700" fill="#984762">A01  命名卡→陪伴→主动保存</text>
+<text x="42" y="80" font-size="15" fill="#71616B">REQ09／01／05／07；命名与AI处理不自动转为日历或持久记录。</text>
+<rect x="40" y="110" width="264" height="1325" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="40" y="110" width="264" height="46" fill="#F9EAF0"/><text x="172" y="140" text-anchor="middle" font-size="20" fill="#984762">用户</text>
+<rect x="304" y="110" width="264" height="1325" fill="#FFFFFF" stroke="#EBCBD8"/>
+<rect x="304" y="110" width="264" height="46" fill="#F9EAF0"/><text x="436" y="140" text-anchor="middle" font-size="20" fill="#984762">界面</text>
+<rect x="568" y="110" width="264" height="1325" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="568" y="110" width="264" height="46" fill="#F9EAF0"/><text x="700" y="140" text-anchor="middle" font-size="20" fill="#984762">应用服务</text>
+<rect x="832" y="110" width="264" height="1325" fill="#FFFFFF" stroke="#EBCBD8"/>
+<rect x="832" y="110" width="264" height="46" fill="#F9EAF0"/><text x="964" y="140" text-anchor="middle" font-size="20" fill="#984762">数据存储</text>
+<rect x="1096" y="110" width="264" height="1325" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="1096" y="110" width="264" height="46" fill="#F9EAF0"/><text x="1228" y="140" text-anchor="middle" font-size="20" fill="#984762">外部模型／检索</text>
+<path d="M172.0 200.0 L172.0 225.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M273.0 313.0 L335.0 340.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M333.7 428.0 L223.8 475.2" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M236.5 512.4 L593.0 594.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="414.77008149010476" y="543.3647062519843" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[同意]</text>
+<path d="M172.0 445.0 L172.0 497.0 L172.0 1280.0 L172.0 1280.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="181.0" y="888.5" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[取消]</text>
+<path d="M807.0 619.0 L1121.0 619.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="964.0" y="609.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[校验通过]</text>
+<path d="M1121.0 636.6 L543.0 731.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="832.0" y="674.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[有效且代次匹配]</text>
+<path d="M329.0 791.6 L279.0 811.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M273.0 898.0 L335.0 925.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M543.0 991.3 L857.0 1056.7" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="700.0" y="1014.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[确认SAVE]</text>
+<path d="M858.4 1123.0 L751.0 1167.8" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M653.6 1212.7 L522.0 1280.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="587.8172473358314" y="1236.3661803396317" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[确认成功]</text>
+<path d="M700.0 1238.0 L700.0 1280.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="709.0" y="1259.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[明确失败]</text>
+<path d="M807.0 611.7 L788.0 613.0 L788.0 1305.0 L807.0 1300.9" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="797.0" y="959.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[拒绝／任务失败]</text>
+<path d="M436.0 1368.0 L436.0 1395.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M172.0 1368.0 L172.0 1395.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M700.0 1368.0 L700.0 1395.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M329.0 969.0 L285.0 969.0 L285.0 1240.0 L172.0 1240.0 L172.0 1280.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="294.0" y="1104.5" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[取消保存]</text>
+<rect x="40" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">用户</text>
+<rect x="304" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">界面</text>
+<rect x="568" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">应用服务</text>
+<rect x="832" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="964.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">数据存储</text>
+<rect x="1096" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1228.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">外部模型／检索</text>
+<circle cx="172.0" cy="189.0" r="11.0" fill="#984762" stroke="#984762" stroke-width="2"/>
+<rect x="65.0" y="225" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="263.05" text-anchor="middle" font-size="17" fill="#342B33">选择情绪词／强度</text>
+<text x="172.0" y="286.85" text-anchor="middle" font-size="17" fill="#342B33">选择倾听或梳理</text>
+<rect x="329.0" y="340" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="378.05" text-anchor="middle" font-size="17" fill="#342B33">展示所选正文与用途</text>
+<text x="436.0" y="401.85" text-anchor="middle" font-size="17" fill="#342B33">申请AI_PROCESS许可</text>
+<polygon points="172.0,445 262.0,497.5 172.0,550 82.0,497.5" fill="#FFF2D8" stroke="#8A5A18"/>
+<text x="172.0" y="503.45" text-anchor="middle" font-size="17" fill="#342B33">同意外发？</text>
+<rect x="593.0" y="575" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="613.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">验证身份／可信入口</text>
+<text x="700.0" y="636.85" text-anchor="middle" font-size="17" fill="#342B33">用途、版本和代次</text>
+<rect x="1121.0" y="575" width="214" height="88" rx="12" fill="#EAF0F7" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1228.0" y="613.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">仅处理已选定正文</text>
+<text x="1228.0" y="636.85" text-anchor="middle" font-size="17" fill="#342B33">生成限定任务回应</text>
+<rect x="329.0" y="705" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="743.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">展示临时回应</text>
+<text x="436.0" y="766.85" text-anchor="middle" font-size="17" fill="#342B33">可停止、重试或结束</text>
+<rect x="65.0" y="810" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="848.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">选择要保存的快照</text>
+<text x="172.0" y="871.85" text-anchor="middle" font-size="17" fill="#342B33">未登录先登录并重确认</text>
+<rect x="329.0" y="925" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="963.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">预览范围并确认SAVE</text>
+<text x="436.0" y="986.85" text-anchor="middle" font-size="17" fill="#342B33">取消则无持久写</text>
+<rect x="857.0" y="1035" width="214" height="88" rx="12" fill="#E8F3EC" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="964.0" y="1073.05" text-anchor="middle" font-size="17" fill="#342B33">事务写记录与授权</text>
+<text x="964.0" y="1096.85" text-anchor="middle" font-size="17" fill="#342B33">幂等回执／对象版本</text>
+<polygon points="700.0,1140 790.0,1189.0 700.0,1238 610.0,1189.0" fill="#FFF2D8" stroke="#8A5A18"/>
+<text x="700.0" y="1194.95" text-anchor="middle" font-size="17" fill="#342B33">写入结果明确？</text>
+<rect x="329.0" y="1280" width="214" height="88" rx="12" fill="#E8F3EC" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="1318.05" text-anchor="middle" font-size="17" fill="#342B33">确认成功才显示已保存</text>
+<text x="436.0" y="1341.85" text-anchor="middle" font-size="17" fill="#342B33">END只清临时会话</text>
+<circle cx="436.0" cy="1406.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="436.0" cy="1406.0" r="7.04" fill="#984762"/>
+<rect x="65.0" y="1280" width="214" height="88" rx="12" fill="#FFF2D8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="1318.05" text-anchor="middle" font-size="17" fill="#342B33">取消许可／保存</text>
+<text x="172.0" y="1341.85" text-anchor="middle" font-size="17" fill="#342B33">不外发或不写入</text>
+<circle cx="172.0" cy="1406.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="172.0" cy="1406.0" r="7.04" fill="#984762"/>
+<rect x="593.0" y="1280" width="214" height="88" rx="12" fill="#FAE8E8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="1318.05" text-anchor="middle" font-size="17" fill="#342B33">写入超时：待核实</text>
+<text x="700.0" y="1341.85" text-anchor="middle" font-size="17" fill="#342B33">同requestId同载荷重放</text>
+<circle cx="700.0" cy="1406.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="700.0" cy="1406.0" r="7.04" fill="#984762"/>
+<rect x="1100" y="820" width="212" height="260" rx="5" fill="#FDF5F8" stroke="#EBCBD8" stroke-dasharray="5 4"/>
+<text x="1206.0" y="899.6" text-anchor="middle" font-size="16" fill="#342B33">约束</text>
+<text x="1206.0" y="922.0" text-anchor="middle" font-size="16" fill="#342B33">撤销许可／取消任务会使</text>
+<text x="1206.0" y="944.4" text-anchor="middle" font-size="16" fill="#342B33">旧响应失效。</text>
+<text x="1206.0" y="966.8" text-anchor="middle" font-size="16" fill="#342B33">临时正文默认内存。</text>
+<text x="1206.0" y="989.2" text-anchor="middle" font-size="16" fill="#342B33">主动保存内容不会被END连</text>
+<text x="1206.0" y="1011.6" text-anchor="middle" font-size="16" fill="#342B33">带删除。</text>
+<text x="42" y="1461" font-size="13" fill="#71616B">404NOTFOUND · UX设计稿 · 仓库 fe60c90 · 2026-10-21 · 待团队复核</text></svg>

@@ -1,0 +1,779 @@
+{
+  "title": "一级总体数据流图",
+  "subtitle": "外部实体E1重复绘制便于阅读（同一用户）；处理编号与功能模块编号无绑定关系。",
+  "width": 1780,
+  "height": 1710,
+  "nodes": [
+    {
+      "id": "u0",
+      "x": 50,
+      "y": 220,
+      "w": 220,
+      "h": 100,
+      "label": "E1 用户（重复）",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "p1",
+      "x": 590,
+      "y": 220,
+      "w": 330,
+      "h": 100,
+      "label": "P1 身份与个人空间",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "u1",
+      "x": 50,
+      "y": 510,
+      "w": 220,
+      "h": 100,
+      "label": "E1 用户（重复）",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "p2",
+      "x": 590,
+      "y": 510,
+      "w": 330,
+      "h": 100,
+      "label": "P2 临时任务与外发",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "u2",
+      "x": 50,
+      "y": 850,
+      "w": 220,
+      "h": 100,
+      "label": "E1 用户（重复）",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "p3",
+      "x": 590,
+      "y": 850,
+      "w": 330,
+      "h": 100,
+      "label": "P3 主动保存与记录管理",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "u3",
+      "x": 50,
+      "y": 1175,
+      "w": 220,
+      "h": 100,
+      "label": "E1 用户（重复）",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "p4",
+      "x": 590,
+      "y": 1175,
+      "w": 330,
+      "h": 100,
+      "label": "P4 端侧训练与互动",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "u4",
+      "x": 50,
+      "y": 1450,
+      "w": 220,
+      "h": 100,
+      "label": "E1 用户（重复）",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "p5",
+      "x": 590,
+      "y": 1450,
+      "w": 330,
+      "h": 100,
+      "label": "P5 独立端侧文字销毁",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "d1",
+      "x": 1230,
+      "y": 195,
+      "w": 440,
+      "h": 100,
+      "label": "D1 身份持久存储\n账号／凭据／登录会话／资料／偏好",
+      "kind": "store",
+      "color": "green",
+      "fs": 18
+    },
+    {
+      "id": "t1",
+      "x": 1230,
+      "y": 430,
+      "w": 440,
+      "h": 95,
+      "label": "T1 临时会话／任务／处理许可\n服务内存，重启失效",
+      "kind": "store",
+      "color": "amber",
+      "fs": 18
+    },
+    {
+      "id": "e2",
+      "x": 1230,
+      "y": 600,
+      "w": 200,
+      "h": 85,
+      "label": "E2 外部模型",
+      "kind": "entity",
+      "color": "blue",
+      "fs": 19
+    },
+    {
+      "id": "e3",
+      "x": 1470,
+      "y": 600,
+      "w": 200,
+      "h": 85,
+      "label": "E3 外部检索",
+      "kind": "entity",
+      "color": "blue",
+      "fs": 19
+    },
+    {
+      "id": "d2",
+      "x": 1230,
+      "y": 830,
+      "w": 440,
+      "h": 105,
+      "label": "D2 主动保存业务存储\n记录／日历／物件／寄存／草稿／证据",
+      "kind": "store",
+      "color": "green",
+      "fs": 18
+    },
+    {
+      "id": "d3",
+      "x": 1230,
+      "y": 990,
+      "w": 440,
+      "h": 100,
+      "label": "D3 保存授权与控制元数据\nSAVE授权／幂等／清除作业",
+      "kind": "store",
+      "color": "green",
+      "fs": 18
+    },
+    {
+      "id": "t2",
+      "x": 1230,
+      "y": 1175,
+      "w": 440,
+      "h": 100,
+      "label": "T2 端侧交互内存\ntimer／物理／音频状态（非正文存档）",
+      "kind": "store",
+      "color": "amber",
+      "fs": 18
+    },
+    {
+      "id": "t3",
+      "x": 1230,
+      "y": 1450,
+      "w": 440,
+      "h": 100,
+      "label": "T3 独立私有buffer\n仅文字销毁页，退出即清空",
+      "kind": "store",
+      "color": "amber",
+      "fs": 18
+    },
+    {
+      "id": "note18",
+      "x": 50,
+      "y": 1600,
+      "w": 870,
+      "h": 60,
+      "label": "P4／P5均无应用API、数据库、AI或检索正文通路。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 20
+    }
+  ],
+  "edges": [
+    {
+      "a": "u0",
+      "b": "p1",
+      "label": "F01 凭据／资料／偏好",
+      "points": [
+        [
+          390,
+          243
+        ],
+        [
+          450,
+          243
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        226,
+        "middle"
+      ]
+    },
+    {
+      "a": "p1",
+      "b": "u0",
+      "label": "F05 身份／资料状态",
+      "points": [
+        [
+          450,
+          365
+        ],
+        [
+          380,
+          365
+        ],
+        [
+          380,
+          300
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        355,
+        "middle"
+      ]
+    },
+    {
+      "a": "u1",
+      "b": "p2",
+      "label": "F02 临时正文／任务范围\nF03 处理许可／取消",
+      "points": [
+        [
+          390,
+          533
+        ],
+        [
+          450,
+          533
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        516,
+        "middle"
+      ]
+    },
+    {
+      "a": "p2",
+      "b": "u1",
+      "label": "F06 回应／证据／处理状态",
+      "points": [
+        [
+          450,
+          655
+        ],
+        [
+          380,
+          655
+        ],
+        [
+          380,
+          590
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        645,
+        "middle"
+      ]
+    },
+    {
+      "a": "u2",
+      "b": "p3",
+      "label": "F03 SAVE／记录操作",
+      "points": [
+        [
+          390,
+          873
+        ],
+        [
+          450,
+          873
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        856,
+        "middle"
+      ]
+    },
+    {
+      "a": "p3",
+      "b": "u2",
+      "label": "F07 记录／处理回执",
+      "points": [
+        [
+          450,
+          995
+        ],
+        [
+          380,
+          995
+        ],
+        [
+          380,
+          930
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        985,
+        "middle"
+      ]
+    },
+    {
+      "a": "u3",
+      "b": "p4",
+      "label": "F04 端侧互动输入",
+      "points": [
+        [
+          390,
+          1198
+        ],
+        [
+          450,
+          1198
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        1181,
+        "middle"
+      ]
+    },
+    {
+      "a": "p4",
+      "b": "u3",
+      "label": "F08 训练／物理／音频反馈",
+      "points": [
+        [
+          450,
+          1320
+        ],
+        [
+          380,
+          1320
+        ],
+        [
+          380,
+          1255
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        1310,
+        "middle"
+      ]
+    },
+    {
+      "a": "u4",
+      "b": "p5",
+      "label": "F04 独立销毁输入",
+      "points": [
+        [
+          390,
+          1473
+        ],
+        [
+          450,
+          1473
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        1456,
+        "middle"
+      ]
+    },
+    {
+      "a": "p5",
+      "b": "u4",
+      "label": "F08 清空／销毁画面",
+      "points": [
+        [
+          450,
+          1595
+        ],
+        [
+          380,
+          1595
+        ],
+        [
+          380,
+          1530
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        430,
+        1585,
+        "middle"
+      ]
+    },
+    {
+      "a": "p1",
+      "b": "d1",
+      "label": "身份／资料更新",
+      "points": [
+        [
+          1050,
+          245
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1070,
+        225,
+        "middle"
+      ]
+    },
+    {
+      "a": "d1",
+      "b": "p1",
+      "label": "本人资料／身份状态",
+      "points": [
+        [
+          1160,
+          335
+        ],
+        [
+          1000,
+          335
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p2",
+      "b": "t1",
+      "label": "临时正文／任务范围／许可",
+      "points": [
+        [
+          1050,
+          530
+        ],
+        [
+          1050,
+          458
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "t1",
+      "b": "p2",
+      "label": "有效上下文／代次",
+      "points": [
+        [
+          1150,
+          560
+        ],
+        [
+          1050,
+          560
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p2",
+      "b": "e2",
+      "label": "F09 限定模型任务",
+      "points": [
+        [
+          1020,
+          585
+        ],
+        [
+          1020,
+          620
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "e2",
+      "b": "p2",
+      "label": "F10 模型结果",
+      "points": [
+        [
+          1150,
+          700
+        ],
+        [
+          960,
+          700
+        ],
+        [
+          960,
+          585
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p2",
+      "b": "e3",
+      "label": "F11 限定问题",
+      "points": [
+        [
+          1010,
+          570
+        ],
+        [
+          1010,
+          590
+        ],
+        [
+          1565,
+          590
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "e3",
+      "b": "p2",
+      "label": "F12 检索证据",
+      "points": [
+        [
+          1570,
+          750
+        ],
+        [
+          990,
+          750
+        ],
+        [
+          990,
+          590
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p3",
+      "b": "d2",
+      "label": "本人本入口记录写入／操作",
+      "points": [
+        [
+          1040,
+          875
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "d2",
+      "b": "p3",
+      "label": "列表／正文／版本／回执",
+      "points": [
+        [
+          1130,
+          970
+        ],
+        [
+          1000,
+          970
+        ],
+        [
+          1000,
+          925
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p3",
+      "b": "d3",
+      "label": "SAVE授权／幂等核实信息",
+      "points": [
+        [
+          1100,
+          950
+        ],
+        [
+          1100,
+          1020
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "d3",
+      "b": "p3",
+      "label": "授权状态／幂等结果",
+      "points": [
+        [
+          1160,
+          1080
+        ],
+        [
+          980,
+          1080
+        ],
+        [
+          980,
+          930
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "t1",
+      "b": "p3",
+      "label": "选定快照／有效查询证据",
+      "points": [
+        [
+          1730,
+          478
+        ],
+        [
+          1730,
+          800
+        ],
+        [
+          1020,
+          800
+        ],
+        [
+          1020,
+          860
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p4",
+      "b": "t2",
+      "label": "本地步骤／运行参数",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "t2",
+      "b": "p4",
+      "label": "本次进度／运行状态",
+      "points": [
+        [
+          1120,
+          1330
+        ],
+        [
+          1020,
+          1330
+        ],
+        [
+          1020,
+          1250
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p5",
+      "b": "t3",
+      "label": "本页文字／清空后的空缓冲",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "t3",
+      "b": "p5",
+      "label": "当前输入视图",
+      "points": [
+        [
+          1120,
+          1600
+        ],
+        [
+          1020,
+          1600
+        ],
+        [
+          1020,
+          1520
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

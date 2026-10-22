@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1130" viewBox="0 0 1600 1130" font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<rect width="1600" height="1130" fill="white"/>
+<rect width="12" height="1130" fill="#C86B8C"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#8B6C7A" stroke-width="1.4"/></marker></defs>
+<text x="42" y="48" font-size="29" font-weight="700" fill="#984762">D02  P2展开：临时正文与外发许可</text>
+<text x="42" y="80" font-size="15" fill="#71616B">输入输出与D01.P2平衡；处理框内是数据变换，箭头为数据，不表达控制顺序。</text>
+<path d="M260.0 200.0 L410.0 200.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="335" y="164.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F02 临时正文</text>
+<text x="335" y="182.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">与任务范围</text>
+<path d="M260.0 207.2 L300.0 210.0 L300.0 465.0 L410.0 465.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="309.0" y="337.5" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F03 处理许可／取消</text>
+<path d="M770.0 201.2 L1100.0 203.5" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="935.0" y="192.3793103448276" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">限定快照／请求元数据</text>
+<path d="M1100.0 205.0 L980.0 205.0 L980.0 465.0 L770.0 465.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="989.0" y="335.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">当前对象版本／许可／代次</text>
+<path d="M590.0 250.0 L590.0 410.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="599.0" y="330.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">任务类型与最小正文</text>
+<path d="M770.0 463.5 L1100.0 460.8" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="935.0" y="452.172131147541" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F09 许可限定模型载荷</text>
+<path d="M770.0 517.3 L900.0 555.0 L1430.0 555.0 L1430.0 510.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1165.0" y="545.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F11 许可限定检索问题</text>
+<path d="M1200.0 510.0 L1200.0 620.0 L940.0 620.0 L940.0 745.0 L770.0 747.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1070.0" y="610.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F10 模型结果／失败信息</text>
+<path d="M1430.0 510.0 L1430.0 650.0 L990.0 650.0 L990.0 775.0 L770.0 761.2" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1210.0" y="640.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F12 来源／主张／质量</text>
+<path d="M770.0 465.0 L900.0 465.0 L900.0 270.0 L1100.0 238.7" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1000.0" y="244.33734939759034" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">撤销状态／失效代次</text>
+<path d="M410.0 746.8 L310.0 745.0 L310.0 290.0 L150.0 290.0 L152.2 250.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="165" y="570.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F06 临时回应／证据／状态</text>
+<path d="M770.0 746.5 L850.0 745.0 L850.0 315.0 L1270.0 315.0 L1292.5 260.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="859.0" y="530.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">有效临时回应／查询证据</text>
+<rect x="50" y="150" width="210" height="100" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="155.0" y="208.05" text-anchor="middle" font-size="23" fill="#342B33">E1 用户</text>
+<rect x="410" y="150" width="360" height="100" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="590.0" y="193.0" text-anchor="middle" font-size="20" fill="#342B33">P2.1 限定任务范围</text>
+<text x="590.0" y="221.0" text-anchor="middle" font-size="20" fill="#342B33">正文最小化／用途分离</text>
+<rect x="410" y="410" width="360" height="110" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="590.0" y="458.0" text-anchor="middle" font-size="20" fill="#342B33">P2.2 校验处理许可</text>
+<text x="590.0" y="486.0" text-anchor="middle" font-size="20" fill="#342B33">入口／账号／版本／代次</text>
+<path d="M1530 150H1100V260H1530 M1128 150V260" fill="#FFF2D8" stroke="#35654D" stroke-width="1.7"/>
+<text x="1315.0" y="198.0" text-anchor="middle" font-size="20" fill="#342B33">T1 临时正文／许可／任务</text>
+<text x="1315.0" y="226.0" text-anchor="middle" font-size="20" fill="#342B33">默认服务内存</text>
+<rect x="1100" y="410" width="200" height="100" rx="0" fill="#EAF0F7" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1200.0" y="467.0" text-anchor="middle" font-size="20" fill="#342B33">E2 外部模型</text>
+<rect x="1330" y="410" width="200" height="100" rx="0" fill="#EAF0F7" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1430.0" y="467.0" text-anchor="middle" font-size="20" fill="#342B33">E3 外部检索</text>
+<rect x="410" y="690" width="360" height="120" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="590.0" y="743.0" text-anchor="middle" font-size="20" fill="#342B33">P2.3 过滤旧响应并组织结果</text>
+<text x="590.0" y="771.0" text-anchor="middle" font-size="20" fill="#342B33">主张关联来源与不确定性</text>
+<rect x="1100" y="840" width="430" height="160" rx="5" fill="#FDF5F8" stroke="#EBCBD8" stroke-dasharray="5 4"/>
+<text x="1315.0" y="900.05" text-anchor="middle" font-size="19" fill="#342B33">相邻P3可在用户主动保存时读取T1中选定快照或</text>
+<text x="1315.0" y="926.65" text-anchor="middle" font-size="19" fill="#342B33">有效查询证据。该存储读取在D03展开，不属于</text>
+<text x="1315.0" y="953.25" text-anchor="middle" font-size="19" fill="#342B33">P2内部处理。</text>
+<rect x="50" y="900" width="720" height="135" rx="5" fill="#FDF5F8" stroke="#EBCBD8" stroke-dasharray="5 4"/>
+<text x="410.0" y="948.5999999999999" text-anchor="middle" font-size="18" fill="#342B33">授权边界：AI_PROCESS与SEARCH_PROCESS各自确认。</text>
+<text x="410.0" y="973.8" text-anchor="middle" font-size="18" fill="#342B33">登录不等于授权；正文不会因一次许可自动进入其他任务。</text>
+<text x="410.0" y="998.9999999999999" text-anchor="middle" font-size="18" fill="#342B33">取消／失效代次产生状态信息，旧正文响应不进入界面。</text>
+<text x="42" y="1111" font-size="13" fill="#71616B">404NOTFOUND · UX设计稿 · 仓库 fe60c90 · 2026-10-21 · 待团队复核</text></svg>

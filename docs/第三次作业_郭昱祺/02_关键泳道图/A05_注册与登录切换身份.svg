@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1410" viewBox="0 0 1400 1410" font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<rect width="1400" height="1410" fill="white"/>
+<rect width="12" height="1410" fill="#C86B8C"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#8B6C7A" stroke-width="1.4"/></marker></defs>
+<text x="42" y="48" font-size="29" font-weight="700" fill="#984762">A05  注册与登录切换身份</text>
+<text x="42" y="80" font-size="15" fill="#71616B">REQ16／17／06；注册201不自动登录；游客草稿不自动转移至账号。</text>
+<rect x="40" y="110" width="264" height="1255" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="40" y="110" width="264" height="46" fill="#F9EAF0"/><text x="172" y="140" text-anchor="middle" font-size="20" fill="#984762">用户</text>
+<rect x="304" y="110" width="264" height="1255" fill="#FFFFFF" stroke="#EBCBD8"/>
+<rect x="304" y="110" width="264" height="46" fill="#F9EAF0"/><text x="436" y="140" text-anchor="middle" font-size="20" fill="#984762">界面</text>
+<rect x="568" y="110" width="264" height="1255" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="568" y="110" width="264" height="46" fill="#F9EAF0"/><text x="700" y="140" text-anchor="middle" font-size="20" fill="#984762">应用服务</text>
+<rect x="832" y="110" width="264" height="1255" fill="#FFFFFF" stroke="#EBCBD8"/>
+<rect x="832" y="110" width="264" height="46" fill="#F9EAF0"/><text x="964" y="140" text-anchor="middle" font-size="20" fill="#984762">数据存储</text>
+<rect x="1096" y="110" width="264" height="1255" fill="#FDF5F8" stroke="#EBCBD8"/>
+<rect x="1096" y="110" width="264" height="46" fill="#F9EAF0"/><text x="1228" y="140" text-anchor="middle" font-size="20" fill="#984762">外部模型／检索</text>
+<path d="M436.0 1278.0 L436.0 1305.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M172.0 1278.0 L172.0 1305.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M700.0 1278.0 L700.0 1305.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M172.0 202.0 L172.0 220.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M277.6 308.0 L330.4 330.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="304.0" y="309.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[提交]</text>
+<path d="M537.0 418.0 L599.0 445.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M796.8 533.0 L867.2 565.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="832.0" y="539.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[校验通过]</text>
+<path d="M878.6 653.0 L746.7 720.9" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M648.4 766.3 L542.6 810.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="595.4695405667261" y="778.158409387223" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[注册201]</text>
+<path d="M667.9 777.1 L490.0 955.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="578.9285714285714" y="856.0714285714286" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[登录成功]</text>
+<path d="M543.0 854.0 L548.0 854.0 L548.0 1150.0 L436.0 1150.0 L436.0 1190.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M436.0 1063.0 L436.0 1190.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<path d="M173.0 308.0 L173.0 310.0 L173.0 1190.0 L173.0 1190.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="182.0" y="750.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[取消]</text>
+<path d="M807.0 489.0 L925.0 489.0 L925.0 1135.0 L700.0 1135.0 L700.0 1190.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="934.0" y="812.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">[校验／服务失败]</text>
+<rect x="40" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">用户</text>
+<rect x="304" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">界面</text>
+<rect x="568" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">应用服务</text>
+<rect x="832" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="964.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">数据存储</text>
+<rect x="1096" y="110" width="264" height="46" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1228.0" y="140.0" text-anchor="middle" font-size="20" fill="#342B33">外部模型／检索</text>
+<circle cx="172.0" cy="191.0" r="11.0" fill="#984762" stroke="#984762" stroke-width="2"/>
+<rect x="65.0" y="220" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="258.05" text-anchor="middle" font-size="17" fill="#342B33">输入注册或登录凭据</text>
+<text x="172.0" y="281.85" text-anchor="middle" font-size="17" fill="#342B33">新密码12～128码点</text>
+<rect x="329.0" y="330" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="368.05" text-anchor="middle" font-size="17" fill="#342B33">获取auth/context</text>
+<text x="436.0" y="391.85" text-anchor="middle" font-size="17" fill="#342B33">提交附X-CSRF-Token</text>
+<rect x="593.0" y="445" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="483.05" text-anchor="middle" font-size="17" fill="#342B33">校验凭据与限流</text>
+<text x="700.0" y="506.85" text-anchor="middle" font-size="17" fill="#342B33">区分register／login</text>
+<rect x="857.0" y="565" width="214" height="88" rx="12" fill="#E8F3EC" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="964.0" y="603.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">注册：创建账号</text>
+<text x="964.0" y="626.85" text-anchor="middle" font-size="17" fill="#342B33">登录：写登录会话／轮换</text>
+<polygon points="700.0,695 790.0,745.0 700.0,795 610.0,745.0" fill="#FFF2D8" stroke="#8A5A18"/>
+<text x="700.0" y="750.95" text-anchor="middle" font-size="17" fill="#342B33">成功的操作？</text>
+<rect x="329.0" y="810" width="214" height="88" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="848.0500000000001" text-anchor="middle" font-size="17" fill="#342B33">201注册成功</text>
+<text x="436.0" y="871.85" text-anchor="middle" font-size="17" fill="#342B33">提示另行登录，不建身份</text>
+<rect x="329.0" y="955" width="214" height="108" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="991.1500000000001" text-anchor="middle" font-size="17" fill="#342B33">登录成功：重建当前身份</text>
+<text x="436.0" y="1014.95" text-anchor="middle" font-size="17" fill="#342B33">清旧临时正文与任务</text>
+<text x="436.0" y="1038.75" text-anchor="middle" font-size="17" fill="#342B33">不自动认领游客内容</text>
+<rect x="329.0" y="1190" width="214" height="88" rx="12" fill="#E8F3EC" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="436.0" y="1228.05" text-anchor="middle" font-size="17" fill="#342B33">注册后：去登录</text>
+<text x="436.0" y="1251.85" text-anchor="middle" font-size="17" fill="#342B33">登录后：进本人私密主页</text>
+<circle cx="436.0" cy="1316.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="436.0" cy="1316.0" r="7.04" fill="#984762"/>
+<rect x="65.0" y="1190" width="214" height="88" rx="12" fill="#FFF2D8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="172.0" y="1228.05" text-anchor="middle" font-size="17" fill="#342B33">取消输入／返回访客</text>
+<text x="172.0" y="1251.85" text-anchor="middle" font-size="17" fill="#342B33">不创建新登录会话</text>
+<circle cx="172.0" cy="1316.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="172.0" cy="1316.0" r="7.04" fill="#984762"/>
+<rect x="593.0" y="1190" width="214" height="88" rx="12" fill="#FAE8E8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="700.0" y="1228.05" text-anchor="middle" font-size="17" fill="#342B33">错误显示字段／请求反馈</text>
+<text x="700.0" y="1251.85" text-anchor="middle" font-size="17" fill="#342B33">不伪装已登录</text>
+<circle cx="700.0" cy="1316.0" r="11.0" fill="white" stroke="#984762" stroke-width="2"/>
+<circle cx="700.0" cy="1316.0" r="7.04" fill="#984762"/>
+<rect x="1110" y="440" width="210" height="330" rx="5" fill="#FDF5F8" stroke="#EBCBD8" stroke-dasharray="5 4"/>
+<text x="1215.0" y="543.4" text-anchor="middle" font-size="16" fill="#342B33">外部服务无调用。</text>
+<text x="1215.0" y="565.8" text-anchor="middle" font-size="16" fill="#342B33"></text>
+<text x="1215.0" y="588.1999999999999" text-anchor="middle" font-size="16" fill="#342B33">登录会话持久保存；业务</text>
+<text x="1215.0" y="610.5999999999999" text-anchor="middle" font-size="16" fill="#342B33">会话正文默认内存。</text>
+<text x="1215.0" y="633.0" text-anchor="middle" font-size="16" fill="#342B33"></text>
+<text x="1215.0" y="655.4" text-anchor="middle" font-size="16" fill="#342B33">注册成功与登录成功是不</text>
+<text x="1215.0" y="677.8" text-anchor="middle" font-size="16" fill="#342B33">同界面状态。</text>
+<text x="42" y="1391" font-size="13" fill="#71616B">404NOTFOUND · UX设计稿 · 仓库 fe60c90 · 2026-10-21 · 待团队复核</text></svg>
