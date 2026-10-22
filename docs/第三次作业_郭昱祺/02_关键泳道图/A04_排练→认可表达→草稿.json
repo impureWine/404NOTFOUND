@@ -1,0 +1,504 @@
+{
+  "title": "排练→认可表达→草稿",
+  "subtitle": "REQ11／05／07；reviewing阶段保留本轮本人消息供选择，END阶段才清空。",
+  "width": 1400,
+  "height": 1810,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 180,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "setup",
+      "x": 65.0,
+      "y": 220,
+      "w": 214,
+      "h": 88,
+      "label": "设场景／角色／目标\n选正文并授权AI",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "run",
+      "x": 593.0,
+      "y": 330,
+      "w": 214,
+      "h": 88,
+      "label": "setup→ready→running\n校验代次后创建任务",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "role",
+      "x": 1121.0,
+      "y": 330,
+      "w": 214,
+      "h": 88,
+      "label": "生成模拟角色回复",
+      "kind": "action",
+      "color": "blue",
+      "fs": 17
+    },
+    {
+      "id": "pause",
+      "x": 329.0,
+      "y": 445,
+      "w": 214,
+      "h": 88,
+      "label": "running ⇄ paused\n暂停取消任务，不补发",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "finish",
+      "x": 65.0,
+      "y": 555,
+      "w": 214,
+      "h": 88,
+      "label": "点击完成排练\nFINISH_REHEARSAL",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "review",
+      "x": 593.0,
+      "y": 665,
+      "w": 214,
+      "h": 92,
+      "label": "进入reviewing\n旧许可任务失效\n暂留本轮本人消息",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "pick",
+      "x": 329.0,
+      "y": 795,
+      "w": 214,
+      "h": 88,
+      "label": "仅可勾选本轮本人句子\n不得选择AI或跨轮消息",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "grant",
+      "x": 82,
+      "y": 905,
+      "w": 180,
+      "h": 105,
+      "label": "确认整理范围\n新AI_PROCESS许可",
+      "kind": "decision",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "summary",
+      "x": 1121.0,
+      "y": 1015,
+      "w": 214,
+      "h": 88,
+      "label": "只接收认可表达\n及必要场景，整理草稿",
+      "kind": "action",
+      "color": "blue",
+      "fs": 17
+    },
+    {
+      "id": "preview",
+      "x": 329.0,
+      "y": 1125,
+      "w": 214,
+      "h": 88,
+      "label": "预览并修改草稿\n另行确认SAVE",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "db",
+      "x": 857.0,
+      "y": 1235,
+      "w": 214,
+      "h": 88,
+      "label": "保存REHEARSAL_DRAFT\n非完整对话归档",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "end",
+      "x": 593.0,
+      "y": 1360,
+      "w": 214,
+      "h": 88,
+      "label": "用户END：清本轮对话\n选择／预览／许可／任务",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 1600,
+      "w": 214,
+      "h": 88,
+      "label": "回显草稿保存结果\n或结束未保存排练",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1715,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 1600,
+      "w": 214,
+      "h": 88,
+      "label": "取消整理／保存：不写入\nEND清空；重来新轮",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1715,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 1600,
+      "w": 214,
+      "h": 88,
+      "label": "任务失败可重选重试\n写超时同ID核实",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1715,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "note24",
+      "x": 55,
+      "y": 1110,
+      "w": 225,
+      "h": 295,
+      "label": "分支语义\n暂停：可继续。\nFINISH：停止角色回复，进入选择。\nRESTART：清旧选择，新轮。\nEND：清临时内容。\n取消SAVE：不写入。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 16
+    }
+  ],
+  "edges": [
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "start",
+      "b": "setup",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "setup",
+      "b": "run",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "run",
+      "b": "role",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "role",
+      "b": "pause",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "pause",
+      "b": "finish",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "finish",
+      "b": "review",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "review",
+      "b": "pick",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "pick",
+      "b": "grant",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "grant",
+      "b": "summary",
+      "label": "[同意AI整理]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "summary",
+      "b": "preview",
+      "label": "[有效结果]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "preview",
+      "b": "db",
+      "label": "[确认SAVE]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "end",
+      "label": "[写入确认／选择结束]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "end",
+      "b": "ok",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "grant",
+      "b": "cancel",
+      "label": "[取消]",
+      "points": [
+        [
+          290,
+          949
+        ],
+        [
+          290,
+          1560
+        ],
+        [
+          172,
+          1560
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "summary",
+      "b": "fail",
+      "label": "[failed／expired]",
+      "points": [
+        [
+          1360,
+          1050
+        ],
+        [
+          1360,
+          1550
+        ],
+        [
+          700,
+          1550
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "fail",
+      "label": "[明确失败／超时待核实]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "preview",
+      "b": "cancel",
+      "label": "[取消保存]",
+      "points": [
+        [
+          285,
+          1169
+        ],
+        [
+          285,
+          1580
+        ],
+        [
+          172,
+          1580
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}
