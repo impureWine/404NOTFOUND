@@ -1,0 +1,456 @@
+{
+  "title": "命名卡→陪伴→主动保存",
+  "subtitle": "REQ09／01／05／07；命名与AI处理不自动转为日历或持久记录。",
+  "width": 1400,
+  "height": 1480,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 178,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "input",
+      "x": 65.0,
+      "y": 225,
+      "w": 214,
+      "h": 88,
+      "label": "选择情绪词／强度\n选择倾听或梳理",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "scope",
+      "x": 329.0,
+      "y": 340,
+      "w": 214,
+      "h": 88,
+      "label": "展示所选正文与用途\n申请AI_PROCESS许可",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "agree",
+      "x": 82.0,
+      "y": 445,
+      "w": 180,
+      "h": 105,
+      "label": "同意外发？",
+      "kind": "decision",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "check",
+      "x": 593.0,
+      "y": 575,
+      "w": 214,
+      "h": 88,
+      "label": "验证身份／可信入口\n用途、版本和代次",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "model",
+      "x": 1121.0,
+      "y": 575,
+      "w": 214,
+      "h": 88,
+      "label": "仅处理已选定正文\n生成限定任务回应",
+      "kind": "action",
+      "color": "blue",
+      "fs": 17
+    },
+    {
+      "id": "reply",
+      "x": 329.0,
+      "y": 705,
+      "w": 214,
+      "h": 88,
+      "label": "展示临时回应\n可停止、重试或结束",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "pick",
+      "x": 65.0,
+      "y": 810,
+      "w": 214,
+      "h": 88,
+      "label": "选择要保存的快照\n未登录先登录并重确认",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "save",
+      "x": 329.0,
+      "y": 925,
+      "w": 214,
+      "h": 88,
+      "label": "预览范围并确认SAVE\n取消则无持久写",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "write",
+      "x": 857.0,
+      "y": 1035,
+      "w": 214,
+      "h": 88,
+      "label": "事务写记录与授权\n幂等回执／对象版本",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "result",
+      "x": 610.0,
+      "y": 1140,
+      "w": 180,
+      "h": 98,
+      "label": "写入结果明确？",
+      "kind": "decision",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 1280,
+      "w": 214,
+      "h": 88,
+      "label": "确认成功才显示已保存\nEND只清临时会话",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1395,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 1280,
+      "w": 214,
+      "h": 88,
+      "label": "取消许可／保存\n不外发或不写入",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1395,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 1280,
+      "w": 214,
+      "h": 88,
+      "label": "写入超时：待核实\n同requestId同载荷重放",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1395,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "note22",
+      "x": 1100,
+      "y": 820,
+      "w": 212,
+      "h": 260,
+      "label": "约束\n撤销许可／取消任务会使旧响应失效。\n临时正文默认内存。\n主动保存内容不会被END连带删除。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 16
+    }
+  ],
+  "edges": [
+    {
+      "a": "start",
+      "b": "input",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "input",
+      "b": "scope",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "scope",
+      "b": "agree",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "agree",
+      "b": "check",
+      "label": "[同意]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "agree",
+      "b": "cancel",
+      "label": "[取消]",
+      "points": [
+        [
+          172,
+          497
+        ],
+        [
+          172,
+          1280
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "check",
+      "b": "model",
+      "label": "[校验通过]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "model",
+      "b": "reply",
+      "label": "[有效且代次匹配]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "reply",
+      "b": "pick",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "pick",
+      "b": "save",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "save",
+      "b": "write",
+      "label": "[确认SAVE]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "write",
+      "b": "result",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "result",
+      "b": "ok",
+      "label": "[确认成功]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "result",
+      "b": "fail",
+      "label": "[明确失败]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "check",
+      "b": "fail",
+      "label": "[拒绝／任务失败]",
+      "points": [
+        [
+          788,
+          613
+        ],
+        [
+          788,
+          1305
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "save",
+      "b": "cancel",
+      "label": "[取消保存]",
+      "points": [
+        [
+          285,
+          969
+        ],
+        [
+          285,
+          1240
+        ],
+        [
+          172,
+          1240
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

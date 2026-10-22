@@ -1,0 +1,369 @@
+{
+  "title": "记录与整理功能展开",
+  "subtitle": "模块 → 需求 → 关键子功能；需求编号沿用仓库当前REQ01—REQ17。",
+  "width": 1360,
+  "height": 765,
+  "nodes": [
+    {
+      "id": "m",
+      "x": 40,
+      "y": 160,
+      "w": 230,
+      "h": 520,
+      "label": "记录与整理",
+      "kind": "action",
+      "color": "pale",
+      "fs": 24
+    },
+    {
+      "id": "REQ08",
+      "x": 340,
+      "y": 140,
+      "w": 360,
+      "h": 130,
+      "label": "REQ08\n情绪与事件日历",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ080",
+      "x": 790,
+      "y": 140,
+      "w": 520,
+      "h": 37,
+      "label": "自愿记录日期与事件",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ081",
+      "x": 790,
+      "y": 185,
+      "w": 520,
+      "h": 37,
+      "label": "按日回看／编辑",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ082",
+      "x": 790,
+      "y": 230,
+      "w": 520,
+      "h": 37,
+      "label": "主动保存／确认清除",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ10",
+      "x": 340,
+      "y": 325,
+      "w": 360,
+      "h": 130,
+      "label": "REQ10\n烦恼物件化",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ100",
+      "x": 790,
+      "y": 325,
+      "w": 520,
+      "h": 37,
+      "label": "线团／石头／便利贴",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ101",
+      "x": 790,
+      "y": 370,
+      "w": 520,
+      "h": 37,
+      "label": "放旁边／找小步骤",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ102",
+      "x": 790,
+      "y": 415,
+      "w": 520,
+      "h": 37,
+      "label": "外观与正文分别处理",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ12",
+      "x": 340,
+      "y": 510,
+      "w": 360,
+      "h": 130,
+      "label": "REQ12\n烦恼寄存所",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ120",
+      "x": 790,
+      "y": 510,
+      "w": 520,
+      "h": 37,
+      "label": "选择未来再打开时间",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ121",
+      "x": 790,
+      "y": 555,
+      "w": 520,
+      "h": 37,
+      "label": "到期后本人取出",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ122",
+      "x": 790,
+      "y": 600,
+      "w": 520,
+      "h": 37,
+      "label": "选择延期／确认清除",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "m",
+      "b": "REQ08",
+      "label": "",
+      "points": [
+        [
+          300,
+          420.0
+        ],
+        [
+          300,
+          205
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ08",
+      "b": "REQ080",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          158.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ08",
+      "b": "REQ081",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          203.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ08",
+      "b": "REQ082",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          248.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ10",
+      "label": "",
+      "points": [
+        [
+          300,
+          420.0
+        ],
+        [
+          300,
+          390
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ10",
+      "b": "REQ100",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          343.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ10",
+      "b": "REQ101",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          388.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ10",
+      "b": "REQ102",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          433.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ12",
+      "label": "",
+      "points": [
+        [
+          300,
+          420.0
+        ],
+        [
+          300,
+          575
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ12",
+      "b": "REQ120",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          528.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ12",
+      "b": "REQ121",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          573.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ12",
+      "b": "REQ122",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          618.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

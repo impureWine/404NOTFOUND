@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="950" viewBox="0 0 1360 950" font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<rect width="1360" height="950" fill="white"/>
+<rect width="12" height="950" fill="#C86B8C"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#8B6C7A" stroke-width="1.4"/></marker></defs>
+<text x="42" y="48" font-size="29" font-weight="700" fill="#984762">H04  压力缓解功能展开</text>
+<text x="42" y="80" font-size="15" fill="#71616B">模块 → 需求 → 关键子功能；需求编号沿用仓库当前REQ01—REQ17。</text>
+<path d="M270.0 512.5 L300.0 512.5 L300.0 205.0 L340.0 205.0" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 205.0 L745.0 205.0 L745.0 158.5 L790.0 158.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 205.0 L745.0 205.0 L745.0 203.5 L790.0 203.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 205.0 L745.0 205.0 L745.0 248.5 L790.0 248.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M270.0 512.5 L300.0 512.5 L300.0 390.0 L340.0 390.0" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 390.0 L745.0 390.0 L745.0 343.5 L790.0 343.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 390.0 L745.0 390.0 L745.0 388.5 L790.0 388.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 390.0 L745.0 390.0 L745.0 433.5 L790.0 433.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M270.0 512.5 L300.0 512.5 L300.0 575.0 L340.0 575.0" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 575.0 L745.0 575.0 L745.0 528.5 L790.0 528.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 575.0 L745.0 575.0 L745.0 573.5 L790.0 573.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 575.0 L745.0 575.0 L745.0 618.5 L790.0 618.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M270.0 512.5 L300.0 512.5 L300.0 760.0 L340.0 760.0" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 760.0 L745.0 760.0 L745.0 713.5 L790.0 713.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 760.0 L745.0 760.0 L745.0 758.5 L790.0 758.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<path d="M700.0 760.0 L745.0 760.0 L745.0 803.5 L790.0 803.5" stroke="#8B6C7A" stroke-width="1.7" fill="none"/>
+<rect x="40" y="160" width="230" height="705" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="155.0" y="520.9" text-anchor="middle" font-size="24" fill="#342B33">压力缓解</text>
+<rect x="340" y="140" width="360" height="130" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="520.0" y="198.0" text-anchor="middle" font-size="20" fill="#342B33">REQ02</text>
+<text x="520.0" y="226.0" text-anchor="middle" font-size="20" fill="#342B33">压力缓解小训练</text>
+<rect x="790" y="140" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="164.45" text-anchor="middle" font-size="17" fill="#342B33">呼吸／五感／暂停整理</text>
+<rect x="790" y="185" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="209.45" text-anchor="middle" font-size="17" fill="#342B33">任务拆分／步骤调整</text>
+<rect x="790" y="230" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="254.45" text-anchor="middle" font-size="17" fill="#342B33">开始／暂停／继续／退出</text>
+<rect x="340" y="325" width="360" height="130" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="520.0" y="383.0" text-anchor="middle" font-size="20" fill="#342B33">REQ13</text>
+<text x="520.0" y="411.0" text-anchor="middle" font-size="20" fill="#342B33">屏幕无损发泄（敲击回弹）</text>
+<rect x="790" y="325" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="349.45" text-anchor="middle" font-size="17" fill="#342B33">网页画布内敲击</text>
+<rect x="790" y="370" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="394.45" text-anchor="middle" font-size="17" fill="#342B33">减弱动效／主动音效</text>
+<rect x="790" y="415" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="439.45" text-anchor="middle" font-size="17" fill="#342B33">停止与释放资源</text>
+<rect x="340" y="510" width="360" height="130" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="520.0" y="568.0" text-anchor="middle" font-size="20" fill="#342B33">REQ14</text>
+<text x="520.0" y="596.0" text-anchor="middle" font-size="20" fill="#342B33">文字焚化与重力黑洞</text>
+<rect x="790" y="510" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="534.45" text-anchor="middle" font-size="17" fill="#342B33">独立私有正文缓冲</text>
+<rect x="790" y="555" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="579.45" text-anchor="middle" font-size="17" fill="#342B33">选择销毁／跳过动画</text>
+<rect x="790" y="600" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="624.45" text-anchor="middle" font-size="17" fill="#342B33">退出清空／不外发</text>
+<rect x="340" y="695" width="360" height="130" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="520.0" y="753.0" text-anchor="middle" font-size="20" fill="#342B33">REQ15</text>
+<text x="520.0" y="781.0" text-anchor="middle" font-size="20" fill="#342B33">禅意编曲弹珠机</text>
+<rect x="790" y="695" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="719.45" text-anchor="middle" font-size="17" fill="#342B33">轨道／构件／材质</text>
+<rect x="790" y="740" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="764.45" text-anchor="middle" font-size="17" fill="#342B33">限定音阶／碰撞反馈</text>
+<rect x="790" y="785" width="520" height="37" rx="12" fill="#FDF5F8" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1050.0" y="809.45" text-anchor="middle" font-size="17" fill="#342B33">暂停／停止／音频释放</text>
+<text x="42" y="931" font-size="13" fill="#71616B">404NOTFOUND · UX设计稿 · 仓库 fe60c90 · 2026-10-21 · 待团队复核</text></svg>

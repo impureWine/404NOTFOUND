@@ -1,0 +1,433 @@
+{
+  "title": "查询证据与逐条不确定性",
+  "subtitle": "REQ03／07／05；SEARCH_PROCESS与AI_PROCESS分开授权，无结果不伪造来源。",
+  "width": 1400,
+  "height": 1460,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 180,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "query",
+      "x": 65.0,
+      "y": 220,
+      "w": 214,
+      "h": 88,
+      "label": "输入问题与必要材料\n选择检索范围",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "grant",
+      "x": 329.0,
+      "y": 330,
+      "w": 214,
+      "h": 88,
+      "label": "预览并确认\nSEARCH_PROCESS许可",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "service",
+      "x": 593.0,
+      "y": 445,
+      "w": 214,
+      "h": 88,
+      "label": "校验入口／用途／代次\n创建search任务",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "search",
+      "x": 1121.0,
+      "y": 565,
+      "w": 214,
+      "h": 88,
+      "label": "检索限定问题\n返回证据与检索时间",
+      "kind": "action",
+      "color": "blue",
+      "fs": 17
+    },
+    {
+      "id": "result",
+      "x": 329.0,
+      "y": 685,
+      "w": 214,
+      "h": 130,
+      "label": "主张→sourceIds逐条关联\n来源标题／链接／时间\nCURRENT／STALE／UNKNOWN",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "select",
+      "x": 65.0,
+      "y": 845,
+      "w": 214,
+      "h": 88,
+      "label": "可选AI整理另行授权\n可选主动保存有效结果",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "save",
+      "x": 593.0,
+      "y": 955,
+      "w": 214,
+      "h": 88,
+      "label": "QUERY仅提交有效\nsearchRequestId＋SAVE",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "db",
+      "x": 857.0,
+      "y": 1060,
+      "w": 214,
+      "h": 88,
+      "label": "服务端复制有效证据\n保存主张／来源关联",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 1250,
+      "w": 214,
+      "h": 88,
+      "label": "展示完整／部分／冲突\nEMPTY另呈现；不伪造来源",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1365,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 1250,
+      "w": 214,
+      "h": 88,
+      "label": "取消许可不外发\n取消任务丢弃旧响应",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1365,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 1250,
+      "w": 214,
+      "h": 88,
+      "label": "失败／过期可重试\n503≠EMPTY；写超时核实",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1365,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "note20",
+      "x": 1110,
+      "y": 790,
+      "w": 210,
+      "h": 280,
+      "label": "结果细节\n发布时间允许为空。\n检索时间独立展示。\n事实／推断／无法核实分别标注。\nEMPTY不等于服务503。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 16
+    }
+  ],
+  "edges": [
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "start",
+      "b": "query",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "query",
+      "b": "grant",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "grant",
+      "b": "service",
+      "label": "[同意检索]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "service",
+      "b": "search",
+      "label": "[许可有效]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "search",
+      "b": "result",
+      "label": "[completed]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "result",
+      "b": "select",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "select",
+      "b": "save",
+      "label": "[选择保存有效结果]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "save",
+      "b": "db",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "ok",
+      "label": "[写入确认]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "grant",
+      "b": "cancel",
+      "label": "[取消]",
+      "points": [
+        [
+          280,
+          374
+        ],
+        [
+          280,
+          1215
+        ],
+        [
+          172,
+          1215
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "service",
+      "b": "fail",
+      "label": "[拒绝／任务失败]",
+      "points": [
+        [
+          810,
+          485
+        ],
+        [
+          810,
+          1290
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "search",
+      "b": "fail",
+      "label": "[failed／expired]",
+      "points": [
+        [
+          1350,
+          600
+        ],
+        [
+          1350,
+          1208
+        ],
+        [
+          700,
+          1208
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "select",
+      "b": "ok",
+      "label": "[仅查看／EMPTY]",
+      "points": [
+        [
+          285,
+          889
+        ],
+        [
+          285,
+          1200
+        ],
+        [
+          436,
+          1200
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

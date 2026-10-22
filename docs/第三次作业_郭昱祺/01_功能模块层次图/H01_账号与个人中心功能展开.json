@@ -1,0 +1,253 @@
+{
+  "title": "账号与个人中心功能展开",
+  "subtitle": "模块 → 需求 → 关键子功能；需求编号沿用仓库当前REQ01—REQ17。",
+  "width": 1360,
+  "height": 650,
+  "nodes": [
+    {
+      "id": "m",
+      "x": 40,
+      "y": 160,
+      "w": 230,
+      "h": 405,
+      "label": "账号与个人中心",
+      "kind": "action",
+      "color": "pale",
+      "fs": 24
+    },
+    {
+      "id": "REQ16",
+      "x": 340,
+      "y": 140,
+      "w": 360,
+      "h": 130,
+      "label": "REQ16\n注册与登录",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ160",
+      "x": 790,
+      "y": 140,
+      "w": 520,
+      "h": 37,
+      "label": "注册成功后去登录",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ161",
+      "x": 790,
+      "y": 185,
+      "w": 520,
+      "h": 37,
+      "label": "登录／已登录改密",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ162",
+      "x": 790,
+      "y": 230,
+      "w": 520,
+      "h": 37,
+      "label": "退出并撤销旧会话",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ17",
+      "x": 340,
+      "y": 325,
+      "w": 360,
+      "h": 130,
+      "label": "REQ17\n个人主页",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ170",
+      "x": 790,
+      "y": 325,
+      "w": 520,
+      "h": 37,
+      "label": "私密资料与偏好",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ171",
+      "x": 790,
+      "y": 370,
+      "w": 520,
+      "h": 37,
+      "label": "主动保存内容入口",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ172",
+      "x": 790,
+      "y": 415,
+      "w": 520,
+      "h": 37,
+      "label": "本人／本入口权限",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "m",
+      "b": "REQ16",
+      "label": "",
+      "points": [
+        [
+          300,
+          362.5
+        ],
+        [
+          300,
+          205
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ16",
+      "b": "REQ160",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          158.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ16",
+      "b": "REQ161",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          203.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ16",
+      "b": "REQ162",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          248.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ17",
+      "label": "",
+      "points": [
+        [
+          300,
+          362.5
+        ],
+        [
+          300,
+          390
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ17",
+      "b": "REQ170",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          343.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ17",
+      "b": "REQ171",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          388.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ17",
+      "b": "REQ172",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          433.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="900" viewBox="0 0 1500 900" font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<rect width="1500" height="900" fill="white"/>
+<rect width="12" height="900" fill="#C86B8C"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#8B6C7A" stroke-width="1.4"/></marker></defs>
+<text x="42" y="48" font-size="29" font-weight="700" fill="#984762">D00  上下文数据流图</text>
+<text x="42" y="80" font-size="15" fill="#71616B">系统边界含浏览器端与应用API；上下文层不展开内部处理、数据库或临时存储。</text>
+<path d="M280.0 381.6 L360.0 350.0 L360.0 330.0 L520.0 371.6" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="440.0" y="313.7792207792208" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F01 身份／资料／偏好</text>
+<text x="440.0" y="331.7792207792208" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F02 临时正文与任务范围</text>
+<text x="440.0" y="349.7792207792208" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F03 授权及记录操作</text>
+<text x="440.0" y="367.7792207792208" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F04 端侧互动与销毁输入</text>
+<path d="M520.0 492.7 L350.0 540.0 L350.0 500.0 L280.0 470.8" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="435.0" y="479.3291139240506" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F05 身份／资料状态</text>
+<text x="435.0" y="497.3291139240506" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F06 临时回应与证据</text>
+<text x="435.0" y="515.3291139240506" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F07 记录／处理回执</text>
+<text x="435.0" y="533.3291139240506" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F08 端侧交互反馈</text>
+<path d="M970.0 376.3 L1080.0 350.0 L1080.0 210.0 L1190.0 226.7" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1080" y="166.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F09 限定模型任务＋正文</text>
+<path d="M1190.0 276.8 L1140.0 290.0 L1140.0 425.0 L970.0 427.2" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1055.0" y="416.0759493670886" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F10 模型结果／失败信息</text>
+<path d="M970.0 480.4 L1080.0 505.0 L1080.0 620.0 L1190.0 636.7" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1070" y="600.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F11 限定检索问题</text>
+<path d="M1190.0 676.2 L1140.0 685.0 L1140.0 550.0 L970.0 498.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1260" y="770.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F12 来源／主张／质量信息</text>
+<rect x="60" y="330" width="220" height="190" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="170.0" y="433.75" text-anchor="middle" font-size="25" fill="#342B33">E1 用户</text>
+<rect x="520" y="290" width="450" height="280" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="745.0" y="371.2" text-anchor="middle" font-size="24" fill="#342B33">P0 404NOTFOUND</text>
+<text x="745.0" y="404.79999999999995" text-anchor="middle" font-size="24" fill="#342B33">情绪支持系统</text>
+<text x="745.0" y="438.4" text-anchor="middle" font-size="24" fill="#342B33"></text>
+<text x="745.0" y="472.0" text-anchor="middle" font-size="24" fill="#342B33">Web／桌宠适配／微信能力提示</text>
+<text x="745.0" y="505.59999999999997" text-anchor="middle" font-size="24" fill="#342B33">（后两者以实际能力为限）</text>
+<rect x="1190" y="180" width="240" height="130" rx="0" fill="#EAF0F7" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1310.0" y="252.7" text-anchor="middle" font-size="22" fill="#342B33">E2 外部模型</text>
+<rect x="1190" y="590" width="240" height="130" rx="0" fill="#EAF0F7" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="1310.0" y="662.7" text-anchor="middle" font-size="22" fill="#342B33">E3 外部检索</text>
+<rect x="510" y="690" width="500" height="100" rx="5" fill="#FDF5F8" stroke="#EBCBD8" stroke-dasharray="5 4"/>
+<text x="760.0" y="733.35" text-anchor="middle" font-size="19" fill="#342B33">外发前分别确认AI_PROCESS／SEARCH_PROCESS。</text>
+<text x="760.0" y="759.95" text-anchor="middle" font-size="19" fill="#342B33">端侧互动与独立销毁正文不流向外部服务。</text>
+<text x="42" y="881" font-size="13" fill="#71616B">404NOTFOUND · UX设计稿 · 仓库 fe60c90 · 2026-10-21 · 待团队复核</text></svg>
