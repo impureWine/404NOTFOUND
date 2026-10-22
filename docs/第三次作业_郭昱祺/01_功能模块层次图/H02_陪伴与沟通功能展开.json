@@ -1,0 +1,369 @@
+{
+  "title": "陪伴与沟通功能展开",
+  "subtitle": "模块 → 需求 → 关键子功能；需求编号沿用仓库当前REQ01—REQ17。",
+  "width": 1360,
+  "height": 765,
+  "nodes": [
+    {
+      "id": "m",
+      "x": 40,
+      "y": 160,
+      "w": 230,
+      "h": 520,
+      "label": "陪伴与沟通",
+      "kind": "action",
+      "color": "pale",
+      "fs": 24
+    },
+    {
+      "id": "REQ01",
+      "x": 340,
+      "y": 140,
+      "w": 360,
+      "h": 130,
+      "label": "REQ01\n陪伴交流",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ010",
+      "x": 790,
+      "y": 140,
+      "w": 520,
+      "h": 37,
+      "label": "倾听／澄清／梳理",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ011",
+      "x": 790,
+      "y": 185,
+      "w": 520,
+      "h": 37,
+      "label": "限定正文并授权AI",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ012",
+      "x": 790,
+      "y": 230,
+      "w": 520,
+      "h": 37,
+      "label": "临时回复／结束",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ09",
+      "x": 340,
+      "y": 325,
+      "w": 360,
+      "h": 130,
+      "label": "REQ09\n情绪命名卡",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ090",
+      "x": 790,
+      "y": 325,
+      "w": 520,
+      "h": 37,
+      "label": "词语／强度可跳过",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ091",
+      "x": 790,
+      "y": 370,
+      "w": 520,
+      "h": 37,
+      "label": "选择后续任务",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ092",
+      "x": 790,
+      "y": 415,
+      "w": 520,
+      "h": 37,
+      "label": "不自动保存或分析",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ11",
+      "x": 340,
+      "y": 510,
+      "w": 360,
+      "h": 130,
+      "label": "REQ11\n平行宇宙排练室",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ110",
+      "x": 790,
+      "y": 510,
+      "w": 520,
+      "h": 37,
+      "label": "场景／角色／目标",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ111",
+      "x": 790,
+      "y": 555,
+      "w": 520,
+      "h": 37,
+      "label": "暂停／换说法／重来",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ112",
+      "x": 790,
+      "y": 600,
+      "w": 520,
+      "h": 37,
+      "label": "认可表达→预览→保存",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "m",
+      "b": "REQ01",
+      "label": "",
+      "points": [
+        [
+          300,
+          420.0
+        ],
+        [
+          300,
+          205
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ01",
+      "b": "REQ010",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          158.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ01",
+      "b": "REQ011",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          203.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ01",
+      "b": "REQ012",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          248.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ09",
+      "label": "",
+      "points": [
+        [
+          300,
+          420.0
+        ],
+        [
+          300,
+          390
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ09",
+      "b": "REQ090",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          343.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ09",
+      "b": "REQ091",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          388.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ09",
+      "b": "REQ092",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          433.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ11",
+      "label": "",
+      "points": [
+        [
+          300,
+          420.0
+        ],
+        [
+          300,
+          575
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ11",
+      "b": "REQ110",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          528.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ11",
+      "b": "REQ111",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          573.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ11",
+      "b": "REQ112",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          618.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

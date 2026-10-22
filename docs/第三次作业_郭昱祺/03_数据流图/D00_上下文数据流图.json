@@ -1,0 +1,185 @@
+{
+  "title": "上下文数据流图",
+  "subtitle": "系统边界含浏览器端与应用API；上下文层不展开内部处理、数据库或临时存储。",
+  "width": 1500,
+  "height": 900,
+  "nodes": [
+    {
+      "id": "u",
+      "x": 60,
+      "y": 330,
+      "w": 220,
+      "h": 190,
+      "label": "E1 用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 25
+    },
+    {
+      "id": "p",
+      "x": 520,
+      "y": 290,
+      "w": 450,
+      "h": 280,
+      "label": "P0 404NOTFOUND\n情绪支持系统\n\nWeb／桌宠适配／微信能力提示\n（后两者以实际能力为限）",
+      "kind": "action",
+      "color": "pale",
+      "fs": 24
+    },
+    {
+      "id": "ai",
+      "x": 1190,
+      "y": 180,
+      "w": 240,
+      "h": 130,
+      "label": "E2 外部模型",
+      "kind": "entity",
+      "color": "blue",
+      "fs": 22
+    },
+    {
+      "id": "s",
+      "x": 1190,
+      "y": 590,
+      "w": 240,
+      "h": 130,
+      "label": "E3 外部检索",
+      "kind": "entity",
+      "color": "blue",
+      "fs": 22
+    },
+    {
+      "id": "note4",
+      "x": 510,
+      "y": 690,
+      "w": 500,
+      "h": 100,
+      "label": "外发前分别确认AI_PROCESS／SEARCH_PROCESS。\n端侧互动与独立销毁正文不流向外部服务。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 19
+    }
+  ],
+  "edges": [
+    {
+      "a": "u",
+      "b": "p",
+      "label": "F01 身份／资料／偏好\nF02 临时正文与任务范围\nF03 授权及记录操作\nF04 端侧互动与销毁输入",
+      "points": [
+        [
+          360,
+          350
+        ],
+        [
+          360,
+          330
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p",
+      "b": "u",
+      "label": "F05 身份／资料状态\nF06 临时回应与证据\nF07 记录／处理回执\nF08 端侧交互反馈",
+      "points": [
+        [
+          350,
+          540
+        ],
+        [
+          350,
+          500
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p",
+      "b": "ai",
+      "label": "F09 限定模型任务＋正文",
+      "points": [
+        [
+          1080,
+          350
+        ],
+        [
+          1080,
+          210
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1080,
+        166,
+        "middle"
+      ]
+    },
+    {
+      "a": "ai",
+      "b": "p",
+      "label": "F10 模型结果／失败信息",
+      "points": [
+        [
+          1140,
+          290
+        ],
+        [
+          1140,
+          425
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p",
+      "b": "s",
+      "label": "F11 限定检索问题",
+      "points": [
+        [
+          1080,
+          505
+        ],
+        [
+          1080,
+          620
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1070,
+        600,
+        "middle"
+      ]
+    },
+    {
+      "a": "s",
+      "b": "p",
+      "label": "F12 来源／主张／质量信息",
+      "points": [
+        [
+          1140,
+          685
+        ],
+        [
+          1140,
+          550
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1260,
+        770,
+        "middle"
+      ]
+    }
+  ]
+}

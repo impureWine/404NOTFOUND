@@ -1,0 +1,137 @@
+{
+  "title": "信息支持功能展开",
+  "subtitle": "模块 → 需求 → 关键子功能；需求编号沿用仓库当前REQ01—REQ17。",
+  "width": 1360,
+  "height": 650,
+  "nodes": [
+    {
+      "id": "m",
+      "x": 40,
+      "y": 160,
+      "w": 230,
+      "h": 405,
+      "label": "信息支持",
+      "kind": "action",
+      "color": "pale",
+      "fs": 24
+    },
+    {
+      "id": "REQ03",
+      "x": 340,
+      "y": 140,
+      "w": 360,
+      "h": 130,
+      "label": "REQ03\n信息查询",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ030",
+      "x": 790,
+      "y": 140,
+      "w": 520,
+      "h": 37,
+      "label": "限定问题并授权检索",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ031",
+      "x": 790,
+      "y": 185,
+      "w": 520,
+      "h": 37,
+      "label": "逐条主张关联来源",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ032",
+      "x": 790,
+      "y": 230,
+      "w": 520,
+      "h": 37,
+      "label": "时效／冲突／空结果说明",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "m",
+      "b": "REQ03",
+      "label": "",
+      "points": [
+        [
+          300,
+          362.5
+        ],
+        [
+          300,
+          205
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ03",
+      "b": "REQ030",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          158.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ03",
+      "b": "REQ031",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          203.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ03",
+      "b": "REQ032",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          248.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}
