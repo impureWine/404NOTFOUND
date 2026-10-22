@@ -1,0 +1,371 @@
+{
+  "title": "独立端侧文字销毁",
+  "subtitle": "REQ14；独立私有内存，不接入账号正文、应用服务、AI、检索、数据库或遥测。",
+  "width": 1400,
+  "height": 1190,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 180,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "input",
+      "x": 65.0,
+      "y": 220,
+      "w": 214,
+      "h": 88,
+      "label": "在独立输入区写文字",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "buffer",
+      "x": 329.0,
+      "y": 325,
+      "w": 214,
+      "h": 88,
+      "label": "setBuffer：仅本页私有内存\n不复用共享正文状态",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "choice",
+      "x": 82.0,
+      "y": 440,
+      "w": 180,
+      "h": 110,
+      "label": "销毁或退出？",
+      "kind": "decision",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "destroy",
+      "x": 329.0,
+      "y": 595,
+      "w": 214,
+      "h": 88,
+      "label": "destroy：先清正文缓冲\n再演示焚化／黑洞动画",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "dispose",
+      "x": 329.0,
+      "y": 710,
+      "w": 214,
+      "h": 94,
+      "label": "跳过动画／关闭／卸载\n均clear＋dispose\n释放监听、timer、rAF",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 975,
+      "w": 214,
+      "h": 88,
+      "label": "正文从当前界面清空\n可重新开始",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1090,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 975,
+      "w": 214,
+      "h": 88,
+      "label": "返回／退出同样清空\n取消动画不恢复正文",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1090,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 975,
+      "w": 214,
+      "h": 88,
+      "label": "动画异常仍清缓冲\n停止并返回独立页",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1090,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "none2",
+      "x": 593.0,
+      "y": 370,
+      "w": 214,
+      "h": 150,
+      "label": "无调用\n不得接收文字正文",
+      "kind": "note",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "none3",
+      "x": 857.0,
+      "y": 370,
+      "w": 214,
+      "h": 150,
+      "label": "无调用\n不得接收文字正文",
+      "kind": "note",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "none4",
+      "x": 1121.0,
+      "y": 370,
+      "w": 214,
+      "h": 150,
+      "label": "无调用\n不得接收文字正文",
+      "kind": "note",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "note20",
+      "x": 55,
+      "y": 670,
+      "w": 224,
+      "h": 200,
+      "label": "界面承诺限定为本功能不发送、不保存。\n不宣称操作系统级绝对无痕或可审计远程销毁。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 16
+    }
+  ],
+  "edges": [
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "start",
+      "b": "input",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "input",
+      "b": "buffer",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "buffer",
+      "b": "choice",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "choice",
+      "b": "destroy",
+      "label": "[销毁]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "choice",
+      "b": "dispose",
+      "label": "[退出／跳过]",
+      "points": [
+        [
+          280,
+          495
+        ],
+        [
+          280,
+          757
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "destroy",
+      "b": "dispose",
+      "label": "[动画完成／跳过]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "dispose",
+      "b": "ok",
+      "label": "[留在本页]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "dispose",
+      "b": "cancel",
+      "label": "[退出]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "destroy",
+      "b": "fail",
+      "label": "[动画异常]",
+      "points": [
+        [
+          550,
+          633
+        ],
+        [
+          550,
+          1015
+        ],
+        [
+          700,
+          1015
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

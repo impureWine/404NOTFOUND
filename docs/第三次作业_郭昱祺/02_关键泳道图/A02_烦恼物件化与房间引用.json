@@ -1,0 +1,403 @@
+{
+  "title": "烦恼物件化与房间引用",
+  "subtitle": "REQ10／04／05；物件外观与正文分开，放旁边不调用AI。",
+  "width": 1400,
+  "height": 1200,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 178,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "input",
+      "x": 65.0,
+      "y": 220,
+      "w": 214,
+      "h": 88,
+      "label": "输入烦恼并选择\n线团／石头／便利贴",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "preview",
+      "x": 329.0,
+      "y": 325,
+      "w": 214,
+      "h": 88,
+      "label": "端侧生成外观预览\n放旁边不自动保存",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "choice",
+      "x": 82.0,
+      "y": 430,
+      "w": 180,
+      "h": 110,
+      "label": "选择下一步",
+      "kind": "decision",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "ai",
+      "x": 593.0,
+      "y": 565,
+      "w": 214,
+      "h": 88,
+      "label": "如选择AI梳理：\n限定正文＋新AI许可",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "ext",
+      "x": 1121.0,
+      "y": 565,
+      "w": 214,
+      "h": 88,
+      "label": "仅处理本次选定正文",
+      "kind": "action",
+      "color": "blue",
+      "fs": 17
+    },
+    {
+      "id": "save",
+      "x": 329.0,
+      "y": 700,
+      "w": 214,
+      "h": 88,
+      "label": "主动保存物件\n登录＋SAVE范围预览",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "db",
+      "x": 857.0,
+      "y": 815,
+      "w": 214,
+      "h": 88,
+      "label": "保存物件后允许\n房间引用该记录ID",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 1000,
+      "w": 214,
+      "h": 88,
+      "label": "显示已保存／放置结果\n移出房间不清正文",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1115,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 1000,
+      "w": 214,
+      "h": 88,
+      "label": "放旁边／取消确认\n不保存、不外发",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1115,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 1000,
+      "w": 214,
+      "h": 88,
+      "label": "失败保留本次预览\n409读取权威版本",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1115,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "start",
+      "b": "input",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "input",
+      "b": "preview",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "preview",
+      "b": "choice",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "choice",
+      "b": "ai",
+      "label": "[AI梳理]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "ai",
+      "b": "ext",
+      "label": "[许可有效]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "ext",
+      "b": "save",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "save",
+      "b": "db",
+      "label": "[确认SAVE]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "choice",
+      "b": "save",
+      "label": "[直接保存]",
+      "points": [
+        [
+          280,
+          485
+        ],
+        [
+          280,
+          738
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "choice",
+      "b": "cancel",
+      "label": "[放旁边／取消]",
+      "points": [
+        [
+          172,
+          550
+        ],
+        [
+          172,
+          1000
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "ok",
+      "label": "[写入确认]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "ai",
+      "b": "fail",
+      "label": "[拒绝／任务失败]",
+      "points": [
+        [
+          810,
+          605
+        ],
+        [
+          810,
+          1044
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "fail",
+      "label": "[写入失败／待核实]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "save",
+      "b": "cancel",
+      "label": "[取消保存]",
+      "points": [
+        [
+          285,
+          744
+        ],
+        [
+          285,
+          965
+        ],
+        [
+          172,
+          965
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

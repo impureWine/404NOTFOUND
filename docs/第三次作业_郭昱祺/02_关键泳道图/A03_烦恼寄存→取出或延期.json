@@ -1,0 +1,429 @@
+{
+  "title": "烦恼寄存→取出或延期",
+  "subtitle": "REQ12／05；列表不返回正文；到期仅变为可取出，不自动展开、通知或分析。",
+  "width": 1400,
+  "height": 1460,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 180,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "input",
+      "x": 65.0,
+      "y": 220,
+      "w": 214,
+      "h": 88,
+      "label": "输入标题、正文\n选择未来再打开时间",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "consent",
+      "x": 329.0,
+      "y": 325,
+      "w": 214,
+      "h": 88,
+      "label": "校验未来时间\n确认SAVE与本入口范围",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "save",
+      "x": 857.0,
+      "y": 430,
+      "w": 214,
+      "h": 88,
+      "label": "保存DEPOSIT\n状态STORED／版本",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "list",
+      "x": 329.0,
+      "y": 545,
+      "w": 214,
+      "h": 88,
+      "label": "列表仅显示标题、时间\nSTORED／AVAILABLE",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "action",
+      "x": 82.0,
+      "y": 655,
+      "w": 180,
+      "h": 108,
+      "label": "取出或延期？",
+      "kind": "decision",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "check",
+      "x": 593.0,
+      "y": 795,
+      "w": 214,
+      "h": 88,
+      "label": "校验本人／本入口\n到期状态＋expectedVersion",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "db",
+      "x": 857.0,
+      "y": 900,
+      "w": 214,
+      "h": 88,
+      "label": "取出：到期才读正文\n延期：更新未来时间／版本",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "view",
+      "x": 329.0,
+      "y": 1020,
+      "w": 214,
+      "h": 88,
+      "label": "本人主动取出后显示正文\n延期仅更新日期与状态",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 1250,
+      "w": 214,
+      "h": 88,
+      "label": "完成后可收起正文\n清除需另行二次确认",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1365,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 1250,
+      "w": 214,
+      "h": 88,
+      "label": "取消保存／操作\n不修改寄存状态",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1365,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 1250,
+      "w": 214,
+      "h": 88,
+      "label": "未到期409：不可取出\n冲突刷新／超时核实",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1365,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "note20",
+      "x": 1110,
+      "y": 410,
+      "w": 210,
+      "h": 300,
+      "label": "外部模型／检索\n本流程无调用。\n\n到期转换：\nSTORED → AVAILABLE\n版本递增，但不会自动发起retrieve。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 16
+    }
+  ],
+  "edges": [
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "start",
+      "b": "input",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "input",
+      "b": "consent",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "consent",
+      "b": "save",
+      "label": "[确认SAVE]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "save",
+      "b": "list",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "list",
+      "b": "action",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "action",
+      "b": "check",
+      "label": "[取出／延期]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "action",
+      "b": "cancel",
+      "label": "[取消]",
+      "points": [
+        [
+          172,
+          735
+        ],
+        [
+          172,
+          1250
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "check",
+      "b": "db",
+      "label": "[校验通过]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "view",
+      "label": "[结果明确]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "view",
+      "b": "ok",
+      "label": "[完成]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "check",
+      "b": "fail",
+      "label": "[未到期／版本冲突]",
+      "points": [
+        [
+          805,
+          833
+        ],
+        [
+          805,
+          1290
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "fail",
+      "label": "[存储失败／结果未明]",
+      "points": [
+        [
+          1040,
+          940
+        ],
+        [
+          1040,
+          1215
+        ],
+        [
+          705,
+          1215
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "consent",
+      "b": "cancel",
+      "label": "[取消保存]",
+      "points": [
+        [
+          285,
+          369
+        ],
+        [
+          285,
+          1205
+        ],
+        [
+          172,
+          1205
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1770" viewBox="0 0 1800 1770" font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<rect width="1800" height="1770" fill="white"/>
+<rect width="12" height="1770" fill="#C86B8C"/>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L8 4.5L0 9" fill="none" stroke="#8B6C7A" stroke-width="1.4"/></marker></defs>
+<text x="42" y="48" font-size="29" font-weight="700" fill="#984762">D03  P3展开：主动保存与寄存管理</text>
+<text x="42" y="80" font-size="15" fill="#71616B">E1与D2／D3可重复绘制，编号相同表示同一实体或存储；数据流聚合后与父层P3平衡。</text>
+<path d="M280.0 259.5 L590.0 258.2" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="435.0" y="248.88429752066116" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F03 保存选择／SAVE确认</text>
+<path d="M1260.0 247.2 L950.0 253.7" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1105.0" y="240.47202797202797" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">选定快照／有效查询证据</text>
+<path d="M770.0 315.0 L770.0 475.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="779.0" y="395.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">经确认的保存对象与许可</text>
+<path d="M950.0 533.1 L1260.0 529.9" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1105.0" y="521.486013986014" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">本人本入口业务记录</text>
+<path d="M1330.9 580.0 L1140.0 645.0 L1050.0 645.0 L1050.0 555.0 L950.0 547.9" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1235.4255319148938" y="602.5" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">保存版本／写入结果</text>
+<path d="M950.0 555.3 L1080.0 570.0 L1080.0 723.0 L1260.0 731.7" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1155" y="657.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">SAVE授权／requestId载荷摘要</text>
+<path d="M1302.0 795.0 L1180.0 830.0 L990.0 830.0 L990.0 580.0 L950.0 571.8" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1080" y="815.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">幂等核实结果</text>
+<path d="M590.0 590.4 L380.0 655.0 L165.0 655.0 L165.0 315.0 L165.0 315.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="174.0" y="485.0" text-anchor="start" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F07 保存／核实回执</text>
+<path d="M280.0 994.5 L590.0 993.2" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="435.0" y="983.8842975206612" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F03 列表／主动取出请求</text>
+<path d="M950.0 990.6 L1260.0 987.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1105.0" y="978.986013986014" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">归属／可信入口／到期查询</text>
+<path d="M1351.2 1040.0 L1120.0 1135.0 L1030.0 1135.0 L1030.0 1015.0 L950.0 1008.1" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1235.5833333333335" y="1077.5" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">摘要或允许取出的正文／版本</text>
+<path d="M642.9 1055.0 L470.0 1140.0 L165.0 1140.0 L165.0 1050.0 L165.0 1050.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="317.5" y="1130.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F07 列表摘要或取出正文</text>
+<path d="M280.0 1374.5 L590.0 1373.2" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="435.0" y="1363.8842975206612" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F03 延期／清除确认</text>
+<path d="M950.0 1370.6 L1260.0 1367.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1105.0" y="1349.986013986014" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">未来reopenAt／expectedVersion</text>
+<text x="1105.0" y="1367.986013986014" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">或经确认的清除范围</text>
+<path d="M1342.0 1420.0 L1160.0 1490.0 L1000.0 1490.0 L1000.0 1390.0 L950.0 1386.2" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1251.0" y="1445.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">更新版本／操作回执</text>
+<path d="M950.0 1393.0 L1100.0 1410.0 L1100.0 1570.0 L1260.0 1579.4" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1160" y="1518.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">一次确认令牌／清除作业</text>
+<path d="M1347.3 1645.0 L1190.0 1705.0 L1010.0 1705.0 L1010.0 1410.0 L950.0 1400.6" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="1090" y="1680.0" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">令牌核实／清除状态</text>
+<path d="M675.2 1435.0 L440.0 1590.0 L165.0 1590.0 L165.0 1430.0 L165.0 1430.0" stroke="#8B6C7A" stroke-width="1.7" fill="none" marker-end="url(#arrow)"/>
+<text x="557.5862068965517" y="1502.5" text-anchor="middle" font-size="14" fill="#71616B" stroke="white" stroke-width="5" paint-order="stroke">F07 延期／清除结果</text>
+<rect x="50" y="205" width="230" height="110" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="165.0" y="268.05" text-anchor="middle" font-size="23" fill="#342B33">E1 用户</text>
+<path d="M1710 190H1260V295H1710 M1288 190V295" fill="#FFF2D8" stroke="#35654D" stroke-width="1.7"/>
+<text x="1485.0" y="235.85" text-anchor="middle" font-size="19" fill="#342B33">T1 本人本入口选定快照</text>
+<text x="1485.0" y="262.45" text-anchor="middle" font-size="19" fill="#342B33">或有效查询证据</text>
+<rect x="590" y="200" width="360" height="115" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="770.0" y="250.15" text-anchor="middle" font-size="21" fill="#342B33">P3.1 确定保存对象</text>
+<text x="770.0" y="279.55" text-anchor="middle" font-size="21" fill="#342B33">SAVE范围／requestId</text>
+<rect x="590" y="475" width="360" height="120" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="770.0" y="527.65" text-anchor="middle" font-size="21" fill="#342B33">P3.2 校验并事务保存</text>
+<text x="770.0" y="557.05" text-anchor="middle" font-size="21" fill="#342B33">归属／许可／幂等／版本</text>
+<path d="M1710 475H1260V580H1710 M1288 475V580" fill="#E8F3EC" stroke="#35654D" stroke-width="1.7"/>
+<text x="1485.0" y="520.5" text-anchor="middle" font-size="20" fill="#342B33">D2 主动保存记录</text>
+<text x="1485.0" y="548.5" text-anchor="middle" font-size="20" fill="#342B33">正文／版本／证据关联</text>
+<path d="M1710 690H1260V795H1710 M1288 690V795" fill="#E8F3EC" stroke="#35654D" stroke-width="1.7"/>
+<text x="1485.0" y="749.5" text-anchor="middle" font-size="20" fill="#342B33">D3 SAVE授权／幂等记录</text>
+<rect x="50" y="940" width="230" height="110" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="165.0" y="1003.05" text-anchor="middle" font-size="23" fill="#342B33">E1 用户（重复）</text>
+<rect x="590" y="930" width="360" height="125" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="770.0" y="985.15" text-anchor="middle" font-size="21" fill="#342B33">P3.3 过滤并读取寄存</text>
+<text x="770.0" y="1014.55" text-anchor="middle" font-size="21" fill="#342B33">列表摘要／到期主动取出</text>
+<path d="M1710 930H1260V1040H1710 M1288 930V1040" fill="#E8F3EC" stroke="#35654D" stroke-width="1.7"/>
+<text x="1485.0" y="992.0" text-anchor="middle" font-size="20" fill="#342B33">D2 主动保存记录（重复）</text>
+<rect x="50" y="1320" width="230" height="110" rx="0" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="165.0" y="1383.05" text-anchor="middle" font-size="23" fill="#342B33">E1 用户（重复）</text>
+<rect x="590" y="1310" width="360" height="125" rx="12" fill="#F9EAF0" stroke="#EBCBD8" stroke-width="1.5"/>
+<text x="770.0" y="1365.1499999999999" text-anchor="middle" font-size="21" fill="#342B33">P3.4 更新延期或清除</text>
+<text x="770.0" y="1394.55" text-anchor="middle" font-size="21" fill="#342B33">未来时间／版本／确认令牌</text>
+<path d="M1710 1310H1260V1420H1710 M1288 1310V1420" fill="#E8F3EC" stroke="#35654D" stroke-width="1.7"/>
+<text x="1485.0" y="1372.0" text-anchor="middle" font-size="20" fill="#342B33">D2 主动保存记录（重复）</text>
+<path d="M1710 1540H1260V1645H1710 M1288 1540V1645" fill="#E8F3EC" stroke="#35654D" stroke-width="1.7"/>
+<text x="1485.0" y="1585.5" text-anchor="middle" font-size="20" fill="#342B33">D3 清除作业／确认元数据</text>
+<text x="1485.0" y="1613.5" text-anchor="middle" font-size="20" fill="#342B33">（重复）</text>
+<rect x="50" y="725" width="870" height="95" rx="5" fill="#FDF5F8" stroke="#EBCBD8" stroke-dasharray="5 4"/>
+<text x="485.0" y="765.85" text-anchor="middle" font-size="19" fill="#342B33">临时处理许可在T1，SAVE随保存持久化；写超时同ID同载荷核实。</text>
+<text x="485.0" y="792.45" text-anchor="middle" font-size="19" fill="#342B33">寄存列表无正文；取出须到期。清除令牌两分钟且仅一次有效。</text>
+<text x="42" y="1751" font-size="13" fill="#71616B">404NOTFOUND · UX设计稿 · 仓库 fe60c90 · 2026-10-21 · 待团队复核</text></svg>
