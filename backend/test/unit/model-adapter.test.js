@@ -1,0 +1,102 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+
+import { LangChainModelAdapter } from '../../src/ai/langchain-model-adapter.js';
+import { buildModelMessages } from '../../src/ai/model-input.js';
+import { MockModelAdapter } from '../../src/ai/mock-model-adapter.js';
+import { createSyntheticModelRequest } from '../fixtures/model-requests.js';
+
+const fakeConfigEnv = {
+  ZHIPU_MODEL: 'glm-4.7-flash',
+  ZHIPU_BASE_URL: 'https://open.bigmodel.cn/api/paas/v4/',
+};
+
+test('model input contains only the approved payload fields', () => {
+  const request = createSyntheticModelRequest();
+  const { messages } = buildModelMessages(request);
+  const payload = JSON.parse(messages[1].content);
+
+  assert.equal(payload.mode, 'COMPANION');
+  assert.equal(payload.context.recent_messages[0].content, request.context.recent_messages[0].content);
+  assert.equal('request_id' in payload, false);
+  assert.equal('session_id' in payload, false);
+  assert.equal('metadata' in payload, false);
+  assert.equal('history_retention' in payload.state, false);
+});
+
+test('model input rejects memories without explicit authorization', () => {
+  const request = createSyntheticModelRequest({
+    context: {
+      relevant_memories: [
+        {
+          memory_id: 'mem-synthetic-001',
+          kind: 'REPLY_PREFERENCE',
+          content: '用户希望回复简短',
+          confirmed_at: '2026-10-23T10:00:00+08:00',
+          updated_at: '2026-10-23T10:00:00+08:00',
+          expires_at: '2026-11-23T10:00:00+08:00',
+          version: 1,
+        },
+      ],
+    },
+  });
+
+  assert.throws(() => buildModelMessages(request), /explicit authorization/);
+});
+
+test('adapter maps a valid provider response to the unified contract', async () => {
+  const chatModel = {
+    async invoke() {
+      return {
+        content: JSON.stringify({
+          content: '听起来你今天有些忙。',
+          intent: 'COMPANION',
+          suggested_action: 'STAY',
+          citations: [],
+          uncertainty: null,
+        }),
+        usage_metadata: { input_tokens: 20, output_tokens: 10 },
+        response_metadata: { model_name: 'glm-4.7-flash' },
+      };
+    },
+  };
+  const adapter = new LangChainModelAdapter({ env: fakeConfigEnv, chatModel });
+  const response = await adapter.respond(createSyntheticModelRequest());
+
+  assert.equal(response.status, 'success');
+  assert.equal(response.model_info.model, 'glm-4.7-flash');
+  assert.equal(response.model_info.mock, false);
+  assert.deepEqual(response.usage, { input_tokens: 20, output_tokens: 10 });
+});
+
+test('adapter rejects an action outside the request allowlist', async () => {
+  const chatModel = {
+    async invoke() {
+      return {
+        content: JSON.stringify({
+          content: '现在直接开始练习。',
+          intent: 'COMPANION',
+          suggested_action: 'OFFER_EXERCISE',
+          citations: [],
+          uncertainty: null,
+        }),
+      };
+    },
+  };
+  const adapter = new LangChainModelAdapter({ env: fakeConfigEnv, chatModel });
+  const response = await adapter.respond(createSyntheticModelRequest());
+
+  assert.equal(response.status, 'error');
+  assert.equal(response.error.code, 'INVALID_MODEL_OUTPUT');
+});
+
+test('failure substitute returns stable errors without calling a provider', async () => {
+  const request = createSyntheticModelRequest();
+  const timeout = await new MockModelAdapter({ behavior: 'timeout' }).respond(request);
+  const rateLimited = await new MockModelAdapter({ behavior: 'rateLimited' }).respond(request);
+
+  assert.equal(timeout.error.code, 'MODEL_TIMEOUT');
+  assert.equal(rateLimited.error.code, 'MODEL_RATE_LIMITED');
+  assert.equal(timeout.model_info.mock, true);
+  assert.equal(rateLimited.model_info.mock, true);
+});
