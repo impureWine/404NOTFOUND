@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="560" viewBox="0 0 1000 560" role="img" aria-labelledby="title desc">
+  <title id="title">404烦恼未找到 Alpha冲刺Day 1燃尽图</title>
+  <desc id="desc">阶段计划从100点下降到0点。Day 1实际剩余暂按100点显示，等待非作者验收后更新。</desc>
+  <rect width="1000" height="560" fill="#ffffff"/>
+  <text x="70" y="45" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700" fill="#17212b">Alpha冲刺项目燃尽图</text>
+  <text x="70" y="72" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#53606d">计划基线100 SP；Day 1实际点数待团队验收后更新</text>
+
+  <line x1="90" y1="100" x2="90" y2="470" stroke="#64717d" stroke-width="2"/>
+  <line x1="90" y1="470" x2="950" y2="470" stroke="#64717d" stroke-width="2"/>
+
+  <g font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#53606d">
+    <line x1="90" y1="100" x2="950" y2="100" stroke="#d8dee4"/><text x="50" y="105">100</text>
+    <line x1="90" y1="174" x2="950" y2="174" stroke="#e5e9ed"/><text x="57" y="179">80</text>
+    <line x1="90" y1="248" x2="950" y2="248" stroke="#e5e9ed"/><text x="57" y="253">60</text>
+    <line x1="90" y1="322" x2="950" y2="322" stroke="#e5e9ed"/><text x="57" y="327">40</text>
+    <line x1="90" y1="396" x2="950" y2="396" stroke="#e5e9ed"/><text x="57" y="401">20</text>
+    <text x="64" y="475">0</text>
+  </g>
+
+  <polyline points="90,100 210,144 330,204 450,270 570,337 690,396 810,440 930,470" fill="none" stroke="#167a5b" stroke-width="4"/>
+  <g fill="#167a5b">
+    <circle cx="90" cy="100" r="5"/><circle cx="210" cy="144" r="5"/><circle cx="330" cy="204" r="5"/>
+    <circle cx="450" cy="270" r="5"/><circle cx="570" cy="337" r="5"/><circle cx="690" cy="396" r="5"/>
+    <circle cx="810" cy="440" r="5"/><circle cx="930" cy="470" r="5"/>
+  </g>
+
+  <polyline points="90,100 210,100" fill="none" stroke="#d66a1f" stroke-width="4" stroke-dasharray="10 7"/>
+  <circle cx="90" cy="100" r="6" fill="#d66a1f"/>
+  <circle cx="210" cy="100" r="7" fill="#ffffff" stroke="#d66a1f" stroke-width="4"/>
+  <text x="222" y="96" font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#a54912">Day 1实际：暂按100，待复核</text>
+
+  <g font-family="Microsoft YaHei, sans-serif" font-size="13" fill="#53606d" text-anchor="middle">
+    <text x="90" y="495">起点</text><text x="210" y="495">Day 1</text><text x="330" y="495">Day 2</text>
+    <text x="450" y="495">Day 3</text><text x="570" y="495">Day 4</text><text x="690" y="495">Day 5</text>
+    <text x="810" y="495">Day 6</text><text x="930" y="495">Day 7</text>
+  </g>
+
+  <line x1="650" y1="42" x2="690" y2="42" stroke="#167a5b" stroke-width="4"/>
+  <text x="700" y="47" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#17212b">阶段计划</text>
+  <line x1="800" y1="42" x2="840" y2="42" stroke="#d66a1f" stroke-width="4" stroke-dasharray="10 7"/>
+  <text x="850" y="47" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#17212b">实际</text>
+
+  <text x="90" y="535" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#687580">计划：100 → 88 → 72 → 54 → 36 → 20 → 8 → 0。未验收任务不得从实际剩余量中扣除。</text>
+</svg>

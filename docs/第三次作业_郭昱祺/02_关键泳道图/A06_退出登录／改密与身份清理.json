@@ -1,0 +1,345 @@
+{
+  "title": "退出登录／改密与身份清理",
+  "subtitle": "REQ16／05／06；退出保留已主动保存业务记录，改密成功后重新登录。",
+  "width": 1400,
+  "height": 1210,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 180,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "choice",
+      "x": 65.0,
+      "y": 220,
+      "w": 214,
+      "h": 88,
+      "label": "选择退出登录\n或已登录修改密码",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "mask",
+      "x": 329.0,
+      "y": 335,
+      "w": 214,
+      "h": 88,
+      "label": "先遮蔽私密视图\n冻结旧身份响应",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "service",
+      "x": 593.0,
+      "y": 450,
+      "w": 214,
+      "h": 88,
+      "label": "logout撤销当前会话\nchange-password校验旧密",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "db",
+      "x": 857.0,
+      "y": 565,
+      "w": 214,
+      "h": 88,
+      "label": "退出：撤销登录会话\n改密：撤销全部旧会话",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "cleanup",
+      "x": 593.0,
+      "y": 685,
+      "w": 214,
+      "h": 88,
+      "label": "取消旧会话任务\n旧代次／许可失效",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "view",
+      "x": 329.0,
+      "y": 800,
+      "w": 214,
+      "h": 88,
+      "label": "清身份缓存与临时正文\n退出到访客／改密去登录",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 1000,
+      "w": 214,
+      "h": 88,
+      "label": "204确认后显示完成\n保存记录继续保留",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1115,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 1000,
+      "w": 214,
+      "h": 88,
+      "label": "提交前取消\n恢复原表单／当前身份",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1115,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 1000,
+      "w": 214,
+      "h": 88,
+      "label": "断网：本地已遮蔽\n服务撤销状态待确认",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1115,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "note18",
+      "x": 1110,
+      "y": 400,
+      "w": 210,
+      "h": 340,
+      "label": "外部服务无调用。\n\n退出／换账号不会自动删除持久记录。\n\n下一身份必须重新获得正文范围与用途许可。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 16
+    }
+  ],
+  "edges": [
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "start",
+      "b": "choice",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "choice",
+      "b": "mask",
+      "label": "[提交]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "mask",
+      "b": "service",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "service",
+      "b": "db",
+      "label": "[请求有效]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "cleanup",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cleanup",
+      "b": "view",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "view",
+      "b": "ok",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "choice",
+      "b": "cancel",
+      "label": "[取消]",
+      "points": [
+        [
+          172,
+          310
+        ],
+        [
+          172,
+          1000
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "service",
+      "b": "fail",
+      "label": "[失败／状态未明]",
+      "points": [
+        [
+          808,
+          485
+        ],
+        [
+          808,
+          1044
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

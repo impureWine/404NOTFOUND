@@ -1,0 +1,464 @@
+{
+  "title": "P3展开：主动保存与寄存管理",
+  "subtitle": "E1与D2／D3可重复绘制，编号相同表示同一实体或存储；数据流聚合后与父层P3平衡。",
+  "width": 1800,
+  "height": 1770,
+  "nodes": [
+    {
+      "id": "u",
+      "x": 50,
+      "y": 205,
+      "w": 230,
+      "h": 110,
+      "label": "E1 用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 23
+    },
+    {
+      "id": "t1",
+      "x": 1260,
+      "y": 190,
+      "w": 450,
+      "h": 105,
+      "label": "T1 本人本入口选定快照\n或有效查询证据",
+      "kind": "store",
+      "color": "amber",
+      "fs": 19
+    },
+    {
+      "id": "p31",
+      "x": 590,
+      "y": 200,
+      "w": 360,
+      "h": 115,
+      "label": "P3.1 确定保存对象\nSAVE范围／requestId",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "p32",
+      "x": 590,
+      "y": 475,
+      "w": 360,
+      "h": 120,
+      "label": "P3.2 校验并事务保存\n归属／许可／幂等／版本",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "d2",
+      "x": 1260,
+      "y": 475,
+      "w": 450,
+      "h": 105,
+      "label": "D2 主动保存记录\n正文／版本／证据关联",
+      "kind": "store",
+      "color": "green",
+      "fs": 20
+    },
+    {
+      "id": "d3",
+      "x": 1260,
+      "y": 690,
+      "w": 450,
+      "h": 105,
+      "label": "D3 SAVE授权／幂等记录",
+      "kind": "store",
+      "color": "green",
+      "fs": 20
+    },
+    {
+      "id": "u2",
+      "x": 50,
+      "y": 940,
+      "w": 230,
+      "h": 110,
+      "label": "E1 用户（重复）",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 23
+    },
+    {
+      "id": "p33",
+      "x": 590,
+      "y": 930,
+      "w": 360,
+      "h": 125,
+      "label": "P3.3 过滤并读取寄存\n列表摘要／到期主动取出",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "d2b",
+      "x": 1260,
+      "y": 930,
+      "w": 450,
+      "h": 110,
+      "label": "D2 主动保存记录（重复）",
+      "kind": "store",
+      "color": "green",
+      "fs": 20
+    },
+    {
+      "id": "u3",
+      "x": 50,
+      "y": 1320,
+      "w": 230,
+      "h": 110,
+      "label": "E1 用户（重复）",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 23
+    },
+    {
+      "id": "p34",
+      "x": 590,
+      "y": 1310,
+      "w": 360,
+      "h": 125,
+      "label": "P3.4 更新延期或清除\n未来时间／版本／确认令牌",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "d2c",
+      "x": 1260,
+      "y": 1310,
+      "w": 450,
+      "h": 110,
+      "label": "D2 主动保存记录（重复）",
+      "kind": "store",
+      "color": "green",
+      "fs": 20
+    },
+    {
+      "id": "d3b",
+      "x": 1260,
+      "y": 1540,
+      "w": 450,
+      "h": 105,
+      "label": "D3 清除作业／确认元数据\n（重复）",
+      "kind": "store",
+      "color": "green",
+      "fs": 20
+    },
+    {
+      "id": "note13",
+      "x": 50,
+      "y": 725,
+      "w": 870,
+      "h": 95,
+      "label": "临时处理许可在T1，SAVE随保存持久化；写超时同ID同载荷核实。\n寄存列表无正文；取出须到期。清除令牌两分钟且仅一次有效。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 19
+    }
+  ],
+  "edges": [
+    {
+      "a": "u",
+      "b": "p31",
+      "label": "F03 保存选择／SAVE确认",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "t1",
+      "b": "p31",
+      "label": "选定快照／有效查询证据",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p31",
+      "b": "p32",
+      "label": "经确认的保存对象与许可",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p32",
+      "b": "d2",
+      "label": "本人本入口业务记录",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "d2",
+      "b": "p32",
+      "label": "保存版本／写入结果",
+      "points": [
+        [
+          1140,
+          645
+        ],
+        [
+          1050,
+          645
+        ],
+        [
+          1050,
+          555
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p32",
+      "b": "d3",
+      "label": "SAVE授权／requestId载荷摘要",
+      "points": [
+        [
+          1080,
+          570
+        ],
+        [
+          1080,
+          723
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1155,
+        657,
+        "middle"
+      ]
+    },
+    {
+      "a": "d3",
+      "b": "p32",
+      "label": "幂等核实结果",
+      "points": [
+        [
+          1180,
+          830
+        ],
+        [
+          990,
+          830
+        ],
+        [
+          990,
+          580
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1080,
+        815,
+        "middle"
+      ]
+    },
+    {
+      "a": "p32",
+      "b": "u",
+      "label": "F07 保存／核实回执",
+      "points": [
+        [
+          380,
+          655
+        ],
+        [
+          165,
+          655
+        ],
+        [
+          165,
+          315
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "u2",
+      "b": "p33",
+      "label": "F03 列表／主动取出请求",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p33",
+      "b": "d2b",
+      "label": "归属／可信入口／到期查询",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "d2b",
+      "b": "p33",
+      "label": "摘要或允许取出的正文／版本",
+      "points": [
+        [
+          1120,
+          1135
+        ],
+        [
+          1030,
+          1135
+        ],
+        [
+          1030,
+          1015
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p33",
+      "b": "u2",
+      "label": "F07 列表摘要或取出正文",
+      "points": [
+        [
+          470,
+          1140
+        ],
+        [
+          165,
+          1140
+        ],
+        [
+          165,
+          1050
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "u3",
+      "b": "p34",
+      "label": "F03 延期／清除确认",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p34",
+      "b": "d2c",
+      "label": "未来reopenAt／expectedVersion\n或经确认的清除范围",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "d2c",
+      "b": "p34",
+      "label": "更新版本／操作回执",
+      "points": [
+        [
+          1160,
+          1490
+        ],
+        [
+          1000,
+          1490
+        ],
+        [
+          1000,
+          1390
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p34",
+      "b": "d3b",
+      "label": "一次确认令牌／清除作业",
+      "points": [
+        [
+          1100,
+          1410
+        ],
+        [
+          1100,
+          1570
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1160,
+        1518,
+        "middle"
+      ]
+    },
+    {
+      "a": "d3b",
+      "b": "p34",
+      "label": "令牌核实／清除状态",
+      "points": [
+        [
+          1190,
+          1705
+        ],
+        [
+          1010,
+          1705
+        ],
+        [
+          1010,
+          1410
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        1090,
+        1680,
+        "middle"
+      ]
+    },
+    {
+      "a": "p34",
+      "b": "u3",
+      "label": "F07 延期／清除结果",
+      "points": [
+        [
+          440,
+          1590
+        ],
+        [
+          165,
+          1590
+        ],
+        [
+          165,
+          1430
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}
