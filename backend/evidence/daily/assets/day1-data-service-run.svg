@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
+  <title id="title">数据服务自动化测试运行结果摘要</title>
+  <desc id="desc">2026年10月23日实际运行19项测试，19项通过，0项失败。</desc>
+  <rect width="1000" height="500" fill="#f7f9fa"/>
+  <rect x="55" y="45" width="890" height="410" rx="8" fill="#17212b"/>
+  <circle cx="88" cy="75" r="7" fill="#df5b57"/>
+  <circle cx="112" cy="75" r="7" fill="#e0ad3d"/>
+  <circle cx="136" cy="75" r="7" fill="#45a66f"/>
+  <text x="170" y="81" font-family="Consolas, monospace" font-size="16" fill="#d8e1e8">404notfound-data-service / test</text>
+  <line x1="55" y1="100" x2="945" y2="100" stroke="#394550"/>
+
+  <g font-family="Consolas, monospace" font-size="20">
+    <text x="85" y="145" fill="#9fb1bf">$ node --test</text>
+    <text x="85" y="188" fill="#64d890">PASS</text><text x="165" y="188" fill="#e5edf2"> migrations execute once on a clean database</text>
+    <text x="85" y="222" fill="#64d890">PASS</text><text x="165" y="222" fill="#e5edf2"> account and entry-point isolation</text>
+    <text x="85" y="256" fill="#64d890">PASS</text><text x="165" y="256" fill="#e5edf2"> idempotency, version conflict and clear outbox</text>
+    <text x="85" y="290" fill="#64d890">PASS</text><text x="165" y="290" fill="#e5edf2"> source evidence, timeout and restore safety</text>
+    <text x="85" y="346" fill="#e5edf2">tests 19   pass </text><text x="306" y="346" fill="#64d890">19</text><text x="335" y="346" fill="#e5edf2">   fail </text><text x="422" y="346" fill="#64d890">0</text>
+    <text x="85" y="382" fill="#e5edf2">skipped 0   todo 0   duration ~7.08s</text>
+  </g>
+
+  <rect x="80" y="405" width="840" height="30" rx="4" fill="#28343e"/>
+  <text x="95" y="426" font-family="Microsoft YaHei, sans-serif" font-size="14" fill="#f3c477">隔离验证：PGlite PostgreSQL WASM。非正式PostgreSQL部署或完整系统验收。</text>
+  <text x="55" y="482" font-family="Microsoft YaHei, sans-serif" font-size="12" fill="#687580">根据2026-10-23实际测试结果整理的展示图，不是终端原始截图。</text>
+</svg>

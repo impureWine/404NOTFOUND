@@ -1,8 +1,8 @@
 -- 404NOTFOUND database design baseline v0.2
--- PostgreSQL 16-compatible design attachment.
--- This DDL has not been executed and is not evidence of a deployed database.
-
-CREATE EXTENSION IF NOT EXISTS pgcrypto;
+-- PostgreSQL 16-compatible baseline migration.
+-- gen_random_uuid() is built into supported PostgreSQL versions, so this
+-- migration does not require superuser access to install pgcrypto.
+-- Execution in the local validation engine is not evidence of deployment.
 
 CREATE TYPE account_status AS ENUM ('ACTIVE', 'LOCKED');
 CREATE TYPE consent_purpose AS ENUM ('SAVE', 'AI_PROCESS', 'SEARCH_PROCESS', 'ANALYZE', 'CROSS_ENTRY');
