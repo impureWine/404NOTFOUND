@@ -1,0 +1,391 @@
+{
+  "title": "注册与登录切换身份",
+  "subtitle": "REQ16／17／06；注册201不自动登录；游客草稿不自动转移至账号。",
+  "width": 1400,
+  "height": 1410,
+  "nodes": [
+    {
+      "id": "lane0",
+      "x": 40,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane1",
+      "x": 304,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "界面",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane2",
+      "x": 568,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "应用服务",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane3",
+      "x": 832,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "数据存储",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "lane4",
+      "x": 1096,
+      "y": 110,
+      "w": 264,
+      "h": 46,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "start",
+      "x": 161,
+      "y": 180,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "start",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "input",
+      "x": 65.0,
+      "y": 220,
+      "w": 214,
+      "h": 88,
+      "label": "输入注册或登录凭据\n新密码12～128码点",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "csrf",
+      "x": 329.0,
+      "y": 330,
+      "w": 214,
+      "h": 88,
+      "label": "获取auth/context\n提交附X-CSRF-Token",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "verify",
+      "x": 593.0,
+      "y": 445,
+      "w": 214,
+      "h": 88,
+      "label": "校验凭据与限流\n区分register／login",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "db",
+      "x": 857.0,
+      "y": 565,
+      "w": 214,
+      "h": 88,
+      "label": "注册：创建账号\n登录：写登录会话／轮换",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "result",
+      "x": 610.0,
+      "y": 695,
+      "w": 180,
+      "h": 100,
+      "label": "成功的操作？",
+      "kind": "decision",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "registered",
+      "x": 329.0,
+      "y": 810,
+      "w": 214,
+      "h": 88,
+      "label": "201注册成功\n提示另行登录，不建身份",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "clean",
+      "x": 329.0,
+      "y": 955,
+      "w": 214,
+      "h": 108,
+      "label": "登录成功：重建当前身份\n清旧临时正文与任务\n不自动认领游客内容",
+      "kind": "action",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "ok",
+      "x": 329.0,
+      "y": 1190,
+      "w": 214,
+      "h": 88,
+      "label": "注册后：去登录\n登录后：进本人私密主页",
+      "kind": "action",
+      "color": "green",
+      "fs": 17
+    },
+    {
+      "id": "okEnd",
+      "x": 425,
+      "y": 1305,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "cancel",
+      "x": 65.0,
+      "y": 1190,
+      "w": 214,
+      "h": 88,
+      "label": "取消输入／返回访客\n不创建新登录会话",
+      "kind": "action",
+      "color": "amber",
+      "fs": 17
+    },
+    {
+      "id": "cancelEnd",
+      "x": 161,
+      "y": 1305,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "fail",
+      "x": 593.0,
+      "y": 1190,
+      "w": 214,
+      "h": 88,
+      "label": "错误显示字段／请求反馈\n不伪装已登录",
+      "kind": "action",
+      "color": "red",
+      "fs": 17
+    },
+    {
+      "id": "failEnd",
+      "x": 689,
+      "y": 1305,
+      "w": 22,
+      "h": 22,
+      "label": "",
+      "kind": "end",
+      "color": "pale",
+      "fs": 17
+    },
+    {
+      "id": "note19",
+      "x": 1110,
+      "y": 440,
+      "w": 210,
+      "h": 330,
+      "label": "外部服务无调用。\n\n登录会话持久保存；业务会话正文默认内存。\n\n注册成功与登录成功是不同界面状态。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 16
+    }
+  ],
+  "edges": [
+    {
+      "a": "ok",
+      "b": "okEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "cancel",
+      "b": "cancelEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "fail",
+      "b": "failEnd",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "start",
+      "b": "input",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "input",
+      "b": "csrf",
+      "label": "[提交]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "csrf",
+      "b": "verify",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "verify",
+      "b": "db",
+      "label": "[校验通过]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "db",
+      "b": "result",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "result",
+      "b": "registered",
+      "label": "[注册201]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "result",
+      "b": "clean",
+      "label": "[登录成功]",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "registered",
+      "b": "ok",
+      "label": "",
+      "points": [
+        [
+          548,
+          854
+        ],
+        [
+          548,
+          1150
+        ],
+        [
+          436,
+          1150
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "clean",
+      "b": "ok",
+      "label": "",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "input",
+      "b": "cancel",
+      "label": "[取消]",
+      "points": [
+        [
+          173,
+          310
+        ],
+        [
+          173,
+          1190
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "verify",
+      "b": "fail",
+      "label": "[校验／服务失败]",
+      "points": [
+        [
+          925,
+          489
+        ],
+        [
+          925,
+          1135
+        ],
+        [
+          700,
+          1135
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "title": "图示符号与视觉样张",
+  "subtitle": "粉色结构、深色正文；辅助色只表达许可、存储、外部服务和失败。",
+  "width": 1400,
+  "height": 890,
+  "nodes": [
+    {
+      "id": "s0",
+      "x": 60,
+      "y": 155,
+      "w": 300,
+      "h": 120,
+      "label": "模块／需求",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "s1",
+      "x": 410,
+      "y": 145,
+      "w": 270,
+      "h": 120,
+      "label": "UML判断\n[同意]／[取消]",
+      "kind": "decision",
+      "color": "amber",
+      "fs": 22
+    },
+    {
+      "id": "s2",
+      "x": 830,
+      "y": 155,
+      "w": 300,
+      "h": 120,
+      "label": "外部模型／检索",
+      "kind": "entity",
+      "color": "blue",
+      "fs": 22
+    },
+    {
+      "id": "s3",
+      "x": 60,
+      "y": 390,
+      "w": 300,
+      "h": 120,
+      "label": "D2 主动保存存储",
+      "kind": "store",
+      "color": "green",
+      "fs": 22
+    },
+    {
+      "id": "s4",
+      "x": 525,
+      "y": 390,
+      "w": 300,
+      "h": 120,
+      "label": "待核实／失败反馈",
+      "kind": "action",
+      "color": "red",
+      "fs": 22
+    },
+    {
+      "id": "child",
+      "x": 60,
+      "y": 640,
+      "w": 300,
+      "h": 80,
+      "label": "关键子功能",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "process",
+      "x": 945,
+      "y": 640,
+      "w": 310,
+      "h": 80,
+      "label": "P3 事务保存处理",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "note7",
+      "x": 880,
+      "y": 380,
+      "w": 410,
+      "h": 150,
+      "label": "UML：守卫＋控制流\nDFD：命名数据＋数据流\n两种图不能混用判断和存储语义。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 21
+    }
+  ],
+  "edges": [
+    {
+      "a": "s0",
+      "b": "child",
+      "label": "包含（无箭头）",
+      "points": [
+        [
+          390,
+          215
+        ],
+        [
+          390,
+          680
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "s3",
+      "b": "process",
+      "label": "本人本入口记录",
+      "points": [
+        [
+          450,
+          560
+        ],
+        [
+          1100,
+          560
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

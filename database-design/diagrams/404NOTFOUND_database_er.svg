@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1240" viewBox="0 0 1600 1240">
+  <title>404NOTFOUND 数据库 ER 图 v0.2</title>
+  <desc>复数表名、主动保存父表、认证凭据分离及可恢复删除链路。</desc>
+  <style>
+    .group{fill:#f8fafc;stroke:#94a3b8;stroke-width:2}
+    .box{fill:#ffffff;stroke:#1f4e79;stroke-width:2}
+    .head{fill:#1f4e79}
+    .gov{fill:#fff8e7;stroke:#a16207;stroke-width:2}
+    .govhead{fill:#a16207}
+    .title{font:700 26px Arial,'Microsoft YaHei',sans-serif;fill:#17202a}
+    .subtitle{font:15px Arial,'Microsoft YaHei',sans-serif;fill:#334155}
+    .gt{font:700 17px Arial,'Microsoft YaHei',sans-serif;fill:#334155}
+    .ht{font:700 14px Arial,'Microsoft YaHei',sans-serif;fill:#ffffff}
+    .t{font:13px Arial,'Microsoft YaHei',sans-serif;fill:#17202a}
+    .note{font:13px Arial,'Microsoft YaHei',sans-serif;fill:#6e4b00}
+    .rel{stroke:#64748b;stroke-width:1.5;fill:none}
+  </style>
+  <rect width="1600" height="1240" fill="#ffffff"/>
+  <text x="40" y="42" class="title">404NOTFOUND 数据库 ER 图（v0.2 设计基线）</text>
+  <text x="40" y="70" class="subtitle">账号 + 入口隔离；仅主动保存数据持久化；REQ14 文字销毁正文严格不入库</text>
+
+  <rect x="30" y="95" width="1540" height="300" rx="5" class="group"/>
+  <text x="50" y="123" class="gt">身份、入口与授权</text>
+  <g transform="translate(50,145)"><rect class="box" width="220" height="145" rx="4"/><rect class="head" width="220" height="28"/><text class="ht" x="10" y="19">USER_ACCOUNTS</text><text class="t" x="10" y="50">PK id</text><text class="t" x="10" y="72">UQ login_identifier_normalized</text><text class="t" x="10" y="94">status / created_at</text></g>
+  <g transform="translate(300,145)"><rect class="box" width="230" height="145" rx="4"/><rect class="head" width="230" height="28"/><text class="ht" x="10" y="19">PASSWORD_CREDENTIALS</text><text class="t" x="10" y="50">FK/UQ account_id</text><text class="t" x="10" y="72">password_digest</text><text class="t" x="10" y="94">ARGON2ID / parameters</text></g>
+  <g transform="translate(560,145)"><rect class="box" width="210" height="145" rx="4"/><rect class="head" width="210" height="28"/><text class="ht" x="10" y="19">USER_PROFILES</text><text class="t" x="10" y="50">FK/UQ account_id</text><text class="t" x="10" y="72">nickname / avatar_key</text><text class="t" x="10" y="94">bio / version_no</text></g>
+  <g transform="translate(800,145)"><rect class="box" width="220" height="145" rx="4"/><rect class="head" width="220" height="28"/><text class="ht" x="10" y="19">ACCOUNT_PREFERENCES</text><text class="t" x="10" y="50">FK/UQ account_id</text><text class="t" x="10" y="72">preferences / version_no</text></g>
+  <g transform="translate(1050,145)"><rect class="box" width="190" height="145" rx="4"/><rect class="head" width="190" height="28"/><text class="ht" x="10" y="19">ENTRY_POINTS</text><text class="t" x="10" y="50">PK id / UQ code</text><text class="t" x="10" y="72">capability_state</text></g>
+  <g transform="translate(1270,145)"><rect class="box" width="250" height="145" rx="4"/><rect class="head" width="250" height="28"/><text class="ht" x="10" y="19">LOGIN_SESSIONS</text><text class="t" x="10" y="50">FK account_id / entry_point_id</text><text class="t" x="10" y="72">UQ token_digest / device_id</text><text class="t" x="10" y="94">issued / expires / revoked</text></g>
+  <g transform="translate(675,300)"><rect class="box" width="250" height="95" rx="4"/><rect class="head" width="250" height="28"/><text class="ht" x="10" y="19">CONSENT_GRANTS</text><text class="t" x="10" y="50">account + entry + optional target</text><text class="t" x="10" y="72">purpose / resource / scope</text></g>
+
+  <rect x="30" y="420" width="1540" height="470" rx="5" class="group"/>
+  <text x="50" y="448" class="gt">用户主动保存对象与检索证据链</text>
+  <g transform="translate(55,475)"><rect class="box" width="250" height="155" rx="4"/><rect class="head" width="250" height="28"/><text class="ht" x="10" y="19">SAVED_RECORDS</text><text class="t" x="10" y="50">FK account_id / entry_point_id</text><text class="t" x="10" y="72">kind / encrypted title / request</text><text class="t" x="10" y="94">version_no / deleted_at</text><text class="t" x="10" y="116">父表：幂等、归属、乐观锁</text></g>
+  <g transform="translate(335,475)"><rect class="box" width="200" height="125" rx="4"/><rect class="head" width="200" height="28"/><text class="ht" x="10" y="19">SAVED_MESSAGES</text><text class="t" x="10" y="50">FK saved_record_id</text><text class="t" x="10" y="72">sequence / role</text><text class="t" x="10" y="94">content_ciphertext</text></g>
+  <g transform="translate(565,475)"><rect class="box" width="200" height="125" rx="4"/><rect class="head" width="200" height="28"/><text class="ht" x="10" y="19">EMOTION_RECORDS</text><text class="t" x="10" y="50">PK/FK saved_record_id</text><text class="t" x="10" y="72">date / emotion_codes</text><text class="t" x="10" y="94">intensity / timezone</text></g>
+  <g transform="translate(795,475)"><rect class="box" width="200" height="125" rx="4"/><rect class="head" width="200" height="28"/><text class="ht" x="10" y="19">WORRY_OBJECTS</text><text class="t" x="10" y="50">PK/FK saved_record_id</text><text class="t" x="10" y="72">shape_code</text><text class="t" x="10" y="94">optional body ciphertext</text></g>
+  <g transform="translate(1025,475)"><rect class="box" width="200" height="125" rx="4"/><rect class="head" width="200" height="28"/><text class="ht" x="10" y="19">ROOMS</text><text class="t" x="10" y="50">UQ account + entry</text><text class="t" x="10" y="72">version_no</text></g>
+  <g transform="translate(1255,475)"><rect class="box" width="290" height="125" rx="4"/><rect class="head" width="290" height="28"/><text class="ht" x="10" y="19">ROOM_OBJECTS</text><text class="t" x="10" y="50">room + account + entry + object</text><text class="t" x="10" y="72">position_x / position_y</text></g>
+  <g transform="translate(55,650)"><rect class="box" width="220" height="125" rx="4"/><rect class="head" width="220" height="28"/><text class="ht" x="10" y="19">REHEARSAL_DRAFTS</text><text class="t" x="10" y="50">PK/FK saved_record_id</text><text class="t" x="10" y="72">scene / expressions</text><text class="t" x="10" y="94">expression_count 1..20</text></g>
+  <g transform="translate(305,650)"><rect class="box" width="220" height="125" rx="4"/><rect class="head" width="220" height="28"/><text class="ht" x="10" y="19">WORRY_DEPOSITS</text><text class="t" x="10" y="50">PK/FK saved_record_id</text><text class="t" x="10" y="72">reopen_at / status</text><text class="t" x="10" y="94">encrypted body</text></g>
+  <g transform="translate(555,650)"><rect class="box" width="220" height="125" rx="4"/><rect class="head" width="220" height="28"/><text class="ht" x="10" y="19">SAVED_QUERIES</text><text class="t" x="10" y="50">PK/FK saved_record_id</text><text class="t" x="10" y="72">status / trace_id</text><text class="t" x="10" y="94">encrypted query</text></g>
+  <g transform="translate(805,650)"><rect class="box" width="205" height="125" rx="4"/><rect class="head" width="205" height="28"/><text class="ht" x="10" y="19">CLAIMS</text><text class="t" x="10" y="50">FK saved_query_id</text><text class="t" x="10" y="72">claim ciphertext</text><text class="t" x="10" y="94">status</text></g>
+  <g transform="translate(1040,650)"><rect class="box" width="205" height="125" rx="4"/><rect class="head" width="205" height="28"/><text class="ht" x="10" y="19">SOURCES</text><text class="t" x="10" y="50">UQ canonical_url</text><text class="t" x="10" y="72">tier / quality / verification</text><text class="t" x="10" y="94">published / retrieved</text></g>
+  <g transform="translate(1275,650)"><rect class="box" width="270" height="125" rx="4"/><rect class="head" width="270" height="28"/><text class="ht" x="10" y="19">EVIDENCE_LINKS</text><text class="t" x="10" y="50">PK claim_id + source_id</text><text class="t" x="10" y="72">relation</text></g>
+  <text x="55" y="840" class="subtitle">每个类型子表通过 saved_record_id 继承账号、入口、请求幂等、版本和删除状态。</text>
+
+  <rect x="30" y="920" width="1540" height="250" rx="5" class="gov"/>
+  <text x="50" y="948" class="gt">治理、删除与恢复</text>
+  <g transform="translate(50,975)"><rect class="gov" width="220" height="125" rx="4"/><rect class="govhead" width="220" height="28"/><text class="ht" x="10" y="19">RETENTION_POLICIES</text><text class="note" x="10" y="50">retention_days</text><text class="note" x="10" y="72">backup_grace_days = 7</text></g>
+  <g transform="translate(300,975)"><rect class="gov" width="220" height="125" rx="4"/><rect class="govhead" width="220" height="28"/><text class="ht" x="10" y="19">DELETION_JOBS</text><text class="note" x="10" y="50">account / entry / request</text><text class="note" x="10" y="72">status / requested / completed</text></g>
+  <g transform="translate(550,975)"><rect class="gov" width="220" height="125" rx="4"/><rect class="govhead" width="220" height="28"/><text class="ht" x="10" y="19">DELETION_TARGETS</text><text class="note" x="10" y="50">target_kind / target_ref</text><text class="note" x="10" y="72">retry_count / next_retry</text></g>
+  <g transform="translate(800,975)"><rect class="gov" width="220" height="125" rx="4"/><rect class="govhead" width="220" height="28"/><text class="ht" x="10" y="19">DELETION_OUTBOX</text><text class="note" x="10" y="50">reliable event payload</text><text class="note" x="10" y="72">published_at</text></g>
+  <g transform="translate(1050,975)"><rect class="gov" width="230" height="125" rx="4"/><rect class="govhead" width="230" height="28"/><text class="ht" x="10" y="19">DELETION_LOG_ENTRIES</text><text class="note" x="10" y="50">object_ref / checksum</text><text class="note" x="10" y="72">retain_until ≥ deleted + 8d</text></g>
+  <g transform="translate(1310,975)"><rect class="gov" width="230" height="125" rx="4"/><rect class="govhead" width="230" height="28"/><text class="ht" x="10" y="19">AUDIT_EVENTS</text><text class="note" x="10" y="50">minimal metadata only</text><text class="note" x="10" y="72">no content or credentials</text></g>
+  <text x="50" y="1140" class="note">明确排除：密码找回/重置令牌、公开主页、漂流瓶投递、未保存消息、REQ14 文字销毁正文。设备偏好仅保留在设备端。</text>
+  <text x="50" y="1200" class="subtitle">关系与基数见 Mermaid 源文件；完整字段、外键、检查约束及索引以 PostgreSQL DDL 为准。</text>
+</svg>

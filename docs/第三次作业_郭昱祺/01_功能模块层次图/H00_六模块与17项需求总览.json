@@ -1,0 +1,315 @@
+{
+  "title": "六模块与17项需求总览",
+  "subtitle": "连线表示功能包含关系；非页面导航、技术架构或执行顺序。",
+  "width": 1600,
+  "height": 1120,
+  "nodes": [
+    {
+      "id": "root",
+      "x": 550,
+      "y": 125,
+      "w": 500,
+      "h": 72,
+      "label": "404NOTFOUND\n用户自主选择的情绪支持工具",
+      "kind": "action",
+      "color": "pale",
+      "fs": 22
+    },
+    {
+      "id": "m0",
+      "x": 40,
+      "y": 310,
+      "w": 240,
+      "h": 60,
+      "label": "账号与个人中心",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "r0",
+      "x": 40,
+      "y": 398,
+      "w": 240,
+      "h": 630,
+      "label": "REQ16\n注册与登录\n注册成功后去登录／登录／已登录改密\n\nREQ17\n个人主页\n私密资料与偏好／主动保存内容入口",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "m1",
+      "x": 300,
+      "y": 310,
+      "w": 240,
+      "h": 60,
+      "label": "陪伴与沟通",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "r1",
+      "x": 300,
+      "y": 398,
+      "w": 240,
+      "h": 630,
+      "label": "REQ01\n陪伴交流\n倾听／澄清／梳理／限定正文并授权AI\n\nREQ09\n情绪命名卡\n词语／强度可跳过／选择后续任务\n\nREQ11\n平行宇宙排练室\n场景／角色／目标／暂停／换说法／重来",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "m2",
+      "x": 560,
+      "y": 310,
+      "w": 240,
+      "h": 60,
+      "label": "记录与整理",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "r2",
+      "x": 560,
+      "y": 398,
+      "w": 240,
+      "h": 630,
+      "label": "REQ08\n情绪与事件日历\n自愿记录日期与事件／按日回看／编辑\n\nREQ10\n烦恼物件化\n线团／石头／便利贴／放旁边／找小步骤\n\nREQ12\n烦恼寄存所\n选择未来再打开时间／到期后本人取出",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "m3",
+      "x": 820,
+      "y": 310,
+      "w": 240,
+      "h": 60,
+      "label": "压力缓解",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "r3",
+      "x": 820,
+      "y": 398,
+      "w": 240,
+      "h": 630,
+      "label": "REQ02\n压力缓解小训练\n呼吸／五感／暂停整理／任务拆分／步骤调整\n\nREQ13\n屏幕无损发泄（敲击回弹）\n网页画布内敲击／减弱动效／主动音效\n\nREQ14\n文字焚化与重力黑洞\n独立私有正文缓冲／选择销毁／跳过动画\n\nREQ15\n禅意编曲弹珠机\n轨道／构件／材质／限定音阶／碰撞反馈",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "m4",
+      "x": 1080,
+      "y": 310,
+      "w": 240,
+      "h": 60,
+      "label": "信息支持",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "r4",
+      "x": 1080,
+      "y": 398,
+      "w": 240,
+      "h": 630,
+      "label": "REQ03\n信息查询\n限定问题并授权检索／逐条主张关联来源",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "m5",
+      "x": 1340,
+      "y": 310,
+      "w": 240,
+      "h": 60,
+      "label": "基础与多端",
+      "kind": "action",
+      "color": "pale",
+      "fs": 21
+    },
+    {
+      "id": "r5",
+      "x": 1340,
+      "y": 398,
+      "w": 240,
+      "h": 630,
+      "label": "REQ04\n模式切换\n显示当前任务／选择携带内容并确认\n\nREQ05\n会话控制\n临时会话／主动保存／本人记录／版本核实\n\nREQ06\n多入口及隔离\nWeb／桌宠／微信能力／可信入口与身份隔离\n\nREQ07\n安全与隐私\n最小数据／归属检查／AI／检索／保存分别授权",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "root",
+      "b": "m0",
+      "label": "",
+      "points": [
+        [
+          800,
+          255
+        ],
+        [
+          160,
+          255
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m0",
+      "b": "r0",
+      "label": "",
+      "points": null,
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "root",
+      "b": "m1",
+      "label": "",
+      "points": [
+        [
+          800,
+          255
+        ],
+        [
+          420,
+          255
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m1",
+      "b": "r1",
+      "label": "",
+      "points": null,
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "root",
+      "b": "m2",
+      "label": "",
+      "points": [
+        [
+          800,
+          255
+        ],
+        [
+          680,
+          255
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m2",
+      "b": "r2",
+      "label": "",
+      "points": null,
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "root",
+      "b": "m3",
+      "label": "",
+      "points": [
+        [
+          800,
+          255
+        ],
+        [
+          940,
+          255
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m3",
+      "b": "r3",
+      "label": "",
+      "points": null,
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "root",
+      "b": "m4",
+      "label": "",
+      "points": [
+        [
+          800,
+          255
+        ],
+        [
+          1200,
+          255
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m4",
+      "b": "r4",
+      "label": "",
+      "points": null,
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "root",
+      "b": "m5",
+      "label": "",
+      "points": [
+        [
+          800,
+          255
+        ],
+        [
+          1460,
+          255
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m5",
+      "b": "r5",
+      "label": "",
+      "points": null,
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}
