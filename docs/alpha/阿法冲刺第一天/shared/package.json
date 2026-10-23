@@ -1,0 +1,13 @@
+{
+  "name": "@404notfound/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./*": "./contracts/*.js"
+  },
+  "dependencies": {
+    "zod": "^4.1.12"
+  }
+}
