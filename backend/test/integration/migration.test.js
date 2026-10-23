@@ -11,6 +11,7 @@ test('baseline and support migrations execute once on a clean database', async (
     assert.deepEqual(await runMigrations(database), [
       '001_baseline.sql',
       '002_data_service_support.sql',
+      '003_interface_contract_alignment.sql',
     ]);
     assert.deepEqual(await runMigrations(database), []);
 
@@ -20,6 +21,7 @@ test('baseline and support migrations execute once on a clean database', async (
     assert.deepEqual(migrations.rows.map((row) => row.name), [
       '001_baseline.sql',
       '002_data_service_support.sql',
+      '003_interface_contract_alignment.sql',
     ]);
 
     const tables = await database.query(`
@@ -31,6 +33,7 @@ test('baseline and support migrations execute once on a clean database', async (
     assert.ok(names.has('saved_records'));
     assert.ok(names.has('idempotency_keys'));
     assert.ok(names.has('evidence_links'));
+    assert.ok(names.has('record_clear_confirmations'));
   } finally {
     await database.close();
   }
