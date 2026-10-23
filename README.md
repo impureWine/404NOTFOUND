@@ -12,6 +12,8 @@
 | 参与开发和评审 | [团队协作规则](docs/团队协作规则.md)、[代码规范](docs/代码规范.md) |
 | 核对架构和接口 | [技术决策与 Agent 基线](docs/第三次作业_张王昊/03_技术决策与Agent接入基线.md)、[全功能接口与限制规范](docs/第三次作业_张王昊/09_全功能接口与限制规范.md) |
 | 查看交付材料 | [设计说明书与答辩入口](docs/README.md#设计说明书与答辩) |
+| 查看 Day 1 API 骨架 | [Express 服务和共享契约说明](server/README.md) |
+| 查看原型与交互 | [React 原型](prototype/)、[Web 页面原型](web-prototype/home.html)、[原型交互说明](docs/原型交互说明.md) |
 
 ## 目录职责
 
