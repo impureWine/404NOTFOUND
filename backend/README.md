@@ -6,7 +6,7 @@
 
 ## 环境
 
-- Node.js 20.19、22.12或更高版本
+- Node.js 22 或更高版本（`@langchain/openai@1.7.0` 要求）
 - PostgreSQL 16
 - 包管理器可使用 npm、pnpm 或 yarn
 
