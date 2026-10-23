@@ -1,0 +1,485 @@
+{
+  "title": "压力缓解功能展开",
+  "subtitle": "模块 → 需求 → 关键子功能；需求编号沿用仓库当前REQ01—REQ17。",
+  "width": 1360,
+  "height": 950,
+  "nodes": [
+    {
+      "id": "m",
+      "x": 40,
+      "y": 160,
+      "w": 230,
+      "h": 705,
+      "label": "压力缓解",
+      "kind": "action",
+      "color": "pale",
+      "fs": 24
+    },
+    {
+      "id": "REQ02",
+      "x": 340,
+      "y": 140,
+      "w": 360,
+      "h": 130,
+      "label": "REQ02\n压力缓解小训练",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ020",
+      "x": 790,
+      "y": 140,
+      "w": 520,
+      "h": 37,
+      "label": "呼吸／五感／暂停整理",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ021",
+      "x": 790,
+      "y": 185,
+      "w": 520,
+      "h": 37,
+      "label": "任务拆分／步骤调整",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ022",
+      "x": 790,
+      "y": 230,
+      "w": 520,
+      "h": 37,
+      "label": "开始／暂停／继续／退出",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ13",
+      "x": 340,
+      "y": 325,
+      "w": 360,
+      "h": 130,
+      "label": "REQ13\n屏幕无损发泄（敲击回弹）",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ130",
+      "x": 790,
+      "y": 325,
+      "w": 520,
+      "h": 37,
+      "label": "网页画布内敲击",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ131",
+      "x": 790,
+      "y": 370,
+      "w": 520,
+      "h": 37,
+      "label": "减弱动效／主动音效",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ132",
+      "x": 790,
+      "y": 415,
+      "w": 520,
+      "h": 37,
+      "label": "停止与释放资源",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ14",
+      "x": 340,
+      "y": 510,
+      "w": 360,
+      "h": 130,
+      "label": "REQ14\n文字焚化与重力黑洞",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ140",
+      "x": 790,
+      "y": 510,
+      "w": 520,
+      "h": 37,
+      "label": "独立私有正文缓冲",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ141",
+      "x": 790,
+      "y": 555,
+      "w": 520,
+      "h": 37,
+      "label": "选择销毁／跳过动画",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ142",
+      "x": 790,
+      "y": 600,
+      "w": 520,
+      "h": 37,
+      "label": "退出清空／不外发",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ15",
+      "x": 340,
+      "y": 695,
+      "w": 360,
+      "h": 130,
+      "label": "REQ15\n禅意编曲弹珠机",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ150",
+      "x": 790,
+      "y": 695,
+      "w": 520,
+      "h": 37,
+      "label": "轨道／构件／材质",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ151",
+      "x": 790,
+      "y": 740,
+      "w": 520,
+      "h": 37,
+      "label": "限定音阶／碰撞反馈",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ152",
+      "x": 790,
+      "y": 785,
+      "w": 520,
+      "h": 37,
+      "label": "暂停／停止／音频释放",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "m",
+      "b": "REQ02",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          205
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ02",
+      "b": "REQ020",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          158.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ02",
+      "b": "REQ021",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          203.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ02",
+      "b": "REQ022",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          248.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ13",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          390
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ13",
+      "b": "REQ130",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          343.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ13",
+      "b": "REQ131",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          388.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ13",
+      "b": "REQ132",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          433.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ14",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          575
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ14",
+      "b": "REQ140",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          528.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ14",
+      "b": "REQ141",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          573.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ14",
+      "b": "REQ142",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          618.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ15",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          760
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ15",
+      "b": "REQ150",
+      "label": "",
+      "points": [
+        [
+          745,
+          760
+        ],
+        [
+          745,
+          713.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ15",
+      "b": "REQ151",
+      "label": "",
+      "points": [
+        [
+          745,
+          760
+        ],
+        [
+          745,
+          758.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ15",
+      "b": "REQ152",
+      "label": "",
+      "points": [
+        [
+          745,
+          760
+        ],
+        [
+          745,
+          803.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

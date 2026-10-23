@@ -1,0 +1,313 @@
+{
+  "title": "P2展开：临时正文与外发许可",
+  "subtitle": "输入输出与D01.P2平衡；处理框内是数据变换，箭头为数据，不表达控制顺序。",
+  "width": 1600,
+  "height": 1130,
+  "nodes": [
+    {
+      "id": "u",
+      "x": 50,
+      "y": 150,
+      "w": 210,
+      "h": 100,
+      "label": "E1 用户",
+      "kind": "entity",
+      "color": "pale",
+      "fs": 23
+    },
+    {
+      "id": "p21",
+      "x": 410,
+      "y": 150,
+      "w": 360,
+      "h": 100,
+      "label": "P2.1 限定任务范围\n正文最小化／用途分离",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "p22",
+      "x": 410,
+      "y": 410,
+      "w": 360,
+      "h": 110,
+      "label": "P2.2 校验处理许可\n入口／账号／版本／代次",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "t1",
+      "x": 1100,
+      "y": 150,
+      "w": 430,
+      "h": 110,
+      "label": "T1 临时正文／许可／任务\n默认服务内存",
+      "kind": "store",
+      "color": "amber",
+      "fs": 20
+    },
+    {
+      "id": "ai",
+      "x": 1100,
+      "y": 410,
+      "w": 200,
+      "h": 100,
+      "label": "E2 外部模型",
+      "kind": "entity",
+      "color": "blue",
+      "fs": 20
+    },
+    {
+      "id": "se",
+      "x": 1330,
+      "y": 410,
+      "w": 200,
+      "h": 100,
+      "label": "E3 外部检索",
+      "kind": "entity",
+      "color": "blue",
+      "fs": 20
+    },
+    {
+      "id": "p23",
+      "x": 410,
+      "y": 690,
+      "w": 360,
+      "h": 120,
+      "label": "P2.3 过滤旧响应并组织结果\n主张关联来源与不确定性",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "note7",
+      "x": 1100,
+      "y": 840,
+      "w": 430,
+      "h": 160,
+      "label": "相邻P3可在用户主动保存时读取T1中选定快照或有效查询证据。该存储读取在D03展开，不属于P2内部处理。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 19
+    },
+    {
+      "id": "note8",
+      "x": 50,
+      "y": 900,
+      "w": 720,
+      "h": 135,
+      "label": "授权边界：AI_PROCESS与SEARCH_PROCESS各自确认。\n登录不等于授权；正文不会因一次许可自动进入其他任务。\n取消／失效代次产生状态信息，旧正文响应不进入界面。",
+      "kind": "note",
+      "color": "bg",
+      "fs": 18
+    }
+  ],
+  "edges": [
+    {
+      "a": "u",
+      "b": "p21",
+      "label": "F02 临时正文\n与任务范围",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        335,
+        173,
+        "middle"
+      ]
+    },
+    {
+      "a": "u",
+      "b": "p22",
+      "label": "F03 处理许可／取消",
+      "points": [
+        [
+          300,
+          210
+        ],
+        [
+          300,
+          465
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p21",
+      "b": "t1",
+      "label": "限定快照／请求元数据",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "t1",
+      "b": "p22",
+      "label": "当前对象版本／许可／代次",
+      "points": [
+        [
+          980,
+          205
+        ],
+        [
+          980,
+          465
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p21",
+      "b": "p22",
+      "label": "任务类型与最小正文",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p22",
+      "b": "ai",
+      "label": "F09 许可限定模型载荷",
+      "points": null,
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p22",
+      "b": "se",
+      "label": "F11 许可限定检索问题",
+      "points": [
+        [
+          900,
+          555
+        ],
+        [
+          1430,
+          555
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "ai",
+      "b": "p23",
+      "label": "F10 模型结果／失败信息",
+      "points": [
+        [
+          1200,
+          620
+        ],
+        [
+          940,
+          620
+        ],
+        [
+          940,
+          745
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "se",
+      "b": "p23",
+      "label": "F12 来源／主张／质量",
+      "points": [
+        [
+          1430,
+          650
+        ],
+        [
+          990,
+          650
+        ],
+        [
+          990,
+          775
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p22",
+      "b": "t1",
+      "label": "撤销状态／失效代次",
+      "points": [
+        [
+          900,
+          465
+        ],
+        [
+          900,
+          270
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "p23",
+      "b": "u",
+      "label": "F06 临时回应／证据／状态",
+      "points": [
+        [
+          310,
+          745
+        ],
+        [
+          310,
+          290
+        ],
+        [
+          150,
+          290
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": [
+        165,
+        570,
+        "middle"
+      ]
+    },
+    {
+      "a": "p23",
+      "b": "t1",
+      "label": "有效临时回应／查询证据",
+      "points": [
+        [
+          850,
+          745
+        ],
+        [
+          850,
+          315
+        ],
+        [
+          1270,
+          315
+        ]
+      ],
+      "style": "flow",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}

@@ -1,0 +1,485 @@
+{
+  "title": "基础与多端功能展开",
+  "subtitle": "模块 → 需求 → 关键子功能；需求编号沿用仓库当前REQ01—REQ17。",
+  "width": 1360,
+  "height": 950,
+  "nodes": [
+    {
+      "id": "m",
+      "x": 40,
+      "y": 160,
+      "w": 230,
+      "h": 705,
+      "label": "基础与多端",
+      "kind": "action",
+      "color": "pale",
+      "fs": 24
+    },
+    {
+      "id": "REQ04",
+      "x": 340,
+      "y": 140,
+      "w": 360,
+      "h": 130,
+      "label": "REQ04\n模式切换",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ040",
+      "x": 790,
+      "y": 140,
+      "w": 520,
+      "h": 37,
+      "label": "显示当前任务",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ041",
+      "x": 790,
+      "y": 185,
+      "w": 520,
+      "h": 37,
+      "label": "选择携带内容并确认",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ042",
+      "x": 790,
+      "y": 230,
+      "w": 520,
+      "h": 37,
+      "label": "旧任务失效／切换回执",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ05",
+      "x": 340,
+      "y": 325,
+      "w": 360,
+      "h": 130,
+      "label": "REQ05\n会话控制",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ050",
+      "x": 790,
+      "y": 325,
+      "w": 520,
+      "h": 37,
+      "label": "临时会话／主动保存",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ051",
+      "x": 790,
+      "y": 370,
+      "w": 520,
+      "h": 37,
+      "label": "本人记录／版本核实",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ052",
+      "x": 790,
+      "y": 415,
+      "w": 520,
+      "h": 37,
+      "label": "结束／确认清除",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ06",
+      "x": 340,
+      "y": 510,
+      "w": 360,
+      "h": 130,
+      "label": "REQ06\n多入口及隔离",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ060",
+      "x": 790,
+      "y": 510,
+      "w": 520,
+      "h": 37,
+      "label": "Web／桌宠／微信能力",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ061",
+      "x": 790,
+      "y": 555,
+      "w": 520,
+      "h": 37,
+      "label": "可信入口与身份隔离",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ062",
+      "x": 790,
+      "y": 600,
+      "w": 520,
+      "h": 37,
+      "label": "跳转不自动携带正文",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ07",
+      "x": 340,
+      "y": 695,
+      "w": 360,
+      "h": 130,
+      "label": "REQ07\n安全与隐私",
+      "kind": "action",
+      "color": "pale",
+      "fs": 20
+    },
+    {
+      "id": "REQ070",
+      "x": 790,
+      "y": 695,
+      "w": 520,
+      "h": 37,
+      "label": "最小数据／归属检查",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ071",
+      "x": 790,
+      "y": 740,
+      "w": 520,
+      "h": 37,
+      "label": "AI／检索／保存分别授权",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    },
+    {
+      "id": "REQ072",
+      "x": 790,
+      "y": 785,
+      "w": 520,
+      "h": 37,
+      "label": "敏感场景边界与脱敏",
+      "kind": "action",
+      "color": "bg",
+      "fs": 17
+    }
+  ],
+  "edges": [
+    {
+      "a": "m",
+      "b": "REQ04",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          205
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ04",
+      "b": "REQ040",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          158.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ04",
+      "b": "REQ041",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          203.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ04",
+      "b": "REQ042",
+      "label": "",
+      "points": [
+        [
+          745,
+          205
+        ],
+        [
+          745,
+          248.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ05",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          390
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ05",
+      "b": "REQ050",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          343.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ05",
+      "b": "REQ051",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          388.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ05",
+      "b": "REQ052",
+      "label": "",
+      "points": [
+        [
+          745,
+          390
+        ],
+        [
+          745,
+          433.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ06",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          575
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ06",
+      "b": "REQ060",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          528.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ06",
+      "b": "REQ061",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          573.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ06",
+      "b": "REQ062",
+      "label": "",
+      "points": [
+        [
+          745,
+          575
+        ],
+        [
+          745,
+          618.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "m",
+      "b": "REQ07",
+      "label": "",
+      "points": [
+        [
+          300,
+          512.5
+        ],
+        [
+          300,
+          760
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ07",
+      "b": "REQ070",
+      "label": "",
+      "points": [
+        [
+          745,
+          760
+        ],
+        [
+          745,
+          713.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ07",
+      "b": "REQ071",
+      "label": "",
+      "points": [
+        [
+          745,
+          760
+        ],
+        [
+          745,
+          758.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    },
+    {
+      "a": "REQ07",
+      "b": "REQ072",
+      "label": "",
+      "points": [
+        [
+          745,
+          760
+        ],
+        [
+          745,
+          803.5
+        ]
+      ],
+      "style": "tree",
+      "side": null,
+      "labelpos": null
+    }
+  ]
+}
