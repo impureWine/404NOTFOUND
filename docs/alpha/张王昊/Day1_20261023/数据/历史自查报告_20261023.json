@@ -1,0 +1,180 @@
+{
+  "time": "2026-10-23T20:28:42+08:00",
+  "scope": "仅交付材料完整性、所选后端JS语法；未重跑19项业务测试/未启动服务/未验收发布",
+  "checks": [
+    {
+      "check": "任务数与总点数",
+      "passed": true,
+      "detail": "50项，100SP"
+    },
+    {
+      "check": "子任务1至3SP",
+      "passed": true,
+      "detail": "均为2SP"
+    },
+    {
+      "check": "工作包保持原基线",
+      "passed": true,
+      "detail": "[10, 18, 18, 10, 8, 6, 10, 6, 6, 8]"
+    },
+    {
+      "check": "任务ID唯一",
+      "passed": true,
+      "detail": "50个唯一ID"
+    },
+    {
+      "check": "Issue草稿覆盖",
+      "passed": true,
+      "detail": "未创建Issue；50份本地草稿"
+    },
+    {
+      "check": "未来实际值未编造",
+      "passed": true,
+      "detail": "Day1日终及未来实际均null"
+    },
+    {
+      "check": "无虚假验收扣点",
+      "passed": true,
+      "detail": "所有任务未标已验收"
+    },
+    {
+      "check": "博客集合数量",
+      "passed": true,
+      "detail": "集合1+计划1+日志7+测试1+总结1"
+    },
+    {
+      "check": "Node语法：参考快照/GitHub/backend/src/app.js",
+      "passed": true,
+      "detail": {
+        "command": [
+          "node",
+          "--check",
+          "参考快照/GitHub/backend/src/app.js"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "Node语法：参考快照/GitHub/backend/src/contracts/identity.js",
+      "passed": true,
+      "detail": {
+        "command": [
+          "node",
+          "--check",
+          "参考快照/GitHub/backend/src/contracts/identity.js"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "Node语法：参考快照/GitHub/backend/src/contracts/records.js",
+      "passed": true,
+      "detail": {
+        "command": [
+          "node",
+          "--check",
+          "参考快照/GitHub/backend/src/contracts/records.js"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "Node语法：参考快照/GitHub/backend/src/contracts/search.js",
+      "passed": true,
+      "detail": {
+        "command": [
+          "node",
+          "--check",
+          "参考快照/GitHub/backend/src/contracts/search.js"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "Node语法：参考快照/GitHub/backend/src/search/wikipedia-search-provider.js",
+      "passed": true,
+      "detail": {
+        "command": [
+          "node",
+          "--check",
+          "参考快照/GitHub/backend/src/search/wikipedia-search-provider.js"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "Node语法：参考快照/GitHub/backend/src/server.js",
+      "passed": true,
+      "detail": {
+        "command": [
+          "node",
+          "--check",
+          "参考快照/GitHub/backend/src/server.js"
+        ],
+        "exit_code": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "check": "GitHub树及Issue原始记录",
+      "passed": true,
+      "detail": "完整树已保存；Issue查询空数组"
+    },
+    {
+      "check": "本地链接：01_范围与现状基线.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：02_任务板.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：03_代码规范与冲刺计划_博客.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：04_容量环境与启动登记.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：05_接口依赖与差异清单.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：06_Day1冲刺日志_博客.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：07_置顶集合_博客.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：08_燃尽与验收记录.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：09_交付核验与待办.md",
+      "passed": true,
+      "detail": "全部存在"
+    },
+    {
+      "check": "本地链接：README.md",
+      "passed": true,
+      "detail": "全部存在"
+    }
+  ],
+  "all_passed": true
+}

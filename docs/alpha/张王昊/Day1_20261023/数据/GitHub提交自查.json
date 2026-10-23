@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-24",
+  "base_commit": "db3399baee7917a9f66d25c4ab71010cb240b44e",
+  "scope": "文档提交，不重跑应用测试",
+  "task_count": 50,
+  "sp": 100,
+  "task_ids_unique": true,
+  "work_packages": [
+    10,
+    18,
+    18,
+    10,
+    8,
+    6,
+    10,
+    6,
+    6,
+    8
+  ],
+  "future_actuals_empty": true,
+  "local_link_errors": [],
+  "archive_crc_ok": true
+}
