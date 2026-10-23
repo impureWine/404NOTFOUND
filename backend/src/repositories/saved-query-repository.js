@@ -1,4 +1,7 @@
-import { savedQuerySchema } from '../contracts/search.js';
+import {
+  completedSearchResultSchema,
+  savedQueryRequestSchema,
+} from '../contracts/search.js';
 import { withTransaction } from '../db/database.js';
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
 import { stableHash } from '../domain/stable-hash.js';
@@ -21,21 +24,57 @@ function persistentStatus(value) {
   return 'SUCCESS';
 }
 
-function parse(input) {
-  const parsed = savedQuerySchema.safeParse(input);
+function parse(schema, input, message) {
+  const parsed = schema.safeParse(input);
   if (!parsed.success) {
-    throw new InvalidInputError('Invalid saved query input', parsed.error.flatten());
+    throw new InvalidInputError(message, parsed.error.flatten());
   }
   return parsed.data;
 }
 
 export class SavedQueryRepository {
-  constructor(database) {
+  constructor(database, { resolveCompletedSearch } = {}) {
     this.database = database;
+    this.resolveCompletedSearch = resolveCompletedSearch;
   }
 
   async save(input) {
-    const value = parse(input);
+    const request = parse(
+      savedQueryRequestSchema,
+      input,
+      'Invalid saved query request',
+    );
+    if (typeof this.resolveCompletedSearch !== 'function') {
+      throw new TypeError('resolveCompletedSearch is required to save query results');
+    }
+
+    const resolved = await this.resolveCompletedSearch({
+      accountId: request.accountId,
+      entryPointId: request.entryPointId,
+      searchRequestId: request.searchRequestId,
+    });
+    if (!resolved) throw new NotFoundError('Completed search result not found');
+
+    const value = parse(
+      completedSearchResultSchema,
+      resolved,
+      'Completed search result violates the persistence contract',
+    );
+    if (
+      value.accountId !== request.accountId
+      || value.entryPointId !== request.entryPointId
+      || value.searchRequestId !== request.searchRequestId
+    ) {
+      throw new NotFoundError('Completed search result not found');
+    }
+    if (
+      value.status !== 'completed'
+      || value.searchState !== 'SUCCESS'
+      || value.sources.length === 0
+    ) {
+      throw new ConflictError('Only completed successful searches with sources can be saved');
+    }
+
     const normalizedSources = value.sources.map((source) => ({
       ...source,
       canonicalUrl: canonicalizeUrl(source.url),
@@ -72,16 +111,16 @@ export class SavedQueryRepository {
 
     return withTransaction(this.database, async (transaction) => {
       const idempotency = await claimIdempotencyKey(transaction, {
-        accountId: value.accountId,
-        entryPointId: value.entryPointId,
+        accountId: request.accountId,
+        entryPointId: request.entryPointId,
         operation: 'SAVE_QUERY',
-        requestId: value.requestId,
+        requestId: request.requestId,
         payloadHash,
       });
       if (idempotency.existing) {
         const existing = await this.#getInTransaction(transaction, {
-          accountId: value.accountId,
-          entryPointId: value.entryPointId,
+          accountId: request.accountId,
+          entryPointId: request.entryPointId,
           recordId: idempotency.resultResourceId,
         });
         return { ...existing, idempotent: true };
@@ -98,7 +137,7 @@ export class SavedQueryRepository {
           VALUES ($1, $2, 'QUERY', $3)
           RETURNING id, version_no, created_at, updated_at
         `,
-        [value.accountId, value.entryPointId, value.requestId],
+        [request.accountId, request.entryPointId, request.requestId],
       );
       const row = record.rows[0];
       const status = persistentStatus({ ...value, sources: normalizedSources });

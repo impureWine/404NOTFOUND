@@ -1,5 +1,14 @@
 import { z } from 'zod';
 
+import {
+  codePointString,
+  ianaTimeZoneSchema,
+  instantSchema,
+  isoDateSchema,
+  nonZeroUuidSchema,
+  requestIdSchema,
+} from './primitives.js';
+
 export const recordKinds = [
   'CONVERSATION',
   'EMOTION',
@@ -10,14 +19,14 @@ export const recordKinds = [
 ];
 
 export const scopeSchema = z.strictObject({
-  accountId: z.string().uuid(),
-  entryPointId: z.string().uuid(),
+  accountId: nonZeroUuidSchema,
+  entryPointId: nonZeroUuidSchema,
 });
 
 const encryptedBytesSchema = z.instanceof(Uint8Array);
 
 const recordCreateBaseSchema = scopeSchema.extend({
-  requestId: z.string().trim().min(1).max(128),
+  requestId: requestIdSchema,
   titleCiphertext: encryptedBytesSchema.nullable().default(null),
   titleKeyVersion: z.number().int().positive().nullable().default(null),
 });
@@ -36,10 +45,15 @@ export const recordCreateSchema = z.discriminatedUnion('kind', [
   recordCreateBaseSchema.extend({
     kind: z.literal('EMOTION'),
     details: z.strictObject({
-      recordDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-      emotionCodes: z.array(z.string().trim().min(1).max(20)).min(1).max(5),
+      recordDate: isoDateSchema,
+      emotionCodes: z.array(codePointString({
+        min: 1,
+        max: 20,
+        trim: true,
+        name: 'emotionWord',
+      })).min(1).max(5),
       intensity: z.number().int().min(1).max(5),
-      timezoneName: z.string().trim().min(1).max(64),
+      timezoneName: ianaTimeZoneSchema,
       eventCiphertext: encryptedBytesSchema.nullable().default(null),
       cipherKeyVersion: z.number().int().positive().nullable().default(null),
     }),
@@ -66,7 +80,7 @@ export const recordCreateSchema = z.discriminatedUnion('kind', [
     details: z.strictObject({
       bodyCiphertext: encryptedBytesSchema,
       cipherKeyVersion: z.number().int().positive(),
-      reopenAt: z.string().datetime({ offset: true }),
+      reopenAt: instantSchema,
     }),
   }),
 ]).superRefine((value, context) => {
@@ -104,19 +118,28 @@ export const recordCreateSchema = z.discriminatedUnion('kind', [
 export const recordListSchema = scopeSchema.extend({
   kind: z.enum(recordKinds).optional(),
   limit: z.number().int().min(1).max(50).default(20),
+  cursor: z.string().min(1).max(2048).optional(),
 });
 
 export const recordIdentitySchema = scopeSchema.extend({
-  recordId: z.string().uuid(),
+  recordId: nonZeroUuidSchema,
 });
 
-export const recordClearSchema = recordIdentitySchema.extend({
-  requestId: z.string().trim().min(1).max(128),
+export const recordClearConfirmationSchema = recordIdentitySchema.extend({
+  requestId: requestIdSchema,
   expectedVersion: z.number().int().positive(),
 });
 
-export const depositActionSchema = recordClearSchema;
+export const recordClearSchema = recordClearConfirmationSchema.extend({
+  confirmationId: nonZeroUuidSchema,
+  confirmed: z.literal(true),
+});
 
-export const depositPostponeSchema = recordClearSchema.extend({
-  reopenAt: z.string().datetime({ offset: true }),
+export const depositActionSchema = recordIdentitySchema.extend({
+  requestId: requestIdSchema,
+  expectedVersion: z.number().int().positive(),
+});
+
+export const depositPostponeSchema = depositActionSchema.extend({
+  reopenAt: instantSchema,
 });

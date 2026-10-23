@@ -2,17 +2,21 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { randomUUID } from 'node:crypto';
 
-import { InvalidInputError, NotFoundError } from '../../src/domain/errors.js';
-import { SavedQueryRepository, persistentStatus } from '../../src/repositories/saved-query-repository.js';
+import { ConflictError, InvalidInputError, NotFoundError } from '../../src/domain/errors.js';
+import {
+  SavedQueryRepository,
+  persistentStatus,
+} from '../../src/repositories/saved-query-repository.js';
 import { createTestDatabase, seedScope } from '../helpers/database.js';
 
 const cipher = (value) => Buffer.from(`synthetic:${value}`, 'utf8');
 
-function queryInput(scope, overrides = {}) {
+function completedResult(scope, searchRequestId, overrides = {}) {
   return {
     ...scope,
-    requestId: randomUUID(),
-    searchRequestId: randomUUID(),
+    searchRequestId,
+    status: 'completed',
+    searchState: 'SUCCESS',
     rawQueryCiphertext: cipher('raw query'),
     normalizedQueryCiphertext: cipher('normalized query'),
     cipherKeyVersion: 1,
@@ -46,13 +50,27 @@ function queryInput(scope, overrides = {}) {
   };
 }
 
-test('saved query keeps claim-to-source evidence and enforces account isolation', async () => {
+function repositoryWithResults(database, results) {
+  return new SavedQueryRepository(database, {
+    resolveCompletedSearch: async ({ searchRequestId }) => results.get(searchRequestId) ?? null,
+  });
+}
+
+test('saved query copies server-owned completed search evidence and enforces isolation', async () => {
   const database = await createTestDatabase();
   try {
     const scopeA = await seedScope(database, 'query_a');
     const scopeB = await seedScope(database, 'query_b');
-    const repository = new SavedQueryRepository(database);
-    const saved = await repository.save(queryInput(scopeA));
+    const searchRequestId = randomUUID();
+    const results = new Map([
+      [searchRequestId, completedResult(scopeA, searchRequestId)],
+    ]);
+    const repository = repositoryWithResults(database, results);
+    const saved = await repository.save({
+      ...scopeA,
+      requestId: randomUUID(),
+      searchRequestId,
+    });
 
     assert.equal(saved.status, 'SUCCESS');
     assert.equal(saved.sourceCount, 1);
@@ -67,19 +85,77 @@ test('saved query keeps claim-to-source evidence and enforces account isolation'
       repository.get({ ...scopeB, recordId: saved.id }),
       NotFoundError,
     );
+    await assert.rejects(
+      repository.save({
+        ...scopeB,
+        requestId: randomUUID(),
+        searchRequestId,
+      }),
+      NotFoundError,
+    );
   } finally {
     await database.close();
   }
 });
 
-test('saved query rejects evidence that is not part of the supplied sources', async () => {
+test('saved query rejects client supplied evidence and invalid server evidence', async () => {
   const database = await createTestDatabase();
   try {
     const scope = await seedScope(database, 'query_invalid');
-    const repository = new SavedQueryRepository(database);
-    const input = queryInput(scope);
-    input.claims[0].evidence[0].sourceUrl = 'https://other.example.org/facts';
-    await assert.rejects(repository.save(input), InvalidInputError);
+    const searchRequestId = randomUUID();
+    const result = completedResult(scope, searchRequestId);
+    result.claims[0].evidence[0].sourceUrl = 'https://other.example.org/facts';
+    const repository = repositoryWithResults(database, new Map([[searchRequestId, result]]));
+
+    await assert.rejects(
+      repository.save({
+        ...scope,
+        requestId: randomUUID(),
+        searchRequestId,
+        sources: result.sources,
+      }),
+      InvalidInputError,
+    );
+    await assert.rejects(
+      repository.save({ ...scope, requestId: randomUUID(), searchRequestId }),
+      InvalidInputError,
+    );
+  } finally {
+    await database.close();
+  }
+});
+
+test('empty or unfinished searches cannot be persisted as query history', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scope = await seedScope(database, 'query_empty');
+    const emptyRequestId = randomUUID();
+    const pendingRequestId = randomUUID();
+    const results = new Map([
+      [emptyRequestId, completedResult(scope, emptyRequestId, {
+        searchState: 'EMPTY',
+        sources: [],
+        claims: [],
+      })],
+      [pendingRequestId, completedResult(scope, pendingRequestId, {
+        status: 'pending',
+        searchState: null,
+        sources: [],
+        claims: [],
+      })],
+    ]);
+    const repository = repositoryWithResults(database, results);
+
+    for (const searchRequestId of [emptyRequestId, pendingRequestId]) {
+      await assert.rejects(
+        repository.save({ ...scope, requestId: randomUUID(), searchRequestId }),
+        ConflictError,
+      );
+    }
+    const count = await database.query(
+      "SELECT count(*)::int AS count FROM saved_records WHERE record_kind = 'QUERY'",
+    );
+    assert.equal(count.rows[0].count, 0);
   } finally {
     await database.close();
   }

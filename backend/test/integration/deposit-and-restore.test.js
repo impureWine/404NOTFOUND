@@ -41,6 +41,7 @@ test('deposit becomes available by database time and reveals body only after act
     const available = await repository.getDeposit({ ...scope, recordId: created.id });
     assert.equal(available.state, 'AVAILABLE');
     assert.equal(available.bodyCiphertext, null);
+    assert.equal(available.version, created.version + 1);
 
     const retrieved = await repository.retrieveDeposit({
       ...scope,
