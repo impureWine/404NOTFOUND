@@ -1,0 +1,43 @@
+# 数据服务实现
+
+本目录实现庄剀涵在 Alpha 冲刺中的数据工程职责：SQL migration、记录仓储、账号与入口隔离、主动保存幂等、乐观锁、清除事务、查询来源绑定，以及可配置的 Wikipedia 真实检索适配器。
+
+这是一套开发与验收实现，不是已经部署的生产系统。认证会话、正文加密密钥服务、前端和模型链路仍需对应负责人联调；仓储只接收服务端已经确认的 `accountId` 和 `entryPointId`，HTTP 请求不得直接提供或覆盖这两个字段。
+
+## 环境
+
+- Node.js 20.19、22.12或更高版本
+- PostgreSQL 16
+- 包管理器可使用 npm、pnpm 或 yarn
+
+安装依赖后：
+
+```powershell
+Copy-Item .env.example .env
+npm install
+npm run migrate
+npm test
+npm start
+```
+
+真实 PostgreSQL 使用 `DATABASE_URL`。自动化测试使用隔离的 PGlite PostgreSQL WASM 实例，不要求本机安装数据库服务；它能验证迁移和SQL行为，但不能替代正式 PostgreSQL 服务、备份工具、网络、权限与性能验收。
+
+## 已实现边界
+
+- `MigrationRunner`：按文件名顺序执行迁移，并使用 `schema_migrations` 记录校验和。
+- `RecordRepository`：创建、列表、详情、更新和清除；所有私密记录均限定账号与入口。
+- 保存幂等：同作用域同 `requestId` 和同载荷返回原结果，不同载荷返回冲突。
+- 乐观锁：更新和清除需要匹配 `expectedVersion`。
+- 清除：事务内令记录立即不可见，并创建删除任务、目标与 outbox。
+- `SavedQueryRepository`：保存查询、来源、主张和证据关系，来源按规范化URL去重。
+- `WikipediaSearchProvider`：真实调用固定 Wikipedia MediaWiki API；支持超时、空结果和上游错误。
+
+## 未包含
+
+- 用户密码、Cookie、CSRF和登录会话HTTP实现。
+- 真实正文加密和密钥轮换。测试只使用合成字节数据。
+- 模型摘要和LangChain链路。
+- 正式服务器部署、PostgreSQL角色权限、`pg_dump`/`pg_restore`恢复演练。
+- 前端页面联调。
+
+这些项目不得因本目录可运行而描述为已经完成。
