@@ -10,6 +10,10 @@
 - PostgreSQL 16
 - 包管理器可使用 npm、pnpm 或 yarn
 
+模型适配开发使用 LangChain JS。当前配置只允许智谱国内官方接口中的
+`glm-4.7-flash`，不自动切换其他模型。将 `.env.example` 复制为本地 `.env` 后，
+只在 `.env` 中填写 `ZHIPU_API_KEY`；不得把密钥写入源码、文档或提交记录。
+
 安装依赖后：
 
 ```powershell
@@ -32,12 +36,14 @@ npm start
 - `SavedQueryRepository`：调用方只能提交 `searchRequestId`；仓储从受控的已完成查询解析器复制查询、来源、主张和证据关系，客户端不能自造证据链。
 - `WikipediaSearchProvider`：真实调用固定 Wikipedia MediaWiki API；支持超时、空结果和上游错误。
 - 合同校验：严格对象、非全零UUID、Unicode码点长度、真实日历日期和IANA时区。
+- 模型适配：LangChain JS 配置白名单、契约校验、最小上下文构造、统一输出校验、
+  合成输入和离线失败替身。
 
 ## 未包含
 
 - 用户密码、Cookie、CSRF和登录会话HTTP实现。
 - 真实正文加密和密钥轮换。测试只使用合成字节数据。
-- 模型摘要和LangChain链路。
+- 模型摘要的 HTTP 业务链路、真实模型调用和端到端验收。
 - 搜索任务内存服务和SAVE许可服务；当前仓储通过注入的服务端解析器接收已完成结果。
 - 正式服务器部署、PostgreSQL角色权限、`pg_dump`/`pg_restore`恢复演练。
 - 前端页面联调。
