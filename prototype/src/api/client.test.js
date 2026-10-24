@@ -47,6 +47,45 @@ test('real mode refuses writes before context has configured CSRF state', async 
   assert.equal(calls, 0);
 });
 
+test('authentication methods preserve the shared request names and credential policy', async () => {
+  const calls = [];
+  const client = createApiClient({
+    mode: 'real',
+    csrfHeaderName: 'X-Test-CSRF',
+    fetchImpl: async (url, options) => {
+      calls.push({ url, options });
+      if (url === '/api/auth/context') return jsonResponse(200, { data: { authenticated: false, csrfToken: 'auth-token' } });
+      if (url === '/api/auth/register') return jsonResponse(201, { data: { accountId: 'account-1' } });
+      if (url === '/api/auth/login') return jsonResponse(200, { data: { profile: { nickname: '小满' } } });
+      if (url === '/api/profile') return jsonResponse(200, { data: { nickname: '小满', bio: '先慢慢来。' } });
+      if (url === '/api/auth/logout') return new Response(null, { status: 204 });
+      throw new Error(`unexpected URL ${url}`);
+    },
+  });
+
+  await client.getAuthContext();
+  await client.register({ requestId: 'req-register', loginName: 'demo_a', password: 'secret', confirmPassword: 'secret' });
+  await client.login({ loginName: 'demo_a', password: 'secret', target: 'home' });
+  await client.getAuthContext();
+  assert.deepEqual(await client.getProfile(), { nickname: '小满', bio: '先慢慢来。' });
+  await client.logout();
+
+  assert.deepEqual(calls.map(call => call.url), [
+    '/api/auth/context',
+    '/api/auth/register',
+    '/api/auth/login',
+    '/api/auth/context',
+    '/api/profile',
+    '/api/auth/logout',
+  ]);
+  assert.equal(calls[1].options.headers.get('X-Test-CSRF'), 'auth-token');
+  assert.equal(calls[1].options.credentials, 'include');
+  assert.equal(calls[1].options.body, JSON.stringify({ requestId: 'req-register', loginName: 'demo_a', password: 'secret', confirmPassword: 'secret' }));
+  assert.equal(calls[2].options.body, JSON.stringify({ loginName: 'demo_a', password: 'secret', target: 'home' }));
+  assert.equal(calls[4].options.method, 'GET');
+  assert.equal(calls[5].options.body, undefined);
+});
+
 test('identity changes discard the in-memory CSRF token even when the response is lost', async () => {
   const client = createApiClient({
     mode: 'real',
