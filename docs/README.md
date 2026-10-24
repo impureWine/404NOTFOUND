@@ -61,6 +61,7 @@
 | 入口 | 说明 |
 | --- | --- |
 | [React/Vite 原型](../prototype/) | 演示源码及 npm 锁文件 |
+| [UX 组件展示与状态截图](alpha/郭昱祺/组件展示页交付_20261024/README.md) | 登录、首页、聊天、来源的独立 React 组件演示、16 张状态主图与 4 张分区细节图；模拟数据，待复核与接口整合 |
 | [HTML 页面总览](../web-prototype/prototype-guide.html) | 下载后用浏览器查看 |
 | [桌宠离线演示](../demo/桌宠原型.html) | 演示，不是 Electron 安装包 |
 | [后端 README](../backend/README.md) | 数据服务环境、实现和未包含内容 |

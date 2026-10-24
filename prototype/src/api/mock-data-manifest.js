@@ -1,5 +1,13 @@
 export const MOCK_DATA_MANIFEST = Object.freeze([
   {
+    id: 'MOCK-UX-SHOWCASE-01',
+    area: '独立 UX 组件展示入口 ux-components.html',
+    source: 'ux-showcase/data.js and ux-showcase/pages.jsx',
+    data: '登录演示输入、首页元数据、固定聊天回复、示例摘要与来源；16 个核心状态可手动选择',
+    status: '本地模拟；不调用认证、模型、检索或保存接口；来源未实时抓取核验',
+    reset: '顶部状态切换、场景导航或刷新重置；聊天结束清空本场景消息、快照及草稿',
+  },
+  {
     id: 'MOCK-AUTH-01',
     area: '登录、注册、个人主页',
     source: 'pages/Account.jsx and App.jsx',
