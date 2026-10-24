@@ -1,0 +1,6 @@
+{
+  "files": 130,
+  "all_match_git_blobs": true,
+  "source_commit": "524337e3809f6efa123b609e16608415ff51ceca",
+  "note": "只核对采集清单中的130份源码/材料；未将本机安装依赖提交"
+}

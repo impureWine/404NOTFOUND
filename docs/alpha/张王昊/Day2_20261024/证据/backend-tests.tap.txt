@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: test\\helpers\\database.js
+ok 1 - test\\helpers\\database.js
+  ---
+  duration_ms: 380.1357
+  type: 'test'
+  ...
+# Subtest: register, login, profile, logout and password change form a real isolated flow
+ok 2 - register, login, profile, logout and password change form a real isolated flow
+  ---
+  duration_ms: 2757.1506
+  type: 'test'
+  ...
+# Subtest: mutating routes reject missing CSRF and foreign Origin
+ok 3 - mutating routes reject missing CSRF and foreign Origin
+  ---
+  duration_ms: 1219.9101
+  type: 'test'
+  ...
+# Subtest: deposit becomes available by database time and reveals body only after active retrieval
+ok 4 - deposit becomes available by database time and reveals body only after active retrieval
+  ---
+  duration_ms: 2352.8078
+  type: 'test'
+  ...
+# Subtest: isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+ok 5 - isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+  ---
+  duration_ms: 2982.3488
+  type: 'test'
+  ...
+# Subtest: health endpoints report process and database readiness without exposing details
+ok 6 - health endpoints report process and database readiness without exposing details
+  ---
+  duration_ms: 2489.2476
+  type: 'test'
+  ...
+# Subtest: account creation writes credentials, profile, and preferences atomically
+ok 7 - account creation writes credentials, profile, and preferences atomically
+  ---
+  duration_ms: 2398.62
+  type: 'test'
+  ...
+# Subtest: account creation rolls back all identity rows when a later write fails
+ok 8 - account creation rolls back all identity rows when a later write fails
+  ---
+  duration_ms: 1473.145
+  type: 'test'
+  ...
+# Subtest: session lookup uses a 32-byte digest and rejects revoked sessions
+ok 9 - session lookup uses a 32-byte digest and rejects revoked sessions
+  ---
+  duration_ms: 1295.9445
+  type: 'test'
+  ...
+# Subtest: profile update uses optimistic locking
+ok 10 - profile update uses optimistic locking
+  ---
+  duration_ms: 983.6564
+  type: 'test'
+  ...
+# Subtest: profile summary and preferences are scoped and versioned
+ok 11 - profile summary and preferences are scoped and versioned
+  ---
+  duration_ms: 940.1516
+  type: 'test'
+  ...
+# Subtest: baseline and support migrations execute once on a clean database
+ok 12 - baseline and support migrations execute once on a clean database
+  ---
+  duration_ms: 2142.7955
+  type: 'test'
+  ...
+# Subtest: database constraints reject duplicate normalized login identifiers
+ok 13 - database constraints reject duplicate normalized login identifiers
+  ---
+  duration_ms: 1644.4584
+  type: 'test'
+  ...
+# Subtest: record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+ok 14 - record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+  ---
+  duration_ms: 2805.5189
+  type: 'test'
+  ...
+# Subtest: records are isolated by both account and entry point
+ok 15 - records are isolated by both account and entry point
+  ---
+  duration_ms: 2498.0325
+  type: 'test'
+  ...
+# Subtest: same idempotency key returns the original record and rejects changed payload
+ok 16 - same idempotency key returns the original record and rejects changed payload
+  ---
+  duration_ms: 1398.9007
+  type: 'test'
+  ...
+# Subtest: record update enforces scope, version, editable kind, and idempotency
+ok 17 - record update enforces scope, version, editable kind, and idempotency
+  ---
+  duration_ms: 1320.714
+  type: 'test'
+  ...
+# Subtest: clear enforces version and scope, hides the record, and creates deletion outbox state
+ok 18 - clear enforces version and scope, hides the record, and creates deletion outbox state
+  ---
+  duration_ms: 952.9492
+  type: 'test'
+  ...
+# Subtest: record cursors are opaque and bound to account, entry, and kind
+ok 19 - record cursors are opaque and bound to account, entry, and kind
+  ---
+  duration_ms: 861.7049
+  type: 'test'
+  ...
+# Subtest: clear confirmation expires after its two-minute window
+ok 20 - clear confirmation expires after its two-minute window
+  ---
+  duration_ms: 799.7427
+  type: 'test'
+  ...
+# Subtest: record type details are written in the same transaction
+ok 21 - record type details are written in the same transaction
+  ---
+  duration_ms: 760.3981
+  type: 'test'
+  ...
+# Subtest: saved query copies server-owned completed search evidence and enforces isolation
+ok 22 - saved query copies server-owned completed search evidence and enforces isolation
+  ---
+  duration_ms: 2411.2033
+  type: 'test'
+  ...
+# Subtest: saved query rejects client supplied evidence and invalid server evidence
+ok 23 - saved query rejects client supplied evidence and invalid server evidence
+  ---
+  duration_ms: 1439.5916
+  type: 'test'
+  ...
+# Subtest: empty or unfinished searches cannot be persisted as query history
+ok 24 - empty or unfinished searches cannot be persisted as query history
+  ---
+  duration_ms: 1269.9817
+  type: 'test'
+  ...
+# Subtest: persistent query status follows conflict, partial, stale, success priority
+ok 25 - persistent query status follows conflict, partial, stale, success priority
+  ---
+  duration_ms: 0.4631
+  type: 'test'
+  ...
+# Subtest: SEC-03 / AT-SEC-02：客户端自报归属字段被契约拒绝，scope 不可省略
+ok 26 - SEC-03 / AT-SEC-02：客户端自报归属字段被契约拒绝，scope 不可省略
+  ---
+  duration_ms: 9.2118
+  type: 'test'
+  ...
+# Subtest: SEC-03 / AT-SEC-01：他人记录编号无法读取，也无法签发清除确认
+ok 27 - SEC-03 / AT-SEC-01：他人记录编号无法读取，也无法签发清除确认
+  ---
+  duration_ms: 2263.3747
+  type: 'test'
+  ...
+# Subtest: SEC-09 / AT-SEC-03：同账号换入口默认读不到记录（跨入口隔离）
+ok 28 - SEC-09 / AT-SEC-03：同账号换入口默认读不到记录（跨入口隔离）
+  ---
+  duration_ms: 1181.4938
+  type: 'test'
+  ...
+# Subtest: SEC-02 / AT-SEC-04：会话撤销后旧令牌摘要不能再查到会话
+ok 29 - SEC-02 / AT-SEC-04：会话撤销后旧令牌摘要不能再查到会话
+  ---
+  duration_ms: 964.3551
+  type: 'test'
+  ...
+# Subtest: SEC-12：数据库不可用时健康检查只返回通用错误，不泄露连接串或异常细节
+ok 30 - SEC-12：数据库不可用时健康检查只返回通用错误，不泄露连接串或异常细节
+  ---
+  duration_ms: 74.88
+  type: 'test'
+  ...
+# Subtest: SEC-08 结构检查：数据库与记录类型中不存在文字销毁正文的存储位
+ok 31 - SEC-08 结构检查：数据库与记录类型中不存在文字销毁正文的存储位
+  ---
+  duration_ms: 832.1859
+  type: 'test'
+  ...
+# Subtest: consent is owner, scope, expiry, revocation and payload bound
+ok 32 - consent is owner, scope, expiry, revocation and payload bound
+  ---
+  duration_ms: 27.5989
+  type: 'test'
+  ...
+# Subtest: shared contracts reject zero UUIDs and unknown request fields
+ok 33 - shared contracts reject zero UUIDs and unknown request fields
+  ---
+  duration_ms: 10.7329
+  type: 'test'
+  ...
+# Subtest: text limits count Unicode code points instead of UTF-16 code units
+ok 34 - text limits count Unicode code points instead of UTF-16 code units
+  ---
+  duration_ms: 39.8154
+  type: 'test'
+  ...
+# Subtest: emotion records require a real date and supported IANA time zone
+ok 35 - emotion records require a real date and supported IANA time zone
+  ---
+  duration_ms: 4.7115
+  type: 'test'
+  ...
+# Subtest: search task returns sources and remains scoped to its owner
+ok 36 - search task returns sources and remains scoped to its owner
+  ---
+  duration_ms: 15.9562
+  type: 'test'
+  ...
+# Subtest: ending a session cancels an in-flight search and prevents late refill
+ok 37 - ending a session cancels an in-flight search and prevents late refill
+  ---
+  duration_ms: 14.5643
+  type: 'test'
+  ...
+# Subtest: provider maps real-source fields without inventing claims
+ok 38 - provider maps real-source fields without inventing claims
+  ---
+  duration_ms: 63.8892
+  type: 'test'
+  ...
+# Subtest: provider distinguishes an empty result
+ok 39 - provider distinguishes an empty result
+  ---
+  duration_ms: 1.7624
+  type: 'test'
+  ...
+# Subtest: provider reports timeout separately from other upstream errors
+ok 40 - provider reports timeout separately from other upstream errors
+  ---
+  duration_ms: 7.5648
+  type: 'test'
+  ...
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9926.9058

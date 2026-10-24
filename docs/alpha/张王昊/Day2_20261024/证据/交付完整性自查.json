@@ -1,0 +1,22 @@
+{
+  "tasks_50": true,
+  "task_ids_unique": true,
+  "sp_100": true,
+  "work_package_points": [
+    10,
+    18,
+    18,
+    10,
+    8,
+    6,
+    10,
+    6,
+    6,
+    8
+  ],
+  "no_fabricated_acceptances": true,
+  "source_unchanged": true,
+  "probes_failures_preserved": true,
+  "core_smoke_pass": true,
+  "local_links": []
+}

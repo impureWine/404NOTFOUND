@@ -1,0 +1,214 @@
+{
+  "main": "524337e3809f6efa123b609e16608415ff51ceca",
+  "ai_pr": {
+    "number": 15,
+    "head": "4b9c0ba2971d8e9aea3c5585320c3423383f46ac",
+    "state": "OPEN",
+    "reported_ai_tests": 19,
+    "reported_live_success": true,
+    "rerun_by_this_review": false
+  },
+  "issues": [
+    {
+      "number": 25,
+      "title": "[AI] 接入真实模型调用并实现命名卡陪伴/查询路由",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/25",
+      "updatedAt": "2026-10-24T06:39:15Z"
+    },
+    {
+      "number": 24,
+      "title": "[Alpha冲刺][前端][程杰] 提交可启动前端、API适配骨架与模拟项清单",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/24",
+      "updatedAt": "2026-10-24T05:31:55Z"
+    },
+    {
+      "number": 23,
+      "title": "[Alpha冲刺][UX/产品设计][郭昱祺] 登录、首页、聊天与来源展示交接",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/23",
+      "updatedAt": "2026-10-24T05:28:34Z"
+    },
+    {
+      "number": 22,
+      "title": "[Alpha冲刺 Day 2][庄剀涵] 完成账号资料与主动保存仓储，补齐隔离、幂等及版本控制",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/22",
+      "updatedAt": "2026-10-24T04:31:08Z"
+    },
+    {
+      "number": 18,
+      "title": "[Alpha冲刺][项目管理] 范围基线、任务拆分与冲刺交付材料整合",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/18",
+      "updatedAt": "2026-10-23T16:24:57Z"
+    },
+    {
+      "number": 17,
+      "title": "[Alpha冲刺][后端] 建立 Express API 骨架与共享 Zod 契约",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/17",
+      "updatedAt": "2026-10-23T16:29:31Z"
+    },
+    {
+      "number": 14,
+      "title": "[Alpha冲刺][AI] 接入智谱免费模型与 LangChain 适配",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/14",
+      "updatedAt": "2026-10-23T15:25:58Z"
+    },
+    {
+      "number": 13,
+      "title": "[Alpha冲刺][安全] 按 SEC-01~14 完成数据服务安全基线审查与用例落地",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/13",
+      "updatedAt": "2026-10-23T16:00:28Z"
+    },
+    {
+      "number": 11,
+      "title": "[Alpha冲刺][数据与检索] 按全功能接口与限制规范完成后端数据层对齐",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/11",
+      "updatedAt": "2026-10-23T13:52:51Z"
+    }
+  ],
+  "prs": [
+    {
+      "number": 21,
+      "title": "feat: add frontend startup API adapter and mock manifest",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/21",
+      "headRefOid": "f1ae4fa5ff48d95d627aec2c41b7e26467b8c7b0",
+      "mergedAt": "2026-10-23T16:54:42Z"
+    },
+    {
+      "number": 20,
+      "title": "[Alpha冲刺][后端] 提交 Day 1 API 骨架与共享契约成果快照",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/20",
+      "headRefOid": "ddf0dc21cd1531eeaf2a882fffd03e8295f949a3",
+      "mergedAt": "2026-10-24T03:34:31Z"
+    },
+    {
+      "number": 19,
+      "title": "docs(alpha): 提交张王昊Day1范围、任务与冲刺交付材料",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/19",
+      "headRefOid": "ffb1c595413edd329dbbdc0b73804e39cd2ae998",
+      "mergedAt": "2026-10-24T03:34:42Z"
+    },
+    {
+      "number": 16,
+      "title": "docs: 补充 Day 1 安全基线审查与 6 条可执行安全用例",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/16",
+      "headRefOid": "f9223a74295868ff8002efcd00be95cf4c9a71ef",
+      "mergedAt": "2026-10-24T03:33:34Z"
+    },
+    {
+      "number": 15,
+      "title": "feat(ai): 接入受限智谱 LangChain 模型适配器",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/15",
+      "headRefOid": "4b9c0ba2971d8e9aea3c5585320c3423383f46ac",
+      "mergedAt": null
+    },
+    {
+      "number": 12,
+      "title": "docs: 整理仓库导航并补充团队代码规范",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/12",
+      "headRefOid": "fa7bd215c5eae3a547987a3229b67c8e9d387420",
+      "mergedAt": "2026-10-23T13:52:19Z"
+    },
+    {
+      "number": 10,
+      "title": "T08 quality operations",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/10",
+      "headRefOid": "d33ee06cf271552d810da3087d2165aaf89003de",
+      "mergedAt": "2026-10-22T14:12:59Z"
+    },
+    {
+      "number": 9,
+      "title": "docs(T08): 提交设计质量与部署运维个人初稿",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/9",
+      "headRefOid": "822f280243cc1af5f3f0c4e85e80fd27c6ad9e00",
+      "mergedAt": "2026-10-22T12:53:49Z"
+    },
+    {
+      "number": 8,
+      "title": "Chengjie/t03 frontend design md",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/8",
+      "headRefOid": "b86fa51f1c204ed2f23ffab18c493f9d663f9b72",
+      "mergedAt": "2026-10-22T11:22:54Z"
+    },
+    {
+      "number": 7,
+      "title": "docs: 补充安全与权限设计章节、数据库安全章节与评审表",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/7",
+      "headRefOid": "eb7a2a447118c282605f399aed15d9d1e68fd225",
+      "mergedAt": "2026-10-21T10:23:26Z"
+    },
+    {
+      "number": 6,
+      "title": "Codex/database cross review",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/6",
+      "headRefOid": "bafc0398f5c2feba5c2c5d5c6ff6f48857825491",
+      "mergedAt": "2026-10-20T17:08:04Z"
+    },
+    {
+      "number": 5,
+      "title": "docs: 按T03验收要求整理五项Markdown交付",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/5",
+      "headRefOid": "6292677c8369865da0fcc23a5eb530feca6d5da1",
+      "mergedAt": "2026-10-20T16:36:46Z"
+    },
+    {
+      "number": 4,
+      "title": "docs: complete database cross-document review",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/4",
+      "headRefOid": "fb590bc29071c4da5f8ab2b5c202eedfca5eaa46",
+      "mergedAt": "2026-10-20T16:13:47Z"
+    },
+    {
+      "number": 3,
+      "title": "docs: unify record and lifecycle enums across design docs",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/3",
+      "headRefOid": "cdcf922b732f283f91fed3b771092f2ede9a94c1",
+      "mergedAt": "2026-10-20T13:52:39Z"
+    },
+    {
+      "number": 2,
+      "title": "docs: align database design with finalized system baseline",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/2",
+      "headRefOid": "eb64d1c9234a3a28703f7f4371ee6372b14afac9",
+      "mergedAt": "2026-10-20T10:08:57Z"
+    },
+    {
+      "number": 1,
+      "title": "docs: 庄剀涵数据库设计与信息检索交付",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/1",
+      "headRefOid": "56102d7fda558e4620cfbf4987d76ff9fbbe2239",
+      "mergedAt": "2026-10-20T08:51:40Z"
+    }
+  ],
+  "ci_runs_found": 0,
+  "collector": {
+    "sha": "524337e3809f6efa123b609e16608415ff51ceca",
+    "tree": "8e4ba244de9a7ccd6e666dc548ff131ce8c4d702",
+    "commit_date": "2026-10-24T05:02:57Z",
+    "collected_at": "2026-10-24T15:50:05.288230+08:00",
+    "message": "Rename 原型运行图_组长指定.jpg to 原型运行图.jpg"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "as_of": "2026-10-24T16:11:08+08:00",
+  "accepted_evidence_events": [],
+  "accepted_sp": 0,
+  "unaccepted_ledger_sp": 100,
+  "actual_day2_eod_sp": null,
+  "note": "未获完整团队验收证据的点数，不表示未写代码；日终实际值待签认，不用计划72代替",
+  "series": [
+    {
+      "node": "初始基线",
+      "ideal": 100,
+      "plan": 100,
+      "actual_eod": 100,
+      "unaccepted_ledger": 100
+    },
+    {
+      "node": "Day1",
+      "ideal": 85.7,
+      "plan": 88,
+      "actual_eod": null,
+      "unaccepted_ledger": null
+    },
+    {
+      "node": "Day2",
+      "ideal": 71.4,
+      "plan": 72,
+      "actual_eod": null,
+      "unaccepted_ledger": 100
+    },
+    {
+      "node": "Day3",
+      "ideal": 57.1,
+      "plan": 54,
+      "actual_eod": null,
+      "unaccepted_ledger": null
+    },
+    {
+      "node": "Day4",
+      "ideal": 42.9,
+      "plan": 36,
+      "actual_eod": null,
+      "unaccepted_ledger": null
+    },
+    {
+      "node": "Day5",
+      "ideal": 28.6,
+      "plan": 20,
+      "actual_eod": null,
+      "unaccepted_ledger": null
+    },
+    {
+      "node": "Day6",
+      "ideal": 14.3,
+      "plan": 8,
+      "actual_eod": null,
+      "unaccepted_ledger": null
+    },
+    {
+      "node": "Day7",
+      "ideal": 0.0,
+      "plan": 0,
+      "actual_eod": null,
+      "unaccepted_ledger": null
+    }
+  ]
+}
