@@ -56,8 +56,8 @@ export function createApp({
 }) {
   const app = express();
   app.disable('x-powered-by');
-  app.use(express.json({ limit: '128kb', strict: true }));
   app.use(requestContext);
+  app.use(express.json({ limit: '128kb', strict: true }));
 
   app.get('/health/live', (_request, response) => response.json({ status: 'ok' }));
   app.get('/health/ready', async (_request, response) => {
@@ -69,7 +69,20 @@ export function createApp({
     }
   });
 
-  app.post('/internal/v1/model/generate', async (request, response) => {
+  app.post('/internal/v1/model/generate', async (request, response, next) => {
+    if (authService) {
+      try {
+        const cookies = parseCookies(request.get('cookie'));
+        request.accessContext = await authService.resolveContext(readSessionToken(cookies));
+      } catch (error) {
+        next(error);
+        return;
+      }
+      if (!request.accessContext?.accountId) {
+        requireAuthentication(request, response, next);
+        return;
+      }
+    }
     let result;
     try {
       result = modelAdapter
@@ -89,7 +102,7 @@ export function createApp({
       try {
         const cookies = parseCookies(request.get('cookie'));
         const existing = await authService.resolveContext(readSessionToken(cookies));
-        const context = await authService.createContext(existing?.accountId ?? null);
+        const context = await authService.createContext(existing?.accountId ?? null, existing?.entryPointId ?? null);
         if (existing) await authService.revokeSession(existing.sessionId);
         response.set('Set-Cookie', sessionCookie(context.sessionToken, secureCookies)).json({
           data: {

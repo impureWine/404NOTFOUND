@@ -79,13 +79,19 @@ export function notFound(request, _response, next) {
 }
 
 export function errorHandler(error, request, response, _next) {
-  const code = error instanceof DomainError ? error.code : error.code ?? 'SERVICE_UNAVAILABLE';
+  const malformedJson = error instanceof SyntaxError && error?.type === 'entity.parse.failed';
+  const suppliedCode = error instanceof DomainError || STATUS_BY_CODE[error?.code] ? error.code : null;
+  const code = malformedJson ? 'INVALID_INPUT' : suppliedCode ?? 'SERVICE_UNAVAILABLE';
   const status = STATUS_BY_CODE[code] ?? 500;
   response.status(status).json({
     error: {
       code,
-      message: status === 500 ? '服务内部错误' : error.message,
-      ...(error.details ? { fields: error.details } : {}),
+      message: code === 'SERVICE_UNAVAILABLE'
+        ? '服务暂时不可用'
+        : malformedJson
+          ? '请求正文不是有效的 JSON'
+          : error.message,
+      ...(error instanceof DomainError && error.details ? { fields: error.details } : {}),
     },
     meta: { requestId: request.requestId },
   });
