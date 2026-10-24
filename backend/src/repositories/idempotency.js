@@ -10,7 +10,14 @@ function hashesEqual(left, right) {
 
 export async function claimIdempotencyKey(
   transaction,
-  { accountId, entryPointId, operation, requestId, payloadHash },
+  {
+    accountId,
+    entryPointId,
+    operation,
+    requestId,
+    payloadHash,
+    requireResourceId = true,
+  },
 ) {
   const inserted = await transaction.query(
     `
@@ -49,7 +56,7 @@ export async function claimIdempotencyKey(
   if (!row || !hashesEqual(row.payload_hash, payloadHash)) {
     throw new ConflictError('requestId was already used with a different payload');
   }
-  if (!row.result_resource_id || !row.result_version) {
+  if (!row.result_version || (requireResourceId && !row.result_resource_id)) {
     throw new ConflictError('The matching request is still being finalized');
   }
 
@@ -63,7 +70,7 @@ export async function claimIdempotencyKey(
 
 export async function completeIdempotencyKey(
   transaction,
-  { keyId, resourceId, version },
+  { keyId, resourceId = null, version },
 ) {
   await transaction.query(
     `

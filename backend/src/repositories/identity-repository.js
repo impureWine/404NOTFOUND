@@ -1,6 +1,19 @@
-import { createAccountSchema, createSessionSchema, sessionLookupSchema, updateProfileSchema } from '../contracts/identity.js';
+import { timingSafeEqual } from 'node:crypto';
+
+import {
+  createAccountSchema,
+  createSessionSchema,
+  preferencesLookupSchema,
+  profileSummarySchema,
+  sessionLookupSchema,
+  updatePreferencesSchema,
+  updateProfileSchema,
+} from '../contracts/identity.js';
+import { recordKinds } from '../contracts/records.js';
 import { withTransaction } from '../db/database.js';
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
+import { stableHash } from '../domain/stable-hash.js';
+import { claimIdempotencyKey, completeIdempotencyKey } from './idempotency.js';
 
 function parse(schema, value, message) {
   const parsed = schema.safeParse(value);
@@ -20,6 +33,58 @@ function isUniqueViolation(error) {
   return error?.code === '23505' || /unique|duplicate/i.test(error?.message ?? '');
 }
 
+function hashesEqual(left, right) {
+  const leftBuffer = Buffer.from(left);
+  const rightBuffer = Buffer.from(right);
+  return leftBuffer.length === rightBuffer.length && timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function mapProfile(row, idempotent = false) {
+  return {
+    nickname: row.nickname,
+    avatarKey: row.avatar_key,
+    bioCiphertext: row.bio_ciphertext,
+    cipherKeyVersion: row.cipher_key_version,
+    timezoneName: row.timezone_name,
+    version: row.version_no,
+    idempotent,
+  };
+}
+
+function mapPreferences(row, idempotent = false) {
+  return {
+    offerHistorySave: row.preferences?.offerHistorySave === true,
+    version: row.version_no,
+    idempotent,
+  };
+}
+
+async function getProfileFrom(database, accountId) {
+  const result = await database.query(
+    `
+      SELECT nickname, avatar_key, bio_ciphertext, cipher_key_version, timezone_name, version_no
+      FROM user_profiles
+      WHERE account_id = $1
+    `,
+    [accountId],
+  );
+  if (result.rows.length === 0) throw new NotFoundError();
+  return result.rows[0];
+}
+
+async function getPreferencesFrom(database, accountId) {
+  const result = await database.query(
+    `
+      SELECT preferences, version_no
+      FROM account_preferences
+      WHERE account_id = $1
+    `,
+    [accountId],
+  );
+  if (result.rows.length === 0) throw new NotFoundError();
+  return result.rows[0];
+}
+
 export class IdentityRepository {
   constructor(database) {
     this.database = database;
@@ -28,8 +93,53 @@ export class IdentityRepository {
   async createAccount(input) {
     const value = parse(createAccountSchema, input, 'Invalid account input');
     const normalized = normalizeLoginIdentifier(value.loginIdentifier);
+    const payloadHash = value.registrationPayloadHash;
     try {
       return await withTransaction(this.database, async (transaction) => {
+        const claimed = await transaction.query(
+          `
+            INSERT INTO registration_requests (request_id, payload_hash)
+            VALUES ($1, $2)
+            ON CONFLICT (request_id) DO NOTHING
+            RETURNING request_id
+          `,
+          [value.requestId, payloadHash],
+        );
+        if (claimed.rows.length === 0) {
+          const existingRequest = await transaction.query(
+            `
+              SELECT payload_hash, result_account_id
+              FROM registration_requests
+              WHERE request_id = $1
+            `,
+            [value.requestId],
+          );
+          const registration = existingRequest.rows[0];
+          if (!registration || !hashesEqual(registration.payload_hash, payloadHash)) {
+            throw new ConflictError('requestId was already used with different registration data');
+          }
+          if (!registration.result_account_id) {
+            throw new ConflictError('The matching registration is still being finalized');
+          }
+          const existingAccount = await transaction.query(
+            `
+              SELECT id, status, created_at
+              FROM user_accounts
+              WHERE id = $1
+            `,
+            [registration.result_account_id],
+          );
+          if (existingAccount.rows.length === 0) {
+            throw new ConflictError('The registered account is no longer available');
+          }
+          return {
+            accountId: existingAccount.rows[0].id,
+            status: existingAccount.rows[0].status,
+            createdAt: new Date(existingAccount.rows[0].created_at).toISOString(),
+            idempotent: true,
+          };
+        }
+
         const account = await transaction.query(
           `
             INSERT INTO user_accounts (login_identifier, login_identifier_normalized)
@@ -67,10 +177,15 @@ export class IdentityRepository {
           'INSERT INTO account_preferences (account_id) VALUES ($1)',
           [accountId],
         );
+        await transaction.query(
+          'UPDATE registration_requests SET result_account_id = $2 WHERE request_id = $1',
+          [value.requestId, accountId],
+        );
         return {
           accountId,
           status: account.rows[0].status,
           createdAt: new Date(account.rows[0].created_at).toISOString(),
+          idempotent: false,
         };
       });
     } catch (error) {
@@ -83,9 +198,6 @@ export class IdentityRepository {
 
   async createSession(input) {
     const value = parse(createSessionSchema, input, 'Invalid session input');
-    if (new Date(value.expiresAt).getTime() <= Date.now()) {
-      throw new InvalidInputError('expiresAt must be in the future');
-    }
     const result = await this.database.query(
       `
         INSERT INTO login_sessions (
@@ -95,7 +207,8 @@ export class IdentityRepository {
           token_digest,
           expires_at
         )
-        VALUES ($1, $2, $3, $4, $5)
+        SELECT $1, $2, $3, $4, $5
+        WHERE $5::timestamptz > now()
         RETURNING id, issued_at, expires_at
       `,
       [
@@ -106,6 +219,9 @@ export class IdentityRepository {
         value.expiresAt,
       ],
     );
+    if (result.rows.length === 0) {
+      throw new InvalidInputError('expiresAt must be in the future');
+    }
     return {
       sessionId: result.rows[0].id,
       issuedAt: new Date(result.rows[0].issued_at).toISOString(),
@@ -165,58 +281,137 @@ export class IdentityRepository {
   }
 
   async getProfile(accountId) {
-    const result = await this.database.query(
-      `
-        SELECT nickname, avatar_key, bio_ciphertext, cipher_key_version, timezone_name, version_no
-        FROM user_profiles
-        WHERE account_id = $1
-      `,
-      [accountId],
-    );
-    if (result.rows.length === 0) throw new NotFoundError();
-    const row = result.rows[0];
-    return {
-      nickname: row.nickname,
-      avatarKey: row.avatar_key,
-      bioCiphertext: row.bio_ciphertext,
-      cipherKeyVersion: row.cipher_key_version,
-      timezoneName: row.timezone_name,
-      version: row.version_no,
-    };
+    const value = parse(preferencesLookupSchema, { accountId }, 'Invalid profile lookup');
+    return mapProfile(await getProfileFrom(this.database, value.accountId));
   }
 
   async updateProfile(input) {
     const value = parse(updateProfileSchema, input, 'Invalid profile input');
+    const payloadHash = stableHash({
+      expectedVersion: value.expectedVersion,
+      nickname: value.nickname,
+      avatarKey: value.avatarKey,
+      bioCiphertext: value.bioCiphertext,
+      cipherKeyVersion: value.cipherKeyVersion,
+    });
+    return withTransaction(this.database, async (transaction) => {
+      const idempotency = await claimIdempotencyKey(transaction, {
+        accountId: value.accountId,
+        entryPointId: value.entryPointId,
+        operation: 'UPDATE_PROFILE',
+        requestId: value.requestId,
+        payloadHash,
+        requireResourceId: false,
+      });
+      if (idempotency.existing) {
+        const current = await getProfileFrom(transaction, value.accountId);
+        if (current.version_no !== idempotency.resultVersion) {
+          throw new ConflictError('The idempotent profile result is no longer current');
+        }
+        return mapProfile(current, true);
+      }
+
+      const result = await transaction.query(
+        `
+          UPDATE user_profiles
+          SET nickname = $3,
+              avatar_key = $4,
+              bio_ciphertext = $5,
+              cipher_key_version = $6,
+              version_no = version_no + 1,
+              updated_at = now()
+          WHERE account_id = $1
+            AND version_no = $2
+          RETURNING nickname, avatar_key, bio_ciphertext, cipher_key_version, timezone_name, version_no
+        `,
+        [
+          value.accountId,
+          value.expectedVersion,
+          value.nickname,
+          value.avatarKey,
+          value.bioCiphertext,
+          value.cipherKeyVersion,
+        ],
+      );
+      if (result.rows.length === 0) {
+        await getProfileFrom(transaction, value.accountId);
+        throw new ConflictError('expectedVersion does not match the current profile version');
+      }
+      await completeIdempotencyKey(transaction, {
+        keyId: idempotency.id,
+        version: result.rows[0].version_no,
+      });
+      return mapProfile(result.rows[0]);
+    });
+  }
+
+  async getProfileSummary(input) {
+    const value = parse(profileSummarySchema, input, 'Invalid profile summary scope');
     const result = await this.database.query(
       `
-        UPDATE user_profiles
-        SET nickname = $3,
-            avatar_key = $4,
-            bio_ciphertext = $5,
-            cipher_key_version = $6,
-            version_no = version_no + 1,
-            updated_at = now()
+        SELECT record_kind::text AS kind, count(*)::int AS count
+        FROM saved_records
         WHERE account_id = $1
-          AND version_no = $2
-        RETURNING nickname, avatar_key, bio_ciphertext, cipher_key_version, timezone_name, version_no
+          AND entry_point_id = $2
+          AND deleted_at IS NULL
+        GROUP BY record_kind
       `,
-      [
-        value.accountId,
-        value.expectedVersion,
-        value.nickname,
-        value.avatarKey,
-        value.bioCiphertext,
-        value.cipherKeyVersion,
-      ],
+      [value.accountId, value.entryPointId],
     );
-    if (result.rows.length === 0) {
-      const exists = await this.database.query(
-        'SELECT 1 FROM user_profiles WHERE account_id = $1',
-        [value.accountId],
+    const counts = Object.fromEntries(recordKinds.map((kind) => [kind, 0]));
+    for (const row of result.rows) counts[row.kind] = row.count;
+    return { counts };
+  }
+
+  async getPreferences(input) {
+    const value = parse(preferencesLookupSchema, input, 'Invalid preferences lookup');
+    return mapPreferences(await getPreferencesFrom(this.database, value.accountId));
+  }
+
+  async updatePreferences(input) {
+    const value = parse(updatePreferencesSchema, input, 'Invalid preferences input');
+    const payloadHash = stableHash({
+      expectedVersion: value.expectedVersion,
+      offerHistorySave: value.offerHistorySave,
+    });
+    return withTransaction(this.database, async (transaction) => {
+      const idempotency = await claimIdempotencyKey(transaction, {
+        accountId: value.accountId,
+        entryPointId: value.entryPointId,
+        operation: 'UPDATE_PREFERENCES',
+        requestId: value.requestId,
+        payloadHash,
+        requireResourceId: false,
+      });
+      if (idempotency.existing) {
+        const current = await getPreferencesFrom(transaction, value.accountId);
+        if (current.version_no !== idempotency.resultVersion) {
+          throw new ConflictError('The idempotent preferences result is no longer current');
+        }
+        return mapPreferences(current, true);
+      }
+
+      const result = await transaction.query(
+        `
+          UPDATE account_preferences
+          SET preferences = jsonb_build_object('offerHistorySave', $3::boolean),
+              version_no = version_no + 1,
+              updated_at = now()
+          WHERE account_id = $1
+            AND version_no = $2
+          RETURNING preferences, version_no
+        `,
+        [value.accountId, value.expectedVersion, value.offerHistorySave],
       );
-      if (exists.rows.length === 0) throw new NotFoundError();
-      throw new ConflictError('expectedVersion does not match the current profile version');
-    }
-    return this.getProfile(value.accountId);
+      if (result.rows.length === 0) {
+        await getPreferencesFrom(transaction, value.accountId);
+        throw new ConflictError('expectedVersion does not match the current preferences version');
+      }
+      await completeIdempotencyKey(transaction, {
+        keyId: idempotency.id,
+        version: result.rows[0].version_no,
+      });
+      return mapPreferences(result.rows[0]);
+    });
   }
 }
