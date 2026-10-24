@@ -28,6 +28,8 @@ npm run dev -- --host 127.0.0.1 --port 5173
 
 适配器已按接口表提供上下文、能力、认证、资料、会话、陪伴任务、查询任务和记录方法。真实模式使用同源 `/api`、JSON、`credentials: include` 和 `no-store`；写请求需要内存中的当前 CSRF token，以及由共享契约配置的 `VITE_CSRF_HEADER_NAME`。代码不猜 CSRF 头名。认证上下文失效或身份操作结束时清除内存 token。
 
+本地真实模式可复制 `.env.example`，Vite 会将 `/api` 代理到 `API_PROXY_TARGET`（默认 `http://127.0.0.1:3000`）。登录目标使用共享契约枚举 `HOME`。代理和契约测试通过只表示联调条件已准备，不代表浏览器人工流程或正式环境验收已经完成。
+
 当前没有后端联调；设置真实模式只会启用适配调用，不表示后端可用或接口验收通过。
 
 ## Day 2 认证与 Electron 样机

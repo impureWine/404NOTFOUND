@@ -65,7 +65,7 @@ test('authentication methods preserve the shared request names and credential po
 
   await client.getAuthContext();
   await client.register({ requestId: 'req-register', loginName: 'demo_a', password: 'secret', confirmPassword: 'secret' });
-  await client.login({ loginName: 'demo_a', password: 'secret', target: 'home' });
+  await client.login({ loginName: 'demo_a', password: 'secret', target: 'HOME' });
   await client.getAuthContext();
   assert.deepEqual(await client.getProfile(), { nickname: '小满', bio: '先慢慢来。' });
   await client.logout();
@@ -81,7 +81,7 @@ test('authentication methods preserve the shared request names and credential po
   assert.equal(calls[1].options.headers.get('X-Test-CSRF'), 'auth-token');
   assert.equal(calls[1].options.credentials, 'include');
   assert.equal(calls[1].options.body, JSON.stringify({ requestId: 'req-register', loginName: 'demo_a', password: 'secret', confirmPassword: 'secret' }));
-  assert.equal(calls[2].options.body, JSON.stringify({ loginName: 'demo_a', password: 'secret', target: 'home' }));
+  assert.equal(calls[2].options.body, JSON.stringify({ loginName: 'demo_a', password: 'secret', target: 'HOME' }));
   assert.equal(calls[4].options.method, 'GET');
   assert.equal(calls[5].options.body, undefined);
 });

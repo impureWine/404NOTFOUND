@@ -1,0 +1,13 @@
+{
+  "executedAt": "2026-10-24T23:19:13+08:00",
+  "question": "软件工程",
+  "limit": 3,
+  "provider": "https://zh.wikipedia.org/w/api.php",
+  "timeoutMs": 5000,
+  "finishedAt": "2026-10-24T23:19:18+08:00",
+  "result": "TIMEOUT",
+  "sourceCount": 0,
+  "errorName": "UpstreamError",
+  "message": "Search provider timed out",
+  "claimBoundary": "This is an early real-network failure record, not evidence of a successful Day 3 search."
+}

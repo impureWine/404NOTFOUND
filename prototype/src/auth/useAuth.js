@@ -96,7 +96,7 @@ export function useAuth() {
         closeAuth();
         return;
       }
-      await apiClient.login({ loginName: form.loginName.trim(), password: form.password, target: 'home' });
+      await apiClient.login({ loginName: form.loginName.trim(), password: form.password, target: 'HOME' });
       const currentProfile = await refreshIdentity();
       if (!currentProfile) throw new Error('登录请求已完成，但服务端身份上下文未确认；私密界面保持锁定。');
       setProfile(currentProfile);
