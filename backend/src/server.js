@@ -1,4 +1,7 @@
+import { loadEnvFile } from 'node:process';
+
 import { createApp } from './app.js';
+import { LangChainModelAdapter } from './ai/langchain-model-adapter.js';
 import { createPoolFromEnv } from './db/database.js';
 import { runMigrations } from './db/migration-runner.js';
 import { parseProfileKey } from './security/crypto.js';
@@ -9,12 +12,21 @@ import { RecordRepository } from './repositories/record-repository.js';
 import { RecordService } from './services/record-service.js';
 import { ConsentService } from './services/consent-service.js';
 
+try {
+  loadEnvFile();
+} catch (error) {
+  if (error?.code !== 'ENOENT') {
+    throw error;
+  }
+}
+
 const database = createPoolFromEnv();
 if (process.env.MIGRATE_ON_START === 'true') {
   await runMigrations(database);
 }
 
 const port = Number(process.env.PORT ?? 3000);
+const modelAdapter = new LangChainModelAdapter();
 const authService = new AuthService(database, {
   profileKey: parseProfileKey(process.env.PROFILE_ENCRYPTION_KEY),
 });
@@ -32,6 +44,7 @@ const recordService = new RecordService(new RecordRepository(database), {
 });
 const app = createApp({
   database,
+  modelAdapter,
   authService,
   taskService,
   recordService,

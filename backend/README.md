@@ -6,9 +6,19 @@
 
 ## 环境
 
-- Node.js 20.19、22.12或更高版本
+- Node.js 22 或更高版本（`@langchain/openai@1.7.0` 要求）
 - PostgreSQL 16
 - 包管理器可使用 npm、pnpm 或 yarn
+
+模型适配开发使用 LangChain JS。当前配置只允许智谱国内官方接口中的
+`glm-4.7-flash`，不自动切换其他模型。将 `.env.example` 复制为本地 `.env` 后，
+只在 `.env` 中填写 `ZHIPU_API_KEY`；不得把密钥写入源码、文档或提交记录。
+
+模型内部入口为 `POST /internal/v1/model/generate`，请求和响应遵循契约 `1.1`，
+并统一返回超时、限流、不可用及输出无效错误。情绪命名卡使用
+`NamingCard.select({ emotionWords, need })` 做确定性路由：`LISTEN`/`ORGANIZE`
+进入 `COMPANION`，`SEARCH` 进入 `SEARCH` 并要求先补充具体问题；选词本身不会
+触发模型调用、检索或持久化。
 
 安装依赖后：
 
@@ -18,6 +28,18 @@ npm install
 npm run migrate
 npm test
 npm start
+```
+
+离线查看正常、超时、不可用和命名卡路由样例：
+
+```powershell
+npm run sample:ai
+```
+
+在本地 `.env` 已配置有效密钥时，用合成输入进行一次真实模型冒烟调用：
+
+```powershell
+npm run smoke:model
 ```
 
 真实 PostgreSQL 使用 `DATABASE_URL`。自动化测试使用隔离的 PGlite PostgreSQL WASM 实例，不要求本机安装数据库服务；它能验证迁移和SQL行为，但不能替代正式 PostgreSQL 服务、备份工具、网络、权限与性能验收。
@@ -33,6 +55,10 @@ npm start
 - `SavedQueryRepository`：调用方只能提交 `searchRequestId`；仓储从受控的已完成查询解析器复制查询、来源、主张和证据关系，客户端不能自造证据链。
 - `WikipediaSearchProvider`：真实调用固定 Wikipedia MediaWiki API；支持超时、空结果和上游错误。
 - 合同校验：严格对象、非全零UUID、Unicode码点长度、真实日历日期和IANA时区。
+- 模型适配：LangChain JS 配置白名单、契约校验、最小上下文构造、统一输出校验、
+  合成输入和离线失败替身；提供内部调用入口、超时控制和真实调用冒烟脚本。
+- 命名卡路由：按用户明确选择将 `LISTEN`/`ORGANIZE` 路由到陪伴，或将
+  `SEARCH` 路由到查询澄清，不自动调用模型、检索或保存。
 - 认证与资料：Argon2id 密码摘要、仅存摘要的会话 Cookie、Origin + CSRF 校验、资料乐观锁和 AES-256-GCM 字段加密；HTTPS 使用 `__Host-session`，本机 HTTP 开发使用 `session`。
 - 应用任务：会话状态、查询任务状态/取消、代次校验，以及结束后拒绝迟到结果回填。
 - 用途许可：按账号/匿名会话、用途、操作、五分钟有效期和稳定载荷摘要绑定；支持撤销。
@@ -53,7 +79,7 @@ npm start
 
 ## 尚未完成或尚未正式验证
 
-- 模型摘要、LangChain 陪伴/训练链路与真实模型环境验证。
+- 完整 `/api/agent/tasks` 异步陪伴/训练业务链路、AI_PROCESS 许可和前端联调；当前只提供内部模型生成入口及真实调用冒烟验证。
 - 正式密钥托管、密钥轮换、限流、审计日志和多实例共享任务队列。
 - 认证应用服务尚未接入 `IdentityRepository.createAccount` 的注册 `requestId` 幂等与服务端HMAC载荷摘要；当前仓储测试只使用合成摘要。
 - 注册幂等元数据的过期清理任务；迁移只记录24小时 `expires_at`，部署前仍需配置清理作业。

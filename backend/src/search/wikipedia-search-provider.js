@@ -2,8 +2,14 @@ import { searchInputSchema } from '../contracts/search.js';
 import { InvalidInputError, UpstreamError } from '../domain/errors.js';
 
 function buildSignal(timeoutMs, callerSignal) {
-  const timeoutSignal = AbortSignal.timeout(timeoutMs);
-  return callerSignal ? AbortSignal.any([timeoutSignal, callerSignal]) : timeoutSignal;
+  const timeoutController = new AbortController();
+  const timeoutId = setTimeout(() => timeoutController.abort(), timeoutMs);
+  return {
+    signal: callerSignal
+      ? AbortSignal.any([timeoutController.signal, callerSignal])
+      : timeoutController.signal,
+    dispose: () => clearTimeout(timeoutId),
+  };
 }
 
 export class WikipediaSearchProvider {
@@ -38,17 +44,20 @@ export class WikipediaSearchProvider {
     endpoint.searchParams.set('srprop', 'timestamp');
 
     let response;
+    const timeout = buildSignal(this.timeoutMs, signal);
     try {
       response = await this.fetch(endpoint, {
         method: 'GET',
         headers: { accept: 'application/json' },
-        signal: buildSignal(this.timeoutMs, signal),
+        signal: timeout.signal,
       });
     } catch (error) {
       if (error.name === 'AbortError' || error.name === 'TimeoutError') {
         throw new UpstreamError('TIMEOUT', 'Search provider timed out');
       }
       throw new UpstreamError('SERVICE_UNAVAILABLE', 'Search provider is unavailable');
+    } finally {
+      timeout.dispose();
     }
 
     if (!response.ok) {
