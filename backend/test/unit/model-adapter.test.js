@@ -69,6 +69,23 @@ test('adapter maps a valid provider response to the unified contract', async () 
   assert.deepEqual(response.usage, { input_tokens: 20, output_tokens: 10 });
 });
 
+test('adapter accepts a JSON object wrapped in a Markdown fence', async () => {
+  const chatModel = {
+    async invoke() {
+      return {
+        content: `\`\`\`json
+{"content":"我在听。","intent":"COMPANION","suggested_action":"STAY","citations":[],"uncertainty":null}
+\`\`\``,
+      };
+    },
+  };
+  const adapter = new LangChainModelAdapter({ env: fakeConfigEnv, chatModel });
+  const response = await adapter.respond(createSyntheticModelRequest());
+
+  assert.equal(response.status, 'success');
+  assert.equal(response.result.content, '我在听。');
+});
+
 test('adapter rejects an action outside the request allowlist', async () => {
   const chatModel = {
     async invoke() {
@@ -99,4 +116,26 @@ test('failure substitute returns stable errors without calling a provider', asyn
   assert.equal(rateLimited.error.code, 'MODEL_RATE_LIMITED');
   assert.equal(timeout.model_info.mock, true);
   assert.equal(rateLimited.model_info.mock, true);
+});
+
+test('adapter returns an unavailable message when the API key is missing', async () => {
+  const adapter = new LangChainModelAdapter({ env: fakeConfigEnv });
+  const response = await adapter.respond(createSyntheticModelRequest());
+
+  assert.equal(response.status, 'error');
+  assert.equal(response.error.code, 'MODEL_UNAVAILABLE');
+  assert.equal(response.error.user_message, '模型服务暂时不可用。');
+});
+
+test('adapter enforces its timeout even if the provider does not settle', async () => {
+  const chatModel = { invoke: async () => new Promise(() => {}) };
+  const adapter = new LangChainModelAdapter({
+    env: { ...fakeConfigEnv, ZHIPU_TIMEOUT_MS: '1000' },
+    chatModel,
+  });
+  const response = await adapter.respond(createSyntheticModelRequest());
+
+  assert.equal(response.status, 'error');
+  assert.equal(response.error.code, 'MODEL_TIMEOUT');
+  assert.equal(response.error.user_message, '暂时没有获得响应，你可以稍后重新尝试。');
 });

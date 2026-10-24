@@ -14,6 +14,12 @@
 `glm-4.7-flash`，不自动切换其他模型。将 `.env.example` 复制为本地 `.env` 后，
 只在 `.env` 中填写 `ZHIPU_API_KEY`；不得把密钥写入源码、文档或提交记录。
 
+模型内部入口为 `POST /internal/v1/model/generate`，请求和响应遵循契约 `1.1`，
+并统一返回超时、限流、不可用及输出无效错误。情绪命名卡使用
+`NamingCard.select({ emotionWords, need })` 做确定性路由：`LISTEN`/`ORGANIZE`
+进入 `COMPANION`，`SEARCH` 进入 `SEARCH` 并要求先补充具体问题；选词本身不会
+触发模型调用、检索或持久化。
+
 安装依赖后：
 
 ```powershell
@@ -22,6 +28,18 @@ npm install
 npm run migrate
 npm test
 npm start
+```
+
+离线查看正常、超时、不可用和命名卡路由样例：
+
+```powershell
+npm run sample:ai
+```
+
+在本地 `.env` 已配置有效密钥时，用合成输入进行一次真实模型冒烟调用：
+
+```powershell
+npm run smoke:model
 ```
 
 真实 PostgreSQL 使用 `DATABASE_URL`。自动化测试使用隔离的 PGlite PostgreSQL WASM 实例，不要求本机安装数据库服务；它能验证迁移和SQL行为，但不能替代正式 PostgreSQL 服务、备份工具、网络、权限与性能验收。
@@ -37,13 +55,15 @@ npm start
 - `WikipediaSearchProvider`：真实调用固定 Wikipedia MediaWiki API；支持超时、空结果和上游错误。
 - 合同校验：严格对象、非全零UUID、Unicode码点长度、真实日历日期和IANA时区。
 - 模型适配：LangChain JS 配置白名单、契约校验、最小上下文构造、统一输出校验、
-  合成输入和离线失败替身。
+  合成输入和离线失败替身；提供内部调用入口、超时控制和真实调用冒烟脚本。
+- 命名卡路由：按用户明确选择将 `LISTEN`/`ORGANIZE` 路由到陪伴，或将
+  `SEARCH` 路由到查询澄清，不自动调用模型、检索或保存。
 
 ## 未包含
 
 - 用户密码、Cookie、CSRF和登录会话HTTP实现。
 - 真实正文加密和密钥轮换。测试只使用合成字节数据。
-- 模型摘要的 HTTP 业务链路、真实模型调用和端到端验收。
+- 完整 `/api/agent/tasks` 异步业务链路、认证授权、前端接入和端到端验收。
 - 搜索任务内存服务和SAVE许可服务；当前仓储通过注入的服务端解析器接收已完成结果。
 - 正式服务器部署、PostgreSQL角色权限、`pg_dump`/`pg_restore`恢复演练。
 - 前端页面联调。

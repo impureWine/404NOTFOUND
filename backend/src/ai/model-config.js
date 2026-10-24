@@ -1,6 +1,18 @@
 const ALLOWED_MODEL = 'glm-4.7-flash';
 const ALLOWED_BASE_URL = 'https://open.bigmodel.cn/api/paas/v4/';
 
+function readTimeoutMs(value) {
+  if (value === undefined || value === '') {
+    return 30_000;
+  }
+
+  const timeoutMs = Number(value);
+  if (!Number.isInteger(timeoutMs) || timeoutMs < 1_000 || timeoutMs > 60_000) {
+    throw new Error('模型超时配置无效：ZHIPU_TIMEOUT_MS 必须是 1000 到 60000 的整数。');
+  }
+  return timeoutMs;
+}
+
 /**
  * 读取模型配置，并限制允许调用的模型和地址。
  * 免费状态依据已核对的供应商说明，价格变化需另外复核。
@@ -31,7 +43,7 @@ export function getModelConfig(env = process.env) {
     provider: 'zhipu',
     model,
     baseUrl,
-    timeoutMs: 30_000,
+    timeoutMs: readTimeoutMs(env.ZHIPU_TIMEOUT_MS),
     maxOutputTokens: 256,
     maxRetries: 0,
   });
