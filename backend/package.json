@@ -10,7 +10,9 @@
     "test:integration": "node --test test/integration/*.test.js"
   },
   "dependencies": {
+    "@404notfound/contracts": "file:..\\shared",
     "@electric-sql/pglite": "^0.3.14",
+    "@node-rs/argon2": "2.0.2",
     "express": "^5.1.0",
     "pg": "^8.16.3",
     "zod": "^4.1.12"
