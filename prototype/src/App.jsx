@@ -3,6 +3,8 @@ import {
   Bell, Bot, CalendarDays, ChevronRight, FlaskConical, Gamepad2, House, List,
   Menu, MessageCircle, Mic2, Search, ShieldCheck, Smile, UserCircle, X,
 } from 'lucide-react';
+import { AuthDialog } from './auth/AuthDialog.jsx';
+import { useAuth } from './auth/useAuth.js';
 
 const page = path => `${import.meta.env.BASE_URL}${path}`;
 
@@ -33,7 +35,7 @@ function Link({ href, children, className = '', ...rest }) {
   return <a href={page(href)} className={className} {...rest}>{children}</a>;
 }
 
-function Sidebar({ mobileOpen, closeMobile }) {
+function Sidebar({ mobileOpen, closeMobile, authenticated, nickname, onLogin, onAccount, onLogout }) {
   return <aside className={`home-sidebar ${mobileOpen ? 'is-open' : ''}`}>
     <Link href="./" className="home-brand" onClick={closeMobile}>
       <span className="brand-mark"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span>
@@ -44,26 +46,29 @@ function Sidebar({ mobileOpen, closeMobile }) {
         <Icon size={18} aria-hidden="true" />{label}
       </Link>)}
       <div className="home-nav-divider"><span>账户与设置</span></div>
-      <Link href="profile.html" onClick={closeMobile} className="home-nav-link"><UserCircle size={18} aria-hidden="true" />个人主页</Link>
+      <button type="button" onClick={() => { closeMobile(); onAccount(); }} className="home-nav-link"><UserCircle size={18} aria-hidden="true" />个人主页</button>
       <Link href="settings.html" onClick={closeMobile} className="home-nav-link"><ShieldCheck size={18} aria-hidden="true" />会话与隐私设置</Link>
     </nav>
     <div className="home-sidebar-foot">
-      <div className="guest-box"><p>当前为未登录访客，记录仅保存在本机演示环境。</p>
-        <div className="guest-actions"><Link href="login.html">登录</Link><Link href="register.html">注册</Link></div>
+      <div className="guest-box"><p>{authenticated ? `当前账号：${nickname || '已登录用户'}` : '访客体验；登录状态由认证服务确认。'}</p>
+        <div className="guest-actions">{authenticated
+          ? <button type="button" onClick={onLogout}>退出登录</button>
+          : <><button type="button" onClick={() => onLogin('login')}>登录</button><button type="button" onClick={() => onLogin('register')}>注册</button></>}
+        </div>
       </div>
     </div>
   </aside>;
 }
 
-function HeroGuest() {
+function HeroGuest({ onLogin }) {
   return <section className="guest-hero">
     <div className="guest-hero-copy">
       <span className="eyebrow-pill"><span aria-hidden="true">✦</span>低压陪伴 · 不用急着好起来</span>
       <h2>先和自己待一会儿，<br className="desktop-break" />再决定要不要说点什么。</h2>
       <p>404NOTFOUND 是一个情绪自助的练习空间：模拟陪伴对话、具象化担忧、预演难开口的对话、记录每天的情绪。所有回复与数据都是演示内容，不涉及真实 AI 服务，也不构成医疗建议。</p>
       <div className="guest-hero-actions">
-        <Link href="login.html" className="button button-primary">登录演示账号</Link>
-        <Link href="register.html" className="button button-outline">创建演示账号</Link>
+        <button type="button" className="button button-primary" onClick={() => onLogin('login')}>登录</button>
+        <button type="button" className="button button-outline" onClick={() => onLogin('register')}>创建账户</button>
         <Link href="companion.html" className="button button-quiet">先随便逛逛 <ChevronRight size={15} /></Link>
       </div>
       <p className="hero-note"><span aria-hidden="true">ⓘ</span>访客模式下可体验全部页面；记录仅保存在本机演示环境，不会同步到任何服务器。</p>
@@ -75,54 +80,70 @@ function HeroGuest() {
   </section>;
 }
 
-function Record({ date, title, detail, action, href, muted }) {
-  return <div className="record-row"><span className={`record-date ${muted ? 'muted' : ''}`}>{date}</span><div><p>{title}</p><small>{detail}</small></div><Link href={href}>{action}</Link></div>;
-}
-
-function UserHome({ mood, setMood, checkinMessage, saveMood }) {
-  const moods = [['😌', '平静'], ['😴', '疲惫'], ['😟', '焦虑'], ['😔', '低落'], ['🙂', '轻松'], ['😶', '说不上来']];
+function UserHome({ profile, onAccount, onLogout }) {
+  const nickname = profile?.nickname || profile?.loginName || '已登录用户';
   return <div className="user-view">
     <section className="user-hero">
-      <div><p className="date-label">2026 年 10 月 14 日 星期三</p><h2>下午好，小满</h2><p>你已经连续记录情绪 6 天。今天想先聊聊，还是先安静记一笔？</p></div>
-      <div className="user-stats"><div><strong>6</strong><span>连续记录（天）</span></div><i /><div><strong>3</strong><span>本周陪伴会话</span></div></div>
+      <div><p className="date-label">账号已通过认证服务核验</p><h2>你好，{nickname}</h2><p>当前只接入账号与个人资料读取；陪伴记录和情绪日历尚未连接真实服务。</p></div>
+      <div className="account-summary-actions"><button type="button" className="button button-outline" onClick={onAccount}>查看账户信息</button><button type="button" className="button button-quiet" onClick={onLogout}>退出登录</button></div>
     </section>
-    <section className="checkin-card">
-      <div className="checkin-heading"><strong>今日情绪打卡</strong><span>{checkinMessage}</span></div>
-      <div className="mood-list">{moods.map(([icon, label]) => <button key={label} className={`mood-button ${mood === label ? 'selected' : ''}`} aria-pressed={mood === label} onClick={() => setMood(label)}>{icon} {label}</button>)}</div>
-      <div className="checkin-actions"><button className="button button-primary" onClick={saveMood}>保存今日记录</button><Link href="calendar.html" className="inline-link">查看情绪日历 <ChevronRight size={14} /></Link></div>
-    </section>
-    <section className="recent-card"><div className="section-heading"><h3>最近的记录</h3><Link href="calendar.html">全部记录 <ChevronRight size={14} /></Link></div>
-      <Record date="10/14" title="陪伴交流 ·「今天开会前一直心慌」" detail="时长 12 分钟 · 演示对话记录" action="继续" href="companion.html" />
-      <Record date="10/13" title="情绪打卡 · 疲惫（3 / 5）" detail="备注：加班到九点，回家路上听了会儿歌" action="查看" href="calendar.html" muted />
-      <Record date="10/12" title="担忧盒 ·「怕被同事觉得我不专业」" detail="状态：已具象化 · 在第 2 天回看" action="打开" href="worry-room.html" muted />
+    <section className="recent-card account-limits"><div className="section-heading"><h3>个人资料</h3><span>私密账户信息</span></div>
+      <p><strong>昵称</strong><span>{nickname}</span></p>
+      <p><strong>简介</strong><span>{profile?.bio || '尚未填写'}</span></p>
+      <p className="account-limit-note">个人资料编辑、内容记录与保存接口尚未联调；此页面不会使用演示数据冒充真实账户内容。</p>
     </section>
   </div>;
 }
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [view, setView] = useState('guest');
-  const [mood, setMood] = useState('');
-  const [checkinMessage, setCheckinMessage] = useState('选择此刻最接近的一种感受');
-  useEffect(() => { if (mood) setCheckinMessage(`已选择：${mood}，可继续补充一句备注再保存`); }, [mood]);
-  useEffect(() => { const closeMenu = event => { if (event.key === 'Escape') setMobileOpen(false); }; document.addEventListener('keydown', closeMenu); return () => document.removeEventListener('keydown', closeMenu); }, []);
-  const saveMood = () => setCheckinMessage(mood ? `已选择：${mood}，今日记录已保存（演示）` : '请先选择一种感受');
+  const {
+    status: authStatus,
+    profile,
+    authView,
+    busy: authBusy,
+    error: authError,
+    notice: authNotice,
+    pageNotice,
+    logoutPending,
+    openAuth,
+    closeAuth,
+    submit: submitAuth,
+    logout,
+    retryLogout,
+  } = useAuth();
+  const nickname = profile?.nickname || profile?.loginName || '已登录用户';
+  const dateLabel = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
+
+  useEffect(() => {
+    const closeMenu = event => {
+      if (event.key === 'Escape') setMobileOpen(false);
+    };
+    document.addEventListener('keydown', closeMenu);
+    return () => document.removeEventListener('keydown', closeMenu);
+  }, []);
+
+  const showAccount = () => openAuth(authStatus === 'authenticated' ? 'account' : 'login');
 
   return <div className="current-home">
     <button className="mobile-home-bar" aria-label={mobileOpen ? '关闭导航菜单' : '打开导航菜单'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(open => !open)}>{mobileOpen ? <X size={21} /> : <Menu size={21} />}<strong>404NOTFOUND</strong></button>
-    <Sidebar mobileOpen={mobileOpen} closeMobile={() => setMobileOpen(false)} />
+    <Sidebar mobileOpen={mobileOpen} closeMobile={() => setMobileOpen(false)} authenticated={authStatus === 'authenticated'} nickname={nickname} onLogin={openAuth} onAccount={showAccount} onLogout={logout} />
     <div className="home-workspace">
-      <header className="home-topbar"><div className="topbar-heading"><span className="mobile-logo"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span><div><h1>首页</h1><p>2026 年 10 月 14 日 星期三 · 今天也慢慢来</p></div></div>
-        <div className="topbar-actions"><span className="prototype-badge"><FlaskConical size={15} />演示原型</span><Link href="settings.html" aria-label="通知与提醒" className="topbar-icon"><Bell size={17} /></Link><Link href="profile.html" className="account-pill"><span>满</span><b>小满</b></Link></div>
+      <header className="home-topbar"><div className="topbar-heading"><span className="mobile-logo"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span><div><h1>首页</h1><p>{dateLabel} · 今天也慢慢来</p></div></div>
+        <div className="topbar-actions"><span className="prototype-badge"><FlaskConical size={15} />演示原型</span><Link href="settings.html" aria-label="通知与提醒" className="topbar-icon"><Bell size={17} /></Link><button type="button" onClick={showAccount} className="account-pill"><span>{authStatus === 'authenticated' ? nickname.slice(0, 1) : <UserCircle size={16} />}</span><b>{authStatus === 'checking' ? '核验中' : authStatus === 'authenticated' ? nickname : '访客登录'}</b></button></div>
       </header>
       <nav className="mobile-home-nav">{navigation.slice(0, 6).map(([key, label, Icon, href]) => <Link key={key} href={href} className={key === 'home' ? 'active' : ''}><Icon size={15} />{label}</Link>)}</nav>
       <main className="home-main"><div className="home-content">
-        <section className="state-switch"><span><span className="switch-icon">◐</span>演示状态切换：对比「未登录访客」与「已登录用户」两种首页显示</span><div><button className={view === 'guest' ? 'selected' : ''} aria-pressed={view === 'guest'} onClick={() => setView('guest')}>未登录访客</button><button className={view === 'user' ? 'selected' : ''} aria-pressed={view === 'user'} onClick={() => setView('user')}>已登录用户</button></div></section>
-        {view === 'guest' ? <div className="guest-view"><HeroGuest /><section className="recent-card guest-recent"><div className="recent-empty-icon">◷</div><div><h3>最近陪伴记录</h3><p>访客状态下没有历史记录。登录后，这里会显示你最近 3 次陪伴会话与情绪记录。</p><Link href="login.html" className="button button-soft">↪ 登录查看我的记录</Link></div></section></div> : <UserHome mood={mood} setMood={setMood} checkinMessage={checkinMessage} saveMood={saveMood} />}
+        {pageNotice && <div className="home-auth-notice" role="status"><span>{pageNotice}</span>{logoutPending && <button type="button" className="inline-link" onClick={retryLogout}>重新核实退出</button>}</div>}
+        <section className="state-switch"><span><span className="switch-icon">◐</span>{authStatus === 'authenticated' ? `已登录：${nickname} · 私密内容仅在身份核验后显示` : authStatus === 'checking' ? '正在从认证服务核验当前身份' : authStatus === 'unavailable' ? '认证服务暂不可用；私密内容保持隐藏' : '当前为未登录访客，可以先浏览公开演示入口'}</span>{authStatus === 'authenticated' ? <button type="button" className="auth-state-action" onClick={logout}>退出登录</button> : <button type="button" className="auth-state-action" onClick={() => openAuth('login')}>登录账户</button>}</section>
+        {authStatus === 'authenticated'
+          ? <UserHome profile={profile} onAccount={showAccount} onLogout={logout} />
+          : <div className="guest-view"><HeroGuest onLogin={openAuth} /><section className="recent-card guest-recent"><div className="recent-empty-icon">◷</div><div><h3>最近陪伴记录</h3><p>登录状态已接入认证服务；私密记录接口尚未联调，因此这里不会展示模拟历史。</p><button type="button" className="button button-soft" onClick={() => openAuth('login')}>登录后查看账户状态</button></div></section></div>}
         <section className="tools-section"><div className="section-heading"><div><h3>今天想做什么</h3><p>按当下的状态，挑一个入口开始</p></div></div><div className="tools-grid">{tools.map(([href, label, description, Icon, tone]) => <Link key={href} href={href} className="tool-card"><span className={`tool-icon ${tone}`}><Icon size={16} /></span><strong>{label}</strong><p>{description}</p></Link>)}</div></section>
-        <section className="privacy-home-card"><ShieldCheck size={20} /><div><h3>隐私与留存说明</h3><ul><li>对话、情绪记录与担忧盒内容默认保存在本机演示环境，不接入任何真实后端。</li><li>默认留存 30 天，可在「会话与隐私设置」中改为 7 天、90 天或永久保留，也可随时一键清除。</li><li>清除操作不可恢复，执行前会有二次确认弹窗。</li></ul><Link href="settings.html">前往会话与隐私设置 <ChevronRight size={14} /></Link></div></section>
-        <p className="demo-disclaimer"><span>ⓘ</span>本页面为演示原型：问候语、统计数据与记录示例均为模拟内容，未连接真实 AI、搜索、短信、邮箱或后端服务；页面不提供医疗诊断、治疗建议或风险评分。</p>
+        <section className="privacy-home-card"><ShieldCheck size={20} /><div><h3>隐私与留存说明</h3><ul><li>登录、注册与退出会调用当前配置的同源认证 API；密码不写入浏览器存储，也不进入 URL。</li><li>Cookie 由服务端设置并通过浏览器凭据通道发送；前端不读取 Cookie 原文。</li><li>陪伴、情绪记录、搜索和其他业务入口仍是演示内容，不代表已连接真实后端。</li></ul><Link href="settings.html">前往会话与隐私设置 <ChevronRight size={14} /></Link></div></section>
+        <p className="demo-disclaimer"><span>ⓘ</span>账号界面仅在认证服务确认后显示私密身份信息；业务记录、AI 和搜索仍未完成真实联调。页面不提供医疗诊断、治疗建议或风险评分。</p>
       </div></main>
     </div>
+    {authView && <AuthDialog mode={authView} status={authStatus} profile={profile} busy={authBusy} error={authError} notice={authNotice} onModeChange={openAuth} onClose={closeAuth} onSubmit={submitAuth} onLogout={logout} />}
   </div>;
 }

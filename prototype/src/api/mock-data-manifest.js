@@ -3,9 +3,9 @@ export const MOCK_DATA_MANIFEST = Object.freeze([
     id: 'MOCK-AUTH-01',
     area: '登录、注册、个人主页',
     source: 'pages/Account.jsx and App.jsx',
-    data: '演示账户、密码、资料与记录按浏览器内存模拟',
-    status: '模拟；不调用认证或资料 API',
-    reset: '刷新页面或关闭演示',
+    data: '默认演示账户、密码、资料与记录按浏览器内存模拟；真实模式另有认证 API 接线',
+    status: '默认模拟；真实模式需后端与 CSRF 契约可用，不伪造成功',
+    reset: '刷新页面或关闭演示；真实模式以服务端会话为准',
   },
   {
     id: 'MOCK-HOME-01',
