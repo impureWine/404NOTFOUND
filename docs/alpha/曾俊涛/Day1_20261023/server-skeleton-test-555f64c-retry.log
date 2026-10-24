@@ -1,0 +1,20 @@
+
+> 404notfound-api@0.1.0 test
+> node --test
+
+✔ health endpoint is runnable and does not expose configuration (50.8481ms)
+✔ registered skeleton validates input before reporting unavailable service (18.5453ms)
+✔ valid but unimplemented auth request is explicitly unavailable (7.048ms)
+✔ Unicode code point length treats emoji as one code point (0.5252ms)
+✔ registration accepts 12 and 128 code points and rejects 11 and 129 (2.0622ms)
+✔ strict registration schema rejects client supplied ownerId (0.1665ms)
+✔ login name is NFKC normalized and indexed in lowercase (0.1619ms)
+✔ rehearsal task requires simulation and dual generations (1.6309ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 345.367

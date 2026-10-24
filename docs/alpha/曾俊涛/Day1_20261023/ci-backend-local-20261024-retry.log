@@ -1,0 +1,77 @@
+✓ Lockfile passes supply-chain policies (verified 48m ago)
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +1
++
+Progress: resolved 1, reused 1, downloaded 0, added 1, done
+
+Done in 449ms using pnpm v11.25.0
+$ node --test
+✔ test\fixtures\model-requests.js (149.0127ms)
+✔ test\helpers\database.js (211.0622ms)
+✔ register, login, profile, logout and password change form a real isolated flow (3320.2008ms)
+✔ mutating routes reject missing CSRF and foreign Origin (709.3218ms)
+✔ deposit becomes available by database time and reveals body only after active retrieval (2987.0423ms)
+✔ isolated backup restore preserves data and blocks opening until deletion replay is confirmed (1753.3407ms)
+✔ health endpoints report process and database readiness without exposing details (2947.454ms)
+✔ account creation writes credentials, profile, and preferences atomically (3014.7547ms)
+✔ account creation rolls back all identity rows when a later write fails (883.8995ms)
+✔ session lookup uses a 32-byte digest and rejects revoked sessions (675.2625ms)
+✔ profile update uses optimistic locking (579.8594ms)
+✔ profile summary and preferences are scoped and versioned (536.1964ms)
+✔ baseline and support migrations execute once on a clean database (2963.6032ms)
+✔ database constraints reject duplicate normalized login identifiers (948.4607ms)
+✔ model endpoint returns a normal unified response without caching (169.8444ms)
+✔ model endpoint exposes stable timeout and unavailable prompts (40.0577ms)
+✔ model endpoint hides unexpected adapter errors behind the unavailable prompt (16.7668ms)
+✔ record API binds SAVE consent, isolates owners, encrypts content and clears in two steps (3496.6015ms)
+✔ records are isolated by both account and entry point (3032.2873ms)
+✔ same idempotency key returns the original record and rejects changed payload (866.9414ms)
+✔ record update enforces scope, version, editable kind, and idempotency (707.2012ms)
+✔ clear enforces version and scope, hides the record, and creates deletion outbox state (601.8485ms)
+✔ record cursors are opaque and bound to account, entry, and kind (524.7361ms)
+✔ clear confirmation expires after its two-minute window (461.5801ms)
+✔ record type details are written in the same transaction (491.5003ms)
+✔ saved query copies server-owned completed search evidence and enforces isolation (2948.7975ms)
+✔ saved query rejects client supplied evidence and invalid server evidence (905.2055ms)
+✔ empty or unfinished searches cannot be persisted as query history (690.8974ms)
+✔ persistent query status follows conflict, partial, stale, success priority (0.2703ms)
+✔ SEC-03 / AT-SEC-02：客户端自报归属字段被契约拒绝，scope 不可省略 (8.8175ms)
+✔ SEC-03 / AT-SEC-01：他人记录编号无法读取，也无法签发清除确认 (2970.4832ms)
+✔ SEC-09 / AT-SEC-03：同账号换入口默认读不到记录（跨入口隔离） (800.5322ms)
+✔ SEC-02 / AT-SEC-04：会话撤销后旧令牌摘要不能再查到会话 (639.4198ms)
+✔ SEC-12：数据库不可用时健康检查只返回通用错误，不泄露连接串或异常细节 (72.5727ms)
+✔ SEC-08 结构检查：数据库与记录类型中不存在文字销毁正文的存储位 (570.1855ms)
+✔ consent is owner, scope, expiry, revocation and payload bound (48.6946ms)
+✔ shared contracts reject zero UUIDs and unknown request fields (5.736ms)
+✔ text limits count Unicode code points instead of UTF-16 code units (83.5996ms)
+✔ emotion records require a real date and supported IANA time zone (3.7923ms)
+✔ model input contains only the approved payload fields (10.7191ms)
+✔ model input rejects memories without explicit authorization (2.1882ms)
+✔ adapter maps a valid provider response to the unified contract (4.9041ms)
+✔ adapter accepts a JSON object wrapped in a Markdown fence (1.2444ms)
+✔ adapter rejects an action outside the request allowlist (1.0858ms)
+✔ failure substitute returns stable errors without calling a provider (0.7314ms)
+✔ adapter returns an unavailable message when the API key is missing (0.3162ms)
+✔ adapter enforces its timeout even if the provider does not settle (1009.844ms)
+✔ uses the approved free model and official API address by default (4.6145ms)
+✔ blocks any model outside the approved free model (1.1618ms)
+✔ blocks any API address outside the approved official endpoint (0.2684ms)
+✔ accepts a bounded model timeout and rejects unsafe values (1.8414ms)
+✔ naming card routes listening and organizing needs to companion mode (4.8655ms)
+✔ naming card routes search need to clarification before querying (0.3025ms)
+✔ naming card does not route before the user selects a need (0.2168ms)
+✔ naming card rejects duplicate or unknown selections (1.562ms)
+✔ search task returns sources and remains scoped to its owner (12.3041ms)
+✔ ending a session cancels an in-flight search and prevents late refill (2.9266ms)
+✔ provider maps real-source fields without inventing claims (62.5524ms)
+✔ provider distinguishes an empty result (1.0959ms)
+✔ provider reports timeout separately from other upstream errors (8.1538ms)
+ℹ tests 60
+ℹ suites 0
+ℹ pass 60
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7162.7847

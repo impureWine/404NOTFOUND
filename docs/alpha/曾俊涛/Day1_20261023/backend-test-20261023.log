@@ -1,0 +1,50 @@
+$ node --test
+✔ test\helpers\database.js (145.5378ms)
+✔ deposit becomes available by database time and reveals body only after active retrieval (2006.1794ms)
+✔ isolated backup restore preserves data and blocks opening until deletion replay is confirmed (1379.6307ms)
+✖ health endpoints report process and database readiness without exposing details (2000.5074ms)
+✔ account creation writes credentials, profile, and preferences atomically (1980.1341ms)
+✔ session lookup uses a 32-byte digest and rejects revoked sessions (651.6794ms)
+✔ profile update uses optimistic locking (584.7427ms)
+✔ baseline and support migrations execute once on a clean database (1900.0399ms)
+✔ database constraints reject duplicate normalized login identifiers (723.4008ms)
+✔ records are isolated by both account and entry point (2047.6023ms)
+✔ same idempotency key returns the original record and rejects changed payload (656.2174ms)
+✔ clear enforces version and scope, hides the record, and creates deletion outbox state (604.2605ms)
+✔ record cursors are opaque and bound to account, entry, and kind (481.6543ms)
+✔ clear confirmation expires after its two-minute window (473.7961ms)
+✔ record type details are written in the same transaction (447.3294ms)
+✔ saved query copies server-owned completed search evidence and enforces isolation (2045.5535ms)
+✔ saved query rejects client supplied evidence and invalid server evidence (641.6938ms)
+✔ empty or unfinished searches cannot be persisted as query history (573.3689ms)
+✔ persistent query status follows conflict, partial, stale, success priority (0.3627ms)
+✔ shared contracts reject zero UUIDs and unknown request fields (4.664ms)
+✔ text limits count Unicode code points instead of UTF-16 code units (21.9026ms)
+✔ emotion records require a real date and supported IANA time zone (3.5057ms)
+✔ provider maps real-source fields without inventing claims (27.3443ms)
+✔ provider distinguishes an empty result (0.6372ms)
+✔ provider reports timeout separately from other upstream errors (11.2793ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 24
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5156.8109
+
+✖ failing tests:
+
+test at test\integration\health.test.js:8:1
+✖ health endpoints report process and database readiness without exposing details (2000.5074ms)
+  [TypeError: fetch failed] {
+    [cause]: Error: connect EACCES 127.0.0.1:61543
+        at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1706:16) {
+      errno: -4092,
+      code: 'EACCES',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 61543
+    }
+  }
+[ELIFECYCLE] Test failed. See above for more details.

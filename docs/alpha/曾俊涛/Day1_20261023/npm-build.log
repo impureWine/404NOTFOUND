@@ -1,0 +1,23 @@
+
+> 404notfound-prototype@1.0.0 build
+> vite build
+
+X [ERROR] Cannot read directory "../../../../..": Access is denied.
+
+X [ERROR] Could not resolve "C:\\Users\\Asus\\AppData\\Local\\Temp\\404NOTFOUND_alpha_day1_baseline_20261023\\prototype\\vite.config.js"
+
+failed to load config from C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\vite.config.js
+error during build:
+Error: Build failed with 2 errors:
+error: Cannot read directory "../../../../..": Access is denied.
+error: Could not resolve "C:\\Users\\Asus\\AppData\\Local\\Temp\\404NOTFOUND_alpha_day1_baseline_20261023\\prototype\\vite.config.js"
+    at failureErrorWithLog (C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:926:25
+    at runOnEndCallbacks (C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:1307:45)
+    at buildResponseToResult (C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:924:7)
+    at C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:951:16
+    at responseCallbacks.<computed> (C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\Asus\AppData\Local\Temp\404NOTFOUND_alpha_day1_baseline_20261023\prototype\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:509:28)
+    at addChunk (node:internal/streams/readable:563:12)

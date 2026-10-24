@@ -1,0 +1,13 @@
+
+> 404notfound-prototype@1.0.0 build
+> vite build
+
+vite v6.4.4 building for production...
+transforming...
+✓ 1581 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.42 kB │ gzip:  0.31 kB
+dist/assets/index-7ObbeefE.css   47.87 kB │ gzip: 11.26 kB
+dist/assets/index-DbliF21D.js   278.53 kB │ gzip: 86.18 kB
+✓ built in 1.33s

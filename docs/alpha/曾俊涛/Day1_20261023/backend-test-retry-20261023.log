@@ -1,0 +1,34 @@
+$ node --test
+✔ test\helpers\database.js (107.6598ms)
+✔ deposit becomes available by database time and reveals body only after active retrieval (1812.0605ms)
+✔ isolated backup restore preserves data and blocks opening until deletion replay is confirmed (1320.3639ms)
+✔ health endpoints report process and database readiness without exposing details (1822.2557ms)
+✔ account creation writes credentials, profile, and preferences atomically (1810.1903ms)
+✔ session lookup uses a 32-byte digest and rejects revoked sessions (608.5718ms)
+✔ profile update uses optimistic locking (572.5974ms)
+✔ baseline and support migrations execute once on a clean database (1723.5175ms)
+✔ database constraints reject duplicate normalized login identifiers (645.2133ms)
+✔ records are isolated by both account and entry point (1769.0323ms)
+✔ same idempotency key returns the original record and rejects changed payload (609.3154ms)
+✔ clear enforces version and scope, hides the record, and creates deletion outbox state (610.2177ms)
+✔ record cursors are opaque and bound to account, entry, and kind (477.8866ms)
+✔ clear confirmation expires after its two-minute window (452.5081ms)
+✔ record type details are written in the same transaction (435.0404ms)
+✔ saved query copies server-owned completed search evidence and enforces isolation (1783.5395ms)
+✔ saved query rejects client supplied evidence and invalid server evidence (611.8967ms)
+✔ empty or unfinished searches cannot be persisted as query history (574.5668ms)
+✔ persistent query status follows conflict, partial, stale, success priority (0.2743ms)
+✔ shared contracts reject zero UUIDs and unknown request fields (5.7115ms)
+✔ text limits count Unicode code points instead of UTF-16 code units (16.334ms)
+✔ emotion records require a real date and supported IANA time zone (2.3851ms)
+✔ provider maps real-source fields without inventing claims (26.1246ms)
+✔ provider distinguishes an empty result (0.9059ms)
+✔ provider reports timeout separately from other upstream errors (9.9991ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4620.8013

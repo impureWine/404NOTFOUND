@@ -1,0 +1,40 @@
+name: Prototype build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-prototype:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: prototype
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+          cache: npm
+          cache-dependency-path: prototype/package-lock.json
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund --registry=https://registry.npmjs.org --replace-registry-host=always
+      - name: Run frontend adapter tests
+        run: npm test
+      - name: Build React/Vite prototype
+        run: npm run build
+      - name: Check build output
+        run: |
+          test -s dist/index.html
+          test -s dist/companion.html
+          test -s dist/calendar.html
+          test -s dist/worry-room.html
+          test -s dist/info-query.html
+          test -s dist/profile.html
+          test -s dist/settings.html

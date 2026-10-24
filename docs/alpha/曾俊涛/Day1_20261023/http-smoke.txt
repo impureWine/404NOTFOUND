@@ -1,0 +1,3 @@
+GET / -> 200; bytes=380; content-type=text/html
+GET /src/main.jsx -> 200; bytes=1105; content-type=text/javascript
+GET /src/App.jsx -> 200; bytes=28923; content-type=text/javascript
