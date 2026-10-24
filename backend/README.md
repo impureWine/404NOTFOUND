@@ -25,9 +25,10 @@ npm start
 ## 已实现边界
 
 - `MigrationRunner`：按文件名顺序执行迁移，并使用 `schema_migrations` 记录校验和。
-- `RecordRepository`：创建、带作用域游标的列表、详情、两步确认清除和寄存状态机；所有私密记录均限定账号与入口。
+- `IdentityRepository`：注册事务与幂等、摘要会话、资料乐观锁、资料汇总和账号偏好；资料及偏好更新按账号、可信入口和 `requestId` 处理。
+- `RecordRepository`：创建、带作用域游标的列表、详情、允许类型的版本更新、两步确认清除和寄存状态机；所有私密记录均限定账号与入口。
 - 保存幂等：同作用域同 `requestId` 和同载荷返回原结果，不同载荷返回冲突。
-- 乐观锁：更新和清除需要匹配 `expectedVersion`。
+- 乐观锁：资料、偏好、允许编辑的记录和清除操作需要匹配 `expectedVersion`。
 - 清除：先签发两分钟一次性确认；执行时在同一事务清理正文子表、房间关联和授权，令记录不可见，并创建删除任务、目标与 outbox。
 - `SavedQueryRepository`：调用方只能提交 `searchRequestId`；仓储从受控的已完成查询解析器复制查询、来源、主张和证据关系，客户端不能自造证据链。
 - `WikipediaSearchProvider`：真实调用固定 Wikipedia MediaWiki API；支持超时、空结果和上游错误。
@@ -54,6 +55,8 @@ npm start
 
 - 模型摘要、LangChain 陪伴/训练链路与真实模型环境验证。
 - 正式密钥托管、密钥轮换、限流、审计日志和多实例共享任务队列。
+- 认证应用服务尚未接入 `IdentityRepository.createAccount` 的注册 `requestId` 幂等与服务端HMAC载荷摘要；当前仓储测试只使用合成摘要。
+- 注册幂等元数据的过期清理任务；迁移只记录24小时 `expires_at`，部署前仍需配置清理作业。
 - 正式 PostgreSQL 服务、角色权限、网络与性能验收；自动化测试使用 PGlite。
 - 云端部署、前端页面完整联调和生产级运维监控。
 - Wikipedia 实网请求会受当前网络环境影响；离线自动化只验证映射、空结果与超时行为。
