@@ -12,7 +12,22 @@ function readTextContent(message) {
   if (typeof message?.content === 'string') {
     return message.content.trim();
   }
+  if (Array.isArray(message?.content)) {
+    return message.content
+      .filter((block) => block?.type === 'text' && typeof block.text === 'string')
+      .map((block) => block.text)
+      .join('')
+      .trim();
+  }
   return '';
+}
+
+function parseJsonObject(text) {
+  const withoutFence = text
+    .replace(/^\s*```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/, '')
+    .trim();
+  return JSON.parse(withoutFence);
 }
 
 function mapUsage(message) {
@@ -30,7 +45,12 @@ function mapError(error) {
   if (error?.code === 'INVALID_INPUT') {
     return ['INVALID_REQUEST', false, '请求内容不符合模型调用要求。'];
   }
-  if (error?.name === 'AbortError' || error?.name === 'TimeoutError') {
+  if (
+    error?.name === 'AbortError'
+    || error?.name === 'TimeoutError'
+    || error?.code === 'ETIMEDOUT'
+    || error?.code === 'ECONNABORTED'
+  ) {
     return ['MODEL_TIMEOUT', true, '暂时没有获得响应，你可以稍后重新尝试。'];
   }
   if (error?.status === 429) {
@@ -43,6 +63,31 @@ function mapError(error) {
     return ['INVALID_MODEL_OUTPUT', false, '模型返回内容无法安全使用。'];
   }
   return ['MODEL_UNAVAILABLE', true, '模型服务暂时不可用。'];
+}
+
+async function invokeWithTimeout(chatModel, messages, timeoutMs, externalSignal) {
+  const timeoutController = new AbortController();
+  const timeoutId = setTimeout(() => timeoutController.abort(), timeoutMs);
+  const signal = externalSignal
+    ? AbortSignal.any([externalSignal, timeoutController.signal])
+    : timeoutController.signal;
+
+  try {
+    return await Promise.race([
+      chatModel.invoke(messages, { signal }),
+      new Promise((_, reject) => {
+        signal.addEventListener('abort', () => {
+          const error = new Error(
+            externalSignal?.aborted ? 'Model request aborted' : 'Model request timed out',
+          );
+          error.name = externalSignal?.aborted ? 'AbortError' : 'TimeoutError';
+          reject(error);
+        }, { once: true });
+      }),
+    ]);
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 function errorResponse({ input, config, startedAt, now, error }) {
@@ -86,7 +131,15 @@ export function createZhipuChatModel(env, config) {
 export class LangChainModelAdapter {
   constructor({ env = process.env, chatModel, now = Date.now } = {}) {
     this.config = getModelConfig(env);
-    this.chatModel = chatModel ?? createZhipuChatModel(env, this.config);
+    this.chatModel = chatModel ?? null;
+    this.initializationError = null;
+    if (!this.chatModel) {
+      try {
+        this.chatModel = createZhipuChatModel(env, this.config);
+      } catch (error) {
+        this.initializationError = error;
+      }
+    }
     this.now = now;
   }
 
@@ -104,9 +157,17 @@ export class LangChainModelAdapter {
     const startedAt = this.now();
     let request;
     try {
+      if (this.initializationError) {
+        throw this.initializationError;
+      }
       const built = buildModelMessages(input);
       request = built.request;
-      const message = await this.chatModel.invoke(built.messages, { signal });
+      const message = await invokeWithTimeout(
+        this.chatModel,
+        built.messages,
+        this.config.timeoutMs,
+        signal,
+      );
       const text = readTextContent(message);
       if (!text) {
         const error = new Error('Empty model output');
@@ -114,7 +175,7 @@ export class LangChainModelAdapter {
         throw error;
       }
 
-      const parsedOutput = providerOutputSchema.safeParse(JSON.parse(text));
+      const parsedOutput = providerOutputSchema.safeParse(parseJsonObject(text));
       if (!parsedOutput.success) {
         const error = new Error('Invalid model output');
         error.code = 'INVALID_MODEL_OUTPUT';
@@ -141,7 +202,9 @@ export class LangChainModelAdapter {
         result,
         model_info: {
           provider: this.config.provider,
-          model: message?.response_metadata?.model_name ?? this.config.model,
+          model: message?.response_metadata?.model_name
+            ?? message?.response_metadata?.model
+            ?? this.config.model,
           mock: false,
         },
         usage: mapUsage(message),

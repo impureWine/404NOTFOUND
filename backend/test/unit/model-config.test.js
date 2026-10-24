@@ -27,3 +27,11 @@ test('blocks any API address outside the approved official endpoint', () => {
     /接口配置被阻止/,
   );
 });
+
+test('accepts a bounded model timeout and rejects unsafe values', () => {
+  assert.equal(getModelConfig({ ZHIPU_TIMEOUT_MS: '5000' }).timeoutMs, 5000);
+  assert.throws(
+    () => getModelConfig({ ZHIPU_TIMEOUT_MS: '0' }),
+    /模型超时配置无效/,
+  );
+});

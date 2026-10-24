@@ -1,6 +1,17 @@
+import { loadEnvFile } from 'node:process';
+
 import { createApp } from './app.js';
+import { LangChainModelAdapter } from './ai/langchain-model-adapter.js';
 import { createPoolFromEnv } from './db/database.js';
 import { runMigrations } from './db/migration-runner.js';
+
+try {
+  loadEnvFile();
+} catch (error) {
+  if (error?.code !== 'ENOENT') {
+    throw error;
+  }
+}
 
 const database = createPoolFromEnv();
 if (process.env.MIGRATE_ON_START === 'true') {
@@ -8,7 +19,8 @@ if (process.env.MIGRATE_ON_START === 'true') {
 }
 
 const port = Number(process.env.PORT ?? 3000);
-const app = createApp({ database });
+const modelAdapter = new LangChainModelAdapter();
+const app = createApp({ database, modelAdapter });
 const server = app.listen(port, '127.0.0.1', () => {
   console.log(`Data service listening on http://127.0.0.1:${port}`);
 });
