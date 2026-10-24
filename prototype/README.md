@@ -14,6 +14,12 @@ npm run dev -- --host 127.0.0.1 --port 5173
 
 访问 `http://localhost:5173/`。生产构建使用 `npm run build`，前端适配器单测使用 `npm run test`。
 
+## UX 组件与状态展示（2026-10-24）
+
+独立入口：`http://localhost:5173/ux-components.html?page=home&state=normal`。提供登录、首页、聊天、来源展示的正常／加载／空／失败状态切换；全部采用本地模拟数据。`npm run build` 同时构建现有首页和展示入口。
+
+源码位于 `src/ux-showcase/`，复用 `src/ui.jsx` 中的 Button 与 Panel；[完整交付说明及状态截图](../docs/alpha/郭昱祺/组件展示页交付_20261024/README.md) 记录运行范围与待接入内容。页面装配、认证、模型、检索及保存接口仍待前端整合，演示成功不等于正式接口已完成。
+
 本次工作区也在 `http://localhost:4173/` 启动了开发预览。4174端口提供原有静态首页预览；两个地址对应不同实现。
 
 ## API 适配骨架

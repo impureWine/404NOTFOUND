@@ -8,4 +8,12 @@ export default defineConfig({
   base: './',
   publicDir: resolve(configDir, '../web-prototype'),
   server: { host: '0.0.0.0' },
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(configDir, 'index.html'),
+        uxComponents: resolve(configDir, 'ux-components.html'),
+      },
+    },
+  },
 });
