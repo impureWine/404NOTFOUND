@@ -1,0 +1,31 @@
+{
+  "started_at": "2026-10-24T22:05:01.925056+08:00",
+  "finished_at": "2026-10-24T22:05:10.154468+08:00",
+  "elapsed_seconds": 8.229,
+  "node": "v25.9.0",
+  "command": [
+    "node",
+    "--test",
+    "--test-reporter=tap",
+    "test/integration/auth-api.test.js",
+    "test/integration/deposit-and-restore.test.js",
+    "test/integration/health.test.js",
+    "test/integration/identity-repository.test.js",
+    "test/integration/migration.test.js",
+    "test/integration/model-http.test.js",
+    "test/integration/record-api.test.js",
+    "test/integration/record-repository.test.js",
+    "test/integration/saved-query-repository.test.js",
+    "test/security/security-baseline.test.js",
+    "test/unit/consent-service.test.js",
+    "test/unit/contracts.test.js",
+    "test/unit/model-adapter.test.js",
+    "test/unit/model-config.test.js",
+    "test/unit/naming-card-router.test.js",
+    "test/unit/task-service.test.js",
+    "test/unit/wikipedia-search-provider.test.js"
+  ],
+  "exit_code": 0,
+  "database": "isolated in-memory PGlite; no real PostgreSQL",
+  "test_files": 17
+}

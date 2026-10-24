@@ -1,0 +1,16 @@
+{
+  "base_commit": "230293dec94a98844827d3a5f6539becad667c02",
+  "branch": "guanxin/day2-authz",
+  "time": "2026-10-24T22:13:21.290063+08:00",
+  "sha256": {
+    "backend/src/app.js": "7abd98ce7f28f99fedd3230b830fdbbb10c9733f702f90a2b65e92e32a898dc2",
+    "backend/src/http/request.js": "8a02082ce039df70f48b1e54ea8692fefe57820d0260f169a7d94d74768bd799",
+    "backend/src/services/auth-service.js": "6e731c7c66bffb12573ef3e947d7bac59d7646cb2482f13a44339fc2ddd2de2c",
+    "backend/src/security/crypto.js": "eb9c919ee2514f35fc28560156786384fefa9b295ec79cf26063c83a1b26b480",
+    "prototype/electron/main.cjs": "9d9b3845bca0f60cdfd99e485926e4885adbfab2d579c7b08883433c852cae7f",
+    "prototype/electron/preload.cjs": "3b496e6b6f89ad8aac308bc5b37f62c8a4e5d31ecf7ae33b712aeb65a394cf33",
+    "prototype/electron/renderer.html": "1ae1c13762429a3702f447bdc8822a75ba893b03b5505012d15db102e19fb9f4",
+    "backend/test/security/day2-authz.test.js": "4d9828d6bd14c4d59fd83b931e9c381934fb60b25015a3edc75cd017270d84b5",
+    "backend/pnpm-lock.yaml": "f6cfa319f903e978f0b548fe0d098713ee9bee9f47846c299380d2fb4574679e"
+  }
+}

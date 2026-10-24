@@ -1,0 +1,4 @@
+backend/test/security/day2-authz.test.js: exit 0
+prototype/electron/main.cjs: exit 0
+prototype/electron/preload.cjs: exit 0
+prototype/electron/renderer.js: exit 0
