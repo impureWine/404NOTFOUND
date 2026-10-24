@@ -1,0 +1,16 @@
+▶ Day 2 auth/profile HTTP contract on an isolated service
+  ✔ anonymous profile access is denied (58.1265ms)
+  ▶ fetch context and register without auto-login
+    ✔ duplicate login identifier and invalid password are rejected (33.1216ms)
+    ✔ login, own profile, CSRF refusal, logout and old session rejection (136.585ms)
+  ✔ fetch context and register without auto-login (252.1737ms)
+✔ Day 2 auth/profile HTTP contract on an isolated service (311.7488ms)
+ℹ synthetic loginName=qa_f34dd7d9c06245cd904b
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1792.4592

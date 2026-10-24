@@ -1,0 +1,69 @@
+{
+  "electronVersion": "45.0.0",
+  "source": "main@230293d original Electron source with local test observer",
+  "observations": {
+    "launch": {
+      "visible": true,
+      "alwaysOnTopAfterOriginalSetup": false,
+      "noMenuBar": true,
+      "url": "file:///.../prototype/electron/renderer.html",
+      "emergencyShortcutRegistered": true,
+      "bounds": {
+        "x": 663,
+        "y": 393,
+        "width": 381,
+        "height": 281
+      },
+      "alwaysOnTopAfterExplicitReassert": false
+    },
+    "initialRenderer": {
+      "status": "普通交互模式",
+      "pressed": "false"
+    },
+    "clickThrough": {
+      "ignoreCalls": [
+        {
+          "enabled": true,
+          "forward": true
+        },
+        {
+          "enabled": false,
+          "forward": true
+        }
+      ],
+      "enabled": {
+        "status": "点击穿透已开启 · Alt+Shift+P 恢复",
+        "pressed": "true"
+      },
+      "restored": {
+        "status": "普通交互模式",
+        "pressed": "false"
+      }
+    },
+    "drag": {
+      "before": {
+        "x": 663,
+        "y": 393,
+        "width": 381,
+        "height": 281
+      },
+      "after": {
+        "x": 663,
+        "y": 393,
+        "width": 381,
+        "height": 281
+      },
+      "moved": false
+    },
+    "hide": {
+      "hidden": true
+    },
+    "reopenForClose": {
+      "visible": true
+    },
+    "close": {
+      "buttonInvoked": true,
+      "closed": true
+    }
+  }
+}
