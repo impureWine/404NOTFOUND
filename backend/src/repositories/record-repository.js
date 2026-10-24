@@ -3,11 +3,13 @@ import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import {
   depositActionSchema,
   depositPostponeSchema,
+  editableRecordDetailsSchemas,
   recordClearConfirmationSchema,
   recordClearSchema,
   recordCreateSchema,
   recordIdentitySchema,
   recordListSchema,
+  recordUpdateSchema,
 } from '../contracts/records.js';
 import { nonZeroUuidSchema } from '../contracts/primitives.js';
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
@@ -29,11 +31,94 @@ function mapRecord(row, idempotent = false) {
   return {
     id: row.id,
     kind: row.record_kind,
+    titleCiphertext: row.title_ciphertext ?? null,
+    titleKeyVersion: row.title_key_version ?? null,
     version: row.version_no,
     createdAt: new Date(row.created_at).toISOString(),
     updatedAt: new Date(row.updated_at).toISOString(),
     idempotent,
   };
+}
+
+function formatRecordDate(value) {
+  return value instanceof Date ? value.toISOString().slice(0, 10) : String(value);
+}
+
+async function getRecordDetails(database, recordId, kind) {
+  let result;
+  switch (kind) {
+    case 'CONVERSATION':
+      result = await database.query(
+        `
+          SELECT role, content_ciphertext, cipher_key_version
+          FROM saved_messages
+          WHERE saved_record_id = $1
+          ORDER BY sequence_no
+        `,
+        [recordId],
+      );
+      if (result.rows.length === 0) throw new ConflictError('The record payload is missing');
+      return {
+        messages: result.rows.map((row) => ({
+          role: row.role,
+          contentCiphertext: row.content_ciphertext,
+          cipherKeyVersion: row.cipher_key_version,
+        })),
+      };
+    case 'EMOTION':
+      result = await database.query(
+        `
+          SELECT record_date, emotion_codes, intensity, timezone_name,
+                 event_ciphertext, cipher_key_version
+          FROM emotion_records
+          WHERE saved_record_id = $1
+        `,
+        [recordId],
+      );
+      if (result.rows.length === 0) throw new ConflictError('The record payload is missing');
+      return {
+        recordDate: formatRecordDate(result.rows[0].record_date),
+        emotionCodes: result.rows[0].emotion_codes,
+        intensity: result.rows[0].intensity,
+        timezoneName: result.rows[0].timezone_name,
+        eventCiphertext: result.rows[0].event_ciphertext,
+        cipherKeyVersion: result.rows[0].cipher_key_version,
+      };
+    case 'WORRY_OBJECT':
+      result = await database.query(
+        `
+          SELECT shape_code, body_ciphertext, cipher_key_version
+          FROM worry_objects
+          WHERE saved_record_id = $1
+        `,
+        [recordId],
+      );
+      if (result.rows.length === 0) throw new ConflictError('The record payload is missing');
+      return {
+        shapeCode: result.rows[0].shape_code,
+        bodyCiphertext: result.rows[0].body_ciphertext,
+        cipherKeyVersion: result.rows[0].cipher_key_version,
+      };
+    case 'REHEARSAL_DRAFT':
+      result = await database.query(
+        `
+          SELECT scene_ciphertext, expressions_ciphertext, expression_count,
+                 cipher_key_version
+          FROM rehearsal_drafts
+          WHERE saved_record_id = $1
+        `,
+        [recordId],
+      );
+      if (result.rows.length === 0) throw new ConflictError('The record payload is missing');
+      return {
+        sceneCiphertext: result.rows[0].scene_ciphertext,
+        expressionsCiphertext: result.rows[0].expressions_ciphertext,
+        expressionCount: result.rows[0].expression_count,
+        cipherKeyVersion: result.rows[0].cipher_key_version,
+      };
+    default:
+      return null;
+  }
 }
 
 function encodeCursor(payload) {
@@ -187,6 +272,74 @@ async function insertRecordDetails(transaction, recordId, kind, details) {
   }
 }
 
+async function updateRecordDetails(transaction, recordId, kind, details) {
+  let result;
+  switch (kind) {
+    case 'EMOTION':
+      result = await transaction.query(
+        `
+          UPDATE emotion_records
+          SET record_date = $2,
+              emotion_codes = $3,
+              intensity = $4,
+              timezone_name = $5,
+              event_ciphertext = $6,
+              cipher_key_version = $7
+          WHERE saved_record_id = $1
+          RETURNING saved_record_id
+        `,
+        [
+          recordId,
+          details.recordDate,
+          details.emotionCodes,
+          details.intensity,
+          details.timezoneName,
+          details.eventCiphertext,
+          details.cipherKeyVersion,
+        ],
+      );
+      break;
+    case 'WORRY_OBJECT':
+      result = await transaction.query(
+        `
+          UPDATE worry_objects
+          SET shape_code = $2,
+              body_ciphertext = $3,
+              cipher_key_version = $4
+          WHERE saved_record_id = $1
+          RETURNING saved_record_id
+        `,
+        [recordId, details.shapeCode, details.bodyCiphertext, details.cipherKeyVersion],
+      );
+      break;
+    case 'REHEARSAL_DRAFT':
+      result = await transaction.query(
+        `
+          UPDATE rehearsal_drafts
+          SET scene_ciphertext = $2,
+              expressions_ciphertext = $3,
+              expression_count = $4,
+              cipher_key_version = $5
+          WHERE saved_record_id = $1
+          RETURNING saved_record_id
+        `,
+        [
+          recordId,
+          details.sceneCiphertext,
+          details.expressionsCiphertext,
+          details.expressionCount,
+          details.cipherKeyVersion,
+        ],
+      );
+      break;
+    default:
+      throw new ConflictError(`${kind} records are read-only through the general update operation`);
+  }
+  if (result.rows.length === 0) {
+    throw new ConflictError('The record payload is missing');
+  }
+}
+
 export class RecordRepository {
   constructor(database) {
     this.database = database;
@@ -213,7 +366,8 @@ export class RecordRepository {
       if (idempotency.existing) {
         const existing = await transaction.query(
           `
-            SELECT id, record_kind, version_no, created_at, updated_at
+            SELECT id, record_kind, title_ciphertext, title_key_version,
+                   version_no, created_at, updated_at
             FROM saved_records
             WHERE id = $1
               AND account_id = $2
@@ -239,7 +393,8 @@ export class RecordRepository {
             request_id
           )
           VALUES ($1, $2, $3, $4, $5, $6)
-          RETURNING id, record_kind, version_no, created_at, updated_at
+          RETURNING id, record_kind, title_ciphertext, title_key_version,
+                    version_no, created_at, updated_at
         `,
         [
           value.accountId,
@@ -267,7 +422,8 @@ export class RecordRepository {
 
     const result = await this.database.query(
       `
-        SELECT id, record_kind, version_no, created_at, updated_at
+        SELECT id, record_kind, title_ciphertext, title_key_version,
+               version_no, created_at, updated_at
         FROM saved_records
         WHERE account_id = $1
           AND entry_point_id = $2
@@ -310,7 +466,8 @@ export class RecordRepository {
     const value = parse(recordIdentitySchema, input);
     const result = await this.database.query(
       `
-        SELECT id, record_kind, version_no, created_at, updated_at
+        SELECT id, record_kind, title_ciphertext, title_key_version,
+               version_no, created_at, updated_at
         FROM saved_records
         WHERE id = $1
           AND account_id = $2
@@ -320,7 +477,108 @@ export class RecordRepository {
       [value.recordId, value.accountId, value.entryPointId],
     );
     if (result.rows.length === 0) throw new NotFoundError();
-    return mapRecord(result.rows[0]);
+    const row = result.rows[0];
+    const details = await getRecordDetails(this.database, row.id, row.record_kind);
+    return { ...mapRecord(row), details };
+  }
+
+  async update(input) {
+    const value = parse(recordUpdateSchema, input);
+    const payloadHash = stableHash({
+      recordId: value.recordId,
+      expectedVersion: value.expectedVersion,
+      titleCiphertext: value.titleCiphertext,
+      titleKeyVersion: value.titleKeyVersion,
+      details: value.details,
+    });
+    return withTransaction(this.database, async (transaction) => {
+      const idempotency = await claimIdempotencyKey(transaction, {
+        accountId: value.accountId,
+        entryPointId: value.entryPointId,
+        operation: 'UPDATE_RECORD',
+        requestId: value.requestId,
+        payloadHash,
+      });
+      if (idempotency.existing) {
+        const existing = await transaction.query(
+          `
+            SELECT id, record_kind, title_ciphertext, title_key_version,
+                   version_no, created_at, updated_at
+            FROM saved_records
+            WHERE id = $1
+              AND account_id = $2
+              AND entry_point_id = $3
+              AND deleted_at IS NULL
+          `,
+          [idempotency.resultResourceId, value.accountId, value.entryPointId],
+        );
+        if (existing.rows.length === 0) {
+          throw new ConflictError('The idempotent record result is no longer available');
+        }
+        if (existing.rows[0].version_no !== idempotency.resultVersion) {
+          throw new ConflictError('The idempotent record result is no longer current');
+        }
+        return mapRecord(existing.rows[0], true);
+      }
+
+      const current = await transaction.query(
+        `
+          SELECT record_kind, version_no
+          FROM saved_records
+          WHERE id = $1
+            AND account_id = $2
+            AND entry_point_id = $3
+            AND deleted_at IS NULL
+          FOR UPDATE
+        `,
+        [value.recordId, value.accountId, value.entryPointId],
+      );
+      if (current.rows.length === 0) throw new NotFoundError();
+      const row = current.rows[0];
+      if (row.version_no !== value.expectedVersion) {
+        throw new ConflictError('expectedVersion does not match the current record version');
+      }
+      const detailsSchema = editableRecordDetailsSchemas[row.record_kind];
+      if (!detailsSchema) {
+        throw new ConflictError(`${row.record_kind} records cannot be updated through PATCH`);
+      }
+      const details = parse(detailsSchema, value.details);
+      await updateRecordDetails(transaction, value.recordId, row.record_kind, details);
+
+      const updated = await transaction.query(
+        `
+          UPDATE saved_records
+          SET title_ciphertext = $4,
+              title_key_version = $5,
+              version_no = version_no + 1,
+              updated_at = now()
+          WHERE id = $1
+            AND account_id = $2
+            AND entry_point_id = $3
+            AND version_no = $6
+            AND deleted_at IS NULL
+          RETURNING id, record_kind, title_ciphertext, title_key_version,
+                    version_no, created_at, updated_at
+        `,
+        [
+          value.recordId,
+          value.accountId,
+          value.entryPointId,
+          value.titleCiphertext,
+          value.titleKeyVersion,
+          value.expectedVersion,
+        ],
+      );
+      if (updated.rows.length === 0) {
+        throw new ConflictError('expectedVersion does not match the current record version');
+      }
+      await completeIdempotencyKey(transaction, {
+        keyId: idempotency.id,
+        resourceId: value.recordId,
+        version: updated.rows[0].version_no,
+      });
+      return mapRecord(updated.rows[0]);
+    });
   }
 
   async issueClearConfirmation(input) {
