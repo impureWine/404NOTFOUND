@@ -6,6 +6,7 @@ import { createAccountSchema } from '../../src/contracts/identity.js';
 import {
   recordClearSchema,
   recordCreateSchema,
+  recordUpdateSchema,
   scopeSchema,
 } from '../../src/contracts/records.js';
 import { searchInputSchema } from '../../src/contracts/search.js';
@@ -28,6 +29,18 @@ test('shared contracts reject zero UUIDs and unknown request fields', () => {
     confirmed: true,
     ownerFromClient: randomUUID(),
   }).success, false);
+
+  assert.equal(recordUpdateSchema.safeParse({
+    accountId: randomUUID(),
+    entryPointId: randomUUID(),
+    recordId: randomUUID(),
+    requestId: randomUUID(),
+    expectedVersion: 1,
+    titleCiphertext: null,
+    titleKeyVersion: null,
+    details: {},
+    ownerFromClient: randomUUID(),
+  }).success, false);
 });
 
 test('text limits count Unicode code points instead of UTF-16 code units', () => {
@@ -36,6 +49,8 @@ test('text limits count Unicode code points instead of UTF-16 code units', () =>
   assert.equal(searchInputSchema.safeParse({ question: `${emojiQuestion}😀` }).success, false);
 
   const account = createAccountSchema.safeParse({
+    requestId: randomUUID(),
+    registrationPayloadHash: Buffer.alloc(32, 1),
     loginIdentifier: 'unicode_user',
     passwordDigest: '$argon2id$synthetic',
     passwordParameters: {},

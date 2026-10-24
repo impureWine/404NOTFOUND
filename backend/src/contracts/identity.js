@@ -5,6 +5,7 @@ import {
   ianaTimeZoneSchema,
   instantSchema,
   nonZeroUuidSchema,
+  requestIdSchema,
 } from './primitives.js';
 
 const digest32Schema = z.instanceof(Uint8Array).refine(
@@ -13,6 +14,8 @@ const digest32Schema = z.instanceof(Uint8Array).refine(
 );
 
 export const createAccountSchema = z.strictObject({
+  requestId: requestIdSchema,
+  registrationPayloadHash: digest32Schema,
   loginIdentifier: z.string().min(1).max(128),
   passwordDigest: z.string().min(1).max(255),
   passwordParameters: z.record(z.string(), z.unknown()),
@@ -35,6 +38,8 @@ export const sessionLookupSchema = z.strictObject({
 
 export const updateProfileSchema = z.strictObject({
   accountId: nonZeroUuidSchema,
+  entryPointId: nonZeroUuidSchema,
+  requestId: requestIdSchema,
   expectedVersion: z.number().int().positive(),
   nickname: codePointString({ min: 1, max: 32, trim: true, name: 'nickname' }),
   avatarKey: z.string().trim().min(1).max(64),
@@ -47,4 +52,21 @@ export const updateProfileSchema = z.strictObject({
       message: 'bioCiphertext and cipherKeyVersion must be provided together',
     });
   }
+});
+
+export const profileSummarySchema = z.strictObject({
+  accountId: nonZeroUuidSchema,
+  entryPointId: nonZeroUuidSchema,
+});
+
+export const preferencesLookupSchema = z.strictObject({
+  accountId: nonZeroUuidSchema,
+});
+
+export const updatePreferencesSchema = z.strictObject({
+  accountId: nonZeroUuidSchema,
+  entryPointId: nonZeroUuidSchema,
+  requestId: requestIdSchema,
+  expectedVersion: z.number().int().positive(),
+  offerHistorySave: z.boolean(),
 });

@@ -1,0 +1,84 @@
+import {
+  clearRecordRequestSchema,
+  createRecordRequestSchema,
+} from '@404notfound/contracts';
+
+import { InvalidInputError } from '../domain/errors.js';
+import { encryptProfileText } from '../security/crypto.js';
+
+function parse(schema, value) {
+  const result = schema.safeParse(value);
+  if (!result.success) throw new InvalidInputError('请求字段不符合接口契约', result.error.issues);
+  return result.data;
+}
+
+export class RecordService {
+  constructor(repository, { encryptionKey, consentService }) {
+    this.repository = repository;
+    this.encryptionKey = encryptionKey;
+    this.consentService = consentService;
+  }
+
+  scope(context) {
+    return { accountId: context.accountId, entryPointId: context.entryPointId };
+  }
+
+  async create(context, body) {
+    const value = parse(createRecordRequestSchema, body);
+    this.consentService.assert(context, value.consentId, 'SAVE', 'RECORD_CREATE', {
+      kind: value.kind,
+      content: value.content,
+    });
+    if (value.kind !== 'CONVERSATION') {
+      const error = new Error('当前纵向链仅开放会话记录保存');
+      error.code = 'SERVICE_UNAVAILABLE';
+      throw error;
+    }
+    return this.repository.create({
+      ...this.scope(context),
+      requestId: value.requestId,
+      kind: value.kind,
+      titleCiphertext: encryptProfileText(value.content.title, this.encryptionKey),
+      titleKeyVersion: 1,
+      details: {
+        messages: [{
+          role: 'USER',
+          contentCiphertext: encryptProfileText(value.content.body, this.encryptionKey),
+          cipherKeyVersion: 1,
+        }],
+      },
+    });
+  }
+
+  list(context, query) {
+    return this.repository.list({
+      ...this.scope(context),
+      ...(query.kind ? { kind: query.kind } : {}),
+      limit: query.limit ? Number(query.limit) : 20,
+      ...(query.cursor ? { cursor: query.cursor } : {}),
+    });
+  }
+
+  get(context, recordId) {
+    return this.repository.get({ ...this.scope(context), recordId });
+  }
+
+  issueClearConfirmation(context, recordId, body) {
+    return this.repository.issueClearConfirmation({
+      ...this.scope(context),
+      recordId,
+      requestId: body.requestId,
+      expectedVersion: body.expectedVersion,
+    });
+  }
+
+  clear(context, recordId, body) {
+    const value = parse(clearRecordRequestSchema, body);
+    return this.repository.clear({
+      ...this.scope(context),
+      recordId,
+      ...value,
+      confirmed: true,
+    });
+  }
+}

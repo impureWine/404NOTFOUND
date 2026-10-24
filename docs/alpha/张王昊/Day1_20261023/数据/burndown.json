@@ -1,0 +1,58 @@
+[
+  {
+    "node": "开工前",
+    "ideal": 100,
+    "plan": 100,
+    "actual": 100,
+    "note": "初始估算基线，非完成数据"
+  },
+  {
+    "node": "Day1",
+    "ideal": 85.7,
+    "plan": 88,
+    "actual": null,
+    "note": "待当日验收核定"
+  },
+  {
+    "node": "Day2",
+    "ideal": 71.4,
+    "plan": 72,
+    "actual": null,
+    "note": "未来日期，未发生"
+  },
+  {
+    "node": "Day3",
+    "ideal": 57.1,
+    "plan": 54,
+    "actual": null,
+    "note": "未来日期，未发生"
+  },
+  {
+    "node": "Day4",
+    "ideal": 42.9,
+    "plan": 36,
+    "actual": null,
+    "note": "未来日期，未发生"
+  },
+  {
+    "node": "Day5",
+    "ideal": 28.6,
+    "plan": 20,
+    "actual": null,
+    "note": "未来日期，未发生"
+  },
+  {
+    "node": "Day6",
+    "ideal": 14.3,
+    "plan": 8,
+    "actual": null,
+    "note": "未来日期，未发生"
+  },
+  {
+    "node": "Day7",
+    "ideal": 0.0,
+    "plan": 0,
+    "actual": null,
+    "note": "未来日期，未发生"
+  }
+]
