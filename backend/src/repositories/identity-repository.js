@@ -192,7 +192,7 @@ export class IdentityRepository {
         UPDATE user_profiles
         SET nickname = $3,
             avatar_key = $4,
-            bio_ciphertext = $5,
+            bio_ciphertext = $5::bytea,
             cipher_key_version = $6,
             version_no = version_no + 1,
             updated_at = now()

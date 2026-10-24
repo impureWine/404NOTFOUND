@@ -40,7 +40,11 @@ test('provider reports timeout separately from other upstream errors', async () 
   const provider = new WikipediaSearchProvider({
     timeoutMs: 5,
     fetchImplementation: async (_url, { signal }) => new Promise((_resolve, reject) => {
-      signal.addEventListener('abort', () => reject(signal.reason), { once: true });
+      const keepProcessAlive = setTimeout(() => {}, 50);
+      signal.addEventListener('abort', () => {
+        clearTimeout(keepProcessAlive);
+        reject(signal.reason);
+      }, { once: true });
     }),
   });
   await assert.rejects(
