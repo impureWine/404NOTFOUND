@@ -34,8 +34,17 @@ test('records are isolated by both account and entry point', async () => {
     );
     const repository = new RecordRepository(database);
     const created = await repository.create(conversationInput(scopeA));
+    const detail = await repository.get({ ...scopeA, recordId: created.id });
 
     assert.equal((await repository.list(scopeA)).items.length, 1);
+    assert.deepEqual(Buffer.from(detail.titleCiphertext), cipher('title'));
+    assert.equal(detail.titleKeyVersion, 1);
+    assert.equal(detail.details.messages[0].role, 'USER');
+    assert.equal(detail.details.messages[0].cipherKeyVersion, 1);
+    assert.deepEqual(
+      Buffer.from(detail.details.messages[0].contentCiphertext),
+      cipher('message'),
+    );
     assert.equal((await repository.list(scopeB)).items.length, 0);
     assert.equal((await repository.list({
       accountId: scopeA.accountId,
@@ -79,6 +88,122 @@ test('same idempotency key returns the original record and rejects changed paylo
             { role: 'USER', contentCiphertext: cipher('changed'), cipherKeyVersion: 1 },
           ],
         },
+      }),
+      ConflictError,
+    );
+  } finally {
+    await database.close();
+  }
+});
+
+test('record update enforces scope, version, editable kind, and idempotency', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scopeA = await seedScope(database, 'update_a');
+    const scopeB = await seedScope(database, 'update_b');
+    const otherEntry = await database.query(
+      "INSERT INTO entry_points (code) VALUES ('DESKTOP_UPDATE') RETURNING id",
+    );
+    const repository = new RecordRepository(database);
+    const created = await repository.create({
+      ...scopeA,
+      requestId: randomUUID(),
+      kind: 'EMOTION',
+      titleCiphertext: cipher('emotion title'),
+      titleKeyVersion: 1,
+      details: {
+        recordDate: '2026-10-24',
+        emotionCodes: ['TIRED'],
+        intensity: 2,
+        timezoneName: 'Asia/Shanghai',
+        eventCiphertext: null,
+        cipherKeyVersion: null,
+      },
+    });
+    const updateInput = {
+      ...scopeA,
+      recordId: created.id,
+      requestId: randomUUID(),
+      expectedVersion: created.version,
+      titleCiphertext: cipher('updated title'),
+      titleKeyVersion: 2,
+      details: {
+        recordDate: '2026-10-24',
+        emotionCodes: ['CALM', 'FOCUSED'],
+        intensity: 4,
+        timezoneName: 'Asia/Shanghai',
+        eventCiphertext: cipher('updated event'),
+        cipherKeyVersion: 2,
+      },
+    };
+    const updated = await repository.update(updateInput);
+    assert.equal(updated.version, created.version + 1);
+    const repeated = await repository.update(updateInput);
+    assert.equal(repeated.idempotent, true);
+    const detail = await repository.get({ ...scopeA, recordId: created.id });
+    assert.deepEqual(Buffer.from(detail.titleCiphertext), cipher('updated title'));
+    assert.deepEqual({
+      ...detail.details,
+      eventCiphertext: Buffer.from(detail.details.eventCiphertext),
+    }, updateInput.details);
+
+    const details = await database.query(
+      `
+        SELECT emotion_codes, intensity, cipher_key_version
+        FROM emotion_records
+        WHERE saved_record_id = $1
+      `,
+      [created.id],
+    );
+    assert.deepEqual(details.rows[0], {
+      emotion_codes: ['CALM', 'FOCUSED'],
+      intensity: 4,
+      cipher_key_version: 2,
+    });
+
+    await assert.rejects(
+      repository.update({
+        ...updateInput,
+        details: { ...updateInput.details, intensity: 5 },
+      }),
+      ConflictError,
+    );
+    await assert.rejects(
+      repository.update({
+        ...updateInput,
+        ...scopeB,
+        requestId: randomUUID(),
+        expectedVersion: updated.version,
+      }),
+      NotFoundError,
+    );
+    await assert.rejects(
+      repository.update({
+        ...updateInput,
+        entryPointId: otherEntry.rows[0].id,
+        requestId: randomUUID(),
+        expectedVersion: updated.version,
+      }),
+      NotFoundError,
+    );
+    await assert.rejects(
+      repository.update({
+        ...updateInput,
+        requestId: randomUUID(),
+      }),
+      ConflictError,
+    );
+
+    const conversation = await repository.create(conversationInput(scopeA));
+    await assert.rejects(
+      repository.update({
+        ...scopeA,
+        recordId: conversation.id,
+        requestId: randomUUID(),
+        expectedVersion: conversation.version,
+        titleCiphertext: null,
+        titleKeyVersion: null,
+        details: {},
       }),
       ConflictError,
     );
