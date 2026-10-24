@@ -1,0 +1,11 @@
+{
+  "command": [
+    "pnpm",
+    "audit",
+    "--json",
+    "--registry=https://registry.npmjs.org",
+    "--audit-level=high"
+  ],
+  "exit_code": 1,
+  "time": "2026-10-24T22:07:19.780583+08:00"
+}

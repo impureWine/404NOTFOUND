@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-24",
+  "base_commit": "230293dec94a98844827d3a5f6539becad667c02",
+  "branch": "guanxin/day2-authz",
+  "environment": {
+    "platform": "Darwin",
+    "machine": "arm64",
+    "node": "v25.9.0"
+  },
+  "existing_backend": {
+    "tests": 58,
+    "pass": 58,
+    "fail": 0,
+    "skipped": 0
+  },
+  "day2_specialized": {
+    "tests": 22,
+    "pass": 17,
+    "fail": 5,
+    "skipped": 0
+  },
+  "frontend_fetch_substitutes": {
+    "tests": 6,
+    "pass": 6,
+    "fail": 0,
+    "skipped": 0
+  },
+  "failed_ids": [
+    "D2-03",
+    "D2-17",
+    "D2-18",
+    "D2-20",
+    "D2-22"
+  ],
+  "audit": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 1,
+    "critical": 0
+  },
+  "limitations": [
+    "in-memory PGlite, not real PostgreSQL",
+    "model route substitute, no provider call",
+    "preload VM substitute, native Electron not launched",
+    "frontend fetch substitutes, browser not launched",
+    "Node 25.9.0, Node 24 baseline not verified"
+  ],
+  "commit_created": false,
+  "push_executed": false
+}

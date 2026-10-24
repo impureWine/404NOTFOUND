@@ -1,0 +1,12 @@
+{
+  "time": "2026-10-24T22:08:31.579037+08:00",
+  "command": [
+    "node",
+    "--test",
+    "--test-reporter=tap",
+    "src/api/client.test.js"
+  ],
+  "cwd": "prototype",
+  "exit_code": 0,
+  "layer": "fetch substitutes; no browser or native Electron"
+}
