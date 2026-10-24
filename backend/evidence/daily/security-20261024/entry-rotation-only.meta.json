@@ -1,0 +1,12 @@
+{
+  "time": "2026-10-24T22:13:22.363877+08:00",
+  "command": [
+    "node",
+    "--test",
+    "--test-reporter=tap",
+    "--test-name-pattern=D2-22",
+    "test/security/day2-authz.test.js"
+  ],
+  "exit_code": 1,
+  "purpose": "verify D2-22 is independently reproducible"
+}

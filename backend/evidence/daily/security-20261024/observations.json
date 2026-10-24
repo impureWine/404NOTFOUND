@@ -1,0 +1,172 @@
+{
+  "synthetic_only": true,
+  "layers": [
+    "HTTP",
+    "real AuthService and repositories",
+    "in-memory PGlite"
+  ],
+  "observations": [
+    {
+      "id": "D2-01",
+      "register": 201,
+      "login": 200,
+      "profile": 200,
+      "logout": 204,
+      "replay": 401
+    },
+    {
+      "id": "D2-02",
+      "duplicate_statuses": [
+        409,
+        409
+      ],
+      "counts": {
+        "accounts": 1,
+        "credentials": 1,
+        "profiles": 1,
+        "preferences": 1
+      }
+    },
+    {
+      "id": "D2-03",
+      "status": 409,
+      "error": {
+        "code": "CONFLICT",
+        "message": "登录名已被使用"
+      }
+    },
+    {
+      "id": "D2-04",
+      "credential_count": 4,
+      "session_count": 16,
+      "digest_bytes": 32
+    },
+    {
+      "id": "D2-05",
+      "statuses": [
+        401,
+        401,
+        401,
+        401
+      ]
+    },
+    {
+      "id": "D2-06",
+      "status": 401
+    },
+    {
+      "id": "D2-07",
+      "status": 401
+    },
+    {
+      "id": "D2-08",
+      "status": 401
+    },
+    {
+      "id": "D2-09",
+      "change": 204,
+      "replay": [
+        401,
+        401
+      ],
+      "old_password_login": 401,
+      "new_password_login": 200
+    },
+    {
+      "id": "D2-10",
+      "missing_status": 401,
+      "wrong_status": 401,
+      "missing_error": {
+        "code": "AUTH_REQUIRED",
+        "message": "登录名或密码不正确"
+      },
+      "wrong_error": {
+        "code": "AUTH_REQUIRED",
+        "message": "登录名或密码不正确"
+      }
+    },
+    {
+      "id": "D2-11",
+      "read_status": 200,
+      "returned_current_account": true,
+      "write_status": 400,
+      "victim_unchanged": true
+    },
+    {
+      "id": "D2-12",
+      "denied": 404,
+      "missing": 404,
+      "errors_equal": true,
+      "list_count": 0
+    },
+    {
+      "id": "D2-13",
+      "denied": 404,
+      "owner_read": 200
+    },
+    {
+      "id": "D2-14",
+      "record_status": 404,
+      "list_count": 0,
+      "profile_status": 200,
+      "fixture": "server-side session entry changed in PGlite; not native desktop login"
+    },
+    {
+      "id": "D2-15",
+      "statuses": [
+        403,
+        403,
+        403
+      ]
+    },
+    {
+      "id": "D2-16",
+      "http_cookie": "HttpOnly; SameSite=Lax; Path=/",
+      "secure_cookie_function": "__Host-session; Secure",
+      "https_browser_verified": false
+    },
+    {
+      "id": "D2-17",
+      "status": 503,
+      "error": {
+        "code": "SERVICE_UNAVAILABLE",
+        "message": "synthetic:db-private-detail; password=synthetic:secret; SQL SELECT; /synthetic/private/path"
+      },
+      "layer": "real HTTP with synthetic database exception injection"
+    },
+    {
+      "id": "D2-18",
+      "status": 503,
+      "error": {
+        "code": "SERVICE_UNAVAILABLE",
+        "message": "Unexpected token 's', \"synthetic:\"... is not valid JSON"
+      },
+      "has_request_id": false
+    },
+    {
+      "id": "D2-19",
+      "forbidden_fields_absent": true,
+      "console_events": 0,
+      "scope": "only exercised login/profile paths; no centralized logger verified"
+    },
+    {
+      "id": "D2-20",
+      "status": 200,
+      "adapter_calls": 1,
+      "real_model_called": false,
+      "layer": "substitute adapter used only to observe route dispatch"
+    },
+    {
+      "id": "D2-21",
+      "arbitrary_channel_exposed": false,
+      "unsubscribe": true,
+      "layer": "VM substitute; native Electron not launched"
+    },
+    {
+      "id": "D2-22",
+      "before_context": 404,
+      "after_context": 200,
+      "fixture": "server-side DESKTOP session in PGlite; native multi-entry login not verified"
+    }
+  ]
+}
