@@ -16,6 +16,10 @@ npm run dev -- --host 127.0.0.1 --port 5173
 
 ## UX 组件与状态展示（2026-10-24）
 
+2026-10-25 Day3：[页面组件与交互走查交付](../docs/alpha/郭昱祺/Day3_20261025/README.md)。展示入口扩展为 `login/home/chat/sources/emotion/training` 六场景；聊天／来源额外支持 `state=timeout`。新增选词、命名卡预览、明确携带草稿和训练开始／暂停／继续／退出组件；保存 93 项浏览器检查与 40 张截图。
+
+2026-10-25 界面修订：展示页与首页共同使用 `src/components/SiteChrome.jsx` 和 `src/current-home.css`，登录采用当前认证弹窗样式。[当前截图与验证说明](../docs/alpha/郭昱祺/界面对齐_20261025/README.md)。
+
 独立入口：`http://localhost:5173/ux-components.html?page=home&state=normal`。提供登录、首页、聊天、来源展示的正常／加载／空／失败状态切换；全部采用本地模拟数据。`npm run build` 同时构建现有首页和展示入口。
 
 源码位于 `src/ux-showcase/`，复用 `src/ui.jsx` 中的 Button 与 Panel；[完整交付说明及状态截图](../docs/alpha/郭昱祺/组件展示页交付_20261024/README.md) 记录运行范围与待接入内容。页面装配、认证、模型、检索及保存接口仍待前端整合，演示成功不等于正式接口已完成。
