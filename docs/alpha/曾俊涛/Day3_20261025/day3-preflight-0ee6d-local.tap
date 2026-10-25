@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: D3-S01 authenticated search returns a source through HTTP
+ok 1 - D3-S01 authenticated search returns a source through HTTP
+  ---
+  duration_ms: 1771.8727
+  type: 'test'
+  ...
+# Subtest: D3-S02 empty search is distinct from success with sources
+ok 2 - D3-S02 empty search is distinct from success with sources
+  ---
+  duration_ms: 30.5671
+  type: 'test'
+  ...
+# Subtest: D3-S03 provider timeout becomes a failed task
+ok 3 - D3-S03 provider timeout becomes a failed task
+  ---
+  duration_ms: 53.6999
+  type: 'test'
+  ...
+# Subtest: D3-S04 cancellation prevents late source refill
+ok 4 - D3-S04 cancellation prevents late source refill
+  ---
+  duration_ms: 78.2199
+  type: 'test'
+  ...
+# Subtest: D3-S05 search task is scoped to its authenticated owner
+ok 5 - D3-S05 search task is scoped to its authenticated owner
+  ---
+  duration_ms: 78.4082
+  type: 'test'
+  ...
+# Subtest: D3-T01 rehearsal session pause, resume and end have HTTP state transitions
+ok 6 - D3-T01 rehearsal session pause, resume and end have HTTP state transitions
+  ---
+  duration_ms: 30.0448
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2747.8952

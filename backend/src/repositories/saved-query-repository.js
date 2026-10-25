@@ -11,7 +11,11 @@ function canonicalizeUrl(rawUrl) {
   const url = new URL(rawUrl);
   url.hash = '';
   url.hostname = url.hostname.toLowerCase();
-  if ((url.protocol === 'https:' && url.port === '443') || (url.protocol === 'http:' && url.port === '80')) {
+  const usesDefaultPort = (
+    (url.protocol === 'https:' && url.port === '443')
+    || (url.protocol === 'http:' && url.port === '80')
+  );
+  if (usesDefaultPort) {
     url.port = '';
   }
   return url.toString();
@@ -94,6 +98,12 @@ export class SavedQueryRepository {
     for (const claim of normalizedClaims) {
       if (claim.evidence.some((link) => !sourceUrls.has(link.canonicalUrl))) {
         throw new InvalidInputError('Every evidence link must reference a supplied source');
+      }
+      const uniqueEvidenceUrls = new Set(
+        claim.evidence.map((link) => link.canonicalUrl),
+      );
+      if (uniqueEvidenceUrls.size !== claim.evidence.length) {
+        throw new InvalidInputError('A claim cannot reference the same source more than once');
       }
     }
 
@@ -282,6 +292,8 @@ export class SavedQueryRepository {
       `
         SELECT
           c.id AS claim_id,
+          c.claim_text_ciphertext,
+          c.cipher_key_version,
           c.status AS claim_status,
           e.relation,
           s.id AS source_id,
@@ -302,6 +314,31 @@ export class SavedQueryRepository {
     );
 
     const row = query.rows[0];
+    const claimsById = new Map();
+    for (const item of evidence.rows) {
+      if (!claimsById.has(item.claim_id)) {
+        claimsById.set(item.claim_id, {
+          id: item.claim_id,
+          claimTextCiphertext: item.claim_text_ciphertext,
+          cipherKeyVersion: item.cipher_key_version,
+          status: item.claim_status,
+          evidence: [],
+        });
+      }
+      claimsById.get(item.claim_id).evidence.push({
+        relation: item.relation,
+        source: {
+          id: item.source_id,
+          url: item.canonical_url,
+          title: item.title,
+          publisher: item.publisher,
+          quality: item.quality,
+          publishedAt: item.published_at ? new Date(item.published_at).toISOString() : null,
+          retrievedAt: new Date(item.retrieved_at).toISOString(),
+          verificationState: item.verification_state,
+        },
+      });
+    }
     return {
       id: row.id,
       kind: 'QUERY',
@@ -311,6 +348,7 @@ export class SavedQueryRepository {
       version: row.version_no,
       createdAt: new Date(row.created_at).toISOString(),
       updatedAt: new Date(row.updated_at).toISOString(),
+      claims: [...claimsById.values()],
       evidence: evidence.rows.map((item) => ({
         claimId: item.claim_id,
         claimStatus: item.claim_status,

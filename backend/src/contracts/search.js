@@ -9,13 +9,27 @@ import {
 
 const encryptedBytesSchema = z.instanceof(Uint8Array);
 
+function isSafeHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password;
+  } catch {
+    return false;
+  }
+}
+
+const httpUrlSchema = z.string().url().max(2048).refine(
+  isSafeHttpUrl,
+  'source URL must use HTTP(S) without embedded credentials',
+);
+
 export const savedQueryRequestSchema = scopeSchema.extend({
   requestId: requestIdSchema,
   searchRequestId: requestIdSchema,
 });
 
 const persistedSourceSchema = z.strictObject({
-  url: z.string().url().max(2048),
+  url: httpUrlSchema,
   title: codePointString({ min: 1, max: 512, trim: true, name: 'sourceTitle' }),
   publisher: codePointString({
     min: 1,
@@ -36,7 +50,7 @@ const persistedClaimSchema = z.strictObject({
   cipherKeyVersion: z.number().int().positive(),
   status: z.enum(['SUPPORTED', 'CONFLICTED', 'UNKNOWN']),
   evidence: z.array(z.strictObject({
-    sourceUrl: z.string().url().max(2048),
+    sourceUrl: httpUrlSchema,
     relation: z.enum(['SUPPORTS', 'CONFLICTS', 'CONTEXT']),
   })).min(1).max(10),
 });

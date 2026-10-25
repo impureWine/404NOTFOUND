@@ -1,0 +1,19 @@
+
+> 404notfound-prototype@1.0.0 test
+> node --test
+
+✔ mock mode never calls fetch or claims an API success (1.7642ms)
+✔ real mode uses same-origin no-store requests and the configured CSRF header (30.5347ms)
+✔ real mode refuses writes before context has configured CSRF state (0.4248ms)
+✔ authentication methods preserve the shared request names and credential policy (2.5586ms)
+✔ identity changes discard the in-memory CSRF token even when the response is lost (1.2116ms)
+✔ API errors preserve the contract code and request id without retaining raw bodies (0.6168ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 202.5526
+exit_code=0

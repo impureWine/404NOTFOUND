@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AlertCircle, ArrowRight, Check, ChevronDown, ExternalLink, Eye, EyeOff, FileSearch, Inbox, Info, LoaderCircle, Send, ShieldCheck, Sparkles, X } from 'lucide-react';
+import { AlertCircle, ArrowRight, Check, ChevronDown, ExternalLink, Eye, EyeOff, FileSearch, Inbox, Info, LoaderCircle, Menu, Send, Sparkles, X } from 'lucide-react';
 import { Button as PrototypeButton, Panel } from '../ui.jsx';
+import { Sidebar, SiteTopbar } from '../components/SiteChrome.jsx';
 import { codePoints, safeSourceUrl } from './data.js';
 
-/** @typedef {'normal'|'loading'|'empty'|'error'} UIStatus */
+/** @typedef {'normal'|'loading'|'empty'|'error'|'timeout'} UIStatus */
 
 // C01：复用原型 Button；展示层新增 loading，不承担 API 调用。
 export function Button({ loading = false, disabled, children, ...props }) {
@@ -63,8 +64,8 @@ export function AuthForm({ values, status, fieldErrors, onChange, onSubmit, onGu
  */
 export function AsyncState({ status, title, description, onRetry, retryLabel = '重试演示', onStart, startLabel = '开始', children }) {
   if (status === 'normal') return children;
-  const Icon = status === 'error' ? AlertCircle : status === 'loading' ? LoaderCircle : Inbox;
-  return <div className={`async-state ${status}`} role={status === 'error' ? 'alert' : 'status'} aria-busy={status === 'loading'}>
+  const Icon = status === 'error' || status === 'timeout' ? AlertCircle : status === 'loading' ? LoaderCircle : Inbox;
+  return <div className={`async-state ${status}`} role={status === 'error' || status === 'timeout' ? 'alert' : 'status'} aria-busy={status === 'loading'}>
     <div className="state-icon"><Icon size={29} className={status === 'loading' ? 'spin' : ''} aria-hidden="true" /></div>
     <h3>{title}</h3><p>{description}</p>
     {status === 'loading' && <div className="skeleton-lines" aria-hidden="true"><i /><i /><i /></div>}
@@ -93,11 +94,12 @@ export function SessionToolbar({ onEnd }) {
 export function MessageBubble({ message }) {
   return <div className={`message ${message.role}`}><span className="message-avatar" aria-hidden="true">{message.role === 'user' ? '你' : '烦'}</span><div><small>{message.role === 'user' ? '你' : '小烦 · 固定示例回复'}</small><p>{message.text}</p></div></div>;
 }
-export function MessageList({ messages, status, onStart, onRetry, onRestore, onCancel, submittedDraft }) {
+export function MessageList({ messages, status, onStart, onRetry, onRestore, onCancel, onCheck, submittedDraft }) {
   return <div className={`message-list ${status}`} role="log" aria-live="polite" aria-label="演示消息" aria-busy={status === 'loading'}>
     {status === 'empty' ? <AsyncState status="empty" title="不用组织好语言，再开口" description="此刻没有会话消息。可以用一句简单的话开始，内容只留在当前页。" onStart={onStart} startLabel="填入一句示例" /> : <>
       {messages.map(message => <MessageBubble key={message.id} message={message} />)}
       {status === 'loading' && <div className="pending-bubble" role="status"><LoaderCircle className="spin" size={19} aria-hidden="true" />正在等待演示回复…<Button variant="neutral" onClick={onCancel}>停止本次演示</Button></div>}
+      {status === 'timeout' && <div className="chat-error timeout-notice" role="alert"><AlertCircle size={22} aria-hidden="true" /><div><h3>等待超时，结果待确认</h3><p>超时不能证明请求失败。保留提交快照，不自动重发；此处仅演示状态核实。</p><blockquote>{submittedDraft}</blockquote><div className="button-row"><Button onClick={onCheck}>查看明确失败示例</Button><Button variant="neutral" onClick={onCancel}>停止本地等待并取回</Button></div></div></div>}
       {status === 'error' && <div className="chat-error" role="alert"><AlertCircle size={22} aria-hidden="true" /><div><h3>本次回复未生成</h3><p>这是明确失败的模拟。已保留本次提交快照，可重试或取回编辑。</p><blockquote>{submittedDraft}</blockquote><div className="button-row"><Button onClick={onRetry}>重试本次演示</Button><Button variant="neutral" onClick={onRestore}>取回快照编辑</Button></div></div></div>}
     </>}
   </div>;
@@ -118,10 +120,10 @@ export function MessageComposer({ value, onChange, busy, onSend, onClear, inputR
     <div className="composer-bottom"><small id="message-limit" className={invalid ? 'field-error' : ''}>{count} / 4000 码点 · Enter 发送，Shift+Enter 换行{invalid && ' · 已超出上限'}</small><div className="button-row"><Button variant="neutral" onClick={onClear} disabled={!value}>清空草稿</Button><Button type="submit" disabled={busy || invalid || !value.trim()} icon={Send}>发送演示</Button></div></div>
   </form>;
 }
-export function SearchBar({ value, onChange, busy, onSearch, onClear, onCancel }) {
+export function SearchBar({ value, onChange, busy, pendingUnknown = false, onSearch, onClear, onCancel }) {
   const count = codePoints(value), invalid = count > 4000;
   return <form className="search-form" onSubmit={event => { event.preventDefault(); if (!busy && !invalid && value.trim()) onSearch(); }}>
-    <label htmlFor="demo-question">你想查找什么？</label><div className="search-input-row"><input id="demo-question" value={value} onChange={event => onChange(event.target.value)} placeholder="写下一个问题" aria-invalid={invalid} aria-describedby="question-limit" /><Button type="submit" loading={busy} disabled={!value.trim() || invalid} icon={FileSearch}>{busy ? '查找中' : '查找示例'}</Button><Button variant="neutral" onClick={onClear}>清空</Button>{busy && <Button variant="neutral" onClick={onCancel}>停止演示查询</Button>}</div>
+    <label htmlFor="demo-question">你想查找什么？</label><div className="search-input-row"><input id="demo-question" value={value} onChange={event => onChange(event.target.value)} placeholder="写下一个问题" aria-invalid={invalid} aria-describedby="question-limit" /><Button type="submit" loading={busy && !pendingUnknown} disabled={busy || !value.trim() || invalid} icon={FileSearch}>{pendingUnknown ? '结果待确认' : busy ? '查找中' : '查找示例'}</Button><Button variant="neutral" onClick={onClear}>清空</Button>{busy && <Button variant="neutral" onClick={onCancel}>停止演示查询</Button>}</div>
     <small id="question-limit" className={invalid ? 'field-error' : ''}>{count} / 4000 码点{invalid && ' · 已超出上限，请编辑后再提交'}</small>
   </form>;
 }
@@ -158,8 +160,27 @@ export function SourceCard({ source, index, expanded, active, onToggle }) {
 export function SourceList({ sources, expandedIds, activeId, onToggle }) {
   return <div className="source-list">{sources.map((source, index) => <SourceCard key={source.id} source={source} index={index} expanded={expandedIds.includes(source.id)} active={activeId === source.id} onToggle={onToggle} />)}</div>;
 }
-export function AppShell({ scene, scenes, onNavigate, children }) {
-  return <div className="product-shell"><aside className="product-sidebar"><a className="product-brand" href="./index.html"><span className="brand-mark">404<span>··</span></span><span>烦恼未找到<small>A LITTLE SPACE FOR YOU</small></span></a><p className="sidebar-caption">把自己放回生活的中心</p><nav aria-label="场景导航">{scenes.map(item => <button key={item.id} className={scene === item.id ? 'selected' : ''} aria-current={scene === item.id ? 'page' : undefined} onClick={() => onNavigate(item.id)}>{item.code}<span>{item.label}</span><ArrowRight size={16} aria-hidden="true" /></button>)}</nav><div className="sidebar-bottom"><ShieldCheck size={21} aria-hidden="true" /><strong>此刻的表达，由你掌握</strong><p>当前页临时展示<br />不自动保存聊天与查询</p></div></aside><div className="product-main">{children}</div></div>;
+export function AppShell({ scene, onNavigate, children }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  useEffect(() => {
+    const close = event => { if (event.key === 'Escape') setMobileOpen(false); };
+    document.addEventListener('keydown', close);
+    return () => document.removeEventListener('keydown', close);
+  }, []);
+  const activePage = { home: 'home', login: 'home', chat: 'companion', sources: 'search', emotion: 'emotion', training: 'games' }[scene];
+  const title = { home: '首页', login: '登录', chat: '陪伴交流', sources: '信息查询', emotion: '情绪命名卡', training: '训练操作' }[scene];
+  const dateLabel = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
+  function navigateLink(key) {
+    const target = { home: 'home', companion: 'chat', search: 'sources', emotion: 'emotion', games: 'training' }[key];
+    if (!target) return false;
+    onNavigate(target);
+    return true;
+  }
+  return <div className="current-home ux-showcase">
+    <button className="mobile-home-bar" aria-label={mobileOpen ? '关闭导航菜单' : '打开导航菜单'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(open => !open)}>{mobileOpen ? <X size={21} /> : <Menu size={21} />}<strong>404NOTFOUND</strong></button>
+    <Sidebar mobileOpen={mobileOpen} closeMobile={() => setMobileOpen(false)} authenticated={false} onLogin={mode => { if (mode === 'register') window.location.href = './register.html'; else onNavigate('login'); }} onAccount={() => onNavigate('login')} activePage={activePage} onNavigate={navigateLink} guestDescription="本页为组件状态展示，使用固定示例数据。" />
+    <div className="home-workspace"><SiteTopbar title={title} dateLabel={dateLabel} authStatus="guest" showAccount={() => onNavigate('login')} activePage={activePage} onNavigate={navigateLink} /><main className="home-main"><div className="home-content">{children}</div></main></div>
+  </div>;
 }
 export function PreviewNotice({ title, onClose }) {
   return <div className="preview-notice" role="status"><Check size={19} aria-hidden="true" /><span>{title}</span><button type="button" className="icon-button" onClick={onClose} aria-label="关闭操作反馈"><X size={18} /></button></div>;

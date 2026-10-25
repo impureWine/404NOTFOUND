@@ -1,0 +1,8 @@
+{
+  "startedAt": "2026-10-24T15:45:00.885Z",
+  "completedAt": "2026-10-24T15:45:08.901Z",
+  "layer": "direct WikipediaSearchProvider call, not page-to-API flow",
+  "status": "failed",
+  "code": "TIMEOUT",
+  "message": "Search provider timed out"
+}

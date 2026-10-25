@@ -4,7 +4,11 @@ export const SCENES = [
   { id: 'home', code: 'HP', label: '首页', title: '给自己一点空间', description: '功能入口与最近记录的独立状态。' },
   { id: 'chat', code: 'CH', label: '聊天', title: '有些烦恼，说出来就好', description: '消息、输入与本次发送的恢复路径。' },
   { id: 'sources', code: 'SR', label: '来源展示', title: '把信息的来处看清楚', description: '逐条依据、来源详情与不确定性。' },
+  { id: 'emotion', code: 'EC', label: '情绪命名卡', title: '给此刻一个名字', description: '自己选词、补充描述，明确选择带入聊天的内容。' },
+  { id: 'training', code: 'TR', label: '训练操作', title: '留一个小小的停顿', description: '开始、暂停、继续、完成与退出的操作反馈。' },
 ];
+export const TIMEOUT_STATE = { id: 'timeout', code: 'T', label: '超时', note: '结果待确认，不自动重发' };
+export const statesForScene = scene => ['chat', 'sources'].includes(scene) ? [...STATES, TIMEOUT_STATE] : STATES;
 export const STATES = [
   { id: 'normal', code: 'N', label: '正常', note: '可用内容与主要操作' },
   { id: 'loading', code: 'L', label: '加载', note: '人工保持的等待状态' },

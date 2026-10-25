@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: D3-C01 naming choice and synthetic companion response stay in COMPANION mode
+ok 1 - D3-C01 naming choice and synthetic companion response stay in COMPANION mode
+  ---
+  duration_ms: 8.6222
+  type: 'test'
+  ...
+# Subtest: D3-C02 naming card without a selected need does not pick a companion target
+ok 2 - D3-C02 naming card without a selected need does not pick a companion target
+  ---
+  duration_ms: 0.629
+  type: 'test'
+  ...
+# Subtest: D3-C03 synthetic model timeout and unavailable states have distinct safe prompts
+ok 3 - D3-C03 synthetic model timeout and unavailable states have distinct safe prompts
+  ---
+  duration_ms: 0.545
+  type: 'test'
+  ...
+# Subtest: D3-C04 aborted synthetic adapter call never surfaces its late reply
+ok 4 - D3-C04 aborted synthetic adapter call never surfaces its late reply
+  ---
+  duration_ms: 0.6699
+  type: 'test'
+  ...
+# Subtest: D3-S01 authenticated search returns a source through HTTP
+ok 5 - D3-S01 authenticated search returns a source through HTTP
+  ---
+  duration_ms: 1387.3373
+  type: 'test'
+  ...
+# Subtest: D3-S02 empty search is distinct from success with sources
+ok 6 - D3-S02 empty search is distinct from success with sources
+  ---
+  duration_ms: 47.8947
+  type: 'test'
+  ...
+# Subtest: D3-S03 provider timeout becomes a failed task
+ok 7 - D3-S03 provider timeout becomes a failed task
+  ---
+  duration_ms: 43.224
+  type: 'test'
+  ...
+# Subtest: D3-S04 cancellation prevents late source refill
+ok 8 - D3-S04 cancellation prevents late source refill
+  ---
+  duration_ms: 78.9078
+  type: 'test'
+  ...
+# Subtest: D3-S05 search task is hidden from a second authenticated account
+ok 9 - D3-S05 search task is hidden from a second authenticated account
+  ---
+  duration_ms: 171.9322
+  type: 'test'
+  ...
+# Subtest: D3-S06 ending a session cancels a late search result
+ok 10 - D3-S06 ending a session cancels a late search result
+  ---
+  duration_ms: 78.0374
+  type: 'test'
+  ...
+# Subtest: D3-T01 rehearsal session pause, resume and end have HTTP state transitions
+ok 11 - D3-T01 rehearsal session pause, resume and end have HTTP state transitions
+  ---
+  duration_ms: 78.7795
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2348.8134

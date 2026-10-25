@@ -78,6 +78,9 @@ test('saved query copies server-owned completed search evidence and enforces iso
 
     const loaded = await repository.get({ ...scopeA, recordId: saved.id });
     assert.equal(loaded.evidence.length, 1);
+    assert.equal(loaded.claims.length, 1);
+    assert.deepEqual(Buffer.from(loaded.claims[0].claimTextCiphertext), cipher('claim'));
+    assert.equal(loaded.claims[0].evidence[0].source.url, 'https://example.org/facts');
     assert.equal(loaded.evidence[0].source.url, 'https://example.org/facts');
     assert.equal(loaded.evidence[0].relation, 'SUPPORTS');
 
@@ -118,6 +121,42 @@ test('saved query rejects client supplied evidence and invalid server evidence',
     );
     await assert.rejects(
       repository.save({ ...scope, requestId: randomUUID(), searchRequestId }),
+      InvalidInputError,
+    );
+
+    const unsafeRequestId = randomUUID();
+    const unsafe = completedResult(scope, unsafeRequestId);
+    unsafe.sources[0].url = 'file:///synthetic/source';
+    unsafe.claims[0].evidence[0].sourceUrl = unsafe.sources[0].url;
+    const unsafeRepository = repositoryWithResults(
+      database,
+      new Map([[unsafeRequestId, unsafe]]),
+    );
+    await assert.rejects(
+      unsafeRepository.save({
+        ...scope,
+        requestId: randomUUID(),
+        searchRequestId: unsafeRequestId,
+      }),
+      InvalidInputError,
+    );
+
+    const duplicateRequestId = randomUUID();
+    const duplicate = completedResult(scope, duplicateRequestId);
+    duplicate.claims[0].evidence.push({
+      sourceUrl: 'https://example.org:443/facts#duplicate',
+      relation: 'CONTEXT',
+    });
+    const duplicateRepository = repositoryWithResults(
+      database,
+      new Map([[duplicateRequestId, duplicate]]),
+    );
+    await assert.rejects(
+      duplicateRepository.save({
+        ...scope,
+        requestId: randomUUID(),
+        searchRequestId: duplicateRequestId,
+      }),
       InvalidInputError,
     );
   } finally {

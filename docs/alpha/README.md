@@ -13,6 +13,7 @@
 ## 每日记录与证据
 
 - [数据服务每日材料索引](../../backend/evidence/daily/README.md)：从该索引查看每日记录的实际状态。
+- [郭昱祺 Day3：页面组件与交互走查记录](郭昱祺/Day3_20261025/README.md)：命名卡、聊天、来源及训练操作组件；与程杰界面对齐；附实际走查、日志和截图。
 - [Day1 今日提交终稿](../../backend/evidence/daily/Day1_今日提交终稿_20261023.md)
 - [Day1 数据库与检索基线](../../backend/evidence/daily/Day1_数据库和检索基线.md)
 - [团队 Day1 随笔模板](../../backend/evidence/daily/团队Day1_冲刺随笔提交模板_20261023.md)

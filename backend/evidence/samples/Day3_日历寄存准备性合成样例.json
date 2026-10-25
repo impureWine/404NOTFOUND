@@ -1,0 +1,30 @@
+{
+  "status": "READINESS_SAMPLE_ONLY",
+  "statement": "仅用于核对接口和数据模型准备度，不表示页面、HTTP接口或完整业务闭环已经完成。",
+  "emotionRecord": {
+    "requestId": "11111111-1111-4111-8111-111111111111",
+    "kind": "EMOTION",
+    "payload": {
+      "date": "2026-10-25",
+      "emotionWords": ["平静", "专注"],
+      "intensity": 3,
+      "event": "synthetic:完成一次合成日历记录检查",
+      "timeZone": "Asia/Shanghai"
+    }
+  },
+  "depositRecord": {
+    "requestId": "22222222-2222-4222-8222-222222222222",
+    "kind": "DEPOSIT",
+    "payload": {
+      "title": "synthetic:暂存事项",
+      "body": "synthetic:这是一条准备性样例，不包含真实用户内容",
+      "reopenAt": "2026-10-26T12:00:00+08:00"
+    }
+  },
+  "remainingDependencies": [
+    "应用服务把HTTP载荷转换为加密仓储DTO",
+    "SAVE用途许可与服务端身份作用域",
+    "前端页面和错误状态联调",
+    "正式PostgreSQL与密钥托管验证"
+  ]
+}

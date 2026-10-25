@@ -1,0 +1,308 @@
+{
+  "checkedAt": "2026-10-25T11:09:24.003Z",
+  "timezone": "Asia/Shanghai",
+  "baseUrl": "http://127.0.0.1:5184",
+  "errors": [],
+  "checks": [
+    "login/normal width=1440",
+    "login/loading width=1440",
+    "login/empty width=1440",
+    "login/error width=1440",
+    "home/normal width=1440",
+    "home/loading width=1440",
+    "home/empty width=1440",
+    "home/error width=1440",
+    "chat/normal width=1440",
+    "chat/loading width=1440",
+    "chat/empty width=1440",
+    "chat/error width=1440",
+    "sources/normal width=1440",
+    "sources/loading width=1440",
+    "sources/empty width=1440",
+    "sources/error width=1440",
+    "login/normal width=390",
+    "login/loading width=390",
+    "login/empty width=390",
+    "login/error width=390",
+    "home/normal width=390",
+    "home/loading width=390",
+    "home/empty width=390",
+    "home/error width=390",
+    "chat/normal width=390",
+    "chat/loading width=390",
+    "chat/empty width=390",
+    "chat/error width=390",
+    "sources/normal width=390",
+    "sources/loading width=390",
+    "sources/empty width=390",
+    "sources/error width=390",
+    "login/normal width=320",
+    "login/loading width=320",
+    "login/empty width=320",
+    "login/error width=320",
+    "home/normal width=320",
+    "home/loading width=320",
+    "home/empty width=320",
+    "home/error width=320",
+    "chat/normal width=320",
+    "chat/loading width=320",
+    "chat/empty width=320",
+    "chat/error width=320",
+    "sources/normal width=320",
+    "sources/loading width=320",
+    "sources/empty width=320",
+    "sources/error width=320",
+    "login validation, focus, visibility and local-only submit",
+    "chat failure restore and end confirmation",
+    "source citation expands and focuses current source",
+    "home retry and shared sidebar preview navigation",
+    "sidebar, brand, header, hero button and tools match reference computed styles",
+    "original homepage login and register still open and close",
+    "mobile shared menu navigates and closes"
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/LG-N_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 248605,
+      "sha256": "465fc682c1fb13252c3c51c96a94b413122ebd5ff76ee49643bf5a1e93948ac5"
+    },
+    {
+      "file": "screenshots/LG-L_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 249499,
+      "sha256": "6a4add9b8371a089143fb8ab618946f6474d6ac3017a0569f3b28e0c3c0e0c9f"
+    },
+    {
+      "file": "screenshots/LG-E_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 247744,
+      "sha256": "ae0995ce73b9f3ad8ecef11dc955dacd71df9f5e3855d850f7cbdc703cdbb88c"
+    },
+    {
+      "file": "screenshots/LG-F_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 253795,
+      "sha256": "f1b9cb2841f26afea85504a93be15fc6ee59f6784f3ce1d18291bedcf24f47c1"
+    },
+    {
+      "file": "screenshots/HP-N_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 301478,
+      "sha256": "1fbda9efe32ed9a99ddcfc01df8d53774ece9e5a4f2408647c3b4227c4a8d851"
+    },
+    {
+      "file": "screenshots/HP-L_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 299294,
+      "sha256": "a956637c007e78bf3da38adf0234a3f4c23c9982ed6d33c4c100df4485aece2a"
+    },
+    {
+      "file": "screenshots/HP-E_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 299432,
+      "sha256": "a5a4feea1e29524d99767f0940e64d9d75a221c28273596c9427629a808d0673"
+    },
+    {
+      "file": "screenshots/HP-F_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 301180,
+      "sha256": "37f3f435e984104bfcd60143b8efad5ff56832c068d128e140be6c0474c503c7"
+    },
+    {
+      "file": "screenshots/CH-N_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 88130,
+      "sha256": "dac7b1a2516b6efc24ce999e48ea5ecdeb3c7454d9caca039b4ddbf488fe5b83"
+    },
+    {
+      "file": "screenshots/CH-L_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 91669,
+      "sha256": "138b5f173644d60b33d21566480aa66b72f7996e03e8052893d6acfc2171c041"
+    },
+    {
+      "file": "screenshots/CH-E_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 85923,
+      "sha256": "4d94368e5389fa45609cbaf7d3dacc6e2ff697a6b3e2b58460c5fe1473f8f76c"
+    },
+    {
+      "file": "screenshots/CH-F_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 96823,
+      "sha256": "2f8c461e7068e1d3d0e3384b4b173cc5d3db34e8ca20e6b29da8bef416c01680"
+    },
+    {
+      "file": "screenshots/SR-N_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 115192,
+      "sha256": "43360fa95e33553c637c002e2d70a95dfc680a2da7d5a06d3900759fa5484225"
+    },
+    {
+      "file": "screenshots/SR-L_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 75060,
+      "sha256": "2f7828217d1984d35e4c5121fe1126426cd23b3bf9650139e57a8ad1aa9ffa95"
+    },
+    {
+      "file": "screenshots/SR-E_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 76593,
+      "sha256": "d18a20c47125eeb6b7427fe2312381c5907b38becdee8389cc9e6e72b6085adf"
+    },
+    {
+      "file": "screenshots/SR-F_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 77359,
+      "sha256": "888ebfcd9c693c949626fcee0a52bca4afdde741d02b0293e82117c9168bee92"
+    },
+    {
+      "file": "screenshots/LG-N_login_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 45017,
+      "sha256": "51116382cba08abf2d81eb28befd390fbbdfaa2284276a1485c91e5d7ec814e8"
+    },
+    {
+      "file": "screenshots/HP-N_home_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 125335,
+      "sha256": "bbae87b2f34867bbb9c8c56cbbc39ced6a9ed5c8d65d11b7000731ae78348628"
+    },
+    {
+      "file": "screenshots/CH-N_chat_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 45665,
+      "sha256": "4be0e9a905907bf15aab7de607734e51dbc8f4659b0c65c306d49ed03d59b1e9"
+    },
+    {
+      "file": "screenshots/SR-N_sources_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 45125,
+      "sha256": "e1b276008b309ef56d57fcd4629248a0643e1de463601a8dc64de93e14e341e6"
+    },
+    {
+      "file": "screenshots/reference-home_1440.png",
+      "url": "http://127.0.0.1:5184/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 298948,
+      "sha256": "42841b412f77ea41a77efb9936519c34c0d9d51c65a1c47019367fc5c8efb4cc"
+    },
+    {
+      "file": "screenshots/reference-login_1440.png",
+      "url": "http://127.0.0.1:5184/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 268167,
+      "sha256": "5aa387c94d4f07cfc9358c591db5c029719e6305498b6c815dc2344fb92f0c73"
+    }
+  ],
+  "result": "passed"
+}
