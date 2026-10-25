@@ -1,5 +1,6 @@
 import express from 'express';
 
+import { NamingCard } from './ai/naming-card-router.js';
 import {
   clearSessionCookie,
   createSecurityMiddleware,
@@ -49,6 +50,7 @@ export function createApp({
   modelAdapter = null,
   authService,
   taskService,
+  trainingService,
   recordService,
   consentService,
   appOrigin = 'http://127.0.0.1:5173',
@@ -183,6 +185,15 @@ export function createApp({
       });
     }
 
+    app.post('/api/naming-card/route', (request, response, next) => {
+      try {
+        const data = NamingCard.select(request.body);
+        response.json({ data, meta: { requestId: request.requestId } });
+      } catch (error) {
+        next(error);
+      }
+    });
+
     if (taskService) {
       app.post('/api/sessions', (request, response, next) => {
         try {
@@ -211,6 +222,33 @@ export function createApp({
         }
       });
 
+      app.post('/api/agent/tasks', (request, response, next) => {
+        try {
+          const data = taskService.createAgentTask(request.accessContext, request.body);
+          response.status(202).json({ data, meta: { requestId: request.requestId } });
+        } catch (error) {
+          next(error);
+        }
+      });
+
+      app.get('/api/agent/tasks/:requestId', (request, response, next) => {
+        try {
+          const data = taskService.getAgentTask(request.accessContext, request.params.requestId);
+          response.json({ data, meta: { requestId: request.requestId } });
+        } catch (error) {
+          next(error);
+        }
+      });
+
+      app.post('/api/agent/tasks/:requestId/cancel', (request, response, next) => {
+        try {
+          const data = taskService.cancelAgentTask(request.accessContext, request.params.requestId);
+          response.json({ data, meta: { requestId: request.requestId } });
+        } catch (error) {
+          next(error);
+        }
+      });
+
       app.get('/api/search/tasks/:requestId', (request, response, next) => {
         try {
           const data = taskService.getSearchTask(request.accessContext, request.params.requestId);
@@ -223,6 +261,35 @@ export function createApp({
       app.post('/api/search/tasks/:requestId/cancel', (request, response, next) => {
         try {
           const data = taskService.cancelSearchTask(request.accessContext, request.params.requestId);
+          response.json({ data, meta: { requestId: request.requestId } });
+        } catch (error) {
+          next(error);
+        }
+      });
+    }
+
+    if (trainingService) {
+      app.post('/api/trainings', (request, response, next) => {
+        try {
+          const data = trainingService.start(request.accessContext, request.body);
+          response.status(201).json({ data, meta: { requestId: request.requestId } });
+        } catch (error) {
+          next(error);
+        }
+      });
+
+      app.get('/api/trainings/:id', (request, response, next) => {
+        try {
+          const data = trainingService.get(request.accessContext, request.params.id);
+          response.json({ data, meta: { requestId: request.requestId } });
+        } catch (error) {
+          next(error);
+        }
+      });
+
+      app.post('/api/trainings/:id/actions', (request, response, next) => {
+        try {
+          const data = trainingService.action(request.accessContext, request.params.id, request.body);
           response.json({ data, meta: { requestId: request.requestId } });
         } catch (error) {
           next(error);

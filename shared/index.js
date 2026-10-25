@@ -7,3 +7,4 @@ export * from './contracts/profile.js';
 export * from './contracts/record.js';
 export * from './contracts/search-task.js';
 export * from './contracts/session.js';
+export * from './contracts/training.js';
