@@ -1,0 +1,557 @@
+{
+  "checkedAt": "2026-10-25T12:24:15.142Z",
+  "timezone": "Asia/Shanghai",
+  "baseUrl": "http://127.0.0.1:5184",
+  "errors": [],
+  "checks": [
+    "login/normal width=1440",
+    "login/loading width=1440",
+    "login/empty width=1440",
+    "login/error width=1440",
+    "home/normal width=1440",
+    "home/loading width=1440",
+    "home/empty width=1440",
+    "home/error width=1440",
+    "chat/normal width=1440",
+    "chat/loading width=1440",
+    "chat/empty width=1440",
+    "chat/error width=1440",
+    "chat/timeout width=1440",
+    "sources/normal width=1440",
+    "sources/loading width=1440",
+    "sources/empty width=1440",
+    "sources/error width=1440",
+    "sources/timeout width=1440",
+    "emotion/normal width=1440",
+    "emotion/loading width=1440",
+    "emotion/empty width=1440",
+    "emotion/error width=1440",
+    "training/normal width=1440",
+    "training/loading width=1440",
+    "training/empty width=1440",
+    "training/error width=1440",
+    "login/normal width=390",
+    "login/loading width=390",
+    "login/empty width=390",
+    "login/error width=390",
+    "home/normal width=390",
+    "home/loading width=390",
+    "home/empty width=390",
+    "home/error width=390",
+    "chat/normal width=390",
+    "chat/loading width=390",
+    "chat/empty width=390",
+    "chat/error width=390",
+    "chat/timeout width=390",
+    "sources/normal width=390",
+    "sources/loading width=390",
+    "sources/empty width=390",
+    "sources/error width=390",
+    "sources/timeout width=390",
+    "emotion/normal width=390",
+    "emotion/loading width=390",
+    "emotion/empty width=390",
+    "emotion/error width=390",
+    "training/normal width=390",
+    "training/loading width=390",
+    "training/empty width=390",
+    "training/error width=390",
+    "login/normal width=320",
+    "login/loading width=320",
+    "login/empty width=320",
+    "login/error width=320",
+    "home/normal width=320",
+    "home/loading width=320",
+    "home/empty width=320",
+    "home/error width=320",
+    "chat/normal width=320",
+    "chat/loading width=320",
+    "chat/empty width=320",
+    "chat/error width=320",
+    "chat/timeout width=320",
+    "sources/normal width=320",
+    "sources/loading width=320",
+    "sources/empty width=320",
+    "sources/error width=320",
+    "sources/timeout width=320",
+    "emotion/normal width=320",
+    "emotion/loading width=320",
+    "emotion/empty width=320",
+    "emotion/error width=320",
+    "training/normal width=320",
+    "training/loading width=320",
+    "training/empty width=320",
+    "training/error width=320",
+    "login validation, focus, visibility and local-only submit",
+    "chat failure restore and end confirmation",
+    "source citation expands and focuses current source",
+    "home retry and shared sidebar preview navigation",
+    "sidebar, brand, header, hero button and tools match reference computed styles",
+    "original homepage login and register still open and close",
+    "mobile shared menu navigates and closes",
+    "emotion requires a choice, caps three words and carries only selected words without sending",
+    "description-only carry needs explicit checkbox and is memory-only",
+    "emotion validates Unicode code points at 4000/4001 without truncation",
+    "chat timeout is unresolved, blocks duplicate send and preserves submitted snapshot",
+    "query timeout, explicit failure, successful EMPTY and initial empty remain distinct",
+    "training starts, pauses without advancing, resumes, completes, exits and resets",
+    "homepage tools and six-scene navigation reach Day3 components",
+    "local component walkthrough makes zero API requests"
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/LG-N_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 249917,
+      "sha256": "2717c490c9486177f44b9587a12d327fbf8530b3c54523fbfe6b1a30a5f58d99"
+    },
+    {
+      "file": "screenshots/LG-L_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 250814,
+      "sha256": "bd9876b31eea8a325a50cb7cf9b955503e33c21bea17c9c0c3faaf4fa8084bf2"
+    },
+    {
+      "file": "screenshots/LG-E_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 249083,
+      "sha256": "b4ca2ba8bb96d33896d20e043d49187308eefcd7fe1d5d2e903e06c73e373ea1"
+    },
+    {
+      "file": "screenshots/LG-F_login_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 255156,
+      "sha256": "d2e0cfe43b94261a4b8c96b383e0fa52c7a418441c8db1a275fc930baebff4e7"
+    },
+    {
+      "file": "screenshots/HP-N_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 302662,
+      "sha256": "5e895d59727836727dcb03a1b51c28275ffed380f401bc2c606ea777f39a6df1"
+    },
+    {
+      "file": "screenshots/HP-L_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 300480,
+      "sha256": "9164d196b439d28aebda02b4a208592a727185fd41ab5f84a5fd69e3f42ea8db"
+    },
+    {
+      "file": "screenshots/HP-E_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 300632,
+      "sha256": "dadc3236854443f99b07aa4a3a26c654a524ec8f88a59b1e62591e21f8ebc3fe"
+    },
+    {
+      "file": "screenshots/HP-F_home_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 302368,
+      "sha256": "78ee4d38162d433106df778fe656ce8959c4ab2ea12623b8001351a190cb397c"
+    },
+    {
+      "file": "screenshots/CH-N_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 89729,
+      "sha256": "35107bb014d30fe6a87ea8d2d63e25f56f920bcc2a775b111812650774f082e2"
+    },
+    {
+      "file": "screenshots/CH-L_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 93262,
+      "sha256": "bbfc84dd32d7174777a0782b43666b781e5d85b327cd0c2c0fdb657acc18399e"
+    },
+    {
+      "file": "screenshots/CH-E_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 87517,
+      "sha256": "623c2b1aa027cdd022d164af7f0e6a2ea6ee448181ab3a14f8f4cab815c1a159"
+    },
+    {
+      "file": "screenshots/CH-F_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 98526,
+      "sha256": "ac7f0b608a7698d685794949b49c0ced7c1d6d8c5d8f6a62f541204c0fabcbf5"
+    },
+    {
+      "file": "screenshots/CH-T_chat_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=timeout",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 99094,
+      "sha256": "30d2a9d93a5d2e68c2c4643a8306c3f8b688b05b2f062a879c7d30adc29423d5"
+    },
+    {
+      "file": "screenshots/SR-N_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 116786,
+      "sha256": "ef7f6c403239744b342c98a43a2d4c461a1e0e11c8cf1373735f1d1685d45209"
+    },
+    {
+      "file": "screenshots/SR-L_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 76713,
+      "sha256": "aa519443b6bcfefed21733c47e0547977b7686342d340f4e5b0f1ccb27cb5b5a"
+    },
+    {
+      "file": "screenshots/SR-E_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 78264,
+      "sha256": "1b15df83b0ffbf28b07968864d04e7ffcd6b2577a3e1938369db444a7428126a"
+    },
+    {
+      "file": "screenshots/SR-F_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 79107,
+      "sha256": "11ec53965e7f73648a646989bfeeab4e13b881a681b544ef7c655d184e3f1abc"
+    },
+    {
+      "file": "screenshots/SR-T_sources_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=timeout",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 81930,
+      "sha256": "58da1e8085dec0c2095d9e2e2d21070697d045763f128f42244e8fa3895b94f8"
+    },
+    {
+      "file": "screenshots/EC-N_emotion_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=emotion&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 101645,
+      "sha256": "0954c9b3370c32c8083d18f4c9748fb5838de1fe0f19953472f7bbbe16c0c201"
+    },
+    {
+      "file": "screenshots/EC-L_emotion_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=emotion&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 94664,
+      "sha256": "f8012dd0cd38d860f9464daa9af981048d6188cb6c102cb0c3fc78f1861fd2e6"
+    },
+    {
+      "file": "screenshots/EC-E_emotion_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=emotion&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 91516,
+      "sha256": "47e226bf7ae56d058bc8343cead4c85b0bc57e3ee0caea782b8c99829f3d7e7b"
+    },
+    {
+      "file": "screenshots/EC-F_emotion_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=emotion&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 96625,
+      "sha256": "b0d47ea5807e21b3b2df403e36a067d3a871d2fe3376705b85321683d0488793"
+    },
+    {
+      "file": "screenshots/TR-N_training_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=training&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 79342,
+      "sha256": "f9222ad757cd7c5d36d6465b3b9c4b9f4a1d5b43a06f86c3b15bda7defcad4f8"
+    },
+    {
+      "file": "screenshots/TR-L_training_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=training&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 74228,
+      "sha256": "ac2f5efdd2312d36887820dd9b5ea4c67cc262312421cfa924a4c8cfbb21f8d4"
+    },
+    {
+      "file": "screenshots/TR-E_training_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=training&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 74524,
+      "sha256": "9bc47d7af3e8cdcac8841f5c43b65c489be50a3856e0c46c86110c2fdc4ac1af"
+    },
+    {
+      "file": "screenshots/TR-F_training_1440.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=training&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 76912,
+      "sha256": "014e60abe152cde1a76f5249fbc82608df3791eacb8436dedfadabc65f2c3c08"
+    },
+    {
+      "file": "screenshots/LG-N_login_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=login&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 45616,
+      "sha256": "3d9bde1da2abb8a499faf7ba2a1d128bc36e56983f6e54b57ec13b187b2369b8"
+    },
+    {
+      "file": "screenshots/HP-N_home_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=home&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 123888,
+      "sha256": "8cd4bbb31711a3c023bae2bbdd0c3cbc90f4e03f50438339c72276d2799c6cd8"
+    },
+    {
+      "file": "screenshots/CH-N_chat_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 47389,
+      "sha256": "cc40cb25b98b0db353f8b91697ac75c39cc04304a1a1eb6d28b8a22464d39e09"
+    },
+    {
+      "file": "screenshots/SR-N_sources_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 43597,
+      "sha256": "3880e70be01e41624e9003cceab91b9c1eef1dd2f8e78665587b144a1f5c4530"
+    },
+    {
+      "file": "screenshots/EC-N_emotion_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=emotion&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 48309,
+      "sha256": "a2e2cec47fa2f002629d47326d80370111747bf45b0b756e960c25d557a897f3"
+    },
+    {
+      "file": "screenshots/TR-N_training_390.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=training&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 40150,
+      "sha256": "56fd26f6e5b629898b1923c9a4790a84517b867b3262ef2ff9cb3306cf803d13"
+    },
+    {
+      "file": "screenshots/reference-home_1440.png",
+      "url": "http://127.0.0.1:5184/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 298948,
+      "sha256": "42841b412f77ea41a77efb9936519c34c0d9d51c65a1c47019367fc5c8efb4cc"
+    },
+    {
+      "file": "screenshots/reference-login_1440.png",
+      "url": "http://127.0.0.1:5184/",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 268167,
+      "sha256": "5aa387c94d4f07cfc9358c591db5c029719e6305498b6c815dc2344fb92f0c73"
+    },
+    {
+      "file": "screenshots/EC-word-choice.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=emotion&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 107706,
+      "sha256": "db63d0043d66b42823067f6e3af4176866eadb2af2e61e3f4f5cde09fa13abcc"
+    },
+    {
+      "file": "screenshots/EC-explicit-carry-draft.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 87020,
+      "sha256": "0a60fa65741df1e7f75f8c1c89e17e8fce9b151001a6b0f7b9f420ded32fcf21"
+    },
+    {
+      "file": "screenshots/CH-timeout-unknown.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=chat&state=timeout",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 99827,
+      "sha256": "c0fb4970fe99dc63f11886570fd0a25d94cf27eb85345e77dc8e0fc74f5fb0cc"
+    },
+    {
+      "file": "screenshots/SR-initial-empty.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=sources&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 77910,
+      "sha256": "a0e9b6a8919d7b655d5989338540a47fa6c6ac4185e40690a87d595016d0fb68"
+    },
+    {
+      "file": "screenshots/TR-paused-step.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=training&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 80305,
+      "sha256": "bbecb1f5446d151669889e76698bfc3e62d11fef542fab61a9050089c7981be7"
+    },
+    {
+      "file": "screenshots/TR-completed.png",
+      "url": "http://127.0.0.1:5184/ux-components.html?page=training&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": false,
+      "size": 82855,
+      "sha256": "9a64479a77d08a06beb15e6b3d70dbc344f4f8d4665a43a3b5076a683f1dd663"
+    }
+  ],
+  "apiRequestCount": 0,
+  "sourceFingerprints": {
+    "prototype/src/App.jsx": "01c6623ddee7d2a0324fc05403e91433c7823e30e8ca89e7e9ae9997aba134e8",
+    "prototype/src/components/SiteChrome.jsx": "02a21616c3dbfe2142fabadc1310856a1c22f29521cb2756f823061af601e052",
+    "prototype/src/current-home.css": "b14396a984e847317c59b73c0060be73f1f32cb3e1959021f6aa10f104677fb8",
+    "prototype/src/ux-showcase/main.jsx": "ca2357625d0d1d3883a31666c22369e88310da6096e682375bfa55f6968eb424",
+    "prototype/src/ux-showcase/components.jsx": "bad6111635a346bf547de7be7be141dce78d709780fe5c2bdc4a9fb43e5756a9",
+    "prototype/src/ux-showcase/pages.jsx": "3ed86164e4c082b9f49c196f1268265713c27ff8841d917df95563999c56dd87",
+    "prototype/src/ux-showcase/data.js": "f1ed7c4191a8198b1f39119262eae220bb88438d32ecc95d41e6cb50103cd1b2",
+    "prototype/src/ux-showcase/showcase.css": "c9962110b7862032159043e6de7049412ab240cbb4e1bc11c0386d3ced31aeba",
+    "prototype/src/ux-showcase/Day3Components.jsx": "9091a04a8558361c128ffcb8d0f67cd22d4b72379f7e5fa30a962151a0a6eca0",
+    "prototype/src/ux-showcase/Day3Previews.jsx": "37a850c2794687802c52cd0caa3fb347966bf8e54fa5f22d5b06493637d4deaa"
+  },
+  "result": "passed"
+}
