@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-25",
+  "initial_sp": 100,
+  "accepted_events": [],
+  "unaccepted_evidence_sp": 100,
+  "actual_day3_eod": null,
+  "series": [
+    {
+      "node": "起点",
+      "ideal": 100,
+      "plan": 100,
+      "actual": 100
+    },
+    {
+      "node": "Day1",
+      "ideal": 85.7,
+      "plan": 88,
+      "actual": null
+    },
+    {
+      "node": "Day2",
+      "ideal": 71.4,
+      "plan": 72,
+      "actual": null
+    },
+    {
+      "node": "Day3",
+      "ideal": 57.1,
+      "plan": 54,
+      "actual": null
+    },
+    {
+      "node": "Day4",
+      "ideal": 42.9,
+      "plan": null,
+      "actual": null
+    },
+    {
+      "node": "Day5",
+      "ideal": 28.6,
+      "plan": null,
+      "actual": null
+    },
+    {
+      "node": "Day6",
+      "ideal": 14.3,
+      "plan": null,
+      "actual": null
+    },
+    {
+      "node": "Day7",
+      "ideal": 0.0,
+      "plan": null,
+      "actual": null
+    }
+  ],
+  "note": "阶段计划只画至Day3，实际日终未签认，不将台账未获验收量当成已确定的开发剩余量"
+}
