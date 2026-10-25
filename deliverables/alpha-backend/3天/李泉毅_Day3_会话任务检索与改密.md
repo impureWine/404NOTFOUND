@@ -25,7 +25,7 @@
 - `backend/test/security/day2-authz.test.js`
 - `backend/evidence/day3/wikipedia-real-check-20261024.json`
 
-2026-10-25 完整回归已扩展为 85/85 通过，包含会话/查询 HTTP 流程、任务取消、迟到结果失效、多会话改密、安全专项和 Day 4 记录链回归。Wikipedia 适配器离线测试覆盖字段映射、空结果和超时。
+合并 GitHub 最新 `main` 后，2026-10-25 完整回归已扩展为 90/90 通过，包含会话/查询 HTTP 流程、任务取消、迟到结果失效、多会话改密、安全专项、来源校验和 Day 4 记录链回归。
 
 GitHub 提交 `b1447bf` 补充了 2026-10-25 的三次实网复核：11:32:16（8000 ms）为 `TIMEOUT`、11:32:44（30000 ms）为 `SERVICE_UNAVAILABLE`、11:39:18（8000 ms）为 `TIMEOUT`，三次来源数均为 0。结合 2026-10-24 的首次超时，只能证明失败状态被如实记录，仍不能声明“真实检索成功”。该提交还包含 Wikipedia 来源规范、URL 校验和来源证据绑定调整；因本机 `git fetch` 网络失败，本地文档只引用 GitHub 已核对事实，不冒充已同步完整提交。
 
