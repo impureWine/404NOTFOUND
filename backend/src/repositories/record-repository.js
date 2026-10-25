@@ -345,9 +345,9 @@ export class RecordRepository {
     this.database = database;
   }
 
-  async create(input) {
+  async create(input, requestPayloadHash = null) {
     const value = parse(recordCreateSchema, input);
-    const payloadHash = stableHash({
+    const payloadHash = requestPayloadHash ?? stableHash({
       kind: value.kind,
       titleCiphertext: value.titleCiphertext,
       titleKeyVersion: value.titleKeyVersion,

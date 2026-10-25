@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import { createApp } from '../../src/app.js';
+import { sessionCookie } from '../../src/http/request.js';
 import { parseProfileKey } from '../../src/security/crypto.js';
 import { RecordRepository } from '../../src/repositories/record-repository.js';
 import { AuthService } from '../../src/services/auth-service.js';
@@ -26,7 +27,7 @@ async function withApi(callback) {
     .listen(0, '127.0.0.1');
   await new Promise((resolve) => server.once('listening', resolve));
   try {
-    await callback({ baseUrl: `http://127.0.0.1:${server.address().port}`, database });
+    await callback({ baseUrl: `http://127.0.0.1:${server.address().port}`, database, authService });
   } finally {
     await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
     await database.close();
@@ -107,5 +108,82 @@ test('record API binds SAVE consent, isolates owners, encrypts content and clear
     });
     assert.equal(cleared.status, 200);
     assert.equal((await fetch(`${baseUrl}/api/records/${created.id}`, { headers: { Cookie: alice.cookie } })).status, 404);
+  });
+});
+
+test('Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope', async () => {
+  await withApi(async ({ baseUrl, database, authService }) => {
+    const alice = await registerAndLogin(baseUrl, 'record_day4_alice');
+    const payload = { kind: 'CONVERSATION', content: { title: 'Day4 标题', body: 'Day4 正文' } };
+    const consent = await mutate(baseUrl, '/api/consents', alice, {
+      requestId: nextId(), purpose: 'SAVE', operation: 'RECORD_CREATE', payload,
+    });
+    const createBody = {
+      requestId: nextId(), consentId: (await consent.json()).data.consentId, ...payload,
+    };
+
+    const firstCreate = await mutate(baseUrl, '/api/records', alice, createBody);
+    assert.equal(firstCreate.status, 201);
+    const created = (await firstCreate.json()).data;
+    const replayCreate = await mutate(baseUrl, '/api/records', alice, createBody);
+    assert.equal(replayCreate.status, 201);
+    const replayed = (await replayCreate.json()).data;
+    assert.equal(replayed.id, created.id);
+    assert.equal(replayed.idempotent, true);
+
+    assert.equal((await fetch(`${baseUrl}/api/records?limit=51`, {
+      headers: { Cookie: alice.cookie },
+    })).status, 400);
+    assert.equal((await fetch(`${baseUrl}/api/records?unexpected=true`, {
+      headers: { Cookie: alice.cookie },
+    })).status, 400);
+
+    const staleConfirmation = await mutate(
+      baseUrl,
+      `/api/records/${created.id}/clear-confirmations`,
+      alice,
+      { requestId: nextId(), expectedVersion: created.version + 1 },
+    );
+    assert.equal(staleConfirmation.status, 409);
+    const unknownConfirmationField = await mutate(
+      baseUrl,
+      `/api/records/${created.id}/clear-confirmations`,
+      alice,
+      { requestId: nextId(), expectedVersion: created.version, accountId: nextId() },
+    );
+    assert.equal(unknownConfirmationField.status, 400);
+
+    const accountId = (await database.query(
+      'SELECT id FROM user_accounts WHERE login_identifier_normalized = $1',
+      ['record_day4_alice'],
+    )).rows[0].id;
+    const desktopEntry = (await database.query(
+      "INSERT INTO entry_points (code) VALUES ('DESKTOP_DAY4') RETURNING id",
+    )).rows[0].id;
+    const desktopContext = await authService.createContext(accountId, desktopEntry);
+    const desktopCookie = sessionCookie(desktopContext.sessionToken).split(';')[0];
+    assert.equal((await fetch(`${baseUrl}/api/records/${created.id}`, {
+      headers: { Cookie: desktopCookie },
+    })).status, 404);
+
+    const confirmation = await mutate(baseUrl, `/api/records/${created.id}/clear-confirmations`, alice, {
+      requestId: nextId(), expectedVersion: created.version,
+    });
+    assert.equal(confirmation.status, 201);
+    const clearBody = {
+      requestId: nextId(),
+      expectedVersion: created.version,
+      confirmationId: (await confirmation.json()).data.confirmationId,
+    };
+    const firstClear = await mutate(baseUrl, `/api/records/${created.id}/clear`, alice, clearBody);
+    assert.equal(firstClear.status, 200);
+    const replayClear = await mutate(baseUrl, `/api/records/${created.id}/clear`, alice, clearBody);
+    assert.equal(replayClear.status, 200);
+    assert.equal((await replayClear.json()).data.idempotent, true);
+
+    assert.equal((await mutate(baseUrl, '/api/auth/logout', alice, {})).status, 204);
+    assert.equal((await fetch(`${baseUrl}/api/records`, {
+      headers: { Cookie: alice.cookie },
+    })).status, 401);
   });
 });
