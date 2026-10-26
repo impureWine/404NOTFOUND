@@ -27,8 +27,13 @@ Copy-Item .env.example .env
 npm install
 npm run migrate
 npm test
+npm run check:release
 npm start
 ```
+
+`check:release` 只检查发布配置，不连接数据库，也不会输出连接串、密钥或 API Key。
+缺少正式环境变量、仍使用示例占位值、生产环境未启用 HTTPS 安全 Cookie，或把迁移配置成
+生产启动时自动执行，都会明确返回 `BLOCKED`。检查通过也不等于数据库、网络或部署验收通过。
 
 离线查看正常、超时、不可用和命名卡路由样例：
 
