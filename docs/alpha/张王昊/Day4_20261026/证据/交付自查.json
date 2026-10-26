@@ -1,0 +1,15 @@
+{
+  "as_of": "2026-10-26T14:31:04+08:00",
+  "tasks": 50,
+  "sp": 100,
+  "acceptance_items": 28,
+  "risks": 12,
+  "actions": 10,
+  "source_blob_count": 295,
+  "all_source_unchanged": true,
+  "no_file_deletion": true,
+  "no_app_or_lock_changes": true,
+  "actual_eod_sp": null,
+  "team_signoff": false,
+  "blog_published": false
+}
