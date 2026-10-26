@@ -93,6 +93,7 @@ export function createApp({
         const existing = await authService.resolveContext(readSessionToken(cookies));
         const context = await authService.createContext(existing?.accountId ?? null);
         if (existing) await authService.revokeSession(existing.sessionId);
+        if (existing) taskService?.invalidateContext?.(existing);
         response.set('Set-Cookie', sessionCookie(context.sessionToken, secureCookies)).json({
           data: {
             authenticated: Boolean(context.accountId),
@@ -120,6 +121,7 @@ export function createApp({
     app.post('/api/auth/login', async (request, response, next) => {
       try {
         const { context, ...data } = await authService.login(request.body, request.accessContext);
+        taskService?.invalidateContext?.(request.accessContext);
         response.set('Set-Cookie', sessionCookie(context.sessionToken, secureCookies)).json({
           data: { ...data, expiresAt: context.expiresAt.toISOString() },
           meta: { requestId: request.requestId },
@@ -132,6 +134,7 @@ export function createApp({
     app.post('/api/auth/logout', async (request, response, next) => {
       try {
         await authService.logout(request.accessContext);
+        taskService?.invalidateContext?.(request.accessContext);
         response.set('Set-Cookie', clearSessionCookie(secureCookies)).status(204).end();
       } catch (error) {
         next(error);
@@ -141,6 +144,7 @@ export function createApp({
     app.post('/api/auth/change-password', requireAuthentication, async (request, response, next) => {
       try {
         await authService.changePassword(request.accessContext.accountId, request.body);
+        taskService?.invalidateAccount?.(request.accessContext.accountId);
         response.set('Set-Cookie', clearSessionCookie(secureCookies)).status(204).end();
       } catch (error) {
         next(error);

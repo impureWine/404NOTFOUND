@@ -114,6 +114,98 @@ test('pause cancels an in-flight model task and a late reply cannot refill it af
   assert.equal(task.result, undefined);
 });
 
+test('explicit cancellation rejects a late model reply', async () => {
+  let finish;
+  let observedSignal;
+  const service = createService({
+    respond(_input, { signal }) {
+      observedSignal = signal;
+      return new Promise((resolve) => { finish = resolve; });
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const cancelled = service.cancelAgentTask(context, ids.taskRequest);
+  assert.equal(cancelled.status, 'cancelled');
+  assert.equal(observedSignal.aborted, true);
+  finish(successResponse('取消后的迟到回复'));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(task.status, 'cancelled');
+  assert.equal(task.result, undefined);
+});
+
+test('restart changes the activity generation and rejects the previous activity reply', async () => {
+  let finish;
+  const service = createService({
+    respond() {
+      return new Promise((resolve) => { finish = resolve; });
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const restarted = service.action(context, session.sessionId, {
+    requestId: ids.actionRequest,
+    action: 'RESTART',
+    expectedSessionGeneration: 0,
+    expectedActivityGeneration: 0,
+  });
+  assert.equal(restarted.activityGeneration, 1);
+  assert.notEqual(restarted.activityId, session.activityId);
+
+  finish(successResponse('上一轮活动的迟到回复'));
+  await new Promise((resolve) => setImmediate(resolve));
+  const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(task.status, 'cancelled');
+  assert.equal(task.result, undefined);
+});
+
+test('account switch invalidates the old login context and its unread late reply', async () => {
+  let finish;
+  const alice = { sessionId: 'login-session-a', accountId: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa' };
+  const bob = { sessionId: 'login-session-b', accountId: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb' };
+  const service = createService({
+    respond() {
+      return new Promise((resolve) => { finish = resolve; });
+    },
+  });
+  const session = service.createSession(alice, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(alice, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.deepEqual(service.invalidateContext(alice), { sessionsInvalidated: 1 });
+  finish(successResponse('换号后的旧账号迟到回复'));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const oldTask = service.getAgentTask(alice, ids.taskRequest);
+  assert.equal(oldTask.status, 'cancelled');
+  assert.equal(oldTask.result, undefined);
+  assert.throws(() => service.getAgentTask(bob, ids.taskRequest), /not found/i);
+});
+
+test('account switch also clears a completed reply that was not consumed', async () => {
+  const alice = { sessionId: 'login-session-a', accountId: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa' };
+  const service = createService({
+    async respond() {
+      return successResponse('换号前已经完成但尚未读取的回复');
+    },
+  });
+  const session = service.createSession(alice, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(alice, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(service.getAgentTask(alice, ids.taskRequest).status, 'completed');
+
+  service.invalidateContext(alice);
+  const invalidated = service.getAgentTask(alice, ids.taskRequest);
+  assert.equal(invalidated.status, 'cancelled');
+  assert.equal(invalidated.result, undefined);
+});
+
 test('ending a session also rejects an in-flight late model reply', async () => {
   let finish;
   const service = createService({
