@@ -4,6 +4,7 @@ import { AuthDialog } from './auth/AuthDialog.jsx';
 import { useAuth } from './auth/useAuth.js';
 import { HeroGuest, Link, Sidebar, SiteTopbar, ToolsSection } from './components/SiteChrome.jsx';
 import { RecordVault } from './records/RecordVault.jsx';
+import { TextDestructionTool } from './req14/TextDestructionTool.jsx';
 
 function UserHome({ profile, identityKey, onAccount, onLogout }) {
   const nickname = profile?.nickname || profile?.loginName || '已登录用户';
@@ -63,6 +64,7 @@ export default function App() {
         {authStatus === 'authenticated'
           ? <UserHome key={identityKey} identityKey={identityKey} profile={profile} onAccount={showAccount} onLogout={logout} />
           : <div className="guest-view"><HeroGuest onLogin={openAuth} /><section className="recent-card guest-recent"><div className="recent-empty-icon">◷</div><div><h3>最近陪伴记录</h3><p>登录后可访问本人当前入口的记录；当前 API 模拟模式不会展示虚构历史。</p><button type="button" className="button button-soft" onClick={() => openAuth('login')}>登录后查看账户状态</button></div></section></div>}
+        <TextDestructionTool />
         <ToolsSection />
         <section className="privacy-home-card"><ShieldCheck size={20} /><div><h3>隐私与留存说明</h3><ul><li>登录、注册与退出会调用当前配置的同源认证 API；密码不写入浏览器存储，也不进入 URL。</li><li>Cookie 由服务端设置并通过浏览器凭据通道发送；前端不读取 Cookie 原文。</li><li>陪伴、情绪记录、搜索和其他业务入口仍是演示内容，不代表已连接真实后端。</li></ul><Link href="settings.html">前往会话与隐私设置 <ChevronRight size={14} /></Link></div></section>
         <p className="demo-disclaimer"><span>ⓘ</span>账号界面仅在认证服务确认后显示私密身份信息；业务记录、AI 和搜索仍未完成真实联调。页面不提供医疗诊断、治疗建议或风险评分。</p>

@@ -232,6 +232,20 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e3a9bd; outline-offs
 .record-detail p { margin: 0; color: #6b7875; font-size: 11.5px; line-height: 1.65; }
 .record-notice { margin-top: 12px; padding: 10px 12px; border: 1px solid #ebcbd8; border-radius: 8px; background: #fff; color: #6b7875; font-size: 11.5px; line-height: 1.6; }
 .record-vault > .demo-note { margin-top: 12px; }
+.text-destruction-tool { display: grid; grid-template-columns: minmax(0, 1fr) 120px; align-items: center; gap: 24px; margin-top: 24px; padding: 22px; border: 1px solid #e7edeb; border-radius: 12px; background: #fff; }
+.text-destruction-copy { min-width: 0; display: grid; justify-items: start; gap: 9px; }
+.text-destruction-copy h2 { margin: -4px 0 0; color: #33403f; font-size: 17px; }
+.text-destruction-copy p { margin: 0; color: #6b7875; font-size: 12px; line-height: 1.65; }
+.text-destruction-copy label { margin-top: 4px; color: #52615e; font-size: 12px; font-weight: 600; }
+.text-destruction-copy textarea { width: 100%; min-height: 96px; resize: vertical; padding: 10px 12px; border: 1px solid #dce5e2; border-radius: 8px; background: #fff; color: #33403f; font: inherit; font-size: 12px; line-height: 1.65; }
+.text-destruction-copy textarea:focus-visible { outline: 3px solid #e3a9bd; outline-offset: 2px; }
+.text-destruction-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.text-destruction-actions > span { color: #6b7875; font-size: 11px; }
+.text-destruction-visual { width: 104px; aspect-ratio: 1; display: grid; place-items: center; justify-self: center; overflow: hidden; border: 12px solid #d9e2df; border-radius: 50%; background: #40585a; }
+.text-destruction-visual span { width: 74%; aspect-ratio: 1; border: 1px solid #d6e8df88; border-radius: 50%; opacity: 0; transform: scale(.12); }
+.text-destruction-visual[data-phase='destroyed'] span { animation: home-destroy-collapse 650ms ease-out both; }
+@keyframes home-destroy-collapse { 35% { opacity: .7; transform: scale(1); } 100% { opacity: 0; transform: scale(.15); } }
+@media (prefers-reduced-motion: reduce) { .text-destruction-visual span { animation: none !important; transition: none !important; } }
 @media (max-width: 920px) { .record-vault-grid { grid-template-columns: 1fr; } }
 @media (max-width: 520px) {
   .record-vault-heading { flex-direction: column; }
@@ -240,4 +254,6 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e3a9bd; outline-offs
   .record-history-item > .button:last-of-type { grid-column: 3; }
   .record-clear-confirm { grid-column: 1 / -1; }
   .record-history-icon { width: 28px; height: 28px; }
+  .text-destruction-tool { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+  .text-destruction-visual { width: 72px; justify-self: start; }
 }
