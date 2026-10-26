@@ -407,3 +407,190 @@ test('record type details are written in the same transaction', async () => {
     await database.close();
   }
 });
+
+test('failed record creation rolls back both the record and its idempotency claim', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scope = await seedScope(database, 'create_rollback');
+    const repository = new RecordRepository(database);
+    const requestId = randomUUID();
+    await assert.rejects(
+      repository.create({
+        ...scope,
+        requestId,
+        kind: 'DEPOSIT',
+        titleCiphertext: null,
+        titleKeyVersion: null,
+        details: {
+          bodyCiphertext: cipher('deposit'),
+          cipherKeyVersion: 1,
+          reopenAt: '2020-01-01T00:00:00.000Z',
+        },
+      }),
+      InvalidInputError,
+    );
+    const rolledBack = await database.query(
+      `
+        SELECT
+          (SELECT count(*)::int FROM saved_records) AS records,
+          (SELECT count(*)::int FROM idempotency_keys WHERE request_id = $1) AS keys
+      `,
+      [requestId],
+    );
+    assert.deepEqual(rolledBack.rows[0], { records: 0, keys: 0 });
+
+    const retry = await repository.create({
+      ...scope,
+      requestId,
+      kind: 'DEPOSIT',
+      titleCiphertext: null,
+      titleKeyVersion: null,
+      details: {
+        bodyCiphertext: cipher('deposit'),
+        cipherKeyVersion: 1,
+        reopenAt: '2099-01-01T00:00:00.000Z',
+      },
+    });
+    assert.equal(retry.kind, 'DEPOSIT');
+  } finally {
+    await database.close();
+  }
+});
+
+test('failed clear rolls back payload deletion, confirmation use, and outbox state', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scope = await seedScope(database, 'clear_rollback');
+    const repository = new RecordRepository(database);
+    const created = await repository.create(conversationInput(scope));
+    const confirmation = await repository.issueClearConfirmation({
+      ...scope,
+      recordId: created.id,
+      requestId: randomUUID(),
+      expectedVersion: created.version,
+    });
+    const clearInput = {
+      ...scope,
+      recordId: created.id,
+      requestId: randomUUID(),
+      expectedVersion: created.version,
+      confirmationId: confirmation.confirmationId,
+      confirmed: true,
+    };
+
+    await database.exec(
+      'ALTER TABLE deletion_outbox ADD CONSTRAINT ck_day4_force_rollback CHECK (false)',
+    );
+    await assert.rejects(repository.clear(clearInput));
+
+    assert.equal((await repository.get({ ...scope, recordId: created.id })).id, created.id);
+    const afterFailure = await database.query(
+      `
+        SELECT
+          (SELECT count(*)::int FROM saved_messages WHERE saved_record_id = $1) AS messages,
+          (SELECT count(*)::int FROM deletion_jobs) AS jobs,
+          (SELECT count(*)::int FROM deletion_targets) AS targets,
+          (SELECT count(*)::int FROM deletion_outbox) AS outbox,
+          (SELECT count(*)::int FROM idempotency_keys WHERE request_id = $2) AS keys,
+          (SELECT consumed_at IS NOT NULL FROM record_clear_confirmations WHERE id = $3) AS consumed
+      `,
+      [created.id, clearInput.requestId, confirmation.confirmationId],
+    );
+    assert.deepEqual(afterFailure.rows[0], {
+      messages: 1,
+      jobs: 0,
+      targets: 0,
+      outbox: 0,
+      keys: 0,
+      consumed: false,
+    });
+
+    await database.exec('ALTER TABLE deletion_outbox DROP CONSTRAINT ck_day4_force_rollback');
+    const retry = await repository.clear(clearInput);
+    assert.equal(retry.cleared, true);
+    assert.equal(retry.idempotent, false);
+  } finally {
+    await database.close();
+  }
+});
+
+test('explicit context selection enforces ownership, clearing, calendar, and deposit boundaries', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scopeA = await seedScope(database, 'context_a');
+    const scopeB = await seedScope(database, 'context_b');
+    const repository = new RecordRepository(database);
+    const conversation = await repository.create(conversationInput(scopeA));
+    const emotion = await repository.create({
+      ...scopeA,
+      requestId: randomUUID(),
+      kind: 'EMOTION',
+      titleCiphertext: null,
+      titleKeyVersion: null,
+      details: {
+        recordDate: '2026-10-26',
+        emotionCodes: ['CALM'],
+        intensity: 3,
+        timezoneName: 'Asia/Shanghai',
+        eventCiphertext: null,
+        cipherKeyVersion: null,
+      },
+    });
+    const deposit = await repository.create({
+      ...scopeA,
+      requestId: randomUUID(),
+      kind: 'DEPOSIT',
+      titleCiphertext: null,
+      titleKeyVersion: null,
+      details: {
+        bodyCiphertext: cipher('deposit'),
+        cipherKeyVersion: 1,
+        reopenAt: '2099-01-01T00:00:00.000Z',
+      },
+    });
+
+    const selected = await repository.resolveExplicitContextSelection({
+      ...scopeA,
+      recordIds: [conversation.id],
+    });
+    assert.deepEqual(selected, {
+      policy: 'EXPLICIT_SELECTION_ONLY',
+      records: [{ id: conversation.id, kind: 'CONVERSATION', version: 1 }],
+    });
+    assert.equal(JSON.stringify(selected).includes('synthetic:'), false);
+
+    await assert.rejects(
+      repository.resolveExplicitContextSelection({ ...scopeB, recordIds: [conversation.id] }),
+      NotFoundError,
+    );
+    await assert.rejects(
+      repository.resolveExplicitContextSelection({ ...scopeA, recordIds: [emotion.id] }),
+      ConflictError,
+    );
+    await assert.rejects(
+      repository.resolveExplicitContextSelection({ ...scopeA, recordIds: [deposit.id] }),
+      ConflictError,
+    );
+
+    const confirmation = await repository.issueClearConfirmation({
+      ...scopeA,
+      recordId: conversation.id,
+      requestId: randomUUID(),
+      expectedVersion: conversation.version,
+    });
+    await repository.clear({
+      ...scopeA,
+      recordId: conversation.id,
+      requestId: randomUUID(),
+      expectedVersion: conversation.version,
+      confirmationId: confirmation.confirmationId,
+      confirmed: true,
+    });
+    await assert.rejects(
+      repository.resolveExplicitContextSelection({ ...scopeA, recordIds: [conversation.id] }),
+      NotFoundError,
+    );
+  } finally {
+    await database.close();
+  }
+});
