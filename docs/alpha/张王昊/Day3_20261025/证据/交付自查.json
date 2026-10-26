@@ -1,0 +1,14 @@
+{
+  "task_count": 50,
+  "sp": 100,
+  "unique_task_ids": true,
+  "scenario_count": 22,
+  "acceptance_count": 22,
+  "interface_items": 10,
+  "change_items": 8,
+  "all_acceptance_pending": true,
+  "source_unchanged": true,
+  "actual_eod_not_fabricated": true,
+  "local_link_errors": [],
+  "application_tests_all_passed": false
+}

@@ -6,9 +6,21 @@ export const SCENES = [
   { id: 'sources', code: 'SR', label: '来源展示', title: '把信息的来处看清楚', description: '逐条依据、来源详情与不确定性。' },
   { id: 'emotion', code: 'EC', label: '情绪命名卡', title: '给此刻一个名字', description: '自己选词、补充描述，明确选择带入聊天的内容。' },
   { id: 'training', code: 'TR', label: '训练操作', title: '留一个小小的停顿', description: '开始、暂停、继续、完成与退出的操作反馈。' },
+  { id: 'save', code: 'SV', label: '主动保存', title: '留下多少，由你决定', description: '选择片段、核对范围与单次保存确认。' },
+  { id: 'history', code: 'HS', label: '本人历史', title: '只看自己留下的内容', description: '历史列表、筛选与身份变化后的反馈。' },
+  { id: 'record-detail', code: 'RD', label: '记录详情', title: '主动打开，再看正文', description: '详情读取、不可用、版本变化与清除确认。' },
 ];
 export const TIMEOUT_STATE = { id: 'timeout', code: 'T', label: '超时', note: '结果待确认，不自动重发' };
-export const statesForScene = scene => ['chat', 'sources'].includes(scene) ? [...STATES, TIMEOUT_STATE] : STATES;
+export const statesForScene = scene => {
+  if (scene === 'save') return [...STATES, TIMEOUT_STATE,
+    { id: 'success', code: 'S', label: '已保存', note: '固定的成功反馈示例，不创建记录' }, EXPIRED_STATE];
+  if (scene === 'history') return [...STATES, EXPIRED_STATE];
+  if (scene === 'record-detail') return [...STATES, EXPIRED_STATE,
+    { id: 'unavailable', code: 'U', label: '不可用', note: '不推断记录归属或是否存在' },
+    { id: 'conflict', code: 'C', label: '状态变化', note: '先重新读取，再次确认清除' }];
+  return ['chat', 'sources'].includes(scene) ? [...STATES, TIMEOUT_STATE] : STATES;
+};
+const EXPIRED_STATE = { id: 'expired', code: 'X', label: '登录失效', note: '隐藏本人内容，重新登录后再读取' };
 export const STATES = [
   { id: 'normal', code: 'N', label: '正常', note: '可用内容与主要操作' },
   { id: 'loading', code: 'L', label: '加载', note: '人工保持的等待状态' },

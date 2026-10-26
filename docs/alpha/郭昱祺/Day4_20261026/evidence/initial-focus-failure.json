@@ -1,0 +1,348 @@
+{
+  "checkedAt": "2026-10-26T10:07:33.816Z",
+  "timezone": "Asia/Shanghai",
+  "baseUrl": "http://127.0.0.1:5186",
+  "scope": "本地模拟组件走查，不是服务端验收",
+  "checks": [
+    "save/normal renders without horizontal overflow at 1440px",
+    "save/loading renders without horizontal overflow at 1440px",
+    "save/empty renders without horizontal overflow at 1440px",
+    "save/error renders without horizontal overflow at 1440px",
+    "save/timeout renders without horizontal overflow at 1440px",
+    "save/success renders without horizontal overflow at 1440px",
+    "save/expired renders without horizontal overflow at 1440px",
+    "history/normal renders without horizontal overflow at 1440px",
+    "history/loading renders without horizontal overflow at 1440px",
+    "history/empty renders without horizontal overflow at 1440px",
+    "history/error renders without horizontal overflow at 1440px",
+    "history/expired renders without horizontal overflow at 1440px",
+    "record-detail/normal renders without horizontal overflow at 1440px",
+    "record-detail/loading renders without horizontal overflow at 1440px",
+    "record-detail/empty renders without horizontal overflow at 1440px",
+    "record-detail/error renders without horizontal overflow at 1440px",
+    "record-detail/expired renders without horizontal overflow at 1440px",
+    "record-detail/unavailable renders without horizontal overflow at 1440px",
+    "record-detail/conflict renders without horizontal overflow at 1440px",
+    "save/normal renders without horizontal overflow at 390px",
+    "save/loading renders without horizontal overflow at 390px",
+    "save/empty renders without horizontal overflow at 390px",
+    "save/error renders without horizontal overflow at 390px",
+    "save/timeout renders without horizontal overflow at 390px",
+    "save/success renders without horizontal overflow at 390px",
+    "save/expired renders without horizontal overflow at 390px",
+    "history/normal renders without horizontal overflow at 390px",
+    "history/loading renders without horizontal overflow at 390px",
+    "history/empty renders without horizontal overflow at 390px",
+    "history/error renders without horizontal overflow at 390px",
+    "history/expired renders without horizontal overflow at 390px",
+    "record-detail/normal renders without horizontal overflow at 390px",
+    "record-detail/loading renders without horizontal overflow at 390px",
+    "record-detail/empty renders without horizontal overflow at 390px",
+    "record-detail/error renders without horizontal overflow at 390px",
+    "record-detail/expired renders without horizontal overflow at 390px",
+    "record-detail/unavailable renders without horizontal overflow at 390px",
+    "record-detail/conflict renders without horizontal overflow at 390px",
+    "save/normal renders without horizontal overflow at 320px",
+    "save/loading renders without horizontal overflow at 320px",
+    "save/empty renders without horizontal overflow at 320px",
+    "save/error renders without horizontal overflow at 320px",
+    "save/timeout renders without horizontal overflow at 320px",
+    "save/success renders without horizontal overflow at 320px",
+    "save/expired renders without horizontal overflow at 320px",
+    "history/normal renders without horizontal overflow at 320px",
+    "history/loading renders without horizontal overflow at 320px",
+    "history/empty renders without horizontal overflow at 320px",
+    "history/error renders without horizontal overflow at 320px",
+    "history/expired renders without horizontal overflow at 320px",
+    "record-detail/normal renders without horizontal overflow at 320px",
+    "record-detail/loading renders without horizontal overflow at 320px",
+    "record-detail/empty renders without horizontal overflow at 320px",
+    "record-detail/error renders without horizontal overflow at 320px",
+    "record-detail/expired renders without horizontal overflow at 320px",
+    "record-detail/unavailable renders without horizontal overflow at 320px",
+    "record-detail/conflict renders without horizontal overflow at 320px",
+    "save defaults unselected; 80 Unicode code points accepted, 81 and blank title blocked"
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/SV-N_save_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 122876,
+      "sha256": "285801b8e68505f1b6c59094a43cd6915874cfc4014c73fee4863df4f76181cf"
+    },
+    {
+      "file": "screenshots/SV-L_save_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 113345,
+      "sha256": "8df7e22c3cd82a4b6965f9acb5f7078ab5846db190bcea59fb7d4b2be2cb8653"
+    },
+    {
+      "file": "screenshots/SV-E_save_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 109532,
+      "sha256": "d36ea2497d8e8c9427c9f07a44cb17aabc2a93087dd37f131e8635f05c9a7f73"
+    },
+    {
+      "file": "screenshots/SV-F_save_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 116622,
+      "sha256": "d1147f44ea1145759e75647f1406d6ab53eab89b4fd9cc39c5083d806be770e4"
+    },
+    {
+      "file": "screenshots/SV-T_save_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=timeout",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 118976,
+      "sha256": "0a1d876c3c1ce14e92d6f8fa41434eb73d6a756468afab4006d37fbaae1fde71"
+    },
+    {
+      "file": "screenshots/SV-S_save_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=success",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 119679,
+      "sha256": "3e5516d2dc1f5a4f6f4e772e5e8f86e704b018692215620215f2ebfd8cc1616d"
+    },
+    {
+      "file": "screenshots/SV-X_save_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=expired",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 111298,
+      "sha256": "a58420915d72643ee1d987e4247e8d6c1d479d6260f50889cb33201240b43d85"
+    },
+    {
+      "file": "screenshots/HS-N_history_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=history&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 99615,
+      "sha256": "a9554bef8c804225bb934b7aa6cc1b841a7ac534965c4666f5b4aed271c7920f"
+    },
+    {
+      "file": "screenshots/HS-L_history_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=history&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 95186,
+      "sha256": "6b02553ee6587d9b319c128ae9ca690daa33bdbf14736ffa9efe7d6fe2faec69"
+    },
+    {
+      "file": "screenshots/HS-E_history_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=history&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 95616,
+      "sha256": "c7f52ec33636e8c5fbe94004119ff67c924fab5d67436a3b877daf42d2ddfeae"
+    },
+    {
+      "file": "screenshots/HS-F_history_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=history&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 98109,
+      "sha256": "975e14c5da8710d84bf8f73f1779347d97358de2298037cf125399d0e245477e"
+    },
+    {
+      "file": "screenshots/HS-X_history_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=history&state=expired",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 97547,
+      "sha256": "0361656d225bd9f24c4ec48aa48c74cee815e2394d55f98a586ee5ec7ba5e373"
+    },
+    {
+      "file": "screenshots/RD-N_record-detail_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 94467,
+      "sha256": "18779cd6c4f33cb590bf8dd4ca63b813879e618e3c9dfb5a5fb4a1fa490e5ca2"
+    },
+    {
+      "file": "screenshots/RD-L_record-detail_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=loading",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 82086,
+      "sha256": "6bec412da7eeba60b1711d523785b891395f6d49c96d35aa830a06b3b3528b37"
+    },
+    {
+      "file": "screenshots/RD-E_record-detail_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=empty",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 81198,
+      "sha256": "21cab6a34143fb88cec3294d2601bf14e986f7887a108465f4737e65f3c089bc"
+    },
+    {
+      "file": "screenshots/RD-F_record-detail_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=error",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 85669,
+      "sha256": "c00f7ee5c0849cf3cc9ecfd6c5ffb605b9b4a3f7c423c327092a7cd9073a3949"
+    },
+    {
+      "file": "screenshots/RD-X_record-detail_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=expired",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 86996,
+      "sha256": "6addab7d2b26611095bb180df16230cd3a67a12fbebc24ed3dbdfae7fa404998"
+    },
+    {
+      "file": "screenshots/RD-U_record-detail_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=unavailable",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 84255,
+      "sha256": "264a479a6e1fe6e48268490f00f94c403c225f9b1f456ef01cc0b7cd271c2fd4"
+    },
+    {
+      "file": "screenshots/RD-C_record-detail_1440.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=conflict",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fullPage": true,
+      "size": 86607,
+      "sha256": "8ca06a2172fb62b529cdf8fba491c66e0580802ce5b972b37349e4a91051aedf"
+    },
+    {
+      "file": "screenshots/SV-N_save_390.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": true,
+      "size": 93986,
+      "sha256": "37a99e85f2187233f3fd7c75fe2d31b4d89c2ef2cd9cc558f4b99b47bdd1216d"
+    },
+    {
+      "file": "screenshots/HS-N_history_390.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=history&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": true,
+      "size": 71199,
+      "sha256": "296a97953a94ab71599585e6d46b886307bf7f67f434a6a19d8225360afb0677"
+    },
+    {
+      "file": "screenshots/RD-N_record-detail_390.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": true,
+      "size": 65528,
+      "sha256": "d39a906dd7ebbf4e2fc2537b7912896a9d90bac6df45a7a0babc8861c9bd27dd"
+    },
+    {
+      "file": "screenshots/SV-N_save_320.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=normal",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "fullPage": true,
+      "size": 93232,
+      "sha256": "f51ac930aee2dbcd5981a5f9d4374ed71adfb7fb890a6ace4c12720977a4bbf2"
+    },
+    {
+      "file": "screenshots/HS-N_history_320.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=history&state=normal",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "fullPage": true,
+      "size": 69653,
+      "sha256": "d6ad15232423fa558b76b8e664083fb4204543a1fb77462ec77f46f7564575a4"
+    },
+    {
+      "file": "screenshots/RD-N_record-detail_320.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=record-detail&state=normal",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "fullPage": true,
+      "size": 64740,
+      "sha256": "349e1d89a32712fce98f334fb1c5673466e42e75d0d41151fa22e7f421c0b684"
+    }
+  ],
+  "errors": [],
+  "apiRequests": [],
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n'' !== '返回修改'\n\n    at D:\\DSH\\软工实践\\工程\\.codex-project-review\\404NOTFOUND-ux-day4-20261026\\docs\\alpha\\郭昱祺\\Day4_20261026\\scripts\\walkthrough.cjs:70:12",
+  "finishedAt": "2026-10-26T10:08:11.098Z"
+}

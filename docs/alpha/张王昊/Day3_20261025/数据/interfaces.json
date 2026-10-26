@@ -1,0 +1,82 @@
+[
+  {
+    "id": "IF3-01",
+    "topic": "登录目标键",
+    "difference": "shared account只接受HOME/PROFILE/WORKSPACE；useAuth.js:99发送home",
+    "proposal": "前端请求映射为HOME，UI页面路由键仍可用home；不将两个命名空间混用",
+    "owner": "程杰↔李泉毅",
+    "closure": "无测试路由改写的注册→登录→资料→退出浏览器记录"
+  },
+  {
+    "id": "IF3-02",
+    "topic": "同源接线",
+    "difference": "前端5173调用/api，Vite无proxy；backend3000；条件测试曾临时加代理",
+    "proposal": "由程杰/李泉毅落地开发proxy或同源站点，统一127.0.0.1、APP_ORIGIN、X-CSRF-Token",
+    "owner": "程杰↔李泉毅",
+    "closure": "当前源码与启动步骤一致，/api/auth/context不再404"
+  },
+  {
+    "id": "IF3-03",
+    "topic": "模式命名",
+    "difference": "业务会话LISTEN/ORGANIZE/SEARCH；模型适配器COMPANION；NamingCard模块返回COMPANION",
+    "proposal": "保留用户意图LISTEN/ORGANIZE，在应用层映射COMPANION；不要向/api/sessions提交COMPANION",
+    "owner": "程群↔李泉毅→程杰",
+    "closure": "页面选择→业务会话→适配器映射逐层用例"
+  },
+  {
+    "id": "IF3-04",
+    "topic": "正式Agent入口",
+    "difference": "/api/agent/tasks为404；/internal/v1/model/generate位于安全中间件前",
+    "proposal": "实现受控应用门面，身份/入口/许可/双代次检查后才调模型；内部路由不可直接当公开替代",
+    "owner": "李泉毅↔程群；关欣复核",
+    "closure": "无授权不触发适配器；正式任务轮询/取消及迟到失效"
+  },
+  {
+    "id": "IF3-05",
+    "topic": "会话回包",
+    "difference": "createSession把ownerKey返回；sessionStateResponseSchema严格对象不含它",
+    "proposal": "接入层只返回公有DTO，内部归属保留服务端；统一回包校验",
+    "owner": "李泉毅→程杰",
+    "closure": "D3-05通过且ownerKey不外传"
+  },
+  {
+    "id": "IF3-06",
+    "topic": "查询结果结构",
+    "difference": "服务返回flat answer/searchState/sources；09号要求completed.result结构；shared仍为flat且sourceId",
+    "proposal": "以09号§5/§2为基线统一门面和共享Zod，内部结果经映射后发布；同步前端解析，不单改一侧",
+    "owner": "李泉毅牵头，程群/庄剀涵/程杰协作",
+    "closure": "D3-06及正常/EMPTY/failed同Schema验证"
+  },
+  {
+    "id": "IF3-07",
+    "topic": "来源ID与主张",
+    "difference": "09号sources[].id、claims[].sourceIds；shared使用sourceId且UUID，Provider使用pageid字符串",
+    "proposal": "统一公开sources.id与主张引用；服务端分配符合契约的ID，保留providerPageId为内部元数据；若放宽ID类型须记录变更",
+    "owner": "庄剀涵↔程群↔李泉毅→郭昱祺/程杰",
+    "closure": "未知引用拒绝；保存历史和来源卡都指向同一ID"
+  },
+  {
+    "id": "IF3-08",
+    "topic": "来源时间语义",
+    "difference": "Wikipedia timestamp是检索返回时间字段，不能证明首次发布日期；当前直接写publishedAt",
+    "proposal": "无法核实发布日期时publishedAt=null，retrievedAt为本次获取时间；如需修改时间另明确命名和版本",
+    "owner": "庄剀涵→郭昱祺/程杰",
+    "closure": "来源卡明确未知时间，不把修改时间当首次发表"
+  },
+  {
+    "id": "IF3-09",
+    "topic": "任务生命周期",
+    "difference": "取消迟到成功；END后完成结果可读、暂停能新建任务、撤许可仍可读",
+    "proposal": "暂停/结束/撤回统一失效双代次/活动及任务可取性；读取时再次校验许可和当前活动",
+    "owner": "李泉毅/程群；关欣/曾俊涛复核",
+    "closure": "D3-08/10/11通过，保留D3-09已通过行为"
+  },
+  {
+    "id": "IF3-10",
+    "topic": "上下文与输出错误",
+    "difference": "内部MODEL_TIMEOUT/UNAVAILABLE、业务failed+failureReason和稳定HTTP码属不同层",
+    "proposal": "内部码经应用门面转换；未知异常不回显；未实现能力显式503，未知路径404",
+    "owner": "李泉毅↔程群→程杰",
+    "closure": "失败、取消、EMPTY分别展示，现有安全红灯关闭"
+  }
+]

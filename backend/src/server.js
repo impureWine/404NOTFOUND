@@ -7,6 +7,7 @@ import { runMigrations } from './db/migration-runner.js';
 import { parseProfileKey } from './security/crypto.js';
 import { AuthService } from './services/auth-service.js';
 import { TaskService } from './services/task-service.js';
+import { TrainingService } from './services/training-service.js';
 import { WikipediaSearchProvider } from './search/wikipedia-search-provider.js';
 import { RecordRepository } from './repositories/record-repository.js';
 import { RecordService } from './services/record-service.js';
@@ -33,11 +34,13 @@ const authService = new AuthService(database, {
 const consentService = new ConsentService();
 const taskService = new TaskService({
   consentService,
+  modelAdapter,
   searchProvider: new WikipediaSearchProvider({
     language: process.env.SEARCH_LANGUAGE ?? 'zh',
     timeoutMs: Number(process.env.SEARCH_TIMEOUT_MS ?? 5000),
   }),
 });
+const trainingService = new TrainingService();
 const recordService = new RecordService(new RecordRepository(database), {
   encryptionKey: parseProfileKey(process.env.PROFILE_ENCRYPTION_KEY),
   consentService,
@@ -47,6 +50,7 @@ const app = createApp({
   modelAdapter,
   authService,
   taskService,
+  trainingService,
   recordService,
   consentService,
   appOrigin: process.env.APP_ORIGIN ?? 'http://127.0.0.1:5173',

@@ -4,6 +4,7 @@ import {
   depositActionSchema,
   depositPostponeSchema,
   editableRecordDetailsSchemas,
+  explicitContextSelectionSchema,
   recordClearConfirmationSchema,
   recordClearSchema,
   recordCreateSchema,
@@ -18,6 +19,10 @@ import { withTransaction } from '../db/database.js';
 import { claimIdempotencyKey, completeIdempotencyKey } from './idempotency.js';
 
 const cursorSecret = randomBytes(32);
+const contextRestrictedKinds = Object.freeze({
+  EMOTION: 'Calendar records require a purpose-specific action and cannot enter general AI context',
+  DEPOSIT: 'Deposits cannot be expanded through the general AI context path',
+});
 
 function parse(schema, input) {
   const parsed = schema.safeParse(input);
@@ -480,6 +485,38 @@ export class RecordRepository {
     const row = result.rows[0];
     const details = await getRecordDetails(this.database, row.id, row.record_kind);
     return { ...mapRecord(row), details };
+  }
+
+  async resolveExplicitContextSelection(input) {
+    const value = parse(explicitContextSelectionSchema, input);
+    const result = await this.database.query(
+      `
+        SELECT id, record_kind, version_no
+        FROM saved_records
+        WHERE account_id = $1
+          AND entry_point_id = $2
+          AND deleted_at IS NULL
+          AND id = ANY($3::uuid[])
+      `,
+      [value.accountId, value.entryPointId, value.recordIds],
+    );
+    if (result.rows.length !== value.recordIds.length) throw new NotFoundError();
+
+    const recordsById = new Map(result.rows.map((row) => [row.id, row]));
+    const records = value.recordIds.map((recordId) => recordsById.get(recordId));
+    for (const record of records) {
+      const restriction = contextRestrictedKinds[record.record_kind];
+      if (restriction) throw new ConflictError(restriction);
+    }
+
+    return {
+      policy: 'EXPLICIT_SELECTION_ONLY',
+      records: records.map((record) => ({
+        id: record.id,
+        kind: record.record_kind,
+        version: record.version_no,
+      })),
+    };
   }
 
   async update(input) {

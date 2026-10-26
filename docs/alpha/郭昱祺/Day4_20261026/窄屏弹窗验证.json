@@ -1,0 +1,38 @@
+{
+  "checkedAt": "2026-10-26T10:22:20.439Z",
+  "timezone": "Asia/Shanghai",
+  "baseUrl": "http://127.0.0.1:5186",
+  "scope": "本地模拟组件走查，不是服务端验收",
+  "checks": [
+    "save and clear dialogs fit 390px and complete without blocked controls",
+    "save and clear dialogs fit 320px and complete without blocked controls"
+  ],
+  "screenshots": [
+    {
+      "file": "screenshots/SV-confirmation_390.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=normal",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 54695,
+      "sha256": "05ec5b74708a44546fbb60f9a82c713c11a1390f6358f8e78e9ffc05f812166c"
+    },
+    {
+      "file": "screenshots/SV-confirmation_320.png",
+      "url": "http://127.0.0.1:5186/ux-components.html?page=save&state=normal",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "fullPage": false,
+      "size": 50883,
+      "sha256": "fe7415170dcdda151e11fbd4eeed33b3246bba9f9d798edf61ed86bea2e115b9"
+    }
+  ],
+  "errors": [],
+  "apiRequests": [],
+  "status": "passed",
+  "finishedAt": "2026-10-26T10:22:22.965Z"
+}

@@ -135,6 +135,14 @@ export const recordIdentitySchema = scopeSchema.extend({
   recordId: nonZeroUuidSchema,
 });
 
+export const explicitContextSelectionSchema = scopeSchema.extend({
+  recordIds: z.array(nonZeroUuidSchema).min(1).max(20),
+}).superRefine((value, context) => {
+  if (new Set(value.recordIds).size !== value.recordIds.length) {
+    context.addIssue({ code: 'custom', message: 'recordIds must be unique' });
+  }
+});
+
 export const recordUpdateSchema = recordIdentitySchema.extend({
   requestId: requestIdSchema,
   expectedVersion: z.number().int().positive(),
