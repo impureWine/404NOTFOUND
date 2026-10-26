@@ -160,15 +160,17 @@ export function SourceCard({ source, index, expanded, active, onToggle }) {
 export function SourceList({ sources, expandedIds, activeId, onToggle }) {
   return <div className="source-list">{sources.map((source, index) => <SourceCard key={source.id} source={source} index={index} expanded={expandedIds.includes(source.id)} active={activeId === source.id} onToggle={onToggle} />)}</div>;
 }
-export function AppShell({ scene, onNavigate, children }) {
+export function AppShell({ scene, onNavigate, children, previewIdentity, onPreviewLogout }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   useEffect(() => {
     const close = event => { if (event.key === 'Escape') setMobileOpen(false); };
     document.addEventListener('keydown', close);
     return () => document.removeEventListener('keydown', close);
   }, []);
-  const activePage = { home: 'home', login: 'home', chat: 'companion', sources: 'search', emotion: 'emotion', training: 'games' }[scene];
-  const title = { home: '首页', login: '登录', chat: '陪伴交流', sources: '信息查询', emotion: '情绪命名卡', training: '训练操作' }[scene];
+  const activePage = { home: 'home', login: 'home', chat: 'companion', sources: 'search', emotion: 'emotion', training: 'games', save: 'companion', history: 'account', 'record-detail': 'account' }[scene];
+  const title = { home: '首页', login: '登录', chat: '陪伴交流', sources: '信息查询', emotion: '情绪命名卡', training: '训练操作', save: '主动保存', history: '本人历史', 'record-detail': '记录详情' }[scene];
+  const simulatedAccount = previewIdentity && previewIdentity !== 'guest';
+  const nickname = previewIdentity === 'account-b' ? '示例账号 B' : '示例账号 A';
   const dateLabel = new Intl.DateTimeFormat('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
   function navigateLink(key) {
     const target = { home: 'home', companion: 'chat', search: 'sources', emotion: 'emotion', games: 'training' }[key];
@@ -178,8 +180,10 @@ export function AppShell({ scene, onNavigate, children }) {
   }
   return <div className="current-home ux-showcase">
     <button className="mobile-home-bar" aria-label={mobileOpen ? '关闭导航菜单' : '打开导航菜单'} aria-expanded={mobileOpen} onClick={() => setMobileOpen(open => !open)}>{mobileOpen ? <X size={21} /> : <Menu size={21} />}<strong>404NOTFOUND</strong></button>
-    <Sidebar mobileOpen={mobileOpen} closeMobile={() => setMobileOpen(false)} authenticated={false} onLogin={mode => { if (mode === 'register') window.location.href = './register.html'; else onNavigate('login'); }} onAccount={() => onNavigate('login')} activePage={activePage} onNavigate={navigateLink} guestDescription="本页为组件状态展示，使用固定示例数据。" />
-    <div className="home-workspace"><SiteTopbar title={title} dateLabel={dateLabel} authStatus="guest" showAccount={() => onNavigate('login')} activePage={activePage} onNavigate={navigateLink} /><main className="home-main"><div className="home-content">{children}</div></main></div>
+    <Sidebar mobileOpen={mobileOpen} closeMobile={() => setMobileOpen(false)} authenticated={!!simulatedAccount} nickname={nickname} onLogout={onPreviewLogout}
+      onLogin={mode => { if (mode === 'register') window.location.href = './register.html'; else onNavigate('login'); }} onAccount={() => onNavigate(previewIdentity ? 'history' : 'login')} activePage={activePage} onNavigate={navigateLink} guestDescription="本页为组件状态展示，使用固定示例数据。" />
+    <div className="home-workspace"><SiteTopbar title={title} dateLabel={dateLabel} authStatus={simulatedAccount ? 'authenticated' : 'guest'} nickname={nickname}
+      showAccount={() => onNavigate(previewIdentity ? 'history' : 'login')} activePage={activePage} onNavigate={navigateLink} /><main className="home-main"><div className="home-content">{children}</div></main></div>
   </div>;
 }
 export function PreviewNotice({ title, onClose }) {
