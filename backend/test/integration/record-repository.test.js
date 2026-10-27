@@ -212,6 +212,64 @@ test('record update enforces scope, version, editable kind, and idempotency', as
   }
 });
 
+test('concurrent updates with the same expected version allow one winner only', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scope = await seedScope(database, 'update_race');
+    const repository = new RecordRepository(database);
+    const created = await repository.create({
+      ...scope,
+      requestId: randomUUID(),
+      kind: 'EMOTION',
+      titleCiphertext: cipher('initial title'),
+      titleKeyVersion: 1,
+      details: {
+        recordDate: '2026-10-27',
+        emotionCodes: ['CALM'],
+        intensity: 2,
+        timezoneName: 'Asia/Shanghai',
+        eventCiphertext: null,
+        cipherKeyVersion: null,
+      },
+    });
+    const update = (label, intensity) => repository.update({
+      ...scope,
+      recordId: created.id,
+      requestId: randomUUID(),
+      expectedVersion: created.version,
+      titleCiphertext: cipher(`${label} title`),
+      titleKeyVersion: 2,
+      details: {
+        recordDate: '2026-10-27',
+        emotionCodes: [label],
+        intensity,
+        timezoneName: 'Asia/Shanghai',
+        eventCiphertext: cipher(`${label} event`),
+        cipherKeyVersion: 2,
+      },
+    });
+
+    const results = await Promise.allSettled([
+      update('FOCUSED', 4),
+      update('TIRED', 3),
+    ]);
+    const fulfilled = results.filter((result) => result.status === 'fulfilled');
+    const rejected = results.filter((result) => result.status === 'rejected');
+    assert.equal(fulfilled.length, 1);
+    assert.equal(rejected.length, 1);
+    assert.ok(rejected[0].reason instanceof ConflictError);
+
+    const loaded = await repository.get({ ...scope, recordId: created.id });
+    const expectedEmotionCode = Buffer.from(loaded.titleCiphertext).equals(
+      cipher('FOCUSED title'),
+    ) ? 'FOCUSED' : 'TIRED';
+    assert.equal(loaded.version, created.version + 1);
+    assert.deepEqual(loaded.details.emotionCodes, [expectedEmotionCode]);
+  } finally {
+    await database.close();
+  }
+});
+
 test('clear enforces version and scope, hides the record, and creates deletion outbox state', async () => {
   const database = await createTestDatabase();
   try {

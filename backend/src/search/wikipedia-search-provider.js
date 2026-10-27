@@ -109,6 +109,8 @@ function normalizePages(pages, language, retrievedAt) {
   const expectedHostname = `${language}.wikipedia.org`;
   let partial = false;
   const sources = [];
+  const sourceIds = new Set();
+  const sourceUrls = new Set();
   for (const page of pages) {
     const title = typeof page?.title === 'string' ? page.title.trim() : '';
     const url = normalizeSourceUrl(page?.fullurl, expectedHostname);
@@ -116,9 +118,16 @@ function normalizePages(pages, language, retrievedAt) {
       partial = true;
       continue;
     }
+    const id = stableSourceId(language, page.pageid);
+    if (sourceIds.has(id) || sourceUrls.has(url)) {
+      partial = true;
+      continue;
+    }
+    sourceIds.add(id);
+    sourceUrls.add(url);
     const hasExtract = typeof page.extract === 'string' && page.extract.trim();
     sources.push({
-      id: stableSourceId(language, page.pageid),
+      id,
       title,
       url,
       publishedAt: null,
