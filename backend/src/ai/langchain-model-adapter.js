@@ -3,6 +3,7 @@ import { ChatOpenAI } from '@langchain/openai';
 import { getModelConfig } from './model-config.js';
 import { providerOutputSchema } from './model-contracts.js';
 import { buildModelMessages } from './model-input.js';
+import { containsRejectedModelClaim } from './output-boundary.js';
 
 function getRequestId(input) {
   return typeof input?.request_id === 'string' ? input.request_id : 'unknown';
@@ -46,18 +47,24 @@ function mapError(error) {
     return ['INVALID_REQUEST', false, '请求内容不符合模型调用要求。'];
   }
   if (
-    error?.name === 'AbortError'
-    || error?.name === 'TimeoutError'
+    error?.name === 'TimeoutError'
+    || error?.name === 'AbortError'
     || error?.code === 'ETIMEDOUT'
     || error?.code === 'ECONNABORTED'
   ) {
     return ['MODEL_TIMEOUT', true, '暂时没有获得响应，你可以稍后重新尝试。'];
+  }
+  if (error?.code === 'MODEL_CANCELLED') {
+    return ['MODEL_CANCELLED', false, '请求已取消。'];
   }
   if (error?.status === 429) {
     return ['MODEL_RATE_LIMITED', true, '模型服务当前繁忙，请稍后重试。'];
   }
   if (error?.code === 'EMPTY_MODEL_OUTPUT') {
     return ['EMPTY_MODEL_OUTPUT', true, '模型暂时没有返回可用内容。'];
+  }
+  if (error?.code === 'CONTENT_REJECTED') {
+    return ['CONTENT_REJECTED', false, '模型返回内容超出了可安全展示的边界。'];
   }
   if (error instanceof SyntaxError || error?.code === 'INVALID_MODEL_OUTPUT') {
     return ['INVALID_MODEL_OUTPUT', false, '模型返回内容无法安全使用。'];
@@ -66,6 +73,12 @@ function mapError(error) {
 }
 
 async function invokeWithTimeout(chatModel, messages, timeoutMs, externalSignal) {
+  if (externalSignal?.aborted) {
+    const error = new Error('Model request aborted before invocation');
+    error.code = 'MODEL_CANCELLED';
+    throw error;
+  }
+
   const timeoutController = new AbortController();
   const timeoutId = setTimeout(() => timeoutController.abort(), timeoutMs);
   const signal = externalSignal
@@ -80,11 +93,24 @@ async function invokeWithTimeout(chatModel, messages, timeoutMs, externalSignal)
           const error = new Error(
             externalSignal?.aborted ? 'Model request aborted' : 'Model request timed out',
           );
+          error.code = externalSignal?.aborted ? 'MODEL_CANCELLED' : 'MODEL_TIMEOUT';
           error.name = externalSignal?.aborted ? 'AbortError' : 'TimeoutError';
           reject(error);
         }, { once: true });
       }),
     ]);
+  } catch (error) {
+    if (externalSignal?.aborted) {
+      const cancellation = new Error('Model request aborted');
+      cancellation.code = 'MODEL_CANCELLED';
+      throw cancellation;
+    }
+    if (timeoutController.signal.aborted) {
+      const timeout = new Error('Model request timed out');
+      timeout.name = 'TimeoutError';
+      throw timeout;
+    }
+    throw error;
   } finally {
     clearTimeout(timeoutId);
   }
@@ -183,6 +209,15 @@ export class LangChainModelAdapter {
       }
 
       const result = parsedOutput.data;
+      if (
+        request.task_type !== 'CLASSIFY_INTENT'
+        && result.intent !== null
+        && result.intent !== request.mode
+      ) {
+        const error = new Error('Model returned an intent outside the active route');
+        error.code = 'INVALID_MODEL_OUTPUT';
+        throw error;
+      }
       if (!request.constraints.allowed_actions.includes(result.suggested_action)) {
         const error = new Error('Model returned an action outside the request allowlist');
         error.code = 'INVALID_MODEL_OUTPUT';
@@ -192,6 +227,11 @@ export class LangChainModelAdapter {
       if (result.citations.some((citation) => !sourceIds.has(citation))) {
         const error = new Error('Model returned an unknown citation');
         error.code = 'INVALID_MODEL_OUTPUT';
+        throw error;
+      }
+      if (containsRejectedModelClaim(result.content)) {
+        const error = new Error('Model output crossed a fixed content boundary');
+        error.code = 'CONTENT_REJECTED';
         throw error;
       }
 
