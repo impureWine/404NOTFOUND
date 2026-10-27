@@ -195,9 +195,10 @@ export function ConfirmDialog({ onCancel, onConfirm }) {
   useEffect(() => {
     const previous = document.activeElement;
     dialog.current.showModal();
+    dialog.current.querySelector('[data-end-initial]')?.focus();
     return () => { dialog.current?.close(); previous?.focus?.(); };
   }, []);
   return <dialog ref={dialog} className="confirm-dialog" aria-labelledby="end-title" aria-describedby="end-description" onCancel={event => { event.preventDefault(); onCancel(); }}>
-    <h2 id="end-title">结束这次演示？</h2><p id="end-description">当前页的消息、提交快照和草稿将被清空。这里没有保存记录，也没有服务端任务需要结束。</p><div className="button-row"><Button variant="neutral" autoFocus onClick={onCancel}>继续留在这里</Button><Button onClick={onConfirm}>结束并清空</Button></div>
+    <h2 id="end-title">结束这次演示？</h2><p id="end-description">当前页的消息、提交快照和草稿将被清空。这里没有保存记录，也没有服务端任务需要结束。</p><div className="button-row"><Button variant="neutral" data-end-initial onClick={onCancel}>继续留在这里</Button><Button onClick={onConfirm}>结束并清空</Button></div>
   </dialog>;
 }

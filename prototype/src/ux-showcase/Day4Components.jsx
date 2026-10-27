@@ -42,13 +42,15 @@ export function RecordDialog({ title, description, children, onCancel }) {
 export function SaveSelection({ items, selectedIds, title, locked, onToggle, onTitle, onPreview }) {
   const picked = items.filter(item => selectedIds.includes(item.id));
   const titleInvalid = !title.trim() || codePoints(title.trim()) > 80;
+  const titleError = !title.trim() ? '请填写记录标题，不能只输入空格。' : codePoints(title.trim()) > 80 ? '标题超过 80 码点，请缩短后再预览。' : '';
   const count = picked.reduce((sum, item) => sum + codePoints(item.text), 0);
   const invalid = titleInvalid || !picked.length || picked.length > 20 || count > 12000;
   return <form className="save-selection" onSubmit={event => { event.preventDefault(); if (!locked && !invalid) onPreview(); }}>
     <label className="record-field" htmlFor="record-save-title"><span>记录标题</span>
       <input id="record-save-title" value={title} onChange={event => onTitle(event.target.value)} disabled={locked}
-        aria-invalid={titleInvalid} aria-describedby="record-title-limit" />
+        aria-invalid={titleInvalid} aria-describedby={`record-title-limit${titleError ? ' record-title-error' : ''}`} />
       <small id="record-title-limit">{codePoints(title.trim())} / 80 码点 · 不能全为空格</small>
+      {titleError && <small id="record-title-error" className="field-error" role="alert">{titleError}</small>}
     </label>
     <fieldset disabled={locked}><legend>选择要保存的内容</legend><p>默认不选；仅保存这次明确勾选的片段。</p>
       {items.map(item => <label className={`save-message-option ${selectedIds.includes(item.id) ? 'chosen' : ''}`} key={item.id}>
@@ -57,6 +59,8 @@ export function SaveSelection({ items, selectedIds, title, locked, onToggle, onT
       </label>)}
     </fieldset>
     <div className="record-selection-summary" role="status">已选 {picked.length} / 20 条，共 {count} / 12000 码点</div>
+    {!picked.length && <p className="record-muted">请至少选择一条片段，再预览保存范围。</p>}
+    {picked.length > 20 && <p className="field-error" role="alert">最多选择 20 条片段，请减少选择后再预览。</p>}
     {count > 12000 && <p className="field-error" role="alert">所选内容超出上限，请减少片段；内容不会被静默截断。</p>}
     <Button type="submit" disabled={locked || invalid} icon={Bookmark}>预览保存范围</Button>
   </form>;
@@ -86,6 +90,7 @@ export function GuestSaveGate({ keepSelection, onKeepSelection, onCancel, onLogi
 export function RecordHistoryList({ items, filter, onFilter, status, onRetry, onStart, onOpen, onLogin }) {
   const visible = items.filter(item => filter === 'ALL' || item.kind === filter);
   const actualStatus = status === 'normal' && !visible.length ? 'empty' : status;
+  const filteredEmpty = actualStatus === 'empty' && filter !== 'ALL';
   const copy = {
     loading: ['正在读取本人历史', '读取期间不显示旧身份的记录；你可以使用其他入口。'],
     error: ['历史暂时无法读取', '读取失败不代表没有记录。请重试，不会用空列表替代失败。'],
@@ -99,8 +104,8 @@ export function RecordHistoryList({ items, filter, onFilter, status, onRetry, on
       <option value="ALL">全部类型</option>{Object.entries(RECORD_KINDS).map(([key, name]) => <option key={key} value={key}>{name}</option>)}
     </select><span>仅当前模拟账号 · Web 入口</span></div>
     <AsyncState status={actualStatus} title={copy[0]} description={copy[1]} onRetry={status === 'error' ? onRetry : undefined}
-      retryLabel="重试读取示例历史" onStart={actualStatus === 'empty' ? onStart : ['expired', 'guest'].includes(actualStatus) ? onLogin : undefined}
-      startLabel={actualStatus === 'expired' ? '重新模拟登录' : actualStatus === 'guest' ? '模拟登录查看' : '去选择保存内容'}>
+      retryLabel="重试读取示例历史" onStart={filteredEmpty ? () => onFilter('ALL') : actualStatus === 'empty' ? onStart : ['expired', 'guest'].includes(actualStatus) ? onLogin : undefined}
+      startLabel={filteredEmpty ? '清除筛选，查看全部' : actualStatus === 'expired' ? '重新模拟登录' : actualStatus === 'guest' ? '模拟登录查看' : '去选择保存内容'}>
       <ul className="history-records" aria-label="本人历史记录">{visible.map(item => <li key={item.id}>
         <button className="history-record-button" type="button" onClick={() => onOpen(item.id)}>
           <span className="record-icon"><FileText size={23} aria-hidden="true" /></span>

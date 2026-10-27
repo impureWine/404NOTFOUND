@@ -1,0 +1,9 @@
+PASS formal auth dialog starts at login name, contains Tab focus, Escape closes and restores trigger
+PASS 64-character login name and 128-code-point password accepted locally; 129 blocked without truncation; no mock login success
+PASS mode change clears all fields; registration 11 code points blocked, 12 accepted, mismatch points to confirmation field
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+false !== true
+
+    at D:\DSH\软工实践\工程\.codex-project-review\404NOTFOUND-ux-day5-20261027\docs\alpha\郭昱祺\Day5_20261027\scripts\walkthrough-day5.cjs:99:12
+RESULT failed: 3 check groups; 3 screenshots

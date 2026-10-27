@@ -1,0 +1,157 @@
+{
+  "login-feedback": {
+    "source": "screenshots/03b-formal-login-form.png",
+    "source_sha256": "8459156f820403de6a37ba1520d4d65ee8b65a7f88593041af766bcc68a0bf5d",
+    "crop_xyxy": [
+      0,
+      102,
+      378,
+      275
+    ],
+    "output": "images/login-feedback.png",
+    "size": [
+      378,
+      173
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "home-empty": {
+    "source": "screenshots/12-home-empty.png",
+    "source_sha256": "05199ac811045458b3c1ccd3cd50faaf28062642460e1fb811d27526248c23fa",
+    "crop_xyxy": [
+      345,
+      112,
+      775,
+      305
+    ],
+    "output": "images/home-empty.png",
+    "size": [
+      430,
+      193
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "home-failure": {
+    "source": "screenshots/13-home-error.png",
+    "source_sha256": "06d7ce5d7d6634450755adb76ee772b4bcf99d71da30bd94fdf1242729adec42",
+    "crop_xyxy": [
+      290,
+      112,
+      830,
+      305
+    ],
+    "output": "images/home-failure.png",
+    "size": [
+      540,
+      193
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "chat-end": {
+    "source": "screenshots/11-chat-end-confirmation.png",
+    "source_sha256": "c7310f5128060c931b8ed19e9c91a20a2d627756d83095081219bee915bff6ec",
+    "crop_xyxy": null,
+    "output": "images/chat-end.png",
+    "size": [
+      500,
+      206
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "source-unknown": {
+    "source": "screenshots/15-sources.png",
+    "source_sha256": "bf025d4f5cd43e6c740ed6c09bfcf8c4a379de23ed9a6781bc3f675769593a71",
+    "crop_xyxy": [
+      608,
+      126,
+      1077,
+      291
+    ],
+    "output": "images/source-unknown.png",
+    "size": [
+      469,
+      165
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "emotion-carry": {
+    "source": "screenshots/16-emotion.png",
+    "source_sha256": "3429d81a363e83985a60d9aba61048eee9d272b6a3bc316ac8a500f933d62344",
+    "crop_xyxy": [
+      589,
+      109,
+      929,
+      275
+    ],
+    "output": "images/emotion-carry.png",
+    "size": [
+      340,
+      166
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "training-start": {
+    "source": "screenshots/17-training.png",
+    "source_sha256": "63ef88a6fb6836fcbf35284c88c8b7c1e321f84965484e0283e0e80eb8144e36",
+    "crop_xyxy": [
+      20,
+      146,
+      545,
+      312
+    ],
+    "output": "images/training-start.png",
+    "size": [
+      525,
+      166
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "save-consent": {
+    "source": "screenshots/07-save-confirmation.png",
+    "source_sha256": "157e980aa6ff8ff83aedd15d217ac4e8030edfdf639c83147bf1c340030eae96",
+    "crop_xyxy": [
+      20,
+      305,
+      277,
+      414
+    ],
+    "output": "images/save-consent.png",
+    "size": [
+      257,
+      109
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "history-filter": {
+    "source": "screenshots/08-history-filter-empty.png",
+    "source_sha256": "0ba2081564aa1cee9dbe784af7de619a3fe5b41b8551ecaf04af8b03e2c8762b",
+    "crop_xyxy": [
+      330,
+      128,
+      786,
+      337
+    ],
+    "output": "images/history-filter.png",
+    "size": [
+      456,
+      209
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  },
+  "record-keep": {
+    "source": "screenshots/10-record-clear-confirmation.png",
+    "source_sha256": "d62fcab001cf20900cc405f6896c279a7847ff4c8a9044aac1c96c21872df12f",
+    "crop_xyxy": [
+      20,
+      197,
+      440,
+      289
+    ],
+    "output": "images/record-keep.png",
+    "size": [
+      420,
+      92
+    ],
+    "processing": "仅裁切真实运行截图；未改写界面内容"
+  }
+}

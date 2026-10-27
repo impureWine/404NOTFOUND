@@ -117,6 +117,9 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e3a9bd; outline-offs
 .auth-dialog { position: relative; width: min(100%, 440px); padding: 30px; border: 1px solid #e7edeb; border-radius: 16px; background: #fff; box-shadow: 0 18px 60px #26363230; }
 .auth-dialog-close { position: absolute; top: 13px; right: 13px; display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 9px; background: transparent; color: #6b7875; }
 .auth-dialog-close:hover { background: #f6f8f7; }
+dialog.auth-dialog { width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; color: #33403f; }
+dialog.auth-dialog::backdrop { background: #27353270; }
+.auth-field-hint { margin-top: -6px; color: #6b7875; font-size: 11px; line-height: 1.7; }
 .auth-dialog-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: #f9eaf0; color: #984762; }
 .auth-dialog h2 { margin: 16px 0 5px; color: #33403f; font-size: 20px; }
 .auth-dialog-description { margin: 0; color: #6b7875; font-size: 12.5px; line-height: 1.65; }
