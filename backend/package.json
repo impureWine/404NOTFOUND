@@ -11,7 +11,7 @@
     "migrate": "node src/db/migrate.js",
     "test": "node --test",
     "test:ai": "node --test test/unit/model-config.test.js test/unit/model-adapter.test.js test/unit/naming-card-router.test.js test/unit/companion-task.test.js test/unit/training-service.test.js test/integration/model-http.test.js test/integration/companion-training-http.test.js",
-    "test:integration": "node --test test/integration/*.test.js",
+    "test:integration": "node --test test/integration",
     "check:release": "node scripts/release-check.js",
     "sample:ai": "node scripts/ai-samples.js",
     "smoke:model": "node scripts/model-smoke.js"
