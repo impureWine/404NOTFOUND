@@ -1,0 +1,45 @@
+# Day 6 日志与配置扫描记录（关欣 · 安全/内容审核）
+
+生成时间：
+2026-10-28 20:48:32
+扫描对象：main @ 
+dd888a6
+扫描范围：backend/src（不含 test/、scripts/）
+
+## A. 日志调用
+命令：Select-String -Path backend/src/**/*.js -Pattern "console\.(log|error|warn|info|debug)"
+结果：1 处 —— migrate.js:8  console.log(JSON.stringify({ applied }))（仅迁移名称）
+未引入结构化日志框架（无 pino / winston / bunyan）。
+结论：当前不存在把请求正文、密码、令牌或摘要写入日志的代码路径。
+
+## B. 错误响应脱敏
+文件：backend/src/http/request.js errorHandler
+ - 非法 JSON → code=INVALID_INPUT / 400，message=「请求正文不是有效的 JSON」
+ - 未知异常 → code=SERVICE_UNAVAILABLE / 503，message=「服务暂时不可用」（不回显 error.message）
+ - 仅 DomainError 的 details 作为 fields 返回
+潜在模式（低风险）：普通 Error 若带 STATUS_BY_CODE 中的 code，其 message 会被回显。
+当前这些 message 均为中文用户提示，不含内部标识：
+ - request.js:53 CSRF 校验失败（ACCESS_DENIED）
+ - auth-service.js:96 CSRF 校验失败（ACCESS_DENIED）
+ - auth-service.js:156 登录名或密码不正确（AUTH_REQUIRED）
+ - auth-service.js:222 当前密码不正确（AUTH_REQUIRED）
+ - consent-service.js:51 用途许可不存在、已过期或范围不匹配（ACCESS_DENIED）
+ - record-service.js:37 当前纵向链仅开放会话记录保存（SERVICE_UNAVAILABLE，实际返回通用文案）
+结论：当前无敏感信息回显；建议后续只允许 DomainError 携带对外文案。
+
+## C. 密钥与发布配置
+文件：backend/src/runtime-config.js
+ - DATABASE_URL 与 PROFILE_ENCRYPTION_KEY 为必填（L32、L83）
+ - 拒绝仍含 change-me 的 DATABASE_URL（L77）
+ - 拒绝文档中的占位密钥 AAAA...=（L80）
+ - APP_ORIGIN 必须是绝对 http(s) 且不含凭据/路径（L22、L26）
+ - https 源下要求 SESSION_COOKIE_SECURE=true（L38）
+命令：npm run check:release（空配置）
+结果：BLOCKED —— DATABASE_URL is required；PROFILE_ENCRYPTION_KEY is required
+说明：这是环境前置缺失，不是自动化测试失败，也不能表述为已发布。
+
+## D. 载体说明
+本文件是扫描命令结果的整理记录；完整原始输出见同目录：
+ - p0-recheck-day6.txt（P0 探针运行输出）
+ - release-check-day6.txt（发布配置检查输出）
+ - full-suite-day6.txt（全量测试输出）
