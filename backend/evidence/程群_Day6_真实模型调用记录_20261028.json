@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "real_model_smoke_call",
+  "executed_at": "2026-10-28T16:48:33.921+08:00",
+  "environment": {
+    "scope": "local_demo_candidate",
+    "production_deployment": false,
+    "node": "v22.23.1",
+    "npm": "10.9.8",
+    "git_commit": "29e0e87efb2c8f6deb753b571af2a942d6c0d8bb",
+    "git_branch": "codex/ai-day5-regression"
+  },
+  "request": {
+    "command": "npm run smoke:model",
+    "request_id": "req-live-smoke-1793177313921",
+    "provider": "zhipu",
+    "configured_model": "glm-4.7-flash",
+    "base_url_host": "open.bigmodel.cn",
+    "timeout_ms": 30000,
+    "max_output_tokens": 256,
+    "automatic_retries": 0,
+    "input": "synthetic_non_personal_text",
+    "credential_source": "server_environment_variable",
+    "credential_value_recorded": false
+  },
+  "response": {
+    "status": "error",
+    "error_code": "MODEL_RATE_LIMITED",
+    "user_message": "模型服务当前繁忙，请稍后重试。",
+    "latency_ms": 668,
+    "attempts": 1,
+    "mock": false,
+    "provider_reported_model": null,
+    "usage": null
+  },
+  "conclusion": {
+    "provider_reached": true,
+    "successful_generation_verified": false,
+    "verification_status": "blocked_by_rate_limit",
+    "note": "真实供应商返回了限流错误；这不是模拟结果，但也不能证明模型成功生成或实际响应模型 ID。"
+  }
+}
