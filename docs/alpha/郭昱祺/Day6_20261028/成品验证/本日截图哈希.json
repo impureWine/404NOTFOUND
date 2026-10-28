@@ -1,0 +1,74 @@
+[
+  {
+    "file": "01-演示导航.png",
+    "url": "http://127.0.0.1:5190/",
+    "capturedAt": "2026-10-28T11:22:49.427Z",
+    "sha256": "357f3bd6b05dcfad624150a5e9d46814ee866436d90b97f09391a42738ac9013",
+    "size": [
+      1440,
+      960
+    ],
+    "newCapture": true,
+    "mode": "packaged static mock, no backend"
+  },
+  {
+    "file": "06-登录断连提示.png",
+    "url": "http://127.0.0.1:5190/site/index.html",
+    "capturedAt": "2026-10-28T11:22:52.674Z",
+    "sha256": "8e4bba4fb2c8841a6d9e7b50a4c7cc807d96e7171e49032613f0539e3b6f1973",
+    "size": [
+      1440,
+      1552
+    ],
+    "newCapture": true,
+    "mode": "packaged static mock, no backend"
+  },
+  {
+    "file": "02-来源定位与不确定性.png",
+    "url": "http://127.0.0.1:5190/site/ux-components.html?page=sources&state=normal",
+    "capturedAt": "2026-10-28T11:22:52.942Z",
+    "sha256": "76e57383372b84cb12a7940c6cc03d4f391b34eb0cd5d6322ed2b1b3cba72ea8",
+    "size": [
+      1440,
+      1055
+    ],
+    "newCapture": true,
+    "mode": "packaged static mock, no backend"
+  },
+  {
+    "file": "03-保存范围确认.png",
+    "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=normal",
+    "capturedAt": "2026-10-28T11:22:53.142Z",
+    "sha256": "e72efb96a58549dff1dd4f75d5d240fd3e5a29fcbf0c94cc9de52c5698a2b22f",
+    "size": [
+      1440,
+      1088
+    ],
+    "newCapture": true,
+    "mode": "packaged static mock, no backend"
+  },
+  {
+    "file": "04-清除安全默认.png",
+    "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=normal",
+    "capturedAt": "2026-10-28T11:22:53.310Z",
+    "sha256": "b70ac8d8f9f3b0e6faa25db29facc44bde0f3093e3aee9555647cf4ca70223d8",
+    "size": [
+      1440,
+      960
+    ],
+    "newCapture": true,
+    "mode": "packaged static mock, no backend"
+  },
+  {
+    "file": "05-窄屏首页失败.png",
+    "url": "http://127.0.0.1:5190/site/ux-components.html?page=home&state=error",
+    "capturedAt": "2026-10-28T11:22:53.584Z",
+    "sha256": "fb442522866ecc4f7a5c336d56331b637fa7c53ccdd8652ef6c5f15f6c955ff8",
+    "size": [
+      390,
+      2573
+    ],
+    "newCapture": true,
+    "mode": "packaged static mock, no backend"
+  }
+]

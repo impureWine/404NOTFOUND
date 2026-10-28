@@ -1,0 +1,392 @@
+{
+  "executedAt": "2026-10-28T11:16:40.645Z",
+  "target": "http://127.0.0.1:5190",
+  "mode": "packaged-static-mock",
+  "states": [
+    {
+      "scene": "login",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=login&state=normal",
+      "title": "登录 · LG-N · UX 组件展示"
+    },
+    {
+      "scene": "login",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=login&state=loading",
+      "title": "登录 · LG-L · UX 组件展示"
+    },
+    {
+      "scene": "login",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=login&state=empty",
+      "title": "登录 · LG-E · UX 组件展示"
+    },
+    {
+      "scene": "login",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=login&state=error",
+      "title": "登录 · LG-F · UX 组件展示"
+    },
+    {
+      "scene": "home",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=home&state=normal",
+      "title": "首页 · HP-N · UX 组件展示"
+    },
+    {
+      "scene": "home",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=home&state=loading",
+      "title": "首页 · HP-L · UX 组件展示"
+    },
+    {
+      "scene": "home",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=home&state=empty",
+      "title": "首页 · HP-E · UX 组件展示"
+    },
+    {
+      "scene": "home",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=home&state=error",
+      "title": "首页 · HP-F · UX 组件展示"
+    },
+    {
+      "scene": "chat",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=chat&state=normal",
+      "title": "聊天 · CH-N · UX 组件展示"
+    },
+    {
+      "scene": "chat",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=chat&state=loading",
+      "title": "聊天 · CH-L · UX 组件展示"
+    },
+    {
+      "scene": "chat",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=chat&state=empty",
+      "title": "聊天 · CH-E · UX 组件展示"
+    },
+    {
+      "scene": "chat",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=chat&state=error",
+      "title": "聊天 · CH-F · UX 组件展示"
+    },
+    {
+      "scene": "chat",
+      "state": "timeout",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=chat&state=timeout",
+      "title": "聊天 · CH-T · UX 组件展示"
+    },
+    {
+      "scene": "sources",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=sources&state=normal",
+      "title": "来源展示 · SR-N · UX 组件展示"
+    },
+    {
+      "scene": "sources",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=sources&state=loading",
+      "title": "来源展示 · SR-L · UX 组件展示"
+    },
+    {
+      "scene": "sources",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=sources&state=empty",
+      "title": "来源展示 · SR-E · UX 组件展示"
+    },
+    {
+      "scene": "sources",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=sources&state=error",
+      "title": "来源展示 · SR-F · UX 组件展示"
+    },
+    {
+      "scene": "sources",
+      "state": "timeout",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=sources&state=timeout",
+      "title": "来源展示 · SR-T · UX 组件展示"
+    },
+    {
+      "scene": "emotion",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=emotion&state=normal",
+      "title": "情绪命名卡 · EC-N · UX 组件展示"
+    },
+    {
+      "scene": "emotion",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=emotion&state=loading",
+      "title": "情绪命名卡 · EC-L · UX 组件展示"
+    },
+    {
+      "scene": "emotion",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=emotion&state=empty",
+      "title": "情绪命名卡 · EC-E · UX 组件展示"
+    },
+    {
+      "scene": "emotion",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=emotion&state=error",
+      "title": "情绪命名卡 · EC-F · UX 组件展示"
+    },
+    {
+      "scene": "training",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=training&state=normal",
+      "title": "训练操作 · TR-N · UX 组件展示"
+    },
+    {
+      "scene": "training",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=training&state=loading",
+      "title": "训练操作 · TR-L · UX 组件展示"
+    },
+    {
+      "scene": "training",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=training&state=empty",
+      "title": "训练操作 · TR-E · UX 组件展示"
+    },
+    {
+      "scene": "training",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=training&state=error",
+      "title": "训练操作 · TR-F · UX 组件展示"
+    },
+    {
+      "scene": "save",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=normal",
+      "title": "主动保存 · SV-N · UX 组件展示"
+    },
+    {
+      "scene": "save",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=loading",
+      "title": "主动保存 · SV-L · UX 组件展示"
+    },
+    {
+      "scene": "save",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=empty",
+      "title": "主动保存 · SV-E · UX 组件展示"
+    },
+    {
+      "scene": "save",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=error",
+      "title": "主动保存 · SV-F · UX 组件展示"
+    },
+    {
+      "scene": "save",
+      "state": "timeout",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=timeout",
+      "title": "主动保存 · SV-T · UX 组件展示"
+    },
+    {
+      "scene": "save",
+      "state": "success",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=success",
+      "title": "主动保存 · SV-S · UX 组件展示"
+    },
+    {
+      "scene": "save",
+      "state": "expired",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=expired",
+      "title": "主动保存 · SV-X · UX 组件展示"
+    },
+    {
+      "scene": "history",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=history&state=normal",
+      "title": "本人历史 · HS-N · UX 组件展示"
+    },
+    {
+      "scene": "history",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=history&state=loading",
+      "title": "本人历史 · HS-L · UX 组件展示"
+    },
+    {
+      "scene": "history",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=history&state=empty",
+      "title": "本人历史 · HS-E · UX 组件展示"
+    },
+    {
+      "scene": "history",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=history&state=error",
+      "title": "本人历史 · HS-F · UX 组件展示"
+    },
+    {
+      "scene": "history",
+      "state": "expired",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=history&state=expired",
+      "title": "本人历史 · HS-X · UX 组件展示"
+    },
+    {
+      "scene": "record-detail",
+      "state": "normal",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=normal",
+      "title": "记录详情 · RD-N · UX 组件展示"
+    },
+    {
+      "scene": "record-detail",
+      "state": "loading",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=loading",
+      "title": "记录详情 · RD-L · UX 组件展示"
+    },
+    {
+      "scene": "record-detail",
+      "state": "empty",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=empty",
+      "title": "记录详情 · RD-E · UX 组件展示"
+    },
+    {
+      "scene": "record-detail",
+      "state": "error",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=error",
+      "title": "记录详情 · RD-F · UX 组件展示"
+    },
+    {
+      "scene": "record-detail",
+      "state": "expired",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=expired",
+      "title": "记录详情 · RD-X · UX 组件展示"
+    },
+    {
+      "scene": "record-detail",
+      "state": "unavailable",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=unavailable",
+      "title": "记录详情 · RD-U · UX 组件展示"
+    },
+    {
+      "scene": "record-detail",
+      "state": "conflict",
+      "status": "passed",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=conflict",
+      "title": "记录详情 · RD-C · UX 组件展示"
+    }
+  ],
+  "checks": [
+    {
+      "name": "导航页15个本地链接可达",
+      "status": "passed",
+      "count": 15
+    },
+    {
+      "name": "9场景45个预置状态可打开",
+      "status": "passed",
+      "count": 45,
+      "scope": "HTTP200、已选状态与非空组件；不代替逐项交互验收"
+    },
+    {
+      "name": "引用编号展开来源且保留未知时间",
+      "status": "passed"
+    },
+    {
+      "name": "保存确认→历史→详情→取消清除→确认清除连续操作通过",
+      "status": "passed",
+      "persistence": "page-memory-only",
+      "safeDefaultFocus": true
+    },
+    {
+      "name": "390px首页失败态无全页横向溢出",
+      "status": "passed"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "01-演示导航.png",
+      "url": "http://127.0.0.1:5190/",
+      "capturedAt": "2026-10-28T11:16:41.419Z"
+    },
+    {
+      "file": "02-来源定位与不确定性.png",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=sources&state=normal",
+      "capturedAt": "2026-10-28T11:16:44.541Z"
+    },
+    {
+      "file": "03-保存范围确认.png",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=save&state=normal",
+      "capturedAt": "2026-10-28T11:16:44.761Z"
+    },
+    {
+      "file": "04-清除安全默认.png",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=record-detail&state=normal",
+      "capturedAt": "2026-10-28T11:16:44.903Z"
+    },
+    {
+      "file": "05-窄屏首页失败.png",
+      "url": "http://127.0.0.1:5190/site/ux-components.html?page=home&state=error",
+      "capturedAt": "2026-10-28T11:16:45.146Z"
+    }
+  ],
+  "javascriptErrors": [],
+  "businessRequests": [],
+  "externalRequests": [
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg",
+    "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg"
+  ],
+  "status": "failed",
+  "failure": "page.waitForFunction: Timeout 30000ms exceeded.\n    at main (D:\\DSH\\软工实践\\工程\\.codex-project-review\\404NOTFOUND-ux-day5-20261027\\docs\\alpha\\郭昱祺\\Day6_20261028\\scripts\\smoke-demo.cjs:94:16)",
+  "finishedAt": "2026-10-28T11:17:15.221Z"
+}
