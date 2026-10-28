@@ -1,0 +1,57 @@
+{
+  "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "recordedAt": "2026-10-28T11:29:32.795Z",
+  "browser": "Microsoft Edge headless 1440x1100",
+  "buildMode": "unmodified default production build, mock API mode; no business backend",
+  "main": {
+    "status": 200,
+    "title": "404NOTFOUND · 404烦恼未找到",
+    "destroyControls": [],
+    "textareaCount": 0,
+    "privateRecordsNotConnectedNotice": true,
+    "screenshot": "day6-main-home.png"
+  },
+  "candidates": [
+    {
+      "path": "/destroy",
+      "status": 404,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    },
+    {
+      "path": "/text-destroy.html",
+      "status": 404,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    },
+    {
+      "path": "/destroy.html",
+      "status": 404,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    },
+    {
+      "path": "/?page=destroy",
+      "status": 200,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    },
+    {
+      "path": "/#destroy",
+      "status": 200,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    }
+  ],
+  "ux": {
+    "title": "本人历史 · HS-N · UX 组件展示",
+    "syntheticNotice": true,
+    "screenshot": "day6-ux-history.png"
+  },
+  "requestCount": 27,
+  "apiRequests": 0,
+  "pageErrors": [],
+  "destructionRuntimeVerdict": "NOT-EXECUTED: main has no reachable destroy UI",
+  "privacyInteractionExecuted": false,
+  "wholeE2EPassed": false
+}

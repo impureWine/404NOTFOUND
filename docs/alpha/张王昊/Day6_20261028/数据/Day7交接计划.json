@@ -1,0 +1,82 @@
+[
+  {
+    "id": "A01",
+    "target": "候选阻塞／最高优先",
+    "owners": "李泉毅/程群→关欣/曾俊涛",
+    "action": "修P0内部入口授权和任务跨入口，审查PR54/63及当前main差异",
+    "gate": "非法请求不调用模型，跨入口读/取消404；新SHA复测，不能只让缺陷签名测试变绿",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A02",
+    "target": "核心阻塞",
+    "owners": "李泉毅/庄剀涵/程杰",
+    "action": "授权后输出可读历史DTO；整合前端分支",
+    "gate": "本人UI正文可读、B/跨入口拒绝、清除后不可读；密钥不下发",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A03",
+    "target": "核心阻塞",
+    "owners": "程群/李泉毅",
+    "action": "END/撤回/退出重登清空旧结果、保持取消正确",
+    "gate": "BG-07/08/09/10与查询生命周期在新SHA通过",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A04",
+    "target": "核心阻塞",
+    "owners": "程杰/关欣/曾俊涛",
+    "action": "整合Day6前端候选，执行REQ14完成/跳过/异常/离开",
+    "gate": "合成标记不进入网络、Storage、日志/AI；入口真实可达；保留适用范围",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A05",
+    "target": "10-28 23:00前候选评审",
+    "owners": "郭昱祺/张王昊/李泉毅/庄剀涵",
+    "action": "PPT加Alpha计划实际、燃尽限制、风险和下一阶段，实际试讲",
+    "gate": "有可编辑PPT/导出核对、时间/参与人/问题与修改回执；本人实际未发生不代填",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A06",
+    "target": "10-28 23:00前候选评审",
+    "owners": "关欣",
+    "action": "xlsx上传腾讯共享文档并交可访问链接",
+    "gate": "按真实评审者权限检查；本地xlsx不能替代腾讯表",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A07",
+    "target": "10-28 21:30计划已到则如实记逾期",
+    "owners": "全员/张王昊/曾俊涛",
+    "action": "收Day6真实站会/照片、各人进展问题计划心得、工时证据和已发布博客URL",
+    "gate": "不补造、复用照片；实际发布晚于计划保留时间",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A08",
+    "target": "10-29 12:00前必要修复",
+    "owners": "李泉毅/庄剀涵/程群",
+    "action": "Schema、认证幂等/续期/长名、超限错误码和可运行命令",
+    "gate": "固定新候选；portable集成39/39是当前复测方法，原命令修复另验",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A09",
+    "target": "10-29 15:30前最终冒烟",
+    "owners": "曾俊涛/庄剀涵/关欣",
+    "action": "授权PG16/HTTPS/迁移恢复和真实来源/模型；无资源则交可复现本机包",
+    "gate": "空/合成配置规则通过不等于发布；独立删除日志不能用布尔值充数",
+    "confirmed_by_owner": false
+  },
+  {
+    "id": "A10",
+    "target": "10-29 16:30/17:00/17:30",
+    "owners": "张王昊/全员",
+    "action": "真实Day7站会→17:00日志总结集合→17:30内部提交并群填报",
+    "gate": "正式截止23:59；记录11真实URL、链接状态、实际SP/贡献确认、提交回执；未完事项如实结转",
+    "confirmed_by_owner": false
+  }
+]

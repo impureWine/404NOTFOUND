@@ -1,0 +1,98 @@
+[
+  {
+    "name": "张王昊",
+    "role": "PM/需求",
+    "observed_deliverables": "Day6验收、总结、11篇清单、实际工作量依据和交接（本包）；Day5 PR60仍OPEN",
+    "receipt_state": "本人审阅与发布回执待补",
+    "reflection_basis": "本日AI协作执行事实见07；不代写本人主观心得",
+    "missing": "实际工时/贡献确认、团队评审",
+    "source": "本包 README.md",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  },
+  {
+    "name": "郭昱祺",
+    "role": "UX/PPT",
+    "observed_deliverables": "Day5交互修订及12页UX PPT已main；Issue68 CLOSED，README“尚未上传”已过时",
+    "receipt_state": "Day5本人站会稿与113组作者检查已收；Day6本人反馈未见",
+    "reflection_basis": "已有稿说明焦点回归、模拟与真实业务边界；尚无完整冲刺心得签认",
+    "missing": "团队Alpha结果/燃尽/后续计划PPT补页与实际试讲",
+    "source": "docs/alpha/郭昱祺/Day5_20261027/Day5_个人站会材料_20261027.md",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  },
+  {
+    "name": "程杰",
+    "role": "前端/Electron",
+    "observed_deliverables": "Day6分支0379a56；作者12/12、构建、25入口200，非main；Electron ACL失败",
+    "receipt_state": "已读取Day6作者交接；未代为执行其分支",
+    "reflection_basis": "Day6交接没有本人心得专栏，保留待补",
+    "missing": "整合分支、真实API/销毁隐私和桌面矩阵、工时心得",
+    "source": "issue:71",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  },
+  {
+    "name": "李泉毅",
+    "role": "后端",
+    "observed_deliverables": "Day6发布步骤与Day7提前稿在main；另有Issue72/PR73提前复核稿待合并；作者测试为旧/混合工作树",
+    "receipt_state": "作者111/111与34/34为旧基线；Issue72另声明Node20/混合工作树；本日PM124/124且交接命令失败",
+    "reflection_basis": "本人稿记述AI发现统计/命令问题与人工核验，不推算效率",
+    "missing": "Node22/PG16正式验证、修复命令、实际工时/完整心得",
+    "source": "deliverables/alpha-backend/6天/李泉毅_Day6_成员进展与AI贡献_博客稿.md",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  },
+  {
+    "name": "程群",
+    "role": "AI",
+    "observed_deliverables": "PR54/63仍OPEN；Day3已入main，Day5分支作者AI专项40/40不能当主线修复",
+    "receipt_state": "已有Issue62与PR63；Day6真实模型演示和本人新稿未见",
+    "reflection_basis": "没有取得Day6本人心得，不代填",
+    "missing": "AI授权/生命周期按新主线复测、真实调用及超时预案",
+    "source": "pr:63",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  },
+  {
+    "name": "庄剀涵",
+    "role": "数据/检索",
+    "observed_deliverables": "Day6提交a0118cb：迁移/隔离恢复报告与测试已main；PM独立恢复1/1",
+    "receipt_state": "作者聚焦49/49；本日PM集成39/39与全量覆盖，非正式PG",
+    "reflection_basis": "已收Day6心得：恢复安全还依赖独立删除日志和旧会话撤销；隔离测试不能替代运维证据（摘要）",
+    "missing": "PG16/pg_dump/pg_restore、独立删除日志与真实来源、工时",
+    "source": "backend/evidence/daily/Day6_迁移隔离恢复与答辩交接.md",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  },
+  {
+    "name": "关欣",
+    "role": "安全/评审",
+    "observed_deliverables": "PR69已合并；3条缺陷签名探针、xlsx评审草稿与Day5素材已收",
+    "receipt_state": "本日124全量独立复跑包含其探针，两个P0仍复现；Day6签认未见",
+    "reflection_basis": "已收Day5心得：将缺陷文字变为可复跑数字，对照记录与任务作用域发现隔离差异（摘要）",
+    "missing": "修复后复核、腾讯共享链接及访问权限、Day6回执工时",
+    "source": "docs/alpha/关欣/Day5_冲刺随笔素材_20261027.md",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  },
+  {
+    "name": "曾俊涛",
+    "role": "测试/运维",
+    "observed_deliverables": "Day5 main34d751c独立120/120、记录11/13、测试随笔更新稿已main",
+    "receipt_state": "QA API辅助记录不是正式记录UI；Day6最终环境/发布与博客URL未见",
+    "reflection_basis": "已收Day5体会：自动化全绿仍可能缺可读历史/许可，截图需同次JSON佐证（摘要）",
+    "missing": "最终回归/本机包或发布、测试随笔URL、会议照片和实际工时",
+    "source": "docs/alpha/曾俊涛/Day5_20261027/04_测试随笔更新稿_34d751c.md",
+    "actual_hours": null,
+    "agreed_contribution_percent": null,
+    "day6_member_confirmation": false
+  }
+]
