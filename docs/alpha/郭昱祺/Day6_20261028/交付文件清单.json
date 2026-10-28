@@ -1,0 +1,697 @@
+{
+  "createdAt": "2026-10-28T11:32:36.157615+00:00",
+  "files": [
+    {
+      "file": ".gitattributes",
+      "bytes": 135,
+      "sha256": "33844247bc9be7d9c9ec1d265d525421116fab909cec351718d75a29c324b24d"
+    },
+    {
+      "file": "Day6_个人站会材料_20261028.md",
+      "bytes": 3116,
+      "sha256": "eaf6c0f7c4ea8dc15f982a09151102cdce77238ab3876842b3d9cf8ee19db5f3"
+    },
+    {
+      "file": "PPT交付结构检查.json",
+      "bytes": 10334,
+      "sha256": "a1fd1f8aa690f369c954ada3f74e22e59e1da8b78e86894fd2a48b15476e5e88"
+    },
+    {
+      "file": "PPT内容回读.conversion_profile.json",
+      "bytes": 767,
+      "sha256": "240bb4d98e5bc670a07c0b51ecb49f36fb65a37a70c7ae7564281c5f0a5a6237"
+    },
+    {
+      "file": "PPT内容回读.md",
+      "bytes": 10000,
+      "sha256": "6314f61aba19c64433defc54375e6b131603b28a322a3a3a1243f40b423d961e"
+    },
+    {
+      "file": "PPT内容回读_files/image_428cab0d790b2342.png",
+      "bytes": 5910,
+      "sha256": "428cab0d790b2342ea77153df58073f3bb44da8fb1a123e73b3b1aee1dd370e0"
+    },
+    {
+      "file": "PPT内容回读_files/image_4a431b70e7ca3d8f.png",
+      "bytes": 7777,
+      "sha256": "4a431b70e7ca3d8f4f566c9f002a178d6bd90da4496740dc21020fc621fcea95"
+    },
+    {
+      "file": "PPT内容回读_files/image_8f75862a8d7feb01.png",
+      "bytes": 8382,
+      "sha256": "8f75862a8d7feb0121e79a206dc1cc27d110ea4d4b93cb564c243ea3bac7aee6"
+    },
+    {
+      "file": "PPT内容回读_files/image_a8dc35d8baf26583.png",
+      "bytes": 8886,
+      "sha256": "a8dc35d8baf265830e80b651c02218588b99b39133d7862753b907865842dfeb"
+    },
+    {
+      "file": "PPT内容回读_files/image_a978ced3b46e00ba.png",
+      "bytes": 7886,
+      "sha256": "a978ced3b46e00ba41a29f286fed2d1bb2a5a897e073cdf87593411f8a8c33ed"
+    },
+    {
+      "file": "PPT内容回读_files/image_bb97a3327fdb9de2.png",
+      "bytes": 8241,
+      "sha256": "bb97a3327fdb9de2b8cd397a222247766359c2bb684efb66ab2df6357892f3d3"
+    },
+    {
+      "file": "PPT内容回读_files/image_bcc5f108e363e8e3.png",
+      "bytes": 10200,
+      "sha256": "bcc5f108e363e8e33b8e3bc68ddc5d20d9ae0b154cf32edef07b8d80e8bd6550"
+    },
+    {
+      "file": "PPT内容回读_files/image_e072054799ae02be.png",
+      "bytes": 9071,
+      "sha256": "e072054799ae02be8beaa474770b47ff4d5f763c40641e40e75a3ccb91ed9a0d"
+    },
+    {
+      "file": "PPT内容回读_files/image_f9a8df44adff7d8e.png",
+      "bytes": 15120,
+      "sha256": "f9a8df44adff7d8e8ea2a028f013e060c8a942549bc7440fdafdb2f76d059bea"
+    },
+    {
+      "file": "PPT内容回读_files/image_fb22eeba59a5235a.png",
+      "bytes": 10771,
+      "sha256": "fb22eeba59a5235a71daa125dd6adba453235f2abf89bf2a3ec3cb30d8a5dd53"
+    },
+    {
+      "file": "PPT内容回读_files/image_manifest.json",
+      "bytes": 11507,
+      "sha256": "a59d602ec6d047232e75cf0e9aebeb35bb073f17cc17af23e454f9d8d05b0545"
+    },
+    {
+      "file": "PPT原生导出收据.json",
+      "bytes": 24762,
+      "sha256": "70eb895dfa3409960954f1ab01f4160ac952d14e7f0411184984086c4e25c0b9"
+    },
+    {
+      "file": "PPT可编辑性与保留校验.json",
+      "bytes": 3849,
+      "sha256": "6fd147632051a8c9529b3a15837f4055e8973ab9ee92fae012b2f02e20b3c459"
+    },
+    {
+      "file": "PPT讲稿.md",
+      "bytes": 5948,
+      "sha256": "31c0a53f371d315694a0620bae5bec0d93c18fd5300f8e9fca45c19bfa9d29a8"
+    },
+    {
+      "file": "PPT页序与编辑校验.json",
+      "bytes": 3175,
+      "sha256": "a7d0ebe7d0875e85a6068cd1e7543da34eff6fb2151f7c42c8c515ed1f605fff"
+    },
+    {
+      "file": "PPT页序与证据映射.md",
+      "bytes": 2852,
+      "sha256": "c1449ba56d1dcd3732b9aa3a188a1393f74d27fc2ae33d06c6c58ca841f40504"
+    },
+    {
+      "file": "PPT预览/12页总览.png",
+      "bytes": 474088,
+      "sha256": "4c4d297a3dbe5380c46080631a896cd932164a7198a70ead6cd7baa1950a9834"
+    },
+    {
+      "file": "PPT预览/幻灯片1.PNG",
+      "bytes": 13608,
+      "sha256": "b97837a906605743afdae4920c05f1cd1747400af7a6f3bd579ffac283e2c205"
+    },
+    {
+      "file": "PPT预览/幻灯片10.PNG",
+      "bytes": 81985,
+      "sha256": "fd73bfb6298fee71502b552fde82fe2accf976e66414be2763418e835912b298"
+    },
+    {
+      "file": "PPT预览/幻灯片11.PNG",
+      "bytes": 33957,
+      "sha256": "24872244192b02e88628eb65abea2c6221437f0d28ccd2b465047199698cd929"
+    },
+    {
+      "file": "PPT预览/幻灯片12.PNG",
+      "bytes": 37934,
+      "sha256": "077eb864ba0d06d52c59c7e58be685e1b72fe350839109816540e9c607bc4ca4"
+    },
+    {
+      "file": "PPT预览/幻灯片2.PNG",
+      "bytes": 37304,
+      "sha256": "a256544ff4137f1dc631d6458225eba51084bdd361371562d5ef529546e5bd65"
+    },
+    {
+      "file": "PPT预览/幻灯片3.PNG",
+      "bytes": 41001,
+      "sha256": "b9b1cf169620cb6f345596e60c3a30464fc55fc622650979ec7f01cbc387fd62"
+    },
+    {
+      "file": "PPT预览/幻灯片4.PNG",
+      "bytes": 84896,
+      "sha256": "f8ce744db5f28df556afb51c01493624a0f7e9abe1a60a2f6872a1b695497bea"
+    },
+    {
+      "file": "PPT预览/幻灯片5.PNG",
+      "bytes": 83910,
+      "sha256": "e97d5357adaa1fd5f65ab8de87bf2fee5d6ab7ef0f0f57ae00c637fbe9dc7d65"
+    },
+    {
+      "file": "PPT预览/幻灯片6.PNG",
+      "bytes": 84555,
+      "sha256": "6b71f85fea1a0239407d9dd7e7bc359c953c170f7106c8a9a575cb18391d74fe"
+    },
+    {
+      "file": "PPT预览/幻灯片7.PNG",
+      "bytes": 79289,
+      "sha256": "eddd90f069ddcd599a6a6f8931e650b1e324e4da7418f24cf1dcfaf0f90d813c"
+    },
+    {
+      "file": "PPT预览/幻灯片8.PNG",
+      "bytes": 96403,
+      "sha256": "63e9faa2c11e5860ad48f1a44f253f7f3284ec2e5c6efec0fa19a07d2a510ae2"
+    },
+    {
+      "file": "PPT预览/幻灯片9.PNG",
+      "bytes": 91817,
+      "sha256": "de20868fdf0d2f7f83d53b5c5183f568ffd3b05283dc0a058b158c6debb01f68"
+    },
+    {
+      "file": "README.md",
+      "bytes": 5740,
+      "sha256": "1761a089ca33d083b5fb0e1982fd97e599011eac1a74e2816781d99d20610af0"
+    },
+    {
+      "file": "scripts/check-and-assemble.py",
+      "bytes": 4164,
+      "sha256": "d86978ae6d232b0319f7d3a55a0aa6901ad7644bd7e45e1d0f0dca38180a6a47"
+    },
+    {
+      "file": "scripts/finalize-evidence.py",
+      "bytes": 2582,
+      "sha256": "7abe3480292e0a8ebab9850100f626862f8adf6c001026843c65623d7cfbe28b"
+    },
+    {
+      "file": "scripts/make-demo-offline.py",
+      "bytes": 1544,
+      "sha256": "d7f21cafd2c3ab71de1cca606b7ec16f956ff398ac63a4d73cbd97dc3897e723"
+    },
+    {
+      "file": "scripts/package-delivery.py",
+      "bytes": 2785,
+      "sha256": "0880b4d90afbc8984e16583f353344df0c91462f457c43c603bd63d749462b30"
+    },
+    {
+      "file": "scripts/prepare-materials.py",
+      "bytes": 4208,
+      "sha256": "399c39dd3a883e647165ca3a0839737c9eea58868278cce455b542a53a13289f"
+    },
+    {
+      "file": "scripts/render-native-ppt.ps1",
+      "bytes": 1013,
+      "sha256": "7e488d19d8f0da341482d339114d431b4c66df6a7d828d41ff74825fd3b1eed0"
+    },
+    {
+      "file": "scripts/smoke-demo.cjs",
+      "bytes": 9357,
+      "sha256": "aa64c3e0270d7ea39ea504f133e8beffeb008985c7d32f1c089df98120608e88"
+    },
+    {
+      "file": "scripts/update-native-deck.py",
+      "bytes": 6137,
+      "sha256": "62c00d4952f89bedfa79315181187fa462e0c08f6a51847056a979cbf50bf9da"
+    },
+    {
+      "file": "SVG质量检查.json",
+      "bytes": 11554,
+      "sha256": "7b8097154c8a347ff1dec2af4d800fbbc554981795fbf692cd4ceaa1face5b85"
+    },
+    {
+      "file": "UX_界面原型设计答辩_可编辑稿_v0.2_20261028.pptx",
+      "bytes": 153666,
+      "sha256": "1e01f5b20068ee9ad0500d4a8022cc5c13949e4771b76d646158d96d48a764ab"
+    },
+    {
+      "file": "引用证据/关欣_Day5_安全复核表_20261027.md",
+      "bytes": 11436,
+      "sha256": "2d1d5368b0a12f38b2071151c539b0c1dee682cb63554c6565c785a50c613d79"
+    },
+    {
+      "file": "引用证据/数据岗_Day6_迁移隔离恢复与答辩交接.md",
+      "bytes": 5703,
+      "sha256": "8e8c045d2f269884074606730260d7eb571476a0e697924c34b8bd103c7e7b40"
+    },
+    {
+      "file": "引用证据/来源.json",
+      "bytes": 1760,
+      "sha256": "ad55a0dd4046693571cfbbb484162bb1b293eb3806e0038b8122fb1396540be3"
+    },
+    {
+      "file": "引用证据/测试岗_最新主线独立复核_34d751c.md",
+      "bytes": 4307,
+      "sha256": "e6faae304cdd3923a9f1d5d2a15a142f0452b5e9f56e200d8d93c341bed35757"
+    },
+    {
+      "file": "成品验证/01-演示导航.png",
+      "bytes": 75271,
+      "sha256": "357f3bd6b05dcfad624150a5e9d46814ee866436d90b97f09391a42738ac9013"
+    },
+    {
+      "file": "成品验证/02-来源定位与不确定性.png",
+      "bytes": 124040,
+      "sha256": "76e57383372b84cb12a7940c6cc03d4f391b34eb0cd5d6322ed2b1b3cba72ea8"
+    },
+    {
+      "file": "成品验证/03-保存范围确认.png",
+      "bytes": 162663,
+      "sha256": "e72efb96a58549dff1dd4f75d5d240fd3e5a29fcbf0c94cc9de52c5698a2b22f"
+    },
+    {
+      "file": "成品验证/04-清除安全默认.png",
+      "bytes": 127298,
+      "sha256": "b70ac8d8f9f3b0e6faa25db29facc44bde0f3093e3aee9555647cf4ca70223d8"
+    },
+    {
+      "file": "成品验证/05-窄屏首页失败.png",
+      "bytes": 219428,
+      "sha256": "fb442522866ecc4f7a5c336d56331b637fa7c53ccdd8652ef6c5f15f6c955ff8"
+    },
+    {
+      "file": "成品验证/06-登录断连提示.png",
+      "bytes": 342478,
+      "sha256": "8e4bba4fb2c8841a6d9e7b50a4c7cc807d96e7171e49032613f0539e3b6f1973"
+    },
+    {
+      "file": "成品验证/本日截图哈希.json",
+      "bytes": 2265,
+      "sha256": "579de61d2cb820b318fc898c54a58042ad03a5d4d16b60b99f3d89ed2b0a352b"
+    },
+    {
+      "file": "成品验证/演示包冒烟报告.json",
+      "bytes": 13163,
+      "sha256": "15a955420d0d2621cfb9c06b8620af7aae76488ba892cc786adffba7c721eabb"
+    },
+    {
+      "file": "成品验证/第三次检查_发现外部装饰图依赖.json",
+      "bytes": 13870,
+      "sha256": "ad0dfafd8e7f490349baacf025cd570b50daacb83018274394ec419f5990ea10"
+    },
+    {
+      "file": "成品验证/第二次检查_懒加载等待未完成.json",
+      "bytes": 13603,
+      "sha256": "3c0f5122690c427346cfdff9175af0b8bfd23265d7dbcde20c904503eee076dc"
+    },
+    {
+      "file": "成品验证/首次检查_测试定位器未匹配.json",
+      "bytes": 12708,
+      "sha256": "4103a4dc07e566efd30a2bc91c318dd669279e86a30d0c0b82171b4ed35aec76"
+    },
+    {
+      "file": "截图与素材索引.md",
+      "bytes": 3894,
+      "sha256": "b82a714f324e4bc3f64b1b9113360f412300cd4f2fa461b143b658e3aae529d1"
+    },
+    {
+      "file": "演示包/serve.cjs",
+      "bytes": 2197,
+      "sha256": "4942226ff40f26618565f4f4ae5bfcc9d822b6718c02825ef01b605a1fefd7fa"
+    },
+    {
+      "file": "演示包/site/assets/404-mark.svg",
+      "bytes": 535,
+      "sha256": "33c5cd2cc4cd625414c994d9231ec90147a33398311118cf15974d65ea722b5e"
+    },
+    {
+      "file": "演示包/site/assets/current-home-G5V1DfsF.js",
+      "bytes": 158092,
+      "sha256": "4b9f8b020e3a4b39431033dd078e347379fcea3a34b431bfec2fa6789c463abe"
+    },
+    {
+      "file": "演示包/site/assets/current-home-iZDCqHQs.css",
+      "bytes": 16355,
+      "sha256": "542c0b62c85a56e0a4d66d949901b6326f6a9c416dae5a4ffb6af5eda45c33ba"
+    },
+    {
+      "file": "演示包/site/assets/main-AEFYW2bQ.js",
+      "bytes": 18433,
+      "sha256": "27b61ddb1608b05b1de52e4c3dbde7d6e00e79fae924da557d4ec6b19da2d047"
+    },
+    {
+      "file": "演示包/site/assets/uxComponents-DioYeY3C.js",
+      "bytes": 66331,
+      "sha256": "ad5f104a82de5ba681b17869881c97bf86dcde3b057cab305b91eca249d69154"
+    },
+    {
+      "file": "演示包/site/assets/uxComponents-kY-xrX59.css",
+      "bytes": 29261,
+      "sha256": "d4581b4cd5c2fb59ccf9447f191870499244c1888e7833de8d6828248e303dd9"
+    },
+    {
+      "file": "演示包/site/assets/worry-pet.png",
+      "bytes": 1161563,
+      "sha256": "c06739e10102c09a9daa9f5d6509145284804cc729b96fed933f9b843f56073a"
+    },
+    {
+      "file": "演示包/site/calendar-empty.html",
+      "bytes": 14668,
+      "sha256": "94c8e8d69a3893a5f8f400ed7ad9d83604b51161d2957817965319e52dd82f78"
+    },
+    {
+      "file": "演示包/site/calendar.html",
+      "bytes": 27303,
+      "sha256": "3cb4a7559598fc331fbc217ce513c6ab6e7e11bca097b9576681175f4f027e95"
+    },
+    {
+      "file": "演示包/site/companion-empty.html",
+      "bytes": 11379,
+      "sha256": "7a1a9f8059af93a99f9827f505c25cbc25e3d3937315959f6defb889e8bcc3ff"
+    },
+    {
+      "file": "演示包/site/companion-error.html",
+      "bytes": 11222,
+      "sha256": "091d4408540bffa2a3452c6997511dc7b0b138eee6ac54bfc4d659b7673085a0"
+    },
+    {
+      "file": "演示包/site/companion-loading.html",
+      "bytes": 11439,
+      "sha256": "299fdbdf4ac3ac1df7bb65e87959da83bed4b9e0bdcb451ed72fe146dbc9e226"
+    },
+    {
+      "file": "演示包/site/companion.html",
+      "bytes": 21200,
+      "sha256": "1f7808e3fa70579ddf21476e16d6c2a2e2e709377b7f2399b3b10bebf7408d6d"
+    },
+    {
+      "file": "演示包/site/emotion-card.html",
+      "bytes": 19558,
+      "sha256": "2dcaa77bb52be9866e60f62106fecca01e363100b5f1797801f6fba380807446"
+    },
+    {
+      "file": "演示包/site/five-senses.html",
+      "bytes": 18813,
+      "sha256": "7b340fad36710bf3a0871974cffd9afb4c4749b8c680c0aa66ad4d93f948ae08"
+    },
+    {
+      "file": "演示包/site/games.html",
+      "bytes": 27985,
+      "sha256": "68b75dd737622f325fdd22007ee391e9d051bf277c5b6a1f66e4600866725be1"
+    },
+    {
+      "file": "演示包/site/home.html",
+      "bytes": 27321,
+      "sha256": "6c7bc0824eae1496f47efe796f26f5bfc3248ef82562a860ae1ca52db55c9b62"
+    },
+    {
+      "file": "演示包/site/index.html",
+      "bytes": 513,
+      "sha256": "03928353ee0715d21eef4c116071015c8f1947ffb6aa37edfb3f67756e479d65"
+    },
+    {
+      "file": "演示包/site/info-empty.html",
+      "bytes": 12337,
+      "sha256": "b0c76050f286633a7a8d6e10a88601b0d18797a649619ccf2040dcfd4491933c"
+    },
+    {
+      "file": "演示包/site/info-query.html",
+      "bytes": 22368,
+      "sha256": "0dd02acfe143c39f135b8426302567e6dede498237131adee0a2330ccdddb98a"
+    },
+    {
+      "file": "演示包/site/login.html",
+      "bytes": 8891,
+      "sha256": "d8e400c829d241559a66e59c8870647ade363ac883caf27201563a92c4de6205"
+    },
+    {
+      "file": "演示包/site/pause-organize.html",
+      "bytes": 18775,
+      "sha256": "91f8862a872fd0aa37aa39742b73df65dde2a5d9555ce7afd48bee6244519699"
+    },
+    {
+      "file": "演示包/site/practice-layout.css",
+      "bytes": 1934,
+      "sha256": "d3a30501a80e0ee22edd70fcc3cd34c6342e82f4d4daa4ff893ea579824f6272"
+    },
+    {
+      "file": "演示包/site/practice-pages.css",
+      "bytes": 12827,
+      "sha256": "8524182166cb687f04a109c091b949b5ba7c530f3b33321f9e4f9b9305fb109e"
+    },
+    {
+      "file": "演示包/site/practice-pages.js",
+      "bytes": 24509,
+      "sha256": "1846fbab7c1599d2f31fd8f230f4875503fa13d4bed411c53b7f67f975942ce6"
+    },
+    {
+      "file": "演示包/site/pressure-toy.html",
+      "bytes": 18867,
+      "sha256": "5689615bb2e7adf22fbf3ce2d776d3744e4335affbb6f42166daa9e2e53b9083"
+    },
+    {
+      "file": "演示包/site/profile.html",
+      "bytes": 21517,
+      "sha256": "77c7946cf14376604f548de45acd557b0d8e383a893162f22396a3d7a8a2c35b"
+    },
+    {
+      "file": "演示包/site/prototype-guide.html",
+      "bytes": 21207,
+      "sha256": "3fd46834ad78d6a414290c87801bfda2e259fbf55e7a54081cd5276d52586a0f"
+    },
+    {
+      "file": "演示包/site/register.html",
+      "bytes": 8429,
+      "sha256": "ab275b0ffbd684dc35a988c2095657aa009ce157082528cce27197a73f049323"
+    },
+    {
+      "file": "演示包/site/rehearsal-complete.html",
+      "bytes": 12097,
+      "sha256": "435b576c368c4e4fcc9bd12c474208adc08f424f847e5b631ba6157e7f3cf03f"
+    },
+    {
+      "file": "演示包/site/rehearsal.html",
+      "bytes": 18974,
+      "sha256": "58f986455ff098cf72dba8a7921388a18ae99c2cbf7757aa2b8d6d550d4c7338"
+    },
+    {
+      "file": "演示包/site/settings.html",
+      "bytes": 21388,
+      "sha256": "f2796d7c14ccadecf45ce2c912b532c1fd0d182a10bd8c7c34fbe99e70428497"
+    },
+    {
+      "file": "演示包/site/site-nav.js",
+      "bytes": 1971,
+      "sha256": "af1b8574191d79df02f8fd4bdf04deaaf0b35b7a2d98a3e67f2a44640dda1810"
+    },
+    {
+      "file": "演示包/site/task-splitting.html",
+      "bytes": 19068,
+      "sha256": "7f8d50b5e54470067e59f946834a1e361553d4526bc2ea9fe3f5a7a523742cad"
+    },
+    {
+      "file": "演示包/site/theme.css",
+      "bytes": 2234,
+      "sha256": "deb0d52802c7d9bd2e596210d1590cb577b1f02b75a071a033a32e71974ef88a"
+    },
+    {
+      "file": "演示包/site/theme.js",
+      "bytes": 1817,
+      "sha256": "3daf3a0f0883a36094862ea13103aab796ca108eb950d5c84bec15fed1fe4f37"
+    },
+    {
+      "file": "演示包/site/things-organize.html",
+      "bytes": 19524,
+      "sha256": "478c0e5079e2c18626afa1d7262ed95f0b656fa811a6dd97ce0d0d4359fd74be"
+    },
+    {
+      "file": "演示包/site/ux-components.html",
+      "bytes": 820,
+      "sha256": "226144c4fbb35a31a01113ed44bd08b3a11f98f69587a214521552267d2942b8"
+    },
+    {
+      "file": "演示包/site/worry-room.html",
+      "bytes": 26149,
+      "sha256": "2ab08bfb363fb4d5d44b90da69e6ba874d622a09a5730f7236c57375cb4f7be6"
+    },
+    {
+      "file": "演示包/启动演示.ps1",
+      "bytes": 554,
+      "sha256": "fecd091cb0c47db1ebdc832d045745b06ac394db58d340ededd4f201f26f301d"
+    },
+    {
+      "file": "演示包/备用截图/01-formal-home.png",
+      "bytes": 359388,
+      "sha256": "f73d4d94bf1abf660bfdd87a28765140d725a2e882c92e95934f898042fb9368"
+    },
+    {
+      "file": "演示包/备用截图/02-formal-login-overlimit.png",
+      "bytes": 342681,
+      "sha256": "59e58ae02c6d67b77b501b5e7194441897883a18b859b20343d55616c67adff4"
+    },
+    {
+      "file": "演示包/备用截图/03-formal-login-disconnected.png",
+      "bytes": 340455,
+      "sha256": "9fd66c532d5ab8254c0a46b5d854b070a294c3a259f5b910fe9dd0bc7af5371b"
+    },
+    {
+      "file": "演示包/备用截图/03b-formal-login-form.png",
+      "bytes": 11938,
+      "sha256": "8459156f820403de6a37ba1520d4d65ee8b65a7f88593041af766bcc68a0bf5d"
+    },
+    {
+      "file": "演示包/备用截图/04-formal-register-320.png",
+      "bytes": 142258,
+      "sha256": "ed701d5e72affddb671b3687be40714499aa77103de2f095baffb7b34c92e0c9"
+    },
+    {
+      "file": "演示包/备用截图/04-formal-register-390.png",
+      "bytes": 145764,
+      "sha256": "492e6ded107775b684db66fb55ac31c479f13ce0837cf07b743b559b3e9eddb9"
+    },
+    {
+      "file": "演示包/备用截图/05-save-title-error.png",
+      "bytes": 29984,
+      "sha256": "5e17dab77f351efa8f36256d32efc8920b566b56d0b2c68322d3619dce9ae360"
+    },
+    {
+      "file": "演示包/备用截图/06-save-selection.png",
+      "bytes": 26114,
+      "sha256": "81b5924052da62107daf2791bd3912b63ec917384739baf8cf4a0dbf00179f61"
+    },
+    {
+      "file": "演示包/备用截图/07-save-confirmation.png",
+      "bytes": 29605,
+      "sha256": "157e980aa6ff8ff83aedd15d217ac4e8030edfdf639c83147bf1c340030eae96"
+    },
+    {
+      "file": "演示包/备用截图/08-history-filter-empty.png",
+      "bytes": 14887,
+      "sha256": "0ba2081564aa1cee9dbe784af7de619a3fe5b41b8551ecaf04af8b03e2c8762b"
+    },
+    {
+      "file": "演示包/备用截图/09-history-list.png",
+      "bytes": 19138,
+      "sha256": "5b22b1803f700ca8ee50cdb64f1dfae7f3c29c3609a770bbca34f45a779ff5db"
+    },
+    {
+      "file": "演示包/备用截图/10-record-clear-confirmation.png",
+      "bytes": 24129,
+      "sha256": "d62fcab001cf20900cc405f6896c279a7847ff4c8a9044aac1c96c21872df12f"
+    },
+    {
+      "file": "演示包/备用截图/11-chat-end-confirmation.png",
+      "bytes": 13933,
+      "sha256": "c7310f5128060c931b8ed19e9c91a20a2d627756d83095081219bee915bff6ec"
+    },
+    {
+      "file": "演示包/备用截图/12-home-empty.png",
+      "bytes": 13447,
+      "sha256": "05199ac811045458b3c1ccd3cd50faaf28062642460e1fb811d27526248c23fa"
+    },
+    {
+      "file": "演示包/备用截图/13-home-error.png",
+      "bytes": 16054,
+      "sha256": "06d7ce5d7d6634450755adb76ee772b4bcf99d71da30bd94fdf1242729adec42"
+    },
+    {
+      "file": "演示包/备用截图/14-chat-timeout.png",
+      "bytes": 13931,
+      "sha256": "46212ca8b141b640bdb319c4894478e42554f70e308b8d46a68403234bd74800"
+    },
+    {
+      "file": "演示包/备用截图/15-sources.png",
+      "bytes": 55468,
+      "sha256": "bf025d4f5cd43e6c740ed6c09bfcf8c4a379de23ed9a6781bc3f675769593a71"
+    },
+    {
+      "file": "演示包/备用截图/16-emotion.png",
+      "bytes": 39968,
+      "sha256": "3429d81a363e83985a60d9aba61048eee9d272b6a3bc316ac8a500f933d62344"
+    },
+    {
+      "file": "演示包/备用截图/17-training.png",
+      "bytes": 16276,
+      "sha256": "63ef88a6fb6836fcbf35284c88c8b7c1e321f84965484e0283e0e80eb8144e36"
+    },
+    {
+      "file": "演示包/备用截图/18-auth-loading-fixture.png",
+      "bytes": 21116,
+      "sha256": "76a8ba7feebf4d7db1e39ec0d2d863ca3f4648a7ffb4cbec9e2bf58447c9881b"
+    },
+    {
+      "file": "演示包/备用截图/19-auth-failure-fixture.png",
+      "bytes": 23418,
+      "sha256": "86b024c8e3bc069a91fb90425b65c6326fb66b1b7ed3b83ebecf61ae8fccd452"
+    },
+    {
+      "file": "演示包/备用截图/HS-E_history_1440.png",
+      "bytes": 95677,
+      "sha256": "6e22c8d6a778b0c6d5f7e1a8b8a1feb81dd83b4b4c49a016cb85ada0691e9b4a"
+    },
+    {
+      "file": "演示包/备用截图/HS-F_history_1440.png",
+      "bytes": 98163,
+      "sha256": "85da5de6a45a843eab2fd467ae15648277910b5da9b66426aa541d6bd0f47ca6"
+    },
+    {
+      "file": "演示包/备用截图/RD-F_record-detail_1440.png",
+      "bytes": 85725,
+      "sha256": "d5816be4e40d83d2ba435400244a6b97da277ac5aff2e125f435dd90d42fe0aa"
+    },
+    {
+      "file": "演示包/备用截图/RD-N_record-detail_1440.png",
+      "bytes": 94931,
+      "sha256": "72037ca42d8c8044721f10f896e84e5c7a4db4728f2941b95bc6e67bb5014ce8"
+    },
+    {
+      "file": "演示包/备用截图/RD-X_record-detail_1440.png",
+      "bytes": 87052,
+      "sha256": "7721a274d899b45751917a02e8cd9ccfab6bf95c47e5d8a05177550953fa0fa4"
+    },
+    {
+      "file": "演示包/备用截图/SV-E_save_1440.png",
+      "bytes": 107521,
+      "sha256": "67690ad9e54eb46dc26221d4cac6db99fa7b83a9f9e24e3968fc62b6b1133ab0"
+    },
+    {
+      "file": "演示包/备用截图/SV-F_save_1440.png",
+      "bytes": 116681,
+      "sha256": "f8bb314295e80d1ca45518413be4daa3f988efcc769030a0e2d76e8f45bb3244"
+    },
+    {
+      "file": "演示包/备用截图/SV-N_save_1440.png",
+      "bytes": 123576,
+      "sha256": "cd307335fec8c31c2a41b699f1435f9c221cddd39b8d9132d07735ecbc84cdb1"
+    },
+    {
+      "file": "演示包/备用截图/SV-T_save_1440.png",
+      "bytes": 119033,
+      "sha256": "abce7bff6790b640ae1ad9f49c9864b7b7a41727c0544ec2f2864fdac1c4c75b"
+    },
+    {
+      "file": "演示包/备用截图.html",
+      "bytes": 9046,
+      "sha256": "9f5288041e7a5ac9aa0921d5c28aeb0cb3a3a5468c20fdc1446825492dd51483"
+    },
+    {
+      "file": "演示包/演示导航.html",
+      "bytes": 2795,
+      "sha256": "5fa1afe9df04c9ddaaf58228544127cc1d9df2a88debffbb574b13a0fb8f36d7"
+    },
+    {
+      "file": "演示操作脚本.md",
+      "bytes": 4202,
+      "sha256": "1ed454c7f5741ac79c99a0c33f9f76a5700a2f806022fe200d4b0362028506d2"
+    },
+    {
+      "file": "离线素材修订.json",
+      "bytes": 580,
+      "sha256": "1e89d01ec234a83e04592bb8afa80205f28ee95b60de98a0960d7ae93a6cbe1b"
+    },
+    {
+      "file": "素材来源与哈希.json",
+      "bytes": 21128,
+      "sha256": "ff0b9baa66034a24287073f37b2f9441df6815d290c977cb4cebcca9663582a3"
+    }
+  ],
+  "excludes": [
+    "交付文件清单.json",
+    "打包校验.json",
+    "UX_标准演示包_v0.2_20261028.zip",
+    "UX_标准演示包_v0.2_20261028.zip.sha256"
+  ],
+  "note": "Inventory does not hash itself or archive/check receipt."
+}
