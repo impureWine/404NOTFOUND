@@ -48,5 +48,6 @@ test('day6 handoff documents the actual candidate boundaries', async () => {
   assert.match(text, /Electron 45/);
   assert.match(text, /启动失败/);
   assert.match(text, /24 个 HTML 页面/);
-  assert.match(text, /10\/10/);
+  assert.match(text, /12\/12/);
+  assert.match(text, /25\/25/);
 });
