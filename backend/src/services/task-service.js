@@ -39,9 +39,10 @@ export class TaskService {
       mode: value.mode,
       state: 'ready',
       ownerKey: this.ownerKey(context),
+      contextSessionId: context.sessionId,
     };
     this.sessions.set(session.sessionId, session);
-    return { ...session, ownerKey: undefined };
+    return this.publicSession(session);
   }
 
   getSession(context, sessionId) {
@@ -84,7 +85,7 @@ export class TaskService {
     if (['PAUSE', 'RESTART', 'FINISH_REHEARSAL', 'END'].includes(value.action)) {
       this.cancelSessionTasks(session.sessionId);
     }
-    return { ...session, ownerKey: undefined };
+    return this.publicSession(session);
   }
 
   createSearchTask(context, body) {
@@ -242,6 +243,30 @@ export class TaskService {
     return this.publicTask(task);
   }
 
+  invalidateContext(context) {
+    if (!context?.sessionId) return { sessionsInvalidated: 0 };
+    return this.invalidateSessions((session) => session.contextSessionId === context.sessionId);
+  }
+
+  invalidateAccount(accountId) {
+    if (!accountId) return { sessionsInvalidated: 0 };
+    return this.invalidateSessions((session) => session.ownerKey === accountId);
+  }
+
+  invalidateSessions(matches) {
+    let sessionsInvalidated = 0;
+    for (const session of this.sessions.values()) {
+      if (!matches(session)) continue;
+      if (session.state !== 'ended') {
+        session.state = 'ended';
+        session.sessionGeneration += 1;
+      }
+      this.cancelSessionTasks(session.sessionId, { includeCompleted: true });
+      sessionsInvalidated += 1;
+    }
+    return { sessionsInvalidated };
+  }
+
   agentConsentPayload(value) {
     return {
       sessionId: value.sessionId,
@@ -307,6 +332,11 @@ export class TaskService {
     return result;
   }
 
+  publicSession(session) {
+    const { ownerKey: _ownerKey, contextSessionId: _contextSessionId, ...result } = session;
+    return result;
+  }
+
   getSearchTask(context, requestId) {
     const task = this.searchTasks.get(requestId);
     if (!task || task.ownerKey !== this.ownerKey(context)) throw new NotFoundError();
@@ -323,18 +353,30 @@ export class TaskService {
     return this.publicTask(task);
   }
 
-  cancelSessionTasks(sessionId) {
+  cancelSessionTasks(sessionId, { includeCompleted = false } = {}) {
     for (const task of this.agentTasks.values()) {
-      if (task.sessionId === sessionId && ['pending', 'running'].includes(task.status)) {
+      if (
+        task.sessionId === sessionId
+        && (includeCompleted || ['pending', 'running'].includes(task.status))
+        && !['cancelled', 'expired'].includes(task.status)
+      ) {
         task.status = 'cancelled';
         task.controller.abort();
         delete task.result;
+        delete task.failureReason;
       }
     }
     for (const task of this.searchTasks.values()) {
-      if (task.sessionId === sessionId && ['pending', 'running'].includes(task.status)) {
+      if (
+        task.sessionId === sessionId
+        && (includeCompleted || ['pending', 'running'].includes(task.status))
+        && !['cancelled', 'expired'].includes(task.status)
+      ) {
         task.status = 'cancelled';
         task.controller.abort();
+        delete task.answer;
+        delete task.sources;
+        delete task.failureReason;
       }
     }
   }
