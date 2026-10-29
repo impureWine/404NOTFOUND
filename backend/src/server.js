@@ -56,6 +56,7 @@ const app = createApp({
   consentService,
   appOrigin: config.appOrigin,
   secureCookies: config.secureCookies,
+  internalModelToken: process.env.INTERNAL_MODEL_TOKEN ?? null,
 });
 const server = app.listen(config.port, '127.0.0.1', () => {
   console.log(`Data service listening on http://127.0.0.1:${config.port}`);

@@ -1,0 +1,138 @@
+[
+  {
+    "id": "REQ01",
+    "name": "陪伴",
+    "expected": "至少一次页面→正式API→真实模型",
+    "actual": "正式Agent+真实许可+合成模型已通；页面仍演示，真实成功未重跑",
+    "status": "部分",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ02",
+    "name": "基础训练",
+    "expected": "一种开始/暂停/继续/退出运行闭环",
+    "actual": "主线FIVE_SENSES HTTP与时钟探针通过；实际页面及资源清理待验",
+    "status": "部分",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ03",
+    "name": "信息查询",
+    "expected": "真实来源、摘要引用与失败提示",
+    "actual": "来源规范/绑定和替身用例通过；本日真实超时，Schema不齐",
+    "status": "阻塞",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ04",
+    "name": "模式切换",
+    "expected": "用户主动选择和旧响应失效",
+    "actual": "命名路由/双代次/RESTART在途通过；页面和完整生命周期未过",
+    "status": "部分",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ05",
+    "name": "会话/保存/清除",
+    "expected": "主动保存→本人阅读→清除，不接受旧回复",
+    "actual": "仓储/HTTP保存清除通过；详情密文、END/撤回/重登结果仍可读",
+    "status": "阻塞",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ06",
+    "name": "多入口隔离",
+    "expected": "Web核心、Electron能力边界、微信适配说明",
+    "actual": "记录跨入口拒绝通过；AI任务跨入口200，Electron完整矩阵待验",
+    "status": "阻塞",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ07",
+    "name": "安全隐私",
+    "expected": "用途分离、身份入口隔离、端侧销毁",
+    "actual": "正式Agent用途分离通过；内部模型旁路、任务隔离和销毁入口未过",
+    "status": "阻塞",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ08",
+    "name": "日历",
+    "expected": "数据模型/仓储与样例，不自动分析",
+    "actual": "准备与显式上下文排除有测试；完整业务按原优先级后续",
+    "status": "准备",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ09",
+    "name": "命名卡",
+    "expected": "命名到陪伴/查询明确选择",
+    "actual": "模块及正式HTTP路由已入main；UX选词/明确携带为组件，页面接线待验",
+    "status": "部分",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ10",
+    "name": "物件化",
+    "expected": "设计/原型及依赖核对",
+    "actual": "沿用设计/原型，非本轮已完成真实业务",
+    "status": "准备",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ11",
+    "name": "排练室",
+    "expected": "设计/原型及接口依赖",
+    "actual": "有REHEARSE契约/服务分支；完整页面和真实流程未验",
+    "status": "准备",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ12",
+    "name": "寄存",
+    "expected": "数据仓储/样例且不自动展开",
+    "actual": "准备仓储、状态转换与通用上下文拒绝有用例；无完整页面联调",
+    "status": "准备",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ13",
+    "name": "屏幕发泄",
+    "expected": "原型保留，窗口/物理/音频依赖登记",
+    "actual": "未获Day5完整运行证据，保留原型范围",
+    "status": "准备",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ14",
+    "name": "文字销毁",
+    "expected": "一端侧效果并查网络/存储/日志/AI",
+    "actual": "main构建入口巡检不可达；前端分支28354a2有实现未整合",
+    "status": "阻塞",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ15",
+    "name": "弹珠机",
+    "expected": "原型保留，物理/音频依赖登记",
+    "actual": "未获真实新增运行证据；不当完整工程能力",
+    "status": "准备",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ16",
+    "name": "注册登录",
+    "expected": "认证、退出、改密及全部旧会话撤销",
+    "actual": "账号与改密原有回归通过；注册幂等/空闲续期/33字名未关",
+    "status": "部分",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  },
+  {
+    "id": "REQ17",
+    "name": "个人主页",
+    "expected": "本人私密资料读写基础与历史",
+    "actual": "认证资料读取通过；资料重放和可读历史未闭环",
+    "status": "部分",
+    "version": "66504bc3dc382c237c3650fb9d7ce8525a4f6478"
+  }
+]

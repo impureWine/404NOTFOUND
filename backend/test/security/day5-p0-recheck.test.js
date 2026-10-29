@@ -128,20 +128,20 @@ async function registerAndLogin(baseUrl, loginName) {
   return context(baseUrl, login.headers.get('set-cookie').split(';')[0]);
 }
 
-test('D5-01 内部模型入口：匿名已拦截，但 Origin/CSRF/用途许可仍未校验', async () => {
+test('D5-01 内部模型入口：缺少内部令牌的匿名与已登录请求均被拦截', async () => {
   await withApi(async ({ baseUrl, modelAdapter }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_day5_internal');
     const body = createSyntheticModelRequest({ request_id: 'req-synthetic-d5-01' });
     const observation = {};
 
-    // 1) 匿名调用：已由 Day 4 的修复拦截。
+    // 1) 匿名调用缺少内部令牌，应在适配器调用前拒绝。
     const anonymous = await fetch(`${baseUrl}/internal/v1/model/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
     observation.anonymous = { status: anonymous.status, callsAfter: modelAdapter.calls.length };
-    assert.equal(anonymous.status, 401, '匿名调用应返回 401');
+    assert.equal(anonymous.status, 403, '缺少内部令牌应返回 403');
 
     // 2) 有会话但 Origin 错误、且不带 CSRF。
     const callsBefore = modelAdapter.calls.length;
@@ -189,13 +189,13 @@ test('D5-01 内部模型入口：匿名已拦截，但 Origin/CSRF/用途许可�
     };
     console.log('[D5-01]', JSON.stringify(observation));
 
-    // 缺陷签名：三种不当请求均仍被放行且各自触发一次适配器调用。
-    assert.equal(observation.badOrigin.status, 200, '当前实现未拦截错误 Origin（缺陷 D5-01）');
-    assert.equal(observation.badOrigin.adapterCalls, 1);
-    assert.equal(observation.noCsrf.status, 200, '当前实现未校验 CSRF（缺陷 D5-01）');
-    assert.equal(observation.noCsrf.adapterCalls, 1);
-    assert.equal(observation.noConsent.status, 200, '当前实现未校验 AI_PROCESS 许可（缺陷 D5-01）');
-    assert.equal(observation.noConsent.adapterCalls, 1);
+    // 内部入口要求独立令牌；登录会话不能替代内部凭据。
+    assert.equal(observation.badOrigin.status, 403);
+    assert.equal(observation.badOrigin.adapterCalls, 0);
+    assert.equal(observation.noCsrf.status, 403);
+    assert.equal(observation.noCsrf.adapterCalls, 0);
+    assert.equal(observation.noConsent.status, 403);
+    assert.equal(observation.noConsent.adapterCalls, 0);
   });
 });
 

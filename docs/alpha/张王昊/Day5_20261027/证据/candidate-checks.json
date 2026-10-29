@@ -1,0 +1,20 @@
+[
+  {
+    "name": "frontend-build",
+    "exit_code": 0,
+    "new_output_directory": true,
+    "emptyOutDir": false
+  },
+  {
+    "name": "release-missing-config",
+    "exit_code": 1,
+    "configuration_source": "explicit synthetic or empty env; no real .env exists in snapshot",
+    "database_connected": false
+  },
+  {
+    "name": "release-synthetic-config",
+    "exit_code": 0,
+    "configuration_source": "explicit synthetic or empty env; no real .env exists in snapshot",
+    "database_connected": false
+  }
+]

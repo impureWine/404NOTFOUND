@@ -1,0 +1,58 @@
+{
+  "as_of": "2026-10-27T10:39:44+08:00",
+  "initial_sp": 100,
+  "accepted_events": [],
+  "actual_day5_eod": null,
+  "unaccepted_evidence_sp": 100,
+  "note": "实际日终未签认。100是未获完整任务验收事件的台账点数，不表示开发没有发生，不是测得的剩余量。",
+  "series": [
+    {
+      "day": 0,
+      "ideal": 100,
+      "plan": 100,
+      "actual": 100
+    },
+    {
+      "day": 1,
+      "ideal": 85.7,
+      "plan": 88,
+      "actual": null
+    },
+    {
+      "day": 2,
+      "ideal": 71.4,
+      "plan": 72,
+      "actual": null
+    },
+    {
+      "day": 3,
+      "ideal": 57.1,
+      "plan": 54,
+      "actual": null
+    },
+    {
+      "day": 4,
+      "ideal": 42.9,
+      "plan": 36,
+      "actual": null
+    },
+    {
+      "day": 5,
+      "ideal": 28.6,
+      "plan": 20,
+      "actual": null
+    },
+    {
+      "day": 6,
+      "ideal": 14.3,
+      "plan": null,
+      "actual": null
+    },
+    {
+      "day": 7,
+      "ideal": 0.0,
+      "plan": null,
+      "actual": null
+    }
+  ]
+}

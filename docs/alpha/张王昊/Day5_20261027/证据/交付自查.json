@@ -1,0 +1,25 @@
+{
+  "as_of": "2026-10-27T10:39:44+08:00",
+  "source_commit": "66504bc3dc382c237c3650fb9d7ce8525a4f6478",
+  "source_files": 424,
+  "source_unchanged": true,
+  "tasks": 50,
+  "sp": 100,
+  "reqs": 17,
+  "defects": 15,
+  "priorities": {
+    "P0": 2,
+    "P1": 9,
+    "P2": 4
+  },
+  "members": 8,
+  "candidate_id": "alpha-day5-review-20261027+66504bc",
+  "release": "BLOCKED",
+  "no_application_changes": true,
+  "no_file_deletion": true,
+  "actual_eod_sp": null,
+  "meeting_confirmed": false,
+  "all_materials_received": false,
+  "team_signed": false,
+  "blog_published": false
+}
