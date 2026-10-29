@@ -6,6 +6,8 @@ const FAILURE_MESSAGES = {
   unavailable: ['MODEL_UNAVAILABLE', true, '模型服务暂时不可用。'],
   empty: ['EMPTY_MODEL_OUTPUT', true, '模型暂时没有返回可用内容。'],
   invalidOutput: ['INVALID_MODEL_OUTPUT', false, '模型返回内容无法安全使用。'],
+  contentRejected: ['CONTENT_REJECTED', false, '模型返回内容超出了可安全展示的边界。'],
+  cancelled: ['MODEL_CANCELLED', false, '请求已取消。'],
 };
 
 export class MockModelAdapter {

@@ -90,7 +90,7 @@ test('D3-C04 aborted synthetic adapter call never surfaces its late reply', asyn
   const result = await pending;
   releaseLate();
   assert.equal(result.status, 'error');
-  // The current adapter maps external cancellation to MODEL_TIMEOUT as well.
-  assert.equal(result.error.code, 'MODEL_TIMEOUT');
+  assert.equal(result.error.code, 'MODEL_CANCELLED');
+  assert.equal(result.error.retryable, false);
   assert.equal(result.result, undefined);
 });

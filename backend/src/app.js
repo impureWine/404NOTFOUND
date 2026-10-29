@@ -1,3 +1,5 @@
+import { timingSafeEqual } from 'node:crypto';
+
 import express from 'express';
 
 import { NamingCard } from './ai/naming-card-router.js';
@@ -24,6 +26,12 @@ function modelHttpStatus(result) {
       return 429;
     case 'MODEL_TIMEOUT':
       return 504;
+    case 'MODEL_CANCELLED':
+      return 499;
+    case 'EMPTY_MODEL_OUTPUT':
+    case 'INVALID_MODEL_OUTPUT':
+    case 'CONTENT_REJECTED':
+      return 502;
     default:
       return 503;
   }
@@ -45,6 +53,16 @@ function unavailableModelResponse(requestId) {
   };
 }
 
+function hasInternalModelAccess(request, expectedToken) {
+  if (typeof expectedToken !== 'string' || expectedToken.length < 16) return false;
+  const authorization = request.get('authorization') ?? '';
+  if (!authorization.startsWith('Bearer ')) return false;
+  const suppliedToken = authorization.slice('Bearer '.length);
+  const supplied = Buffer.from(suppliedToken);
+  const expected = Buffer.from(expectedToken);
+  return supplied.length === expected.length && timingSafeEqual(supplied, expected);
+}
+
 export function createApp({
   database,
   modelAdapter = null,
@@ -55,6 +73,7 @@ export function createApp({
   consentService,
   appOrigin = 'http://127.0.0.1:5173',
   secureCookies = false,
+  internalModelToken = null,
 }) {
   const app = express();
   app.disable('x-powered-by');
@@ -72,6 +91,14 @@ export function createApp({
   });
 
   app.post('/internal/v1/model/generate', async (request, response, next) => {
+    if (!hasInternalModelAccess(request, internalModelToken)) {
+      response.status(403).json({
+        error: { code: 'ACCESS_DENIED', message: '内部模型入口拒绝访问' },
+        meta: { requestId: request.requestId },
+      });
+      return;
+    }
+
     if (authService) {
       try {
         const cookies = parseCookies(request.get('cookie'));
@@ -85,13 +112,20 @@ export function createApp({
         return;
       }
     }
+    const controller = new AbortController();
+    const abort = () => controller.abort();
+    request.once('aborted', abort);
+    response.once('close', abort);
     let result;
     try {
       result = modelAdapter
-        ? await modelAdapter.respond(request.body)
+        ? await modelAdapter.respond(request.body, { signal: controller.signal })
         : unavailableModelResponse(request.body?.request_id);
     } catch {
       result = unavailableModelResponse(request.body?.request_id);
+    } finally {
+      request.off('aborted', abort);
+      response.off('close', abort);
     }
     response
       .status(modelHttpStatus(result))

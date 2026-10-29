@@ -107,6 +107,49 @@ test('adapter rejects an action outside the request allowlist', async () => {
   assert.equal(response.error.code, 'INVALID_MODEL_OUTPUT');
 });
 
+test('adapter rejects a model intent that tries to leave the active route', async () => {
+  const chatModel = {
+    async invoke() {
+      return {
+        content: JSON.stringify({
+          content: '我将直接转到查询。',
+          intent: 'SEARCH',
+          suggested_action: 'STAY',
+          citations: [],
+          uncertainty: null,
+        }),
+      };
+    },
+  };
+  const adapter = new LangChainModelAdapter({ env: fakeConfigEnv, chatModel });
+  const response = await adapter.respond(createSyntheticModelRequest());
+
+  assert.equal(response.status, 'error');
+  assert.equal(response.error.code, 'INVALID_MODEL_OUTPUT');
+});
+
+test('adapter rejects explicit treatment guarantees instead of displaying them', async () => {
+  const chatModel = {
+    async invoke() {
+      return {
+        content: JSON.stringify({
+          content: '这个练习一定会治好你的焦虑。',
+          intent: 'COMPANION',
+          suggested_action: 'STAY',
+          citations: [],
+          uncertainty: null,
+        }),
+      };
+    },
+  };
+  const adapter = new LangChainModelAdapter({ env: fakeConfigEnv, chatModel });
+  const response = await adapter.respond(createSyntheticModelRequest());
+
+  assert.equal(response.status, 'error');
+  assert.equal(response.error.code, 'CONTENT_REJECTED');
+  assert.equal(JSON.stringify(response).includes('一定会治好'), false);
+});
+
 test('failure substitute returns stable errors without calling a provider', async () => {
   const request = createSyntheticModelRequest();
   const timeout = await new MockModelAdapter({ behavior: 'timeout' }).respond(request);
@@ -138,4 +181,41 @@ test('adapter enforces its timeout even if the provider does not settle', async 
   assert.equal(response.status, 'error');
   assert.equal(response.error.code, 'MODEL_TIMEOUT');
   assert.equal(response.error.user_message, '暂时没有获得响应，你可以稍后重新尝试。');
+});
+
+test('adapter preserves caller cancellation and does not invoke a pre-cancelled request', async () => {
+  let calls = 0;
+  const chatModel = { invoke: async () => { calls += 1; return {}; } };
+  const controller = new AbortController();
+  controller.abort();
+  const adapter = new LangChainModelAdapter({ env: fakeConfigEnv, chatModel });
+  const response = await adapter.respond(createSyntheticModelRequest(), { signal: controller.signal });
+
+  assert.equal(calls, 0);
+  assert.equal(response.status, 'error');
+  assert.equal(response.error.code, 'MODEL_CANCELLED');
+  assert.equal(response.error.retryable, false);
+});
+
+test('adapter distinguishes an in-flight caller cancellation from timeout', async () => {
+  const controller = new AbortController();
+  let started;
+  const invoked = new Promise((resolve) => { started = resolve; });
+  const chatModel = {
+    invoke: async () => {
+      started();
+      return new Promise(() => {});
+    },
+  };
+  const adapter = new LangChainModelAdapter({
+    env: { ...fakeConfigEnv, ZHIPU_TIMEOUT_MS: '1000' },
+    chatModel,
+  });
+  const pending = adapter.respond(createSyntheticModelRequest(), { signal: controller.signal });
+  await invoked;
+  controller.abort();
+  const response = await pending;
+
+  assert.equal(response.status, 'error');
+  assert.equal(response.error.code, 'MODEL_CANCELLED');
 });

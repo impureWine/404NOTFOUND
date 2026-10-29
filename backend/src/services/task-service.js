@@ -8,6 +8,7 @@ import {
 } from '@404notfound/contracts';
 
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
+import { routeSafetyInput } from '../ai/safety-router.js';
 
 function parse(schema, value) {
   const result = schema.safeParse(value);
@@ -162,7 +163,8 @@ export class TaskService {
     ) {
       throw new ConflictError('AI 任务不属于当前可运行活动');
     }
-    if (!this.modelAdapter) {
+    const safetyRoute = routeSafetyInput(value.selectedText);
+    if (!this.modelAdapter && !safetyRoute) {
       const error = new Error('模型适配器不可用');
       error.code = 'SERVICE_UNAVAILABLE';
       throw error;
@@ -192,6 +194,17 @@ export class TaskService {
       if (task.status === 'cancelled') return;
       task.status = 'running';
       try {
+        if (safetyRoute) {
+          task.status = 'completed';
+          task.route = safetyRoute.route;
+          task.safetyReason = safetyRoute.reason;
+          task.result = {
+            text: safetyRoute.text,
+            userMessageId: randomUUID(),
+            replyMessageId: randomUUID(),
+          };
+          return;
+        }
         const response = await this.modelAdapter.respond(
           this.buildAgentModelRequest(value, session),
           { signal: controller.signal },
@@ -321,14 +334,24 @@ export class TaskService {
 
   modelFailureReason(code) {
     if (code === 'MODEL_TIMEOUT') return 'TIMEOUT';
-    if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST'].includes(code)) {
+    if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST', 'CONTENT_REJECTED'].includes(code)) {
       return 'OUTPUT_INVALID';
     }
     return 'PROVIDER_UNAVAILABLE';
   }
 
   publicTask(task) {
-    const { ownerKey: _ownerKey, controller: _controller, ...result } = task;
+    const {
+      ownerKey: _ownerKey,
+      controller: _controller,
+      safetyReason: _safetyReason,
+      ...result
+    } = task;
+    return result;
+  }
+
+  publicSession(session) {
+    const { ownerKey: _ownerKey, contextSessionId: _contextSessionId, ...result } = session;
     return result;
   }
 
