@@ -1,102 +1,19 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
 import test from 'node:test';
-import vm from 'node:vm';
-
-const html = readFileSync(new URL('../../web-prototype/games.html', import.meta.url), 'utf8');
-const gameScript = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)]
-  .map(match => match[1])
-  .find(script => script.includes('var marbleRuns'));
-
-function createGameHarness() {
-  const timers = new Map();
-  const listeners = new Map();
-  const elements = new Map();
-  let nextTimer = 1;
-  const getElement = id => {
-    if (!elements.has(id)) {
-      elements.set(id, {
-        textContent: '',
-        className: '',
-        style: {},
-        attributes: {},
-        classList: { toggle() {} },
-        setAttribute(name, value) { this.attributes[name] = value; },
-      });
-    }
-    return elements.get(id);
-  };
-  const document = {
-    hidden: false,
-    querySelector() {
-      return { getTotalLength: () => 100, getPointAtLength: () => ({ x: 1, y: 1 }) };
-    },
-    querySelectorAll: () => [],
-    getElementById: getElement,
-    addEventListener(name, callback) { listeners.set(`document:${name}`, callback); },
-  };
-  const window = {
-    addEventListener(name, callback) { listeners.set(`window:${name}`, callback); },
-  };
-  const setTimer = (kind, callback, delay) => {
-    const id = nextTimer++;
-    timers.set(id, { kind, callback, delay });
-    return id;
-  };
-  const context = vm.createContext({
-    document,
-    window,
-    Date,
-    Math,
-    parseFloat,
-    setInterval: (callback, delay) => setTimer('interval', callback, delay),
-    setTimeout: (callback, delay) => setTimer('timeout', callback, delay),
-    clearInterval: id => timers.delete(id),
-    clearTimeout: id => timers.delete(id),
-  });
-
-  assert.ok(gameScript, 'games.html has an inline game controller');
-  vm.runInContext(gameScript, context);
-  return { context, document, listeners, timers };
+import { createGameLoop } from '../src/live/game-loop.js';
+function harness() {
+  const frames=new Map(), documentListeners=new Map(), windowListeners=new Map(); let next=0, paused=0, drawn=0;
+  const documentTarget={ hidden:false,addEventListener:(name,fn)=>documentListeners.set(name,fn),removeEventListener:name=>documentListeners.delete(name) };
+  const windowTarget={addEventListener:(name,fn)=>windowListeners.set(name,fn),removeEventListener:name=>windowListeners.delete(name)};
+  const loop=createGameLoop({draw:()=>drawn++,onPause:()=>paused++,requestFrame:fn=>{frames.set(++next,fn);return next;},cancelFrame:id=>frames.delete(id),documentTarget,windowTarget});
+  return {loop,frames,documentTarget,documentListeners,windowListeners,paused:()=>paused,drawn:()=>drawn};
 }
-
-test('switching away from the marble panel clears motion and elapsed-time intervals', () => {
-  const game = createGameHarness();
-
-  game.context.toggleMarble();
-  assert.equal(game.timers.size, 2);
-  game.context.showGame('breath');
-
-  assert.equal(game.timers.size, 0);
-  assert.equal(game.context.marbleTimer, null);
-  assert.equal(game.context.marbleTick, null);
+test('switching away disposes the owned animation loop and all lifecycle listeners',()=>{
+  const game=harness();game.loop.start();assert.equal(game.frames.size,1);game.loop.dispose();assert.equal(game.frames.size,0);assert.equal(game.documentListeners.size,0);assert.equal(game.windowListeners.size,0);game.loop.start();assert.equal(game.frames.size,0);
 });
-
-test('hiding the page pauses marble and breathing timers without auto-resume', () => {
-  const game = createGameHarness();
-  game.context.toggleMarble();
-  game.context.toggleBreath();
-  assert.equal(game.timers.size, 3);
-
-  game.document.hidden = true;
-  game.context.pauseForVisibilityChange();
-
-  assert.equal(game.timers.size, 0);
-  assert.equal(game.context.marbleTimer, null);
-  assert.equal(game.context.marbleTick, null);
-  assert.equal(game.context.breathRunning, false);
-  assert.equal(game.context.breathTimer, null);
+test('hiding the page pauses motion and never auto-resumes when visible again',()=>{
+  const game=harness();game.loop.start();game.documentTarget.hidden=true;game.documentListeners.get('visibilitychange')();assert.equal(game.frames.size,0);assert.equal(game.paused(),1);game.documentTarget.hidden=false;game.documentListeners.get('visibilitychange')();assert.equal(game.frames.size,0);game.loop.start();assert.equal(game.frames.size,1);game.loop.dispose();
 });
-
-test('pagehide releases all outstanding game timers', () => {
-  const game = createGameHarness();
-  game.context.toggleMarble();
-  game.context.toggleBreath();
-
-  game.listeners.get('window:pagehide')();
-
-  assert.equal(game.timers.size, 0);
-  assert.equal(game.context.marbleTimer, null);
-  assert.equal(game.context.marbleTick, null);
-  assert.equal(game.context.breathTimer, null);
+test('pagehide cancels outstanding animation callbacks before they can draw again',()=>{
+  const game=harness();game.loop.start();const frame=game.frames.values().next().value;game.windowListeners.get('pagehide')();assert.equal(game.frames.size,0);frame(100);assert.equal(game.drawn(),0);assert.equal(game.frames.size,0);game.loop.dispose();
 });

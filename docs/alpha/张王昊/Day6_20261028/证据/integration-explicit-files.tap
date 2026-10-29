@@ -1,0 +1,244 @@
+TAP version 13
+# Subtest: register, login, profile, logout and password change form a real isolated flow
+ok 1 - register, login, profile, logout and password change form a real isolated flow
+  ---
+  duration_ms: 2207.7141
+  type: 'test'
+  ...
+# Subtest: mutating routes reject missing CSRF and foreign Origin
+ok 2 - mutating routes reject missing CSRF and foreign Origin
+  ---
+  duration_ms: 874.9708
+  type: 'test'
+  ...
+# Subtest: password change revokes every active session for the account
+ok 3 - password change revokes every active session for the account
+  ---
+  duration_ms: 904.0524
+  type: 'test'
+  ...
+# Subtest: HTTP flow routes naming card, completes companion reply, and controls one training
+ok 4 - HTTP flow routes naming card, completes companion reply, and controls one training
+  ---
+  duration_ms: 230.727
+  type: 'test'
+  ...
+# Subtest: Day 6 isolated restore preserves scoped records and revokes restored sessions
+ok 5 - Day 6 isolated restore preserves scoped records and revokes restored sessions
+  ---
+  duration_ms: 3005.8125
+  type: 'test'
+  ...
+# Subtest: deposit becomes available by database time and reveals body only after active retrieval
+ok 6 - deposit becomes available by database time and reveals body only after active retrieval
+  ---
+  duration_ms: 1690.156
+  type: 'test'
+  ...
+# Subtest: isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+ok 7 - isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+  ---
+  duration_ms: 2137.7725
+  type: 'test'
+  ...
+# Subtest: health endpoints report process and database readiness without exposing details
+ok 8 - health endpoints report process and database readiness without exposing details
+  ---
+  duration_ms: 1779.7965
+  type: 'test'
+  ...
+# Subtest: account creation writes credentials, profile, and preferences atomically
+ok 9 - account creation writes credentials, profile, and preferences atomically
+  ---
+  duration_ms: 1778.8308
+  type: 'test'
+  ...
+# Subtest: account creation rolls back all identity rows when a later write fails
+ok 10 - account creation rolls back all identity rows when a later write fails
+  ---
+  duration_ms: 1003.2626
+  type: 'test'
+  ...
+# Subtest: session lookup uses a 32-byte digest and rejects revoked sessions
+ok 11 - session lookup uses a 32-byte digest and rejects revoked sessions
+  ---
+  duration_ms: 840.6004
+  type: 'test'
+  ...
+# Subtest: profile update uses optimistic locking
+ok 12 - profile update uses optimistic locking
+  ---
+  duration_ms: 753.4528
+  type: 'test'
+  ...
+# Subtest: profile summary and preferences are scoped and versioned
+ok 13 - profile summary and preferences are scoped and versioned
+  ---
+  duration_ms: 514.2384
+  type: 'test'
+  ...
+# Subtest: baseline and support migrations execute once on a clean database
+ok 14 - baseline and support migrations execute once on a clean database
+  ---
+  duration_ms: 1404.9531
+  type: 'test'
+  ...
+# Subtest: database constraints reject duplicate normalized login identifiers
+ok 15 - database constraints reject duplicate normalized login identifiers
+  ---
+  duration_ms: 1196.6745
+  type: 'test'
+  ...
+# Subtest: model endpoint returns a normal unified response without caching
+ok 16 - model endpoint returns a normal unified response without caching
+  ---
+  duration_ms: 195.3566
+  type: 'test'
+  ...
+# Subtest: model endpoint exposes stable timeout and unavailable prompts
+ok 17 - model endpoint exposes stable timeout and unavailable prompts
+  ---
+  duration_ms: 35.0244
+  type: 'test'
+  ...
+# Subtest: model endpoint hides unexpected adapter errors behind the unavailable prompt
+ok 18 - model endpoint hides unexpected adapter errors behind the unavailable prompt
+  ---
+  duration_ms: 21.4298
+  type: 'test'
+  ...
+# Subtest: record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+ok 19 - record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+  ---
+  duration_ms: 2113.7204
+  type: 'test'
+  ...
+# Subtest: Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope
+ok 20 - Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope
+  ---
+  duration_ms: 1034.4193
+  type: 'test'
+  ...
+# Subtest: records are isolated by both account and entry point
+ok 21 - records are isolated by both account and entry point
+  ---
+  duration_ms: 1774.5023
+  type: 'test'
+  ...
+# Subtest: same idempotency key returns the original record and rejects changed payload
+ok 22 - same idempotency key returns the original record and rejects changed payload
+  ---
+  duration_ms: 1008.7299
+  type: 'test'
+  ...
+# Subtest: record update enforces scope, version, editable kind, and idempotency
+ok 23 - record update enforces scope, version, editable kind, and idempotency
+  ---
+  duration_ms: 867.6887
+  type: 'test'
+  ...
+# Subtest: concurrent updates with the same expected version allow one winner only
+ok 24 - concurrent updates with the same expected version allow one winner only
+  ---
+  duration_ms: 686.759
+  type: 'test'
+  ...
+# Subtest: clear enforces version and scope, hides the record, and creates deletion outbox state
+ok 25 - clear enforces version and scope, hides the record, and creates deletion outbox state
+  ---
+  duration_ms: 512.5911
+  type: 'test'
+  ...
+# Subtest: record cursors are opaque and bound to account, entry, and kind
+ok 26 - record cursors are opaque and bound to account, entry, and kind
+  ---
+  duration_ms: 538.1509
+  type: 'test'
+  ...
+# Subtest: clear confirmation expires after its two-minute window
+ok 27 - clear confirmation expires after its two-minute window
+  ---
+  duration_ms: 674.6753
+  type: 'test'
+  ...
+# Subtest: record type details are written in the same transaction
+ok 28 - record type details are written in the same transaction
+  ---
+  duration_ms: 509.9462
+  type: 'test'
+  ...
+# Subtest: failed record creation rolls back both the record and its idempotency claim
+ok 29 - failed record creation rolls back both the record and its idempotency claim
+  ---
+  duration_ms: 506.6698
+  type: 'test'
+  ...
+# Subtest: failed clear rolls back payload deletion, confirmation use, and outbox state
+ok 30 - failed clear rolls back payload deletion, confirmation use, and outbox state
+  ---
+  duration_ms: 464.6715
+  type: 'test'
+  ...
+# Subtest: explicit context selection enforces ownership, clearing, calendar, and deposit boundaries
+ok 31 - explicit context selection enforces ownership, clearing, calendar, and deposit boundaries
+  ---
+  duration_ms: 469.2483
+  type: 'test'
+  ...
+# Subtest: saved query copies server-owned completed search evidence and enforces isolation
+ok 32 - saved query copies server-owned completed search evidence and enforces isolation
+  ---
+  duration_ms: 1835.9536
+  type: 'test'
+  ...
+# Subtest: saved query rejects client supplied evidence and invalid server evidence
+ok 33 - saved query rejects client supplied evidence and invalid server evidence
+  ---
+  duration_ms: 950.4976
+  type: 'test'
+  ...
+# Subtest: empty or unfinished searches cannot be persisted as query history
+ok 34 - empty or unfinished searches cannot be persisted as query history
+  ---
+  duration_ms: 771.2064
+  type: 'test'
+  ...
+# Subtest: saved query replay remains idempotent after the completed search expires
+ok 35 - saved query replay remains idempotent after the completed search expires
+  ---
+  duration_ms: 748.3995
+  type: 'test'
+  ...
+# Subtest: unreliable sources downgrade supported claims and query certainty
+ok 36 - unreliable sources downgrade supported claims and query certainty
+  ---
+  duration_ms: 498.2788
+  type: 'test'
+  ...
+# Subtest: older source snapshots cannot overwrite newer source verification metadata
+ok 37 - older source snapshots cannot overwrite newer source verification metadata
+  ---
+  duration_ms: 479.9061
+  type: 'test'
+  ...
+# Subtest: persistent query status follows conflict, partial, stale, success priority
+ok 38 - persistent query status follows conflict, partial, stale, success priority
+  ---
+  duration_ms: 0.2066
+  type: 'test'
+  ...
+# Subtest: session and search HTTP flow binds consent, reports status, isolates owners and cancels on END
+ok 39 - session and search HTTP flow binds consent, reports status, isolates owners and cancels on END
+  ---
+  duration_ms: 1790.5172
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 39
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8860.2994

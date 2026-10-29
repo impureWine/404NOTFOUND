@@ -1,0 +1,75 @@
+// PM中期验收：合成数据、PGlite、localhost；模型仅计数替身。不会删除项目文件。
+import path from 'node:path';
+import {createRequire} from 'node:module';
+import {pathToFileURL} from 'node:url';
+import {randomBytes,randomUUID} from 'node:crypto';
+const root=path.resolve(process.argv[2]);
+const req=createRequire(path.join(root,'backend/package.json'));
+const {PGlite}=req('@electric-sql/pglite');
+const load=p=>import(pathToFileURL(path.join(root,p)).href);
+const {runMigrations}=await load('backend/src/db/migration-runner.js');
+const {createApp}=await load('backend/src/app.js');
+const {AuthService}=await load('backend/src/services/auth-service.js');
+const {ConsentService}=await load('backend/src/services/consent-service.js');
+const {RecordService}=await load('backend/src/services/record-service.js');
+const {RecordRepository}=await load('backend/src/repositories/record-repository.js');
+const {sessionCookie}=await load('backend/src/http/request.js');
+const {MockModelAdapter}=await load('backend/src/ai/mock-model-adapter.js');
+const {createSyntheticModelRequest}=await load('backend/test/fixtures/model-requests.js');
+const db=new PGlite();await runMigrations(db);
+const key=randomBytes(32);const auth=new AuthService(db,{profileKey:key});
+const consent=new ConsentService();const records=new RecordService(new RecordRepository(db),{encryptionKey:key,consentService:consent});
+let modelCalls=0;const mock=new MockModelAdapter();
+const server=createApp({database:db,authService:auth,consentService:consent,recordService:records,modelAdapter:{respond:async x=>{modelCalls++;return mock.respond(x);}}}).listen(0,'127.0.0.1');
+await new Promise(r=>server.once('listening',r));const base=`http://127.0.0.1:${server.address().port}`;
+const checks=[];const check=(id,name,expected,actual,pass,layer='HTTP/PGlite')=>checks.push({id,name,expected,actual,pass,layer});
+async function call(method,url,ctx,body,headers={}){const r=await fetch(base+url,{method,headers:{'Content-Type':'application/json',Origin:'http://127.0.0.1:5173',...(ctx?{Cookie:ctx.cookie,'X-CSRF-Token':ctx.csrf}:{}),...headers},...(body===undefined?{}:{body:JSON.stringify(body)})});let b=null;try{b=await r.json();}catch{}return {status:r.status,body:b,cookie:r.headers.get('set-cookie')?.split(';')[0]};}
+async function context(cookie){const r=await call('GET','/api/auth/context',cookie?{cookie}:null);return {cookie:r.cookie,csrf:r.body.data.csrfToken};}
+async function user(name){const a=await context();const password='SYNTHETIC-DAY4-password';await call('POST','/api/auth/register',a,{requestId:randomUUID(),loginName:name,password,confirmPassword:password});const login=await call('POST','/api/auth/login',a,{loginName:name,password,target:'PROFILE'});return context(login.cookie);}
+const count=async sql=>Number((await db.query(sql)).rows[0].n);
+try{
+ const a=await user('pm_day4_alice'),b=await user('pm_day4_bob'),anon=await context();
+ const guest=await call('GET','/api/records',anon);
+ const initial=await count('SELECT count(*) AS n FROM saved_records');
+ check('D4-01','默认不保存；游客不得读取私密历史',{records:0,guest:401},{records:initial,guest:guest.status},initial===0&&guest.status===401);
+ const payload={kind:'CONVERSATION',content:{title:'PM合成标题',body:'PM_SYNTHETIC_D4_BODY_ONLY'}};
+ const noConsent=await call('POST','/api/records',a,{requestId:randomUUID(),consentId:randomUUID(),...payload});
+ const grant=await call('POST','/api/consents',a,{requestId:randomUUID(),purpose:'SAVE',operation:'RECORD_CREATE',payload});
+ const afterGrant=await count('SELECT count(*) AS n FROM saved_records');
+ check('D4-02','无许可拒绝；签发SAVE许可不自动保存',{denied:403,afterGrant:0},{denied:noConsent.status,afterGrant},noConsent.status===403&&afterGrant===0);
+ const createBody={requestId:randomUUID(),consentId:grant.body.data.consentId,...payload};
+ const tampered=await call('POST','/api/records',a,{...createBody,content:{...payload.content,body:'changed-synthetic'}});
+ check('D4-03','保存载荷与许可绑定',{status:403},{status:tampered.status},tampered.status===403);
+ const first=await call('POST','/api/records',a,createBody),record=first.body.data;
+ const replay=await call('POST','/api/records',a,createBody);
+ check('D4-04','主动保存与同请求重放',{first:201,replay:201,sameId:true},{first:first.status,replay:replay.status,sameId:record.id===replay.body.data?.id},first.status===201&&replay.status===201&&record.id===replay.body.data?.id);
+ const encrypted=await db.query('SELECT r.title_ciphertext,m.content_ciphertext FROM saved_records r JOIN saved_messages m ON m.saved_record_id=r.id WHERE r.id=$1',[record.id]);
+ check('D4-05','受测正文与标题不以明文入库',{plaintext:false},{plaintext:JSON.stringify(encrypted.rows).includes(payload.content.body)||JSON.stringify(encrypted.rows).includes(payload.content.title)},!JSON.stringify(encrypted.rows).includes(payload.content.body)&&!JSON.stringify(encrypted.rows).includes(payload.content.title));
+ const ownList=await call('GET','/api/records',a),own=await call('GET',`/api/records/${record.id}`,a);
+ check('D4-06','本人列表与详情受理',{list:1,detail:200},{list:ownList.body.data.items.length,detail:own.status},ownList.body.data.items.length===1&&own.status===200);
+ const readable=JSON.stringify(own.body.data).includes(payload.content.body);
+ check('D4-07','本人历史能够恢复可展示正文（纵向交付门槛）',{readableBody:true,ciphertextExposed:false},{readableBody:readable,ciphertextExposed:Boolean(own.body.data.titleCiphertext||own.body.data.details?.messages?.[0]?.contentCiphertext)},readable&&!own.body.data.titleCiphertext,'API/UI交接');
+ const bl=await call('GET','/api/records',b),bd=await call('GET',`/api/records/${record.id}`,b);
+ check('D4-08','账号B不可见账号A记录',{list:0,detail:404},{list:bl.body.data.items.length,detail:bd.status},bl.body.data.items.length===0&&bd.status===404);
+ const account=(await auth.resolveContext(decodeURIComponent(a.cookie.split('=')[1]))).accountId;
+ const ep=(await db.query("INSERT INTO entry_points(code) VALUES('DESKTOP_PM_D4') RETURNING id")).rows[0].id;
+ const desktop=await auth.createContext(account,ep);let d={cookie:sessionCookie(desktop.sessionToken).split(';')[0],csrf:desktop.csrfToken};
+ const d1=await call('GET',`/api/records/${record.id}`,d);d=await context(d.cookie);const d2=await call('GET',`/api/records/${record.id}`,d);
+ check('D4-09','同账号跨入口及上下文换发不扩大读取范围',{direct:404,refreshed:404},{direct:d1.status,refreshed:d2.status},d1.status===404&&d2.status===404,'服务端夹具入口/HTTP');
+ const invalid=await call('GET','/api/records?limit=51',a),unknown=await call('GET','/api/records?unexpected=1',a);
+ const stale=await call('POST',`/api/records/${record.id}/clear-confirmations`,a,{requestId:randomUUID(),expectedVersion:record.version+1});
+ check('D4-10','严格列表参数与过期版本拒绝',{limit:400,unknown:400,stale:409},{limit:invalid.status,unknown:unknown.status,stale:stale.status},invalid.status===400&&unknown.status===400&&stale.status===409);
+ const conf=await call('POST',`/api/records/${record.id}/clear-confirmations`,a,{requestId:randomUUID(),expectedVersion:record.version});
+ const clearBody={requestId:randomUUID(),expectedVersion:record.version,confirmationId:conf.body.data.confirmationId};
+ const cleared=await call('POST',`/api/records/${record.id}/clear`,a,clearBody),clearReplay=await call('POST',`/api/records/${record.id}/clear`,a,clearBody);
+ const hidden=await call('GET',`/api/records/${record.id}`,a),listAfter=await call('GET','/api/records',a);
+ const messages=await count('SELECT count(*) AS n FROM saved_messages');
+ check('D4-11','两步清除、幂等与读取/正文同步失效',{clear:200,replay:200,detail:404,list:0,messages:0},{clear:cleared.status,replay:clearReplay.status,detail:hidden.status,list:listAfter.body.data.items.length,messages},cleared.status===200&&clearReplay.status===200&&hidden.status===404&&listAfter.body.data.items.length===0&&messages===0);
+ const beforeModel=modelCalls;
+ const internal=await call('POST','/internal/v1/model/generate',a,createSyntheticModelRequest(),{Origin:'https://invalid.example','X-CSRF-Token':'invalid'});
+ check('D4-12','登录本身不足以替代Origin/CSRF与AI_PROCESS许可',{denied:true,adapterCalls:0},{status:internal.status,adapterCalls:modelCalls-beforeModel,mock:true},[401,403].includes(internal.status)&&modelCalls===beforeModel,'安全替身，无真实模型');
+ const out=await call('POST','/api/auth/logout',a,{}),after=await call('GET','/api/records',a);
+ check('D4-13','退出后旧Cookie拒绝私密历史',{logout:204,history:401},{logout:out.status,history:after.status},out.status===204&&after.status===401);
+ console.log(JSON.stringify({commit:'3c6b3b3878f5d4e47f82eae23270e58238d73ceb',recordedAt:new Date().toISOString(),environment:'PGlite memory + localhost; synthetic accounts; counted mock model; no browser or real model',checks,passed:checks.filter(c=>c.pass).length,failed:checks.filter(c=>!c.pass).length},null,2));
+ process.exitCode=checks.every(c=>c.pass)?0:1;
+}finally{await new Promise(r=>server.close(r));await db.close();}

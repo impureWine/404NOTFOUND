@@ -1,0 +1,757 @@
+TAP version 13
+# Subtest: test\\fixtures\\model-requests.js
+ok 1 - test\\fixtures\\model-requests.js
+  ---
+  duration_ms: 347.1856
+  type: 'test'
+  ...
+# Subtest: test\\helpers\\database.js
+ok 2 - test\\helpers\\database.js
+  ---
+  duration_ms: 349.9725
+  type: 'test'
+  ...
+# Subtest: register, login, profile, logout and password change form a real isolated flow
+ok 3 - register, login, profile, logout and password change form a real isolated flow
+  ---
+  duration_ms: 5320.877
+  type: 'test'
+  ...
+# Subtest: mutating routes reject missing CSRF and foreign Origin
+ok 4 - mutating routes reject missing CSRF and foreign Origin
+  ---
+  duration_ms: 1528.1088
+  type: 'test'
+  ...
+# Subtest: password change revokes every active session for the account
+ok 5 - password change revokes every active session for the account
+  ---
+  duration_ms: 1536.6709
+  type: 'test'
+  ...
+# Subtest: HTTP flow routes naming card, completes companion reply, and controls one training
+ok 6 - HTTP flow routes naming card, completes companion reply, and controls one training
+  ---
+  duration_ms: 374.5848
+  type: 'test'
+  ...
+# Subtest: Day 6 isolated restore preserves scoped records and revokes restored sessions
+ok 7 - Day 6 isolated restore preserves scoped records and revokes restored sessions
+  ---
+  duration_ms: 7102.942
+  type: 'test'
+  ...
+# Subtest: deposit becomes available by database time and reveals body only after active retrieval
+ok 8 - deposit becomes available by database time and reveals body only after active retrieval
+  ---
+  duration_ms: 3130.2637
+  type: 'test'
+  ...
+# Subtest: isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+ok 9 - isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+  ---
+  duration_ms: 4715.1601
+  type: 'test'
+  ...
+# Subtest: health endpoints report process and database readiness without exposing details
+ok 10 - health endpoints report process and database readiness without exposing details
+  ---
+  duration_ms: 4446.2819
+  type: 'test'
+  ...
+# Subtest: account creation writes credentials, profile, and preferences atomically
+ok 11 - account creation writes credentials, profile, and preferences atomically
+  ---
+  duration_ms: 3514.0817
+  type: 'test'
+  ...
+# Subtest: account creation rolls back all identity rows when a later write fails
+ok 12 - account creation rolls back all identity rows when a later write fails
+  ---
+  duration_ms: 2552.3079
+  type: 'test'
+  ...
+# Subtest: session lookup uses a 32-byte digest and rejects revoked sessions
+ok 13 - session lookup uses a 32-byte digest and rejects revoked sessions
+  ---
+  duration_ms: 1526.6879
+  type: 'test'
+  ...
+# Subtest: profile update uses optimistic locking
+ok 14 - profile update uses optimistic locking
+  ---
+  duration_ms: 1257.633
+  type: 'test'
+  ...
+# Subtest: profile summary and preferences are scoped and versioned
+ok 15 - profile summary and preferences are scoped and versioned
+  ---
+  duration_ms: 1179.1828
+  type: 'test'
+  ...
+# Subtest: baseline and support migrations execute once on a clean database
+ok 16 - baseline and support migrations execute once on a clean database
+  ---
+  duration_ms: 2036.913
+  type: 'test'
+  ...
+# Subtest: database constraints reject duplicate normalized login identifiers
+ok 17 - database constraints reject duplicate normalized login identifiers
+  ---
+  duration_ms: 2798.3613
+  type: 'test'
+  ...
+# Subtest: model endpoint returns a normal unified response without caching
+ok 18 - model endpoint returns a normal unified response without caching
+  ---
+  duration_ms: 428.2794
+  type: 'test'
+  ...
+# Subtest: model endpoint exposes stable timeout and unavailable prompts
+ok 19 - model endpoint exposes stable timeout and unavailable prompts
+  ---
+  duration_ms: 136.9864
+  type: 'test'
+  ...
+# Subtest: model endpoint hides unexpected adapter errors behind the unavailable prompt
+ok 20 - model endpoint hides unexpected adapter errors behind the unavailable prompt
+  ---
+  duration_ms: 38.4423
+  type: 'test'
+  ...
+# Subtest: record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+ok 21 - record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+  ---
+  duration_ms: 4898.5214
+  type: 'test'
+  ...
+# Subtest: Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope
+ok 22 - Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope
+  ---
+  duration_ms: 1884.4473
+  type: 'test'
+  ...
+# Subtest: records are isolated by both account and entry point
+ok 23 - records are isolated by both account and entry point
+  ---
+  duration_ms: 3813.678
+  type: 'test'
+  ...
+# Subtest: same idempotency key returns the original record and rejects changed payload
+ok 24 - same idempotency key returns the original record and rejects changed payload
+  ---
+  duration_ms: 2299.2042
+  type: 'test'
+  ...
+# Subtest: record update enforces scope, version, editable kind, and idempotency
+ok 25 - record update enforces scope, version, editable kind, and idempotency
+  ---
+  duration_ms: 1617.4484
+  type: 'test'
+  ...
+# Subtest: concurrent updates with the same expected version allow one winner only
+ok 26 - concurrent updates with the same expected version allow one winner only
+  ---
+  duration_ms: 1236.9323
+  type: 'test'
+  ...
+# Subtest: clear enforces version and scope, hides the record, and creates deletion outbox state
+ok 27 - clear enforces version and scope, hides the record, and creates deletion outbox state
+  ---
+  duration_ms: 1079.7072
+  type: 'test'
+  ...
+# Subtest: record cursors are opaque and bound to account, entry, and kind
+ok 28 - record cursors are opaque and bound to account, entry, and kind
+  ---
+  duration_ms: 983.2417
+  type: 'test'
+  ...
+# Subtest: clear confirmation expires after its two-minute window
+ok 29 - clear confirmation expires after its two-minute window
+  ---
+  duration_ms: 740.0168
+  type: 'test'
+  ...
+# Subtest: record type details are written in the same transaction
+ok 30 - record type details are written in the same transaction
+  ---
+  duration_ms: 685.2248
+  type: 'test'
+  ...
+# Subtest: failed record creation rolls back both the record and its idempotency claim
+ok 31 - failed record creation rolls back both the record and its idempotency claim
+  ---
+  duration_ms: 539.3792
+  type: 'test'
+  ...
+# Subtest: failed clear rolls back payload deletion, confirmation use, and outbox state
+ok 32 - failed clear rolls back payload deletion, confirmation use, and outbox state
+  ---
+  duration_ms: 470.367
+  type: 'test'
+  ...
+# Subtest: explicit context selection enforces ownership, clearing, calendar, and deposit boundaries
+ok 33 - explicit context selection enforces ownership, clearing, calendar, and deposit boundaries
+  ---
+  duration_ms: 470.6599
+  type: 'test'
+  ...
+# Subtest: saved query copies server-owned completed search evidence and enforces isolation
+ok 34 - saved query copies server-owned completed search evidence and enforces isolation
+  ---
+  duration_ms: 3557.4925
+  type: 'test'
+  ...
+# Subtest: saved query rejects client supplied evidence and invalid server evidence
+ok 35 - saved query rejects client supplied evidence and invalid server evidence
+  ---
+  duration_ms: 2410.2344
+  type: 'test'
+  ...
+# Subtest: empty or unfinished searches cannot be persisted as query history
+ok 36 - empty or unfinished searches cannot be persisted as query history
+  ---
+  duration_ms: 1529.7813
+  type: 'test'
+  ...
+# Subtest: saved query replay remains idempotent after the completed search expires
+ok 37 - saved query replay remains idempotent after the completed search expires
+  ---
+  duration_ms: 1265.5702
+  type: 'test'
+  ...
+# Subtest: unreliable sources downgrade supported claims and query certainty
+ok 38 - unreliable sources downgrade supported claims and query certainty
+  ---
+  duration_ms: 1054.7023
+  type: 'test'
+  ...
+# Subtest: older source snapshots cannot overwrite newer source verification metadata
+ok 39 - older source snapshots cannot overwrite newer source verification metadata
+  ---
+  duration_ms: 961.1815
+  type: 'test'
+  ...
+# Subtest: persistent query status follows conflict, partial, stale, success priority
+ok 40 - persistent query status follows conflict, partial, stale, success priority
+  ---
+  duration_ms: 0.4497
+  type: 'test'
+  ...
+# Subtest: session and search HTTP flow binds consent, reports status, isolates owners and cancels on END
+ok 41 - session and search HTTP flow binds consent, reports status, isolates owners and cancels on END
+  ---
+  duration_ms: 4524.251
+  type: 'test'
+  ...
+# Subtest: D2-01 注册→登录→查看本人资料→退出，旧 Cookie 失效
+ok 42 - D2-01 注册→登录→查看本人资料→退出，旧 Cookie 失效
+  ---
+  duration_ms: 4892.2421
+  type: 'test'
+  ...
+# Subtest: D2-02 大小写与 NFKC 同名被拒绝，账号相关表没有重复行
+ok 43 - D2-02 大小写与 NFKC 同名被拒绝，账号相关表没有重复行
+  ---
+  duration_ms: 220.2982
+  type: 'test'
+  ...
+# Subtest: D2-03 重复注册响应不得明确披露登录名已被使用
+ok 44 - D2-03 重复注册响应不得明确披露登录名已被使用
+  ---
+  duration_ms: 50.3178
+  type: 'test'
+  ...
+# Subtest: D2-04 密码为实际 Argon2id 摘要，会话仅保存 32 字节摘要
+ok 45 - D2-04 密码为实际 Argon2id 摘要，会话仅保存 32 字节摘要
+  ---
+  duration_ms: 4.0693
+  type: 'test'
+  ...
+# Subtest: D2-05 未登录或随机伪造 Cookie 不能读取资料和记录
+ok 46 - D2-05 未登录或随机伪造 Cookie 不能读取资料和记录
+  ---
+  duration_ms: 15.1462
+  type: 'test'
+  ...
+# Subtest: D2-06 绝对过期会话不能读取资料
+ok 47 - D2-06 绝对过期会话不能读取资料
+  ---
+  duration_ms: 12.8933
+  type: 'test'
+  ...
+# Subtest: D2-07 空闲过期会话不能读取资料
+ok 48 - D2-07 空闲过期会话不能读取资料
+  ---
+  duration_ms: 17.2296
+  type: 'test'
+  ...
+# Subtest: D2-08 已撤销会话不能读取资料
+ok 49 - D2-08 已撤销会话不能读取资料
+  ---
+  duration_ms: 16.2636
+  type: 'test'
+  ...
+# Subtest: D2-09 改密撤销两个旧会话，旧密码失败、新密码可登录
+ok 50 - D2-09 改密撤销两个旧会话，旧密码失败、新密码可登录
+  ---
+  duration_ms: 443.268
+  type: 'test'
+  ...
+# Subtest: D2-10 不存在账号与错误密码返回相同错误
+ok 51 - D2-10 不存在账号与错误密码返回相同错误
+  ---
+  duration_ms: 64.7571
+  type: 'test'
+  ...
+# Subtest: D2-11 伪造 accountId 的查询只能返回当前 B 的资料，写入额外归属字段被拒绝
+ok 52 - D2-11 伪造 accountId 的查询只能返回当前 B 的资料，写入额外归属字段被拒绝
+  ---
+  duration_ms: 28.1829
+  type: 'test'
+  ...
+# Subtest: D2-12 B 读 A 的记录与读不存在记录均为同一 404，列表不泄露 A 的记录
+ok 53 - D2-12 B 读 A 的记录与读不存在记录均为同一 404，列表不泄露 A 的记录
+  ---
+  duration_ms: 25.125
+  type: 'test'
+  ...
+# Subtest: D2-13 B 不能给 A 的记录签发清除确认，A 的记录仍在
+ok 54 - D2-13 B 不能给 A 的记录签发清除确认，A 的记录仍在
+  ---
+  duration_ms: 19.5742
+  type: 'test'
+  ...
+# Subtest: D2-14 服务端切换入口后不能读取 WEB 记录，客户端入口参数不能绕过
+ok 55 - D2-14 服务端切换入口后不能读取 WEB 记录，客户端入口参数不能绕过
+  ---
+  duration_ms: 24.3773
+  type: 'test'
+  ...
+# Subtest: D2-15 缺少/错误 CSRF 与外部 Origin 的写入被拒绝
+ok 56 - D2-15 缺少/错误 CSRF 与外部 Origin 的写入被拒绝
+  ---
+  duration_ms: 21.7632
+  type: 'test'
+  ...
+# Subtest: D2-16 HTTP Cookie 包含 HttpOnly/SameSite/Path，安全配置生成 Host Cookie
+ok 57 - D2-16 HTTP Cookie 包含 HttpOnly/SameSite/Path，安全配置生成 Host Cookie
+  ---
+  duration_ms: 7.175
+  type: 'test'
+  ...
+# Subtest: D2-17 未知数据库异常不得把内部错误信息返回客户端（异常注入）
+ok 58 - D2-17 未知数据库异常不得把内部错误信息返回客户端（异常注入）
+  ---
+  duration_ms: 5.4848
+  type: 'test'
+  ...
+# Subtest: D2-18 非法 JSON 应为 400 且有请求标识
+ok 59 - D2-18 非法 JSON 应为 400 且有请求标识
+  ---
+  duration_ms: 4.0536
+  type: 'test'
+  ...
+# Subtest: D2-19 登录、资料响应和捕获的 console 不泄露敏感值
+ok 60 - D2-19 登录、资料响应和捕获的 console 不泄露敏感值
+  ---
+  duration_ms: 88.4059
+  type: 'test'
+  ...
+# Subtest: D2-20 未认证请求不能触发内部模型适配器（路由替身）
+ok 61 - D2-20 未认证请求不能触发内部模型适配器（路由替身）
+  ---
+  duration_ms: 14.2953
+  type: 'test'
+  ...
+# Subtest: D2-21 preload 不能传入任意 IPC 通道，订阅可解除（VM 替身）
+ok 62 - D2-21 preload 不能传入任意 IPC 通道，订阅可解除（VM 替身）
+  ---
+  duration_ms: 8.2571
+  type: 'test'
+  ...
+# Subtest: D2-22 获取认证上下文不应把 DESKTOP 会话重绑定为 WEB 并开放 WEB 记录
+ok 63 - D2-22 获取认证上下文不应把 DESKTOP 会话重绑定为 WEB 并开放 WEB 记录
+  ---
+  duration_ms: 36.7161
+  type: 'test'
+  ...
+# Subtest: D3-01 凭据与内部标识不进入模型上下文，API Key 不出现在消息中
+ok 64 - D3-01 凭据与内部标识不进入模型上下文，API Key 不出现在消息中
+  ---
+  duration_ms: 13.8172
+  type: 'test'
+  ...
+# Subtest: D3-02 外部来源中的注入指令只进入数据通道，不进入系统提示
+ok 65 - D3-02 外部来源中的注入指令只进入数据通道，不进入系统提示
+  ---
+  duration_ms: 2.7018
+  type: 'test'
+  ...
+# Subtest: D3-03 注入材料下，模型返回的动作仍受 allowed_actions 白名单约束
+ok 66 - D3-03 注入材料下，模型返回的动作仍受 allowed_actions 白名单约束
+  ---
+  duration_ms: 4.3854
+  type: 'test'
+  ...
+# Subtest: D3-04 模型引用请求未提供的来源时被拒绝
+ok 67 - D3-04 模型引用请求未提供的来源时被拒绝
+  ---
+  duration_ms: 1.2575
+  type: 'test'
+  ...
+# Subtest: D3-05 摘要对象可夹带任意字段（当前契约行为，风险待决策）
+ok 68 - D3-05 摘要对象可夹带任意字段（当前契约行为，风险待决策）
+  ---
+  duration_ms: 1.2768
+  type: 'test'
+  ...
+# Subtest: D3-06 模型请求契约无法携带用途许可，AI_PROCESS 在链路上没有落点
+ok 69 - D3-06 模型请求契约无法携带用途许可，AI_PROCESS 在链路上没有落点
+  ---
+  duration_ms: 1.2078
+  type: 'test'
+  ...
+# Subtest: D4-01 文字销毁在后端不存在任何通路口（结构级）
+ok 70 - D4-01 文字销毁在后端不存在任何通路口（结构级）
+  ---
+  duration_ms: 4545.3598
+  type: 'test'
+  ...
+# Subtest: D4-02 清除后记录不再可读：详情、列表与正文子表均无残留
+ok 71 - D4-02 清除后记录不再可读：详情、列表与正文子表均无残留
+  ---
+  duration_ms: 1603.6362
+  type: 'test'
+  ...
+# Subtest: D4-03 不同入口不能清除本入口记录，原入口记录不受影响
+ok 72 - D4-03 不同入口不能清除本入口记录，原入口记录不受影响
+  ---
+  duration_ms: 1386.6173
+  type: 'test'
+  ...
+# Subtest: D4-04 失效会话不能执行清除，重新登录后记录仍在
+ok 73 - D4-04 失效会话不能执行清除，重新登录后记录仍在
+  ---
+  duration_ms: 1170.2801
+  type: 'test'
+  ...
+# [D5-01] {"anonymous":{"status":401,"callsAfter":0},"badOrigin":{"status":200,"adapterCalls":1},"noCsrf":{"status":200,"adapterCalls":1},"noConsent":{"status":200,"adapterCalls":1}}
+# Subtest: D5-01 内部模型入口：匿名已拦截，但 Origin/CSRF/用途许可仍未校验
+ok 74 - D5-01 内部模型入口：匿名已拦截，但 Origin/CSRF/用途许可仍未校验
+  ---
+  duration_ms: 4506.2158
+  type: 'test'
+  ...
+# [D5-02] {"webSession":{"status":200,"taskStatus":"completed","hasResult":true},"desktopCrossRead":{"status":200,"hasResult":true,"taskStatus":"completed"},"desktopCrossCancel":{"status":200}}
+# Subtest: D5-02 同账号跨入口：DESKTOP 会话可读并取消 WEB 的 AI 任务
+ok 75 - D5-02 同账号跨入口：DESKTOP 会话可读并取消 WEB 的 AI 任务
+  ---
+  duration_ms: 1525.1638
+  type: 'test'
+  ...
+# [D5-10] {"staleWriteStatus":403}
+# Subtest: D5-10 失效会话写请求：请求被拒绝但返回 403 而非 401（沿用 Day 4 观察）
+ok 76 - D5-10 失效会话写请求：请求被拒绝但返回 403 而非 401（沿用 Day 4 观察）
+  ---
+  duration_ms: 1242.2593
+  type: 'test'
+  ...
+# Subtest: SEC-03 / AT-SEC-02：客户端自报归属字段被契约拒绝，scope 不可省略
+ok 77 - SEC-03 / AT-SEC-02：客户端自报归属字段被契约拒绝，scope 不可省略
+  ---
+  duration_ms: 20.3599
+  type: 'test'
+  ...
+# Subtest: SEC-03 / AT-SEC-01：他人记录编号无法读取，也无法签发清除确认
+ok 78 - SEC-03 / AT-SEC-01：他人记录编号无法读取，也无法签发清除确认
+  ---
+  duration_ms: 4229.1942
+  type: 'test'
+  ...
+# Subtest: SEC-09 / AT-SEC-03：同账号换入口默认读不到记录（跨入口隔离）
+ok 79 - SEC-09 / AT-SEC-03：同账号换入口默认读不到记录（跨入口隔离）
+  ---
+  duration_ms: 1420.1906
+  type: 'test'
+  ...
+# Subtest: SEC-02 / AT-SEC-04：会话撤销后旧令牌摘要不能再查到会话
+ok 80 - SEC-02 / AT-SEC-04：会话撤销后旧令牌摘要不能再查到会话
+  ---
+  duration_ms: 1226.01
+  type: 'test'
+  ...
+# Subtest: SEC-12：数据库不可用时健康检查只返回通用错误，不泄露连接串或异常细节
+ok 81 - SEC-12：数据库不可用时健康检查只返回通用错误，不泄露连接串或异常细节
+  ---
+  duration_ms: 90.4423
+  type: 'test'
+  ...
+# Subtest: SEC-08 结构检查：数据库与记录类型中不存在文字销毁正文的存储位
+ok 82 - SEC-08 结构检查：数据库与记录类型中不存在文字销毁正文的存储位
+  ---
+  duration_ms: 1031.9805
+  type: 'test'
+  ...
+# Subtest: companion task calls the constrained model request and exposes a completed reply
+ok 83 - companion task calls the constrained model request and exposes a completed reply
+  ---
+  duration_ms: 10.538
+  type: 'test'
+  ...
+# Subtest: model timeout becomes a stable task failure reason
+ok 84 - model timeout becomes a stable task failure reason
+  ---
+  duration_ms: 1.5049
+  type: 'test'
+  ...
+# Subtest: pause cancels an in-flight model task and a late reply cannot refill it after resume
+ok 85 - pause cancels an in-flight model task and a late reply cannot refill it after resume
+  ---
+  duration_ms: 5.8403
+  type: 'test'
+  ...
+# Subtest: ending a session also rejects an in-flight late model reply
+ok 86 - ending a session also rejects an in-flight late model reply
+  ---
+  duration_ms: 2.8575
+  type: 'test'
+  ...
+# Subtest: consent is owner, scope, expiry, revocation and payload bound
+ok 87 - consent is owner, scope, expiry, revocation and payload bound
+  ---
+  duration_ms: 27.8857
+  type: 'test'
+  ...
+# Subtest: shared contracts reject zero UUIDs and unknown request fields
+ok 88 - shared contracts reject zero UUIDs and unknown request fields
+  ---
+  duration_ms: 8.4373
+  type: 'test'
+  ...
+# Subtest: text limits count Unicode code points instead of UTF-16 code units
+ok 89 - text limits count Unicode code points instead of UTF-16 code units
+  ---
+  duration_ms: 120.9385
+  type: 'test'
+  ...
+# Subtest: emotion records require a real date and supported IANA time zone
+ok 90 - emotion records require a real date and supported IANA time zone
+  ---
+  duration_ms: 4.5019
+  type: 'test'
+  ...
+# Subtest: model input contains only the approved payload fields
+ok 91 - model input contains only the approved payload fields
+  ---
+  duration_ms: 14.975
+  type: 'test'
+  ...
+# Subtest: model input rejects memories without explicit authorization
+ok 92 - model input rejects memories without explicit authorization
+  ---
+  duration_ms: 2.0788
+  type: 'test'
+  ...
+# Subtest: adapter maps a valid provider response to the unified contract
+ok 93 - adapter maps a valid provider response to the unified contract
+  ---
+  duration_ms: 3.6332
+  type: 'test'
+  ...
+# Subtest: adapter accepts a JSON object wrapped in a Markdown fence
+ok 94 - adapter accepts a JSON object wrapped in a Markdown fence
+  ---
+  duration_ms: 1.5866
+  type: 'test'
+  ...
+# Subtest: adapter rejects an action outside the request allowlist
+ok 95 - adapter rejects an action outside the request allowlist
+  ---
+  duration_ms: 1.7559
+  type: 'test'
+  ...
+# Subtest: failure substitute returns stable errors without calling a provider
+ok 96 - failure substitute returns stable errors without calling a provider
+  ---
+  duration_ms: 0.9093
+  type: 'test'
+  ...
+# Subtest: adapter returns an unavailable message when the API key is missing
+ok 97 - adapter returns an unavailable message when the API key is missing
+  ---
+  duration_ms: 0.4507
+  type: 'test'
+  ...
+# Subtest: adapter enforces its timeout even if the provider does not settle
+ok 98 - adapter enforces its timeout even if the provider does not settle
+  ---
+  duration_ms: 1002.8155
+  type: 'test'
+  ...
+# Subtest: uses the approved free model and official API address by default
+ok 99 - uses the approved free model and official API address by default
+  ---
+  duration_ms: 3.3411
+  type: 'test'
+  ...
+# Subtest: blocks any model outside the approved free model
+ok 100 - blocks any model outside the approved free model
+  ---
+  duration_ms: 1.5772
+  type: 'test'
+  ...
+# Subtest: blocks any API address outside the approved official endpoint
+ok 101 - blocks any API address outside the approved official endpoint
+  ---
+  duration_ms: 0.3225
+  type: 'test'
+  ...
+# Subtest: accepts a bounded model timeout and rejects unsafe values
+ok 102 - accepts a bounded model timeout and rejects unsafe values
+  ---
+  duration_ms: 0.2932
+  type: 'test'
+  ...
+# Subtest: naming card routes listening and organizing needs to companion mode
+ok 103 - naming card routes listening and organizing needs to companion mode
+  ---
+  duration_ms: 7.5228
+  type: 'test'
+  ...
+# Subtest: naming card routes search need to clarification before querying
+ok 104 - naming card routes search need to clarification before querying
+  ---
+  duration_ms: 0.5277
+  type: 'test'
+  ...
+# Subtest: naming card does not route before the user selects a need
+ok 105 - naming card does not route before the user selects a need
+  ---
+  duration_ms: 0.3175
+  type: 'test'
+  ...
+# Subtest: naming card rejects duplicate or unknown selections
+ok 106 - naming card rejects duplicate or unknown selections
+  ---
+  duration_ms: 1.9973
+  type: 'test'
+  ...
+# Subtest: runtime config normalizes bounded numbers, booleans, and origin
+ok 107 - runtime config normalizes bounded numbers, booleans, and origin
+  ---
+  duration_ms: 1.3068
+  type: 'test'
+  ...
+# Subtest: runtime config rejects ambiguous and unsafe release values
+ok 108 - runtime config rejects ambiguous and unsafe release values
+  ---
+  duration_ms: 3.362
+  type: 'test'
+  ...
+# Subtest: release readiness blocks placeholders and unsafe production settings
+ok 109 - release readiness blocks placeholders and unsafe production settings
+  ---
+  duration_ms: 0.4174
+  type: 'test'
+  ...
+# Subtest: release readiness accepts a bounded production configuration
+ok 110 - release readiness accepts a bounded production configuration
+  ---
+  duration_ms: 0.6673
+  type: 'test'
+  ...
+# Subtest: search task returns sources and remains scoped to its owner
+ok 111 - search task returns sources and remains scoped to its owner
+  ---
+  duration_ms: 12.7964
+  type: 'test'
+  ...
+# Subtest: ending a session cancels an in-flight search and prevents late refill
+ok 112 - ending a session cancels an in-flight search and prevents late refill
+  ---
+  duration_ms: 2.6407
+  type: 'test'
+  ...
+# Subtest: five-senses training pauses without advancing and resumes at the same step
+ok 113 - five-senses training pauses without advancing and resumes at the same step
+  ---
+  duration_ms: 54.9408
+  type: 'test'
+  ...
+# Subtest: five-senses training advances deterministically and exits in one action
+ok 114 - five-senses training advances deterministically and exits in one action
+  ---
+  duration_ms: 5.5964
+  type: 'test'
+  ...
+# Subtest: training sessions are isolated by owner and reject stale actions
+ok 115 - training sessions are isolated by owner and reject stale actions
+  ---
+  duration_ms: 0.6868
+  type: 'test'
+  ...
+# Subtest: provider maps real-source fields without inventing claims
+ok 116 - provider maps real-source fields without inventing claims
+  ---
+  duration_ms: 156.9027
+  type: 'test'
+  ...
+# Subtest: provider distinguishes an empty result
+ok 117 - provider distinguishes an empty result
+  ---
+  duration_ms: 3.422
+  type: 'test'
+  ...
+# Subtest: provider marks incomplete results partial
+ok 118 - provider marks incomplete results partial
+  ---
+  duration_ms: 1.518
+  type: 'test'
+  ...
+# Subtest: provider deduplicates repeated source identifiers and URLs
+ok 119 - provider deduplicates repeated source identifiers and URLs
+  ---
+  duration_ms: 4.6709
+  type: 'test'
+  ...
+# Subtest: provider rejects a non-empty result containing only invalid sources
+ok 120 - provider rejects a non-empty result containing only invalid sources
+  ---
+  duration_ms: 2.6059
+  type: 'test'
+  ...
+# Subtest: provider rejects API errors, invalid JSON, and unsafe configuration
+ok 121 - provider rejects API errors, invalid JSON, and unsafe configuration
+  ---
+  duration_ms: 2.1451
+  type: 'test'
+  ...
+# Subtest: provider reports timeout separately from other upstream errors
+ok 122 - provider reports timeout separately from other upstream errors
+  ---
+  duration_ms: 6.1565
+  type: 'test'
+  ...
+# Subtest: provider maps network faults to service unavailable
+ok 123 - provider maps network faults to service unavailable
+  ---
+  duration_ms: 26.5764
+  type: 'test'
+  ...
+# Subtest: provider preserves caller cancellation instead of reporting a timeout
+ok 124 - provider preserves caller cancellation instead of reporting a timeout
+  ---
+  duration_ms: 2.7485
+  type: 'test'
+  ...
+1..124
+# tests 124
+# suites 0
+# pass 124
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15504.9989

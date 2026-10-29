@@ -1,0 +1,254 @@
+[
+  {
+    "id": "F01",
+    "scenario": "游客命名卡与陪伴入口",
+    "verdict": "部分",
+    "observation": "命名路由模块通过，正式首页陪伴仍演示；没有当天游客→真实模型页面结果",
+    "evidence": "证据/core-recheck.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F02",
+    "scenario": "注册、登录和本人资料",
+    "verdict": "部分",
+    "observation": "原有HTTP认证/资料通过；注册幂等、资料重放、续期与33字符名仍有缺口",
+    "evidence": "证据/contract-recheck.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F03",
+    "scenario": "默认不保存",
+    "verdict": "通过（限定）",
+    "observation": "BG-02：合成模型完成后 saved_records=0",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F04",
+    "scenario": "SAVE与AI_PROCESS分别许可",
+    "verdict": "通过（限定）",
+    "observation": "BG-01/03：真实用途服务，合法正式Agent202→completed；两用途互换403，模型为替身",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F05",
+    "scenario": "主动保存与同请求重放",
+    "verdict": "通过（限定）",
+    "observation": "D4-02/03/04：无许可/变载荷拒绝，合法保存201且重放同ID",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F06",
+    "scenario": "加密持久化",
+    "verdict": "通过（限定）",
+    "observation": "D4-05：库内标题与正文密文，不等于公开详情可读",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F07",
+    "scenario": "本人历史可阅读正文",
+    "verdict": "未通过",
+    "observation": "D4-07：无可读正文，公开DTO含ciphertext",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F08",
+    "scenario": "账号B不可读A记录",
+    "verdict": "通过（限定）",
+    "observation": "D4-08：B列表0、A详情404",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F09",
+    "scenario": "记录跨入口隔离",
+    "verdict": "通过（限定）",
+    "observation": "D4-09：服务端DESKTOP上下文读WEB记录404，换发上下文后仍404",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F10",
+    "scenario": "退出后旧Cookie不得读历史",
+    "verdict": "通过（限定）",
+    "observation": "D4-13：退出204，旧Cookie历史401；并非浏览器完整链路",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F11",
+    "scenario": "改密撤销两份旧会话",
+    "verdict": "通过（限定）",
+    "observation": "D3-12：旧Cookie401；UI/正式环境未验",
+    "evidence": "证据/core-recheck.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F12",
+    "scenario": "两步清除与重复请求",
+    "verdict": "通过（限定）",
+    "observation": "D4-11：清除200/重放200，详情404、列表0、messages0，仅隔离合成数据",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F13",
+    "scenario": "内部模型统一授权",
+    "verdict": "未通过（P0）",
+    "observation": "D4-12仍200，计数适配器调用1；全量安全探针进一步覆盖三种非法形态",
+    "evidence": "证据/record-acceptance.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F14",
+    "scenario": "AI任务同账号跨入口拒绝",
+    "verdict": "未通过（P0）",
+    "observation": "BG-09：DESKTOP读取WEB任务200且含结果",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F15",
+    "scenario": "取消和RESTART迟到不回填",
+    "verdict": "通过（限定）",
+    "observation": "BG-05/06及D3-09通过；取消不代表供应商停止计费",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F16",
+    "scenario": "END后结果失效",
+    "verdict": "未通过",
+    "observation": "BG-07、D3-08：AI/查询已完成结果仍可读",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F17",
+    "scenario": "撤回许可后结果失效",
+    "verdict": "未通过",
+    "observation": "BG-08、D3-11仍可读",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F18",
+    "scenario": "退出再登录不恢复临时结果",
+    "verdict": "未通过",
+    "observation": "BG-10：同账号新登录可读取旧任务",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F19",
+    "scenario": "共享查询DTO",
+    "verdict": "未通过",
+    "observation": "D3-06共享Schema不匹配；来源id/结构需统一",
+    "evidence": "证据/core-recheck.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F20",
+    "scenario": "真实来源成功且可访问",
+    "verdict": "未通过",
+    "observation": "本次公开问题检索8005ms TIMEOUT、来源0；未造成功样例",
+    "evidence": "证据/live-search.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F21",
+    "scenario": "训练开始、暂停、继续、退出",
+    "verdict": "通过（限定）",
+    "observation": "BG-11/12：暂停时间不推进，退出后恢复409；时钟受控替身",
+    "evidence": "证据/business-gates.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F22",
+    "scenario": "REQ14正式入口及正文隐私",
+    "verdict": "未执行",
+    "observation": "main首页无销毁控件；候选URL无UI；分支有入口但未进main，不以0API当隐私通过",
+    "evidence": "证据/browser-entry.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F23",
+    "scenario": "Electron能力矩阵",
+    "verdict": "未验证",
+    "observation": "Day6分支作者报ACL阻止启动；历史曾启动不能充作当天DPI/多屏/穿透等证据",
+    "evidence": "证据/frontend-day6-author-report.md",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F24",
+    "scenario": "隔离迁移与快照恢复",
+    "verdict": "通过（限定）",
+    "observation": "独立复跑1/1：5迁移、2记录/2消息、A/B隔离、旧会话撤销；未执行独立删除日志重放",
+    "evidence": "证据/restore-special.tap",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F25",
+    "scenario": "正式PG16/HTTPS/备份恢复",
+    "verdict": "未验证",
+    "observation": "无本轮正式环境执行证据；PGlite与合成配置READY不替代",
+    "evidence": "证据/release-synthetic.log",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F26",
+    "scenario": "Windows交接集成命令",
+    "verdict": "未通过",
+    "observation": "npm run test:integration在Node26为MODULE_NOT_FOUND；显式枚举12文件39/39可运行",
+    "evidence": "证据/backend-integration-command.log",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F27",
+    "scenario": "模型真实演示与用户页面全链",
+    "verdict": "未验证",
+    "observation": "本日未调用真实模型；默认mock构建无业务后端，未执行完整E2E",
+    "evidence": "证据/browser-entry.json",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  },
+  {
+    "id": "F28",
+    "scenario": "课程材料与团队试讲",
+    "verdict": "待补",
+    "observation": "有UX PPT初稿与xlsx草稿；腾讯URL/全员心得工时/正式博客/试讲及Day6照片未取得",
+    "evidence": "04_11篇博客与答辩材料核对.md",
+    "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+    "reviewed_at": "2026-10-28T19:46:22+08:00"
+  }
+]

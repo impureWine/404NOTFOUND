@@ -1,0 +1,18 @@
+.live-route canvas { display: block; max-width: 100%; height: auto; border-radius: 14px; border: 1px solid #b8cfc5; margin-top: 16px; touch-action: none; }
+.live-records input[type=checkbox] { width: 20px; height: 20px; vertical-align: middle; }
+.live-records label:has(input[type=checkbox]) { display: flex; align-items: center; gap: 8px; }
+.live-records article { padding: 16px 0; border-bottom: 1px solid #d3ddd5; }
+.live-records article p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.live-records [role=log] { max-height: 55vh; overflow: auto; }
+.live-records .record-message { padding: 14px; margin: 8px 0; background: #eff5f1; border-radius: 10px; }
+.worry-shape { display: grid; place-items: center; width: 130px; height: 100px; font-size: 64px; color: #658475; background: #e0eadf; border-radius: 45%; }
+.shape-STONE { background: #dddcd8; border-radius: 45% 55% 32% 40%; }
+.shape-NOTE { border-radius: 3px; background: #f1e4b6; }
+
+body:has(.desktop-overlay) { background: transparent; }
+.desktop-overlay { background: transparent !important; }
+.desktop-overlay .home-sidebar, .desktop-overlay .home-topbar, .desktop-overlay .mobile-home-nav, .desktop-overlay .mobile-home-bar, .desktop-overlay .demo-disclaimer { display: none; }
+.desktop-overlay .home-workspace { margin: 0; width: 100%; }
+.desktop-overlay .home-main, .desktop-overlay .home-content { background: transparent; max-width: none; padding: 0; }
+.desktop-overlay .recent-card { background: rgba(240,245,240,.2); margin: 0; min-height: 100vh; }
+.desktop-overlay canvas { width: 100%; max-height: 75vh; }

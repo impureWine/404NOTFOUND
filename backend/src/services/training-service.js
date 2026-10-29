@@ -19,6 +19,24 @@ const FIVE_SENSES = Object.freeze({
   ]),
 });
 
+const DEFINITIONS = {
+  FIVE_SENSES,
+  BREATHING: { title: '呼吸练习', steps: [
+    { stepId: 'IN', title: '吸气', instruction: '以舒服的幅度吸气约四秒；不适时恢复自然呼吸并退出。' },
+    { stepId: 'OUT', title: '呼气', instruction: '慢慢呼气约六秒，不必憋气。可重复，也可在此结束。' },
+  ] },
+  PAUSE_ORGANIZE: { title: '暂停整理', steps: [
+    { stepId: 'STOP', title: '先停一下', instruction: '暂时停下手头的事，把注意力放在身体支撑的位置。' },
+    { stepId: 'NAME', title: '描述事实', instruction: '只描述发生的事，不急着评价自己。' },
+    { stepId: 'CHOOSE', title: '选择下一步', instruction: '选一件现在能完成的小事，或者先休息。' },
+  ] },
+  TASK_SPLIT: { title: '任务拆分', steps: [
+    { stepId: 'GOAL', title: '明确任务', instruction: '写下你想完成的一件事。' },
+    { stepId: 'SMALL', title: '缩小步骤', instruction: '把第一步缩小到十分钟内可以开始的动作。' },
+    { stepId: 'START', title: '安排行动', instruction: '决定何时开始；需要个性化整理时可进入事情整理。' },
+  ] },
+};
+
 function parse(schema, value) {
   const result = schema.safeParse(value);
   if (!result.success) {
@@ -39,10 +57,11 @@ export class TrainingService {
 
   start(context, body) {
     const value = parse(startTrainingRequestSchema, body);
+    const definition = DEFINITIONS[value.definitionId];
     const session = {
       trainingSessionId: randomUUID(),
       definitionId: value.definitionId,
-      title: FIVE_SENSES.title,
+      title: definition.title,
       state: 'running',
       stepIndex: 0,
       elapsedMs: 0,
@@ -85,7 +104,7 @@ export class TrainingService {
       this.settleElapsed(session);
       session.state = 'exited';
     } else if (value.action === 'NEXT') {
-      if (session.stepIndex === FIVE_SENSES.steps.length - 1) {
+      if (session.stepIndex === DEFINITIONS[session.definitionId].steps.length - 1) {
         this.settleElapsed(session);
         session.state = 'completed';
       } else {
@@ -117,14 +136,14 @@ export class TrainingService {
       : session.elapsedMs;
     const step = ['completed', 'exited'].includes(session.state)
       ? null
-      : FIVE_SENSES.steps[session.stepIndex];
+      : DEFINITIONS[session.definitionId].steps[session.stepIndex];
     return {
       trainingSessionId: session.trainingSessionId,
       definitionId: session.definitionId,
       title: session.title,
       state: session.state,
       stepIndex: session.stepIndex,
-      totalSteps: FIVE_SENSES.steps.length,
+      totalSteps: DEFINITIONS[session.definitionId].steps.length,
       elapsedMs,
       version: session.version,
       step,
