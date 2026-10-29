@@ -30,6 +30,8 @@ export function useRecordVault({ authenticated, accountKey }) {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState('');
   const [detail, setDetail] = useState(null);
+  const detailRequest = useRef(null);
+  const detailEpoch = useRef(0);
   const pendingSave = useRef(null);
   const pendingClear = useRef(null);
   const currentGeneration = useRef(0);
@@ -86,6 +88,8 @@ export function useRecordVault({ authenticated, accountKey }) {
 
   useEffect(() => {
     const generation = ++currentGeneration.current;
+    detailEpoch.current += 1;
+    detailRequest.current = null;
     const controller = startController();
     pendingSave.current = null;
     pendingClear.current = null;
@@ -160,17 +164,25 @@ export function useRecordVault({ authenticated, accountKey }) {
 
   const openDetail = useCallback(async id => {
     const generation = currentGeneration.current;
+    const requestEpoch = ++detailEpoch.current;
+    detailRequest.current?.abort();
     const controller = startController();
+    detailRequest.current = controller;
     beginOperation();
+    setDetail(null);
     setNotice('');
     try {
       const result = await apiClient.getRecord(id, { signal: controller.signal });
-      if (!controller.signal.aborted && generation === currentGeneration.current) {
-        setDetail({ id: result.id, kind: result.kind, version: result.version, createdAt: result.createdAt, updatedAt: result.updatedAt });
+      if (!result || result.id !== id || !result.kind || !Number.isInteger(result.version)) {
+        throw new Error('记录详情响应不完整，请重新读取。');
+      }
+      if (!controller.signal.aborted && generation === currentGeneration.current && requestEpoch === detailEpoch.current) {
+        setDetail(result);
       }
     } catch (error) {
-      if (!controller.signal.aborted && generation === currentGeneration.current) setNotice(recordMessage(error));
+      if (!controller.signal.aborted && generation === currentGeneration.current && requestEpoch === detailEpoch.current) setNotice(recordMessage(error));
     } finally {
+      if (detailRequest.current === controller) detailRequest.current = null;
       finishController(controller);
       endOperation();
     }
@@ -268,7 +280,7 @@ export function useRecordVault({ authenticated, accountKey }) {
     return true;
   }, []);
 
-  const closeDetail = useCallback(() => setDetail(null), []);
+  const closeDetail = useCallback(() => { detailEpoch.current += 1; detailRequest.current?.abort(); detailRequest.current = null; setDetail(null); }, []);
 
   return {
     items,

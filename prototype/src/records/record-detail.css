@@ -1,0 +1,11 @@
+.record-detail .record-detail-body { display: grid; gap: 12px; min-width: 0; }
+.record-detail .record-detail-body p, .record-detail .record-detail-body li { font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
+.record-detail .record-detail-body h4 { font-size: 14px; }
+.record-detail .record-detail-body dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 7px 18px; margin: 0; font-size: 14px; }
+.record-detail .record-detail-body dt { color: #64746d; }
+.record-detail .record-detail-body dd { margin: 0; overflow-wrap: anywhere; }
+.record-detail-message, .record-detail-excerpt { border-top: 1px solid #e1e7e2; padding: 12px 0; }
+.record-detail-message strong { font-size: 13px; }
+.record-detail-source { margin-top: 10px; overflow-wrap: anywhere; }
+.record-detail-source a { color: #376e5b; text-decoration: underline; }
+.record-detail-source p { font-size: 12px; color: #64746d; }

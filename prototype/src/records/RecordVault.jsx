@@ -3,6 +3,7 @@ import { FileClock, RefreshCw, ShieldCheck, Trash2 } from 'lucide-react';
 import { apiMode } from '../api/client.js';
 import { Button, DemoNote, EmptyState, Panel, Tag } from '../ui.jsx';
 import { useRecordVault } from './useRecordVault.js';
+import { RecordDetail } from './RecordDetail.jsx';
 
 const kindLabel = kind => ({ CONVERSATION: '会话记录', EMOTION: '情绪记录', WORRY_OBJECT: '物件记录', REHEARSAL_DRAFT: '排练草稿', DEPOSIT: '担忧暂存', QUERY: '查询记录' }[kind] || '记录');
 const codePoints = value => Array.from(value).length;
@@ -75,7 +76,7 @@ export function RecordVault({ authenticated, accountKey }) {
             ? <div className="record-clear-confirm"><p role="status">{vault.clearResultUnknown ? '上次清除请求结果未知；请用同一请求标识重试核实。' : vault.clearConfirmationReady ? `一次性确认约于 ${new Date(vault.clearExpiresAt).toLocaleTimeString('zh-CN')} 过期。确认前可取消。` : vault.clearConfirmationResultUnknown ? '清除确认结果待核实；重试会沿用同一请求标识，尚未提交清除请求。' : '尚未收到服务端确认凭证；可重试申请，当前没有提交清除请求。'}</p><div className="button-row"><Button variant="danger" icon={Trash2} disabled={vault.busy} onClick={() => vault.clearResultUnknown || vault.clearConfirmationReady ? vault.confirmClear(record) : vault.requestClear(record)}>{vault.busy ? '处理中…' : vault.clearResultUnknown ? '用同一请求重试核实' : vault.clearConfirmationReady ? '确认清除' : '重试申请确认'}</Button><Button variant="neutral" disabled={vault.busy || vault.clearResultUnknown} onClick={vault.cancelClear}>取消确认</Button></div></div>
             : <Button variant="neutral" disabled={vault.busy} onClick={() => vault.requestClear(record)}>清除</Button>}
         </article>)}</div>}
-        {vault.detail && <div className="record-detail" role="region" aria-label="记录详情"><div className="record-history-heading"><h4>{kindLabel(vault.detail.kind)}详情</h4><Button variant="neutral" onClick={vault.closeDetail}>关闭详情</Button></div><p>已按服务端身份读取记录版本 v{vault.detail.version}。</p><h4>{vault.detail.title}</h4>{vault.detail.content?.messages?.map((message,index) => <p className="preserve-lines" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}<p className="preserve-lines">{vault.detail.content?.body || vault.detail.content?.note || vault.detail.content?.scene || vault.detail.content?.question}</p>{vault.detail.content?.expressions?.map((text,index)=><p className="preserve-lines" key={index}>{text}</p>)}{vault.detail.kind === 'DEPOSIT' && <p>寄存正文需在到期后前往<a href="#deposit">寄存所</a>主动取出。</p>}</div>}
+        {vault.detail && <RecordDetail record={vault.detail} onClose={vault.closeDetail} />}
       </Panel>
     </div>
     {vault.notice && <div className="record-notice" role="status">{vault.notice}</div>}
