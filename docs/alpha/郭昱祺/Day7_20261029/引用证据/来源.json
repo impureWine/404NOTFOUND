@@ -1,0 +1,74 @@
+[
+  {
+    "path": "backend/evidence/daily/Day7_最终复核和交接.md",
+    "file": "引用证据/Day7_最终复核和交接.md",
+    "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+    "sha256": "db1f0b3698a7b41ec59c87b7565a965c495b2097d84f2a912f4a7a754e9dc1bc",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/daily/Day7_最终复核和交接.md",
+    "status": "PR84 未合入本次主线基线"
+  },
+  {
+    "path": "backend/evidence/程群_Day7_AI复盘终稿_20261029.md",
+    "file": "引用证据/程群_Day7_AI复盘终稿_20261029.md",
+    "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+    "sha256": "8cc13bdff9b83a71ea3c102d73ee0a13c34439ec4ff4aea641b87062e168fdb0",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/程群_Day7_AI复盘终稿_20261029.md",
+    "status": "PR84 未合入本次主线基线"
+  },
+  {
+    "path": "backend/evidence/程群_Day7_模型异常预案_20261029.md",
+    "file": "引用证据/程群_Day7_模型异常预案_20261029.md",
+    "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+    "sha256": "d790c37df42f5e1b9b48762047b8df9309ff1c8a6448e90d5431d23f769b7d9a",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/程群_Day7_模型异常预案_20261029.md",
+    "status": "PR84 未合入本次主线基线"
+  },
+  {
+    "path": "backend/evidence/程群_Day7_真实模型复查记录_20261029.json",
+    "file": "引用证据/程群_Day7_真实模型复查记录_20261029.json",
+    "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+    "sha256": "40b07214970f88a4303632b1271ed9f8d5ca93b9cb5611d2ea5e99405839a042",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/程群_Day7_真实模型复查记录_20261029.json",
+    "status": "PR84 未合入本次主线基线"
+  },
+  {
+    "path": "docs/alpha/曾俊涛/Day6_20261028/07_最新主线复核_dd888a6.md",
+    "file": "引用证据/07_最新主线复核_dd888a6.md",
+    "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+    "sha256": "ef437680b0d63314ada18fd06f4a9e1cb5967e5db39a15e09a286df8b3e90650",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/曾俊涛/Day6_20261028/07_最新主线复核_dd888a6.md",
+    "status": "历史报告，执行基线见正文"
+  },
+  {
+    "path": "docs/alpha/曾俊涛/Day6_20261028/09_安全侧增量核对_7824d0c.md",
+    "file": "引用证据/09_安全侧增量核对_7824d0c.md",
+    "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+    "sha256": "3574cce8722c148d2a32ce3fc447d5d58e0ffef631d32d78170d11e10bbdff89",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/曾俊涛/Day6_20261028/09_安全侧增量核对_7824d0c.md",
+    "status": "历史报告，执行基线见正文"
+  },
+  {
+    "path": "docs/alpha/曾俊涛/Day6_20261028/10_项目运行截图包说明.md",
+    "file": "引用证据/10_项目运行截图包说明.md",
+    "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+    "sha256": "f0c4895c84a14fe052fd5fd9e0a122796b0091062c8e1d6ee82aae618c9c1421",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/曾俊涛/Day6_20261028/10_项目运行截图包说明.md",
+    "status": "历史报告，执行基线见正文"
+  },
+  {
+    "path": "docs/alpha/关欣/Day6_安全验收结论_20261028.md",
+    "file": "引用证据/Day6_安全验收结论_20261028.md",
+    "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+    "sha256": "fa894a2e98c7c42c7399edb46c4385be9a0e76ef1b48ba16a8c0cc7522a42e92",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/关欣/Day6_安全验收结论_20261028.md",
+    "status": "历史报告，执行基线见正文"
+  },
+  {
+    "path": "backend/evidence/daily/Day6_迁移隔离恢复与答辩交接.md",
+    "file": "引用证据/Day6_迁移隔离恢复与答辩交接.md",
+    "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+    "sha256": "8e8c045d2f269884074606730260d7eb571476a0e697924c34b8bd103c7e7b40",
+    "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/backend/evidence/daily/Day6_迁移隔离恢复与答辩交接.md",
+    "status": "历史报告，执行基线见正文"
+  }
+]
