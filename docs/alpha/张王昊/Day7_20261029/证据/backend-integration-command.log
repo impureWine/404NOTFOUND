@@ -1,0 +1,37 @@
+
+> 404notfound-data-service@0.1.0 test:integration
+> node --test test/integration
+
+node:internal/modules/cjs/loader:1522
+  throw err;
+  ^
+
+Error: Cannot find module 'D:\大学\软件工程\404烦恼未找到\output\张王昊_Day7交付包_20261029_v1.0\_evidence_latest\source\backend\test\integration'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1519:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1073:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1097:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1124:12)
+    at Module._load (node:internal/modules/cjs/loader:1296:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v26.2.0
+✖ test\integration (64.0321ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 69.6178
+
+✖ failing tests:
+
+test at test\integration:1:1
+✖ test\integration (64.0321ms)
+  'test failed'

@@ -1,0 +1,22 @@
+{
+  "commit": "1483f8330c3c47ecf88863968f518705a1a84918",
+  "recordedAt": "2026-10-29T08:24:35.940Z",
+  "environment": "Edge default mock build; QA instruments Storage.setItem and IndexedDB put/add only",
+  "initialEmpty": true,
+  "destroyEmpty": true,
+  "clearEmpty": true,
+  "syntheticPagehideEmpty": true,
+  "reloadEmpty": true,
+  "markerNetworkHits": 0,
+  "markerConsoleHits": 0,
+  "markerInstrumentedStorageWrites": 0,
+  "pageErrors": [],
+  "coveredVerdict": "PASS-LIMITED",
+  "notCovered": [
+    "exception injection",
+    "Cache API writes",
+    "real AI/backend integration",
+    "OS/browser internal logs",
+    "real window close or BFCache restore"
+  ]
+}

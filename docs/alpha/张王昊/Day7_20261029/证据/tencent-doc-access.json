@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-10-29T08:01:52.034Z",
+  "url": "https://docs.qq.com/sheet/DTEZ1SHdVTUZ2b1JD",
+  "browser": "msedge (headless, Playwright)",
+  "context": "fresh context, no cookies / no login",
+  "steps": {
+    "httpStatus": 200,
+    "title": "404烦恼未找到 · Alpha 冲刺评审表",
+    "bodyTextLength": 271,
+    "bodyTextHead": "404烦恼未找到 · Alpha 冲刺评审表 只能查看 登录腾讯文档 开始 插入 数据 公式 协作 视图 效率工具 会员专享 微软雅黑 15 表格样式 条件格式 字体样式 换行 拆分 对齐方式 常规 数字格式 筛选 冻结 求和 排序 数据 数据 保护 插入 图片 图表 透视表 插入 快捷工具 生成图片 生成查询 生成智能表 图片转表格 PDF转换 快捷工具 打印 更多 微软雅黑 15 表格样式 条件格式 换行 拆分 常规 筛选 冻结 求和 排序 数据 保护 插入 图片 图表 透视表 快捷工具 打印 Alpha 冲刺评审表 排名 100%",
+    "deniedPatternsFound": [],
+    "contentHintsFound": [
+      "只能查看"
+    ],
+    "cookieCount": 15,
+    "cookieNames": [
+      "sheet_location",
+      "traceid",
+      "TOK",
+      "hashkey",
+      "fingerprint",
+      "ES2",
+      "dark_mode_setting",
+      "a_pk__02",
+      "a_sk__07__0WEB071JJOW4VSP7",
+      "a_sk__03",
+      "a_sk__05",
+      "a_pk__04",
+      "qimei",
+      "a_sk__10",
+      "tgw_l7_route"
+    ],
+    "requestCount": 411
+  },
+  "screenshot": "tencent-doc-anonymous-view.png",
+  "verdict": "ANONYMOUS-READABLE"
+}

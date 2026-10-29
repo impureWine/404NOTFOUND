@@ -1,0 +1,101 @@
+[
+  {
+    "title": "置顶集合",
+    "source": "03_置顶集合_提交核对版.md",
+    "material_state": "本包整合；实际置顶回执待补",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "代码规范/冲刺计划",
+    "source": "docs/alpha/张王昊/Day1_20261023/03_代码规范与冲刺计划_博客.md",
+    "material_state": "仓库候选；开发前实际发布时间待核",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "Day1",
+    "source": "docs/alpha/张王昊/Day1_20261023/06_Day1冲刺日志_博客.md",
+    "material_state": "main材料",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "Day2",
+    "source": "docs/alpha/张王昊/Day2_20261024/05_Day2冲刺日志_博客.md",
+    "material_state": "PR27关闭未合并；历史提交材料",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "Day3",
+    "source": "docs/alpha/张王昊/Day3_20261025/05_Day3冲刺日志_博客.md",
+    "material_state": "main材料",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "Day4",
+    "source": "docs/alpha/张王昊/Day4_20261026/06_Day4冲刺日志_博客.md",
+    "material_state": "main材料",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "Day5",
+    "source": "docs/alpha/张王昊/Day5_20261027/06_Day5冲刺日志_博客.md",
+    "material_state": "PR60已合并，main材料",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "Day6",
+    "source": "docs/alpha/张王昊/Day6_20261028/06_Day6冲刺日志_博客.md",
+    "material_state": "PR75仍OPEN，历史提交材料",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "Day7",
+    "source": "02_Day7冲刺日志_博客.md",
+    "material_state": "本包当天稿，待真实会议/个人回执",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "测试随笔",
+    "source": "docs/alpha/曾俊涛/Day5_20261027/04_测试随笔更新稿_34d751c.md",
+    "material_state": "最新可核稿；需要负责人补Day7结果与发布",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  },
+  {
+    "title": "冲刺总结",
+    "source": "04_Alpha冲刺总结_提交核对版.md",
+    "material_state": "本包，实际贡献与最终回执待补",
+    "published_url": null,
+    "published_at": null,
+    "access_verified": false,
+    "course_receipt": null
+  }
+]
