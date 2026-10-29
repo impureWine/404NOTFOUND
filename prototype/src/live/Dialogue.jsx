@@ -53,7 +53,7 @@ export function Dialogue({ mode = 'LISTEN', initialText = '' }) {
     } catch (value) { setError(value.message); } finally { lock.current = false; setBusy(false); }
   };
   return <section className="live-records recent-card"><h2>{mode === 'REHEARSE' ? '平行宇宙排练室' : mode === 'ORGANIZE' ? '事情整理' : '陪伴交流'}</h2>
-    <p>回复由已配置的模型服务生成；默认不保存。模型不可用时显示真实错误。</p>
+    <p>访客可以查看并填写本页；发送需要可用的模型服务，默认不保存。</p>
     {error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     <form onSubmit={send}><fieldset disabled={busy}>
       {mode === 'REHEARSE' && Object.entries({ scene: '场景', counterpart: '对方角色', goal: '本次目标', style: '对话风格' }).map(([key, label]) => <label key={key}>{label}<input required maxLength={key === 'goal' ? 1000 : key === 'style' ? 200 : 80} value={simulation[key]} onChange={event => setSimulation(current => ({ ...current, [key]: event.target.value }))} /></label>)}

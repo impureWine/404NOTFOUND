@@ -84,7 +84,8 @@ export function createApp({
   app.use('/integrations/wechat', createWechatRouter({ modelAdapter, searchProvider: taskService?.searchProvider }));
 
   app.get('/api/capabilities', (_request, response) => response.json({ data: {
-    api: true, modelConfigured: Boolean(process.env.ZHIPU_API_KEY), searchProvider: 'wikipedia',
+    api: true, modelConfigured: Boolean(process.env.ZHIPU_API_KEY), searchProvider: taskService?.searchProvider?.getCapabilities?.().provider ?? null,
+    searchConfigured: Boolean(taskService?.searchProvider?.getCapabilities?.().configured),
     entryPoint: process.env.APP_ENTRY_POINT || 'WEB', wechatConfigured: Boolean(process.env.WECHAT_TOKEN),
     records: ['CONVERSATION', 'EMOTION', 'WORRY_OBJECT', 'REHEARSAL_DRAFT', 'DEPOSIT'],
   } }));

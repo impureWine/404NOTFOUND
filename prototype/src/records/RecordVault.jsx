@@ -3,6 +3,7 @@ import { FileClock, RefreshCw, ShieldCheck, Trash2 } from 'lucide-react';
 import { apiMode } from '../api/client.js';
 import { Button, DemoNote, EmptyState, Panel, Tag } from '../ui.jsx';
 import { useRecordVault } from './useRecordVault.js';
+import { RecordDetail } from './RecordDetail.jsx';
 
 const kindLabel = kind => ({ CONVERSATION: '会话记录', EMOTION: '情绪记录', WORRY_OBJECT: '物件记录', REHEARSAL_DRAFT: '排练草稿', DEPOSIT: '担忧暂存', QUERY: '查询记录' }[kind] || '记录');
 const codePoints = value => Array.from(value).length;
@@ -51,13 +52,13 @@ export function RecordVault({ authenticated, accountKey }) {
           {formError && <p className="record-error" role="alert">{formError}</p>}
           <Button type="submit" disabled={!authenticated || apiMode !== 'real' || Boolean(review) || vault.busy}>检查并选择保存</Button>
         </form>
-        {!authenticated && <p className="record-gate" role="status">登录后才能查看或保存私密记录；访客不会请求记录列表。</p>}
+        {!authenticated && <p className="record-gate" role="status">页面已开放浏览；登录后才能读取或保存本人私密记录，访客不会请求记录列表。</p>}
         {apiMode !== 'real' && authenticated && <p className="record-gate" role="status">当前是 API 模拟模式；不会模拟保存成功或展示虚构账户历史。</p>}
         {review && <div className="record-consent" role="group" aria-label="保存前确认">
           <h4>保存前确认</h4><strong>{review.title}</strong><p className="preserve-lines">{review.body}</p>
           <label className="record-consent-choice"><input type="checkbox" checked={saveConsent} onChange={event => setSaveConsent(event.target.checked)} disabled={vault.busy} /><span>我明确选择将以上内容保存为本人当前入口的记录。此许可仅用于 SAVE，不代表允许 AI 处理。</span></label>
           {vault.saveResultUnknown && <p className="record-gate" role="status">服务端保存结果未知。请保持这个快照并用同一请求重试核实；不能取消后改成新内容。</p>}
-          <div className="button-row"><Button disabled={!saveConsent || vault.busy} onClick={confirmSave}>{vault.busy ? '正在保存…' : vault.saveResultUnknown ? '用同一请求重试核实' : vault.hasPendingSave ? '用同一请求重试保存' : '确认保存'}</Button><Button variant="neutral" disabled={vault.busy || vault.saveResultUnknown} onClick={() => { if (vault.cancelSave()) { setReview(null); setSaveConsent(false); setFormError(''); } }}>取消</Button></div>
+          <div className="button-row"><Button disabled={!authenticated || !saveConsent || vault.busy} onClick={confirmSave}>{vault.busy ? '正在保存…' : vault.saveResultUnknown ? '用同一请求重试核实' : vault.hasPendingSave ? '用同一请求重试保存' : '确认保存'}</Button><Button variant="neutral" disabled={vault.busy || vault.saveResultUnknown} onClick={() => { if (vault.cancelSave()) { setReview(null); setSaveConsent(false); setFormError(''); } }}>取消</Button></div>
         </div>}
       </Panel>
 
@@ -75,7 +76,7 @@ export function RecordVault({ authenticated, accountKey }) {
             ? <div className="record-clear-confirm"><p role="status">{vault.clearResultUnknown ? '上次清除请求结果未知；请用同一请求标识重试核实。' : vault.clearConfirmationReady ? `一次性确认约于 ${new Date(vault.clearExpiresAt).toLocaleTimeString('zh-CN')} 过期。确认前可取消。` : vault.clearConfirmationResultUnknown ? '清除确认结果待核实；重试会沿用同一请求标识，尚未提交清除请求。' : '尚未收到服务端确认凭证；可重试申请，当前没有提交清除请求。'}</p><div className="button-row"><Button variant="danger" icon={Trash2} disabled={vault.busy} onClick={() => vault.clearResultUnknown || vault.clearConfirmationReady ? vault.confirmClear(record) : vault.requestClear(record)}>{vault.busy ? '处理中…' : vault.clearResultUnknown ? '用同一请求重试核实' : vault.clearConfirmationReady ? '确认清除' : '重试申请确认'}</Button><Button variant="neutral" disabled={vault.busy || vault.clearResultUnknown} onClick={vault.cancelClear}>取消确认</Button></div></div>
             : <Button variant="neutral" disabled={vault.busy} onClick={() => vault.requestClear(record)}>清除</Button>}
         </article>)}</div>}
-        {vault.detail && <div className="record-detail" role="region" aria-label="记录详情"><div className="record-history-heading"><h4>{kindLabel(vault.detail.kind)}详情</h4><Button variant="neutral" onClick={vault.closeDetail}>关闭详情</Button></div><p>已按服务端身份读取记录版本 v{vault.detail.version}。</p><h4>{vault.detail.title}</h4>{vault.detail.content?.messages?.map((message,index) => <p className="preserve-lines" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}<p className="preserve-lines">{vault.detail.content?.body || vault.detail.content?.note || vault.detail.content?.scene || vault.detail.content?.question}</p>{vault.detail.content?.expressions?.map((text,index)=><p className="preserve-lines" key={index}>{text}</p>)}{vault.detail.kind === 'DEPOSIT' && <p>寄存正文需在到期后前往<a href="#deposit">寄存所</a>主动取出。</p>}</div>}
+        {vault.detail && <RecordDetail record={vault.detail} onClose={vault.closeDetail} />}
       </Panel>
     </div>
     {vault.notice && <div className="record-notice" role="status">{vault.notice}</div>}

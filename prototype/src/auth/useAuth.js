@@ -23,7 +23,7 @@ export function useAuth() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
-  const [pageNotice, setPageNotice] = useState(apiMode === 'mock' ? '认证 API 未连接；登录、注册和退出请求不会模拟成功。' : '');
+  const [pageNotice, setPageNotice] = useState(apiMode === 'mock' ? '访客可浏览和使用本地练习；账户服务未连接。' : '');
   const [logoutPending, setLogoutPending] = useState(false);
 
   const clearLocalIdentity = useCallback(() => {
@@ -50,13 +50,13 @@ export function useAuth() {
       setProfile(currentProfile);
       if (currentProfile) setIdentityKey(value => value + 1);
       setStatus(currentProfile ? 'authenticated' : 'anonymous');
-      setPageNotice(currentProfile ? '' : '当前为未登录访客。');
+      setPageNotice(currentProfile ? '' : '访客体验已开放；登录后可读取和保存个人内容。');
     }).catch(errorValue => {
       if (controller.signal.aborted) return;
       apiClient.clearAuthContext();
       setProfile(null);
       setStatus('unavailable');
-      setPageNotice(`认证服务暂不可用：${messageFor(errorValue)}`);
+      setPageNotice(`账户服务暂不可用，访客体验仍可继续。${messageFor(errorValue)}`);
     });
     return () => controller.abort();
   }, [refreshIdentity]);
