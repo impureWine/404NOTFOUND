@@ -2,7 +2,7 @@
 
 > 姓名：李泉毅　角色：后端工程师　复核准备日期：2026-10-28
 
-今天为 Day7 最终核验准备复跑本地可用代码：后端全量111/111、集成34/34，Day1 API服务8/8，前端 API 适配器6/6，Vite生产构建通过。运行环境是本地 `main@1e1eebf` checkout 和 Node.js 20.18.0；由于项目要求 Node.js >=22 且 GitHub fetch 未能更新本地 checkout，这些数字不是最新远端 `2043c069` 或 Node 22 环境的最终验收结果。
+今天为 Day7 最终核验准备复跑本地可用代码：后端全量111/111、集成34/34，Day1 API服务8/8，前端 API 适配器6/6，Vite生产构建通过。运行环境是基于本地 `main@1e1eebf` 且含其他未提交改动的工作树，以及 Node.js 20.18.0；GitHub `main` 当前为 `3c6b3b3`，项目要求 Node.js >=22。因此这些数字只代表本地脏工作树复跑，不是干净远端 SHA、本次 issue 分支或 Node 22 环境的最终验收结果。
 
 发布检查返回 `BLOCKED`，缺少 `DATABASE_URL` 和 `PROFILE_ENCRYPTION_KEY`。今日真实 Wikipedia 查询超时8秒、来源数0，因此没有可抽查的来源链接。Day6 数据成员的49/49与恢复专项1/1来自 PGlite 聚焦测试，不证明 PostgreSQL 16、`pg_dump/pg_restore` 或独立删除日志实际重放。
 

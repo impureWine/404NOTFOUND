@@ -2,7 +2,7 @@
 
 复核准备日期：2026-10-28（Day7计划日为10月29日，故本文记录前置复跑，不冒充最终日已完成）
 
-本地测试 checkout：`main@1e1eebf`；GitHub 最新可核验提交：`main@2043c069`
+本地测试工作树基于 `main@1e1eebf`，但含有未提交的其他改动；GitHub `main` 当前为 `3c6b3b3`。本页测试计数来自该脏工作树，不代表干净远端提交或本次 issue 分支的 CI 结果。
 
 本地运行时：Node.js v20.18.0（低于 `backend/package.json` 要求的 Node.js >=22）
 
@@ -18,7 +18,7 @@
 | 发布配置 | `backend: npm run check:release` | BLOCKED | 缺 `DATABASE_URL`、`PROFILE_ENCRYPTION_KEY` |
 | Wikipedia 实网 | `backend: node scripts/verify-wikipedia-search.js Wikipedia` | TIMEOUT，8秒，来源0 | 无链接可抽查 |
 
-测试基线不是最新远端：GitHub `main@2043c069` 的提交历史含 `a0118cb` Day6恢复专项，而本地 Node 工作树未能 fetch 更新。Day5 独立复核 `34d751c` 为后端120/120、前端6/6，但 13项纵向探针11通过、2未达标；不同 SHA 和不同测试层次不可合并统计。
+测试基线不是干净的最新远端：GitHub `main@3c6b3b3` 含 Day6恢复专项，而本地 Node 工作树无法通过 Git fetch 同步。复跑时工作树有其他未提交文件变更，因此本页只记录本地观察结果，不宣称它们对应干净的 `1e1eebf`、`3c6b3b3` 或本次文档分支。Day5 独立复核 `34d751c` 为后端120/120、前端6/6，但 13项纵向探针11通过、2未达标；不同 SHA 和不同测试层次不可合并统计。
 
 Day6 数据成员在候选 `734b5f5` 上记录 PGlite迁移/仓储/恢复/权限/清除聚焦49/49及恢复专项1/1。此测试使用应用层 `deletionLogReplayCompleted` 布尔守卫，不验证独立删除日志内容/连续性，也不等于 PostgreSQL 16、`pg_dump/pg_restore` 恢复演练。
 
