@@ -73,7 +73,8 @@ export function RecordsPanel({ kind }) {
       if (editing) await apiClient.updateRecord(editing.id, { ...body, expectedVersion: editing.version });
       else await apiClient.createRecord({ ...body, kind });
       if (generation !== epoch.current) return;
-      pending.current = null; setEditing(null); setContent(fresh(kind));
+      pending.current = null; setEditing(null); setContent(emotion ? { ...fresh(kind), recordDate: normalized.recordDate } : fresh(kind));
+      if (emotion) { setMonth(normalized.recordDate.slice(0, 7)); setSelectedDay(normalized.recordDate); }
       setNotice('服务端已确认保存。刷新页面后仍可查看。'); setRevision(value => value + 1);
     } catch (value) { if (generation === epoch.current) setError(`${value.message}；未确认保存成功。版本冲突时请重新打开最新记录再编辑。`); }
     finally { locked.current = false; setBusy(false); }
@@ -88,7 +89,7 @@ export function RecordsPanel({ kind }) {
     {emotion && <><div className="record-month-grid" aria-label="本月日期">{Array.from({ length: new Date(Number(month.slice(0, 4)), Number(month.slice(5)), 0).getDate() }, (_, index) => {
       const date = `${month}-${String(index + 1).padStart(2, '0')}`;
       const marked = items.some(item => item.content.recordDate === date);
-      return <button type="button" key={date} aria-label={`${date}${marked ? ' 有已加载记录' : ''}`} aria-pressed={selectedDay === date} onClick={() => setSelectedDay(date)}>{index + 1}{marked ? ' ●' : ''}</button>;
+      return <button type="button" key={date} aria-label={`${date}${marked ? ' 有已加载记录' : ''}`} aria-pressed={selectedDay === date} onClick={() => { setSelectedDay(date); if (!editing) patch({ recordDate: date }); }}>{index + 1}{marked ? ' ●' : ''}</button>;
     })}</div><p>标记基于已加载记录。{selectedDay || '显示本月记录'} <button type="button" onClick={() => setSelectedDay('')}>查看整月</button></p></>}
     <ul className="live-record-list">{items.filter(item => !emotion || !selectedDay || item.content.recordDate === selectedDay).map(item => <li key={item.id}>
       <button type="button" onClick={() => view(item)}>{item.content?.recordDate || new Date(item.createdAt).toLocaleDateString()} · {item.title}</button>

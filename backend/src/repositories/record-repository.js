@@ -45,10 +45,6 @@ function mapRecord(row, idempotent = false) {
   };
 }
 
-function formatRecordDate(value) {
-  return value instanceof Date ? value.toISOString().slice(0, 10) : String(value);
-}
-
 async function getRecordDetails(database, recordId, kind) {
   let result;
   switch (kind) {
@@ -73,7 +69,8 @@ async function getRecordDetails(database, recordId, kind) {
     case 'EMOTION':
       result = await database.query(
         `
-          SELECT record_date, emotion_codes, intensity, timezone_name,
+          SELECT to_char(record_date, 'YYYY-MM-DD') AS record_date,
+                 emotion_codes, intensity, timezone_name,
                  event_ciphertext, cipher_key_version
           FROM emotion_records
           WHERE saved_record_id = $1
@@ -82,7 +79,7 @@ async function getRecordDetails(database, recordId, kind) {
       );
       if (result.rows.length === 0) throw new ConflictError('The record payload is missing');
       return {
-        recordDate: formatRecordDate(result.rows[0].record_date),
+        recordDate: result.rows[0].record_date,
         emotionCodes: result.rows[0].emotion_codes,
         intensity: result.rows[0].intensity,
         timezoneName: result.rows[0].timezone_name,
