@@ -1,28 +1,50 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none';" />
-    <title>404NOTFOUND 桌宠入口</title>
-    <link rel="stylesheet" href="./renderer.css" />
-  </head>
-  <body>
-    <main class="pet-shell">
-      <div class="pet-drag-zone" aria-label="拖动桌宠窗口"></div>
-      <div class="pet-avatar" aria-hidden="true"><img src="./assets/pet-mascot.png" alt="" /></div>
-      <section class="pet-toolbar" aria-label="桌宠快捷操作">
-        <button type="button" class="tool-button" data-action="open-workspace" aria-label="打开工作台" title="打开工作台"><span class="tool-glyph compose-glyph"></span></button>
-        <span class="tool-divider" aria-hidden="true"></span>
-        <button type="button" class="tool-button" data-action="open-pressure" aria-label="打开桌面发泄浮层" title="打开桌面发泄浮层"><span class="tool-glyph wave-glyph"><i></i><i></i><i></i></span></button>
-      </section>
-      <div class="pet-window-actions" aria-label="窗口操作">
-        <button type="button" class="window-button pass-window-button" data-action="click-through" aria-label="点击穿透" title="点击穿透" aria-pressed="false">◌</button>
-        <button type="button" class="window-button" data-action="hide" aria-label="隐藏桌宠">−</button>
-        <button type="button" class="window-button close" data-action="close" aria-label="关闭桌宠">×</button>
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none';" />
+  <title>团团 · 404NOTFOUND 桌宠</title><link rel="stylesheet" href="./renderer.css" />
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true"><defs>
+    <symbol id="chat" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></symbol>
+    <symbol id="wind" viewBox="0 0 24 24"><path d="M3 8h12a3 3 0 1 0-3-3M2 12h17a3 3 0 1 1-3 3M4 16h6a3 3 0 1 1-3 3"/></symbol>
+    <symbol id="heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></symbol>
+    <symbol id="box" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 8v10l9 5 9-5V8M12 13v10M7.5 5.5l9 5"/></symbol>
+    <symbol id="calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18M8 15h2M14 15h2M8 18h2"/></symbol>
+    <symbol id="flower" viewBox="0 0 24 24"><path d="M12 13v8M7 17c0 4 5 4 5 4s5 0 5-4M12 4c-4-6-8 3-3 4-7 1-3 9 1 5 0 6 8 3 5-1 6 2 8-6 2-6 2-6-6-7-5-2Z"/></symbol>
+    <symbol id="sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+  </defs></svg>
+  <main class="pet-shell">
+    <section class="pet-panel" id="pet-panel" aria-label="团团的陪伴面板" hidden>
+      <header class="panel-header"><div class="mini-mascot" aria-hidden="true"><img src="./assets/pet-mascot.png" alt="" /></div><div class="panel-identity"><h1>团团<span>404 NOTFOUND</span></h1><p>在这里陪你一会儿</p></div><button class="icon-button" data-action="collapse" aria-label="收起功能面板">−</button></header>
+      <div class="panel-scroll">
+        <section data-view="home"><div class="greeting"><span class="greeting-icon"><svg><use href="#flower"/></svg></span><p>可以聊一聊，也可以<br/><strong>只在这里歇一会儿。</strong></p></div>
+          <div class="feature-grid">
+            <button class="feature-card pink" data-open-view="chat"><svg><use href="#chat"/></svg><strong>聊一聊</strong><span>倾听，或慢慢梳理</span></button>
+            <button class="feature-card mint" data-open-view="relax"><svg><use href="#wind"/></svg><strong>放松一下</strong><span>跟着节奏慢慢呼吸</span></button>
+            <button class="feature-card cream" data-open-view="mood"><svg><use href="#heart"/></svg><strong>记心情</strong><span>选一个此刻的感受</span></button>
+            <button class="feature-card oat" data-route="deposit"><svg><use href="#box"/></svg><strong>先放一放</strong><span>去寄存一件烦心事</span></button>
+          </div>
+          <div class="quick-links"><button data-route="calendar"><svg><use href="#calendar"/></svg>心情日历</button><button data-open-view="more"><span class="dots">···</span>更多入口</button></div>
+          <p class="gentle-note">无需打卡，想用的时候再打开。</p>
+        </section>
+        <section data-view="chat" hidden><button class="back-button" data-action="back">← 返回</button><h2>今天想怎么聊？</h2><p class="view-copy">不用组织得很好，从你愿意说的地方开始。</p><button class="choice-row" data-route="companion"><span><strong>先听我说说</strong><small>打开陪伴交流</small></span><svg><use href="#arrow"/></svg></button><button class="choice-row" data-route="things"><span><strong>陪我理一理</strong><small>打开事情整理</small></span><svg><use href="#arrow"/></svg></button><p class="local-note">对话会在工作台中进行，由你确认发送。</p></section>
+        <section data-view="relax" hidden><button class="back-button" data-action="back">← 返回</button><h2>把节奏慢下来</h2><p class="view-copy">一分钟呼吸，或留意此刻身边的事物。</p><div class="relax-tabs"><button data-action="choose-breath" aria-pressed="true">呼吸一下</button><button data-action="choose-ground" aria-pressed="false">五感安定</button></div>
+          <div data-exercise="breath"><div class="breath-visual"><div class="breath-ring" aria-hidden="true"></div><div class="breath-label"><strong data-breath-title>准备开始</strong><span data-breath-count>按自己的节奏就好</span></div></div><progress data-breath-progress aria-label="呼吸练习进度" max="60000" value="0"></progress><p class="exercise-status" data-breath-status role="status">吸气 4 秒 · 呼气 6 秒 · 不必憋气</p><div class="exercise-actions"><button class="primary-button" data-action="breath-start">开始一分钟</button><button data-action="breath-pause" hidden>暂停</button><button data-action="breath-resume" hidden>继续</button><button data-action="breath-reset" hidden>重来</button></div><p class="local-note">不舒服时随时停止，恢复自然呼吸。</p></div>
+          <div data-exercise="ground" hidden><div class="ground-card"><span class="step-badge" data-ground-number>1 / 5</span><h3 data-ground-title>看见 5 样东西</h3><p data-ground-copy>慢慢环顾四周，留意能看见的东西。</p></div><div class="exercise-actions"><button data-action="ground-previous" disabled>上一步</button><button class="primary-button" data-action="ground-next">继续</button></div><p class="local-note">在心里完成即可，每一步都可以略过。</p></div>
+          <button class="text-link" data-route="games">更多完整练习 ↗</button>
+        </section>
+        <section data-view="mood" hidden><button class="back-button" data-action="back">← 返回</button><h2>此刻的你，是什么心情？</h2><p class="view-copy">选一个接近的词，也可以暂时说不清。</p><div class="mood-options" role="group" aria-label="此刻心情"></div><div class="mood-response" role="status" data-mood-response>这里没有标准答案。</div><button class="primary-button full-width" data-route="calendar">打开日历，填写并保存</button><p class="local-note">这里的选择只在本次面板中停留，不会自动保存。需要记录时，在日历里确认填写。</p></section>
+        <section data-view="more" hidden><button class="back-button" data-action="back">← 返回</button><h2>也可以从这里开始</h2><div class="more-grid"><button data-route="calendar">心情日历</button><button data-route="notes">备忘与历史</button><button data-route="emotion">情绪命名卡</button><button data-route="rehearsal">对话排练</button><button data-route="search">信息查询</button><button data-route="games">减压小游戏</button></div><button class="choice-row" data-action="open-pressure"><span><strong>桌面发泄浮层</strong><small>按 Esc 退出浮层</small></span><svg><use href="#arrow"/></svg></button></section>
+        <section data-view="settings" hidden><button class="back-button" data-action="back">← 返回</button><h2>按舒服的方式陪伴</h2><button class="choice-row" data-action="click-through" aria-pressed="false"><span><strong>鼠标点击穿透</strong><small>开启后按 Alt＋Shift＋P 恢复</small></span><span class="toggle-dot"></span></button><button class="choice-row" data-route="settings"><span><strong>账号与隐私设置</strong><small>在工作台中查看</small></span><svg><use href="#arrow"/></svg></button><button class="quiet-button" data-action="hide">隐藏桌宠（快捷键唤回）</button><button class="quiet-button exit-button" data-action="close">退出桌宠</button></section>
       </div>
-      <p class="pet-footnote" role="status" data-status>点击图标打开功能 · 拖动桌宠移动窗口</p>
-    </main>
-    <script src="./renderer.js"></script>
-  </body>
+      <footer class="panel-footer"><span><i></i>桌面陪伴 · 本地轻练习</span><button class="icon-button" data-open-view="settings" aria-label="桌宠设置"><svg><use href="#sliders"/></svg></button></footer>
+    </section>
+    <div class="pet-dock"><span class="dock-drag" aria-label="拖动桌宠窗口">⠿</span><button class="mascot-button" data-action="toggle" aria-expanded="false" aria-controls="pet-panel" aria-label="点击团团，展开功能面板"><img class="mascot-image" src="./assets/pet-mascot.png" alt="蓝色毛绒桌宠团团" /></button><span class="dock-caption" data-dock-caption>点我，陪你一会儿</span></div>
+    <p class="bridge-status" data-status role="status" hidden></p>
+  </main>
+  <script src="./pet-session.js"></script><script src="./renderer.js"></script>
+</body>
 </html>
