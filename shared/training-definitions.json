@@ -1,0 +1,129 @@
+{
+  "definitions": [
+    {
+      "id": "BREATHING",
+      "title": "呼吸调节",
+      "durationHint": "1～3 分钟，可随时停止",
+      "contentVersion": "1.0.0",
+      "type": "breathing",
+      "description": "选择舒服的节奏，跟随吸气和呼气完成几轮练习。不必憋气；感到不适时恢复自然呼吸并停止。",
+      "steps": [
+        {
+          "stepId": "IN",
+          "title": "吸气",
+          "instruction": "轻轻吸气，不需要吸得很满。"
+        },
+        {
+          "stepId": "HOLD",
+          "title": "停留（可跳过）",
+          "instruction": "只有在舒服时短暂停留，也可将停留设为零。"
+        },
+        {
+          "stepId": "OUT",
+          "title": "呼气",
+          "instruction": "慢慢呼气，让身体保持舒服。"
+        }
+      ],
+      "defaultRhythm": {
+        "inhale": 4,
+        "hold": 0,
+        "exhale": 6
+      },
+      "durations": [
+        60,
+        120,
+        180
+      ]
+    },
+    {
+      "id": "FIVE_SENSES",
+      "title": "五感安定",
+      "durationHint": "约 3 分钟，按自己的节奏完成",
+      "contentVersion": "1.0.0",
+      "type": "guided",
+      "description": "把注意力带回周围环境。可以只在心中观察，不必填写；每一步都可以跳过。",
+      "steps": [
+        {
+          "stepId": "SEE",
+          "title": "看见 5 样东西",
+          "instruction": "慢慢环顾四周，留意五样能看见的东西。",
+          "count": 5
+        },
+        {
+          "stepId": "TOUCH",
+          "title": "感受 4 种触感",
+          "instruction": "留意四种可以安全触碰或已经感受到的质地。",
+          "count": 4
+        },
+        {
+          "stepId": "HEAR",
+          "title": "听见 3 种声音",
+          "instruction": "辨认三种周围的声音，不必刻意寻找。",
+          "count": 3
+        },
+        {
+          "stepId": "SMELL",
+          "title": "留意 2 种气味",
+          "instruction": "留意两种能闻到或回想起的气味；不方便时直接跳过。",
+          "count": 2
+        },
+        {
+          "stepId": "TASTE",
+          "title": "留意 1 种味道",
+          "instruction": "留意一种此刻的味道，或只注意自然呼吸。",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": "PAUSE_ORGANIZE",
+      "title": "暂停整理",
+      "durationHint": "约 3～5 分钟，每一项可跳过",
+      "contentVersion": "1.0.0",
+      "type": "guided",
+      "description": "把正在占据注意力的事情、可以控制的部分和最小下一步分开写下。不进行自动情绪分析或评分。",
+      "steps": [
+        {
+          "stepId": "NOTICE",
+          "title": "现在占据你注意力的是什么？",
+          "instruction": "可以只写一件事，先描述发生了什么。"
+        },
+        {
+          "stepId": "CONTROL",
+          "title": "哪些部分是你能控制的？",
+          "instruction": "把可以采取行动的部分，与暂时无法决定的部分分开。"
+        },
+        {
+          "stepId": "NEXT",
+          "title": "接下来最小的一步是什么？",
+          "instruction": "选一个现在能开始的小动作，也可以选择先休息。"
+        }
+      ]
+    },
+    {
+      "id": "TASK_SPLIT",
+      "title": "任务拆分",
+      "durationHint": "约 5 分钟，可自行增减步骤",
+      "contentVersion": "1.0.0",
+      "type": "worksheet",
+      "description": "为一件事整理准备事项、十分钟内可开始的动作和需要确认或求助的地方。不自动安排日程、提醒或追踪完成率。",
+      "steps": [
+        {
+          "stepId": "GOAL",
+          "title": "明确任务",
+          "instruction": "写下你想拆分的一件事。"
+        },
+        {
+          "stepId": "SMALL",
+          "title": "列出可开始的小步骤",
+          "instruction": "加入准备事项、十分钟内可开始的动作和需要确认的部分。"
+        },
+        {
+          "stepId": "REVIEW",
+          "title": "回看并调整顺序",
+          "instruction": "编辑、增加或移除步骤，再按自己的节奏决定何时开始。"
+        }
+      ]
+    }
+  ]
+}
