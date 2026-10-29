@@ -43,7 +43,7 @@ export function RecordVault({ authenticated, accountKey }) {
     <div className="record-vault-grid">
       <Panel className="record-save-panel">
         <h3>主动保存一则文字记录</h3>
-        <p>当前后端纵向链只开放会话记录。真实陪伴页面尚未接入，所以这里不会自动抓取其他页面内容。</p>
+        <p>这里可以单独保存一则文字备忘；陪伴、日历、物件、排练和寄存也分别提供主动保存入口。不会自动抓取其他页面内容。</p>
         <form className="record-save-form" onSubmit={beginSave}>
           <label>标题（可选）<input value={title} maxLength={160} onChange={event => setTitle(Array.from(event.target.value).slice(0, 80).join(''))} placeholder="留空时使用“主动保存的记录”" disabled={Boolean(review) || vault.busy} /></label>
           <label>正文<textarea value={body} maxLength={8000} onChange={event => setBody(Array.from(event.target.value).slice(0, 4000).join(''))} placeholder="只写你决定保存的内容" disabled={Boolean(review) || vault.busy} /></label>
@@ -69,13 +69,13 @@ export function RecordVault({ authenticated, accountKey }) {
         {vault.loadState === 'ready' && vault.items.length === 0 && <EmptyState title="当前入口没有已保存记录" desc="空状态只在列表读取成功后显示，不代表其他入口或其他账号没有记录。" />}
         {vault.loadState === 'ready' && vault.items.length > 0 && <div className="record-history-list">{vault.items.map(record => <article className="record-history-item" key={record.id}>
           <span className="record-history-icon"><FileClock size={17} /></span>
-          <div className="record-history-meta"><strong>{kindLabel(record.kind)}</strong><span>{new Date(record.updatedAt || record.createdAt).toLocaleString('zh-CN')} · v{record.version}</span><small>正文标题由服务端加密；列表只显示类型和时间</small></div>
+          <div className="record-history-meta"><strong>{kindLabel(record.kind)}</strong><span>{new Date(record.updatedAt || record.createdAt).toLocaleString('zh-CN')} · v{record.version}</span><small>列表只显示类型与时间；详情由服务端核验归属后解密。</small></div>
           <Button variant="neutral" disabled={vault.busy} onClick={() => vault.openDetail(record.id)}>详情</Button>
           {vault.pendingClearId === record.id
             ? <div className="record-clear-confirm"><p role="status">{vault.clearResultUnknown ? '上次清除请求结果未知；请用同一请求标识重试核实。' : vault.clearConfirmationReady ? `一次性确认约于 ${new Date(vault.clearExpiresAt).toLocaleTimeString('zh-CN')} 过期。确认前可取消。` : vault.clearConfirmationResultUnknown ? '清除确认结果待核实；重试会沿用同一请求标识，尚未提交清除请求。' : '尚未收到服务端确认凭证；可重试申请，当前没有提交清除请求。'}</p><div className="button-row"><Button variant="danger" icon={Trash2} disabled={vault.busy} onClick={() => vault.clearResultUnknown || vault.clearConfirmationReady ? vault.confirmClear(record) : vault.requestClear(record)}>{vault.busy ? '处理中…' : vault.clearResultUnknown ? '用同一请求重试核实' : vault.clearConfirmationReady ? '确认清除' : '重试申请确认'}</Button><Button variant="neutral" disabled={vault.busy || vault.clearResultUnknown} onClick={vault.cancelClear}>取消确认</Button></div></div>
             : <Button variant="neutral" disabled={vault.busy} onClick={() => vault.requestClear(record)}>清除</Button>}
         </article>)}</div>}
-        {vault.detail && <div className="record-detail" role="region" aria-label="记录详情"><div className="record-history-heading"><h4>{kindLabel(vault.detail.kind)}详情</h4><Button variant="neutral" onClick={vault.closeDetail}>关闭详情</Button></div><p>已按服务端身份读取记录版本 v{vault.detail.version}。当前客户端没有对应解密密钥交接契约，不显示服务端密文，也不冒充已解密的正文。</p></div>}
+        {vault.detail && <div className="record-detail" role="region" aria-label="记录详情"><div className="record-history-heading"><h4>{kindLabel(vault.detail.kind)}详情</h4><Button variant="neutral" onClick={vault.closeDetail}>关闭详情</Button></div><p>已按服务端身份读取记录版本 v{vault.detail.version}。</p><h4>{vault.detail.title}</h4>{vault.detail.content?.messages?.map((message,index) => <p className="preserve-lines" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}<p className="preserve-lines">{vault.detail.content?.body || vault.detail.content?.note || vault.detail.content?.scene || vault.detail.content?.question}</p>{vault.detail.content?.expressions?.map((text,index)=><p className="preserve-lines" key={index}>{text}</p>)}{vault.detail.kind === 'DEPOSIT' && <p>寄存正文需在到期后前往<a href="#deposit">寄存所</a>主动取出。</p>}</div>}
       </Panel>
     </div>
     {vault.notice && <div className="record-notice" role="status">{vault.notice}</div>}

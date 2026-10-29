@@ -1,0 +1,34 @@
+{
+  "as_of": "2026-10-29T16:25:44+08:00",
+  "commit": "1483f8330c3c47ecf88863968f518705a1a84918",
+  "node": "26.2.0",
+  "backend": {
+    "tests": 141,
+    "pass": 141,
+    "fail": 0
+  },
+  "integration_explicit": {
+    "tests": 47,
+    "pass": 47,
+    "fail": 0
+  },
+  "frontend_client": {
+    "tests": 7,
+    "pass": 7,
+    "fail": 0
+  },
+  "restore": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0
+  },
+  "record": "12/13",
+  "core": "9/12",
+  "business": "9/12",
+  "contract": "1/6",
+  "whole_e2e": false,
+  "release": "BLOCKED",
+  "source_files": 603,
+  "tencent_verdict": "ANONYMOUS-READABLE",
+  "no_real_model_call_by_pm": true
+}

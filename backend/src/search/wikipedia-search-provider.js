@@ -130,6 +130,7 @@ function normalizePages(pages, language, retrievedAt) {
       id,
       title,
       url,
+      snippet: hasExtract ? page.extract.trim().slice(0, 4000) : '',
       publishedAt: null,
       retrievedAt,
       quality: 'UNKNOWN',

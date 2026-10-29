@@ -1,0 +1,5 @@
+$ node scripts/release-check.js
+Release readiness: BLOCKED
+- DATABASE_URL is required
+- PROFILE_ENCRYPTION_KEY is required
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,0 +1,1859 @@
+{
+  "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "verified_files": 463,
+  "unchanged": true,
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "git_blob": "13927d0ffe46e9b022ab11406ed386c4d3184849"
+    },
+    {
+      "path": "README.md",
+      "git_blob": "0bb25db7ddde306047c207cd9e924baef5b1d60c"
+    },
+    {
+      "path": "backend/.env.example",
+      "git_blob": "7f6945619cad81a1335447c3edcbf971be4f7a25"
+    },
+    {
+      "path": "backend/README.md",
+      "git_blob": "8e521c573551de0adfe3fbdd0d22c45e77320d7a"
+    },
+    {
+      "path": "backend/evidence/daily/Day1_今日提交终稿_20261023.md",
+      "git_blob": "6db188f6b686f15a57e7adae6c0b3a583ea4f574"
+    },
+    {
+      "path": "backend/evidence/daily/Day1_数据库和检索基线.md",
+      "git_blob": "534b78e2f7bae9590116a23368a79f01e30a7a3a"
+    },
+    {
+      "path": "backend/evidence/daily/Day2_账号资料和保存仓储.md",
+      "git_blob": "26dbb3faad30ff93a8db430ac3573ad8b1d55992"
+    },
+    {
+      "path": "backend/evidence/daily/Day3_真实检索和来源绑定.md",
+      "git_blob": "b6c8684888df296913bec6d815bcb0393eab9e60"
+    },
+    {
+      "path": "backend/evidence/daily/Day4_保存清除和隔离.md",
+      "git_blob": "f257fb27e2cb6c74d3bc029596702c6495705c17"
+    },
+    {
+      "path": "backend/evidence/daily/Day4_清除隔离和寄存状态.md",
+      "git_blob": "f9f164e59fe25780d336866e5ce168895b521ab4"
+    },
+    {
+      "path": "backend/evidence/daily/Day5_合成演示数据.json",
+      "git_blob": "da4403028bb4a9af7c110c03a8a3ea1b07b6f37b"
+    },
+    {
+      "path": "backend/evidence/daily/Day5_缺陷修复和候选版本.md",
+      "git_blob": "722b47dc12b09ea535b7cd1ffb9010177313557d"
+    },
+    {
+      "path": "backend/evidence/daily/Day5_迁移与合成演示说明.md",
+      "git_blob": "6ca3b51792737c50b1026512f6fce64c2851c310"
+    },
+    {
+      "path": "backend/evidence/daily/Day6_迁移恢复和答辩材料.md",
+      "git_blob": "1a49cce49800db0abf0c3e4caa070c147a2090f0"
+    },
+    {
+      "path": "backend/evidence/daily/Day6_迁移隔离恢复与答辩交接.md",
+      "git_blob": "96129b50a934b1c59f87c40d996d1f3a8402564b"
+    },
+    {
+      "path": "backend/evidence/daily/Day7_最终复核和交接.md",
+      "git_blob": "2457e0e3ff916d43f183b0f32d568670bcf5b8c0"
+    },
+    {
+      "path": "backend/evidence/daily/README.md",
+      "git_blob": "480944a413af61a58919545e14ecfa4f363e13ed"
+    },
+    {
+      "path": "backend/evidence/daily/assets/day1-burndown.svg",
+      "git_blob": "9c5fe3b55762d0b2b3f3b434d71a8c403210d9b0"
+    },
+    {
+      "path": "backend/evidence/daily/assets/day1-data-service-run.svg",
+      "git_blob": "26de805c0c5c7e5e079ad15e9c8e05ad0adcc088"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/README.md",
+      "git_blob": "e4c1fcc120e668e42db592c70464269cf4c6ef7f"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/branch-rename.json",
+      "git_blob": "4e73167656ea78173f375a245fb101fd0f76e0a6"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/day2-authz-final.meta.json",
+      "git_blob": "18a7d046ed8182ecc6ebe8138fc2f43fdbdc334f"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/day2-authz.meta.json",
+      "git_blob": "419cbe9aa455f61aad89821f01a20bc19010eb9d"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/dependency-audit.json",
+      "git_blob": "86ee0f604672b97b107e57a7e60732a51631550c"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/dependency-audit.meta.json",
+      "git_blob": "f5fe1264a53b317a248ca4895e1fb0d7b3342075"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/entry-rotation-only.meta.json",
+      "git_blob": "c3a551bda0b71e1dd277e2b05605f89a607bfe7d"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/existing-tests.meta.json",
+      "git_blob": "c9cc72639c747fd79066dd95f21edec68725a394"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/frontend-client.meta.json",
+      "git_blob": "a64461c4437fe4b1113a3cfa877c80f84fca1951"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/observations-final.json",
+      "git_blob": "73c3d66a70c469586b126c491c2a80d493a75691"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/observations.json",
+      "git_blob": "73c3d66a70c469586b126c491c2a80d493a75691"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/source-fingerprints.json",
+      "git_blob": "0a6f8df50495abbcfa9c3d752a2e095938361b24"
+    },
+    {
+      "path": "backend/evidence/daily/security-20261024/summary.json",
+      "git_blob": "89f20e9ef1e1ce7b9a6255364c9a906da073a885"
+    },
+    {
+      "path": "backend/evidence/daily/团队Day1_冲刺随笔提交模板_20261023.md",
+      "git_blob": "871a8260bd1859d7f8a86a47ec4e9931580d9174"
+    },
+    {
+      "path": "backend/evidence/day3/wikipedia-real-check-20261024.json",
+      "git_blob": "da555ad01b422b0c03754cde67850c6e0ecef44a"
+    },
+    {
+      "path": "backend/evidence/samples/Day3_日历寄存准备性合成样例.json",
+      "git_blob": "e04523056ad8c397d964c7bec9be11f0ece9459d"
+    },
+    {
+      "path": "backend/evidence/庄剀涵_数据与检索执行报告_20261023.md",
+      "git_blob": "d9c758cb2a0ac3296e02f1932ca34f767c3f0c3d"
+    },
+    {
+      "path": "backend/evidence/数据与检索操作说明.md",
+      "git_blob": "6e5c3d4e9b55d88992538a1f69c93a915a6d680f"
+    },
+    {
+      "path": "backend/evidence/程群_AI模型与命名卡路由_20261024.md",
+      "git_blob": "338179c4ab64fdce97cbc3a1d68401663390929e"
+    },
+    {
+      "path": "backend/evidence/程群_Day3_陪伴训练与异常验证_20261025.md",
+      "git_blob": "9194a86d99e4f4742b21c416f26ee4076998657b"
+    },
+    {
+      "path": "backend/migrations/002_data_service_support.sql",
+      "git_blob": "914a2ff67df93e948702543dfe28489009412b2e"
+    },
+    {
+      "path": "backend/migrations/003_interface_contract_alignment.sql",
+      "git_blob": "766af978cbff500e653a1fc387e5bc5c763a51c3"
+    },
+    {
+      "path": "backend/migrations/004_auth_http_support.sql",
+      "git_blob": "1a47a46078ced186eb604785b1e711a83728c211"
+    },
+    {
+      "path": "backend/migrations/004_identity_repository_support.sql",
+      "git_blob": "c1ecdd8132e6196fcb960f6399e4d4d3f6e5e752"
+    },
+    {
+      "path": "backend/package.json",
+      "git_blob": "8659760b646c99125fbd3f7d6048f13385f19b23"
+    },
+    {
+      "path": "backend/pnpm-lock.yaml",
+      "git_blob": "e74ad5d8a24bb8ea7847dc57728cda36954ec116"
+    },
+    {
+      "path": "backend/scripts/ai-samples.js",
+      "git_blob": "4849881753579c8e2ec69642fb8d4f9446b055a5"
+    },
+    {
+      "path": "backend/scripts/model-smoke.js",
+      "git_blob": "f89ee5eee5f178830d49e7fedef5f5b3bb2af7d8"
+    },
+    {
+      "path": "backend/scripts/release-check.js",
+      "git_blob": "785946278d807c8a9ca2d97546417ca5788e7d5a"
+    },
+    {
+      "path": "backend/scripts/verify-wikipedia-search.js",
+      "git_blob": "5be6aff52070191871e4fdd5eaf9d650fd280868"
+    },
+    {
+      "path": "backend/src/ai/langchain-model-adapter.js",
+      "git_blob": "11f40aa8b8a8fe8e1e3f4b04594ac65dd89db20c"
+    },
+    {
+      "path": "backend/src/ai/mock-model-adapter.js",
+      "git_blob": "c7e4575869b1455dd21346eac8fa5b9974efc834"
+    },
+    {
+      "path": "backend/src/ai/model-config.js",
+      "git_blob": "4503de4c09820037795f74f7834b01048443a552"
+    },
+    {
+      "path": "backend/src/ai/model-contracts.js",
+      "git_blob": "02ed4fb8840edf775e8ce648a1c68ca216e49abd"
+    },
+    {
+      "path": "backend/src/ai/model-input.js",
+      "git_blob": "7783b97b4bb0c1af069a70439fc03da4a8b774f9"
+    },
+    {
+      "path": "backend/src/ai/naming-card-router.js",
+      "git_blob": "7cd8b2980bb47a79688a6ee97ea199df792d83b9"
+    },
+    {
+      "path": "backend/src/app.js",
+      "git_blob": "d74d8dc61bbd7e0baaf46aa2af4d57e7df65510d"
+    },
+    {
+      "path": "backend/src/contracts/identity.js",
+      "git_blob": "b8e3de70e93056bf54edd16b3f371b036effc83c"
+    },
+    {
+      "path": "backend/src/contracts/primitives.js",
+      "git_blob": "a96493ae583e21e73c14de1be756e8cbe96c9692"
+    },
+    {
+      "path": "backend/src/contracts/records.js",
+      "git_blob": "b04052292a8e8a3e264fe9d44a2c94da1a94990b"
+    },
+    {
+      "path": "backend/src/contracts/search.js",
+      "git_blob": "dfc9fb2be9526991200177e8746c4605e0dd1f64"
+    },
+    {
+      "path": "backend/src/db/database.js",
+      "git_blob": "726316cd0f64134d87a746f00102dfaf9a89751a"
+    },
+    {
+      "path": "backend/src/db/migrate.js",
+      "git_blob": "34fa88f0d61a07daaeec9a8435ceba51643da030"
+    },
+    {
+      "path": "backend/src/db/migration-runner.js",
+      "git_blob": "f68c7fae0fa35d97ea32cb0b492c2a329d819822"
+    },
+    {
+      "path": "backend/src/db/restore-safety.js",
+      "git_blob": "2c31f6fcec28e67b84385266d4a36fdfe5448a22"
+    },
+    {
+      "path": "backend/src/domain/errors.js",
+      "git_blob": "4d6aff8456592877db739716bd9e404d4d085dc7"
+    },
+    {
+      "path": "backend/src/domain/stable-hash.js",
+      "git_blob": "1dd64d8e754a153e30e22441bb79e5174867ec5f"
+    },
+    {
+      "path": "backend/src/http/request.js",
+      "git_blob": "996930b08d309f4afa767489db3daeec2af12d04"
+    },
+    {
+      "path": "backend/src/repositories/idempotency.js",
+      "git_blob": "78105e22e919f12726b9f0c26e8a9010a1a67266"
+    },
+    {
+      "path": "backend/src/repositories/identity-repository.js",
+      "git_blob": "182fab699762e87ad433cf6173a4c02622d83cbc"
+    },
+    {
+      "path": "backend/src/repositories/record-repository.js",
+      "git_blob": "4f88f7ea1cf03524f24ef433f58cfdcdf8d2c8f7"
+    },
+    {
+      "path": "backend/src/repositories/saved-query-repository.js",
+      "git_blob": "d9f98048b916419ab82b7e43f7b13e00814a00b1"
+    },
+    {
+      "path": "backend/src/runtime-config.js",
+      "git_blob": "6c9eaff0e5c9d53498ad5959f6918871ad389193"
+    },
+    {
+      "path": "backend/src/search/wikipedia-search-provider.js",
+      "git_blob": "301d64bddac911e4bd91d91528f9301fb9dfe9af"
+    },
+    {
+      "path": "backend/src/security/crypto.js",
+      "git_blob": "fcbf15d07df1288dca014dde5b3d18c01cf8c38a"
+    },
+    {
+      "path": "backend/src/server.js",
+      "git_blob": "74e9b34d452506b0d9621b845aae85c4ebafa459"
+    },
+    {
+      "path": "backend/src/services/auth-service.js",
+      "git_blob": "6517b27f3b9c6f6dda6e591b16ebe07a3c06f4a6"
+    },
+    {
+      "path": "backend/src/services/consent-service.js",
+      "git_blob": "7a009e0d3a4a2ea97d82bbb059ec37710c8c7025"
+    },
+    {
+      "path": "backend/src/services/record-service.js",
+      "git_blob": "36351be9078bf21e35bd9b935d45b23e5ee8035e"
+    },
+    {
+      "path": "backend/src/services/task-service.js",
+      "git_blob": "6ae422e5a99c13c600d75c65fb8791fe6811c391"
+    },
+    {
+      "path": "backend/src/services/training-service.js",
+      "git_blob": "72c88626223ba47bbb1acb93029c0e0eb44974dd"
+    },
+    {
+      "path": "backend/test/fixtures/model-requests.js",
+      "git_blob": "37c3ccc4f720dd5ed933c5f48b3b03b1797cac00"
+    },
+    {
+      "path": "backend/test/helpers/database.js",
+      "git_blob": "dc07575aee5395c3df89cb509739938787841157"
+    },
+    {
+      "path": "backend/test/integration/auth-api.test.js",
+      "git_blob": "43765b69b3ed251fafeed89173d1339ee3707ddf"
+    },
+    {
+      "path": "backend/test/integration/companion-training-http.test.js",
+      "git_blob": "c250a9abaf448e359b56d98fe91d73f91de1a0c4"
+    },
+    {
+      "path": "backend/test/integration/day6-demo-restore.test.js",
+      "git_blob": "664caa89774273b14cb8193fe789404dd9bb5250"
+    },
+    {
+      "path": "backend/test/integration/deposit-and-restore.test.js",
+      "git_blob": "9189882fae3d99cc53a41d174fbdbf0e3f719f4b"
+    },
+    {
+      "path": "backend/test/integration/health.test.js",
+      "git_blob": "0a12ccafa6f8026ebb2c16001c765e8074bcf4bd"
+    },
+    {
+      "path": "backend/test/integration/identity-repository.test.js",
+      "git_blob": "bd6721e5c6fd09ef44484c90a75ad358ba3f8a0b"
+    },
+    {
+      "path": "backend/test/integration/migration.test.js",
+      "git_blob": "e9b286415e3b530032dd2df23755880cc9f72654"
+    },
+    {
+      "path": "backend/test/integration/model-http.test.js",
+      "git_blob": "60cec49bac64322663625ec9d36a7b90eae045ff"
+    },
+    {
+      "path": "backend/test/integration/record-api.test.js",
+      "git_blob": "02d5d359ab11c50b06b20d82f18d835a5fa126f9"
+    },
+    {
+      "path": "backend/test/integration/record-repository.test.js",
+      "git_blob": "288a80dfebd8ed3e7370c4ad2e1b9cb8e4e1570e"
+    },
+    {
+      "path": "backend/test/integration/saved-query-repository.test.js",
+      "git_blob": "5cc5a351d4391fd850491bd6a578ff5fb27e49c9"
+    },
+    {
+      "path": "backend/test/integration/task-api.test.js",
+      "git_blob": "d3af4fe0d76228c394b81e797f979d0ce4a8f8b1"
+    },
+    {
+      "path": "backend/test/security/day2-authz.test.js",
+      "git_blob": "de0f7ecd5f527985c349dc4427de6507a765b161"
+    },
+    {
+      "path": "backend/test/security/day3-model-boundary.test.js",
+      "git_blob": "a1c3d501c3b865f0faa329ecb0d50953e1b33e98"
+    },
+    {
+      "path": "backend/test/security/day4-destroy-and-clearing.test.js",
+      "git_blob": "c9df8d5ba7d76deae66403e25f3af4633c942439"
+    },
+    {
+      "path": "backend/test/security/day5-p0-recheck.test.js",
+      "git_blob": "21309040bba28efbbe665fe1dc1c0d3ea04aaed9"
+    },
+    {
+      "path": "backend/test/security/security-baseline.test.js",
+      "git_blob": "f4b6e28ae71ace154e564c89a2282490788cc863"
+    },
+    {
+      "path": "backend/test/unit/companion-task.test.js",
+      "git_blob": "c6910bbb893bf28d2c47e6b2aeea8fa8e4488147"
+    },
+    {
+      "path": "backend/test/unit/consent-service.test.js",
+      "git_blob": "81b6e7af010bd226e3042760db795da712f07c70"
+    },
+    {
+      "path": "backend/test/unit/contracts.test.js",
+      "git_blob": "91ab8d5b257bcab15c34968828fa6fcf25c875d2"
+    },
+    {
+      "path": "backend/test/unit/model-adapter.test.js",
+      "git_blob": "7e005075802b3043e587ea9a7d7322b09b0f58de"
+    },
+    {
+      "path": "backend/test/unit/model-config.test.js",
+      "git_blob": "484ea4ce685538b2035afa38947ffe0190b1e86c"
+    },
+    {
+      "path": "backend/test/unit/naming-card-router.test.js",
+      "git_blob": "fc2bc52421b93c5f5c868ea1b75dce3aea12db9f"
+    },
+    {
+      "path": "backend/test/unit/runtime-config.test.js",
+      "git_blob": "3db12d9205af05e323d04392986cf301dd03f8cc"
+    },
+    {
+      "path": "backend/test/unit/task-service.test.js",
+      "git_blob": "21a05339a815cf8aa6c46e67f3589e21da265448"
+    },
+    {
+      "path": "backend/test/unit/training-service.test.js",
+      "git_blob": "bceddc89ddca393021dd042fef108308cd273782"
+    },
+    {
+      "path": "backend/test/unit/wikipedia-search-provider.test.js",
+      "git_blob": "5197d07ec5defeb365f338c7332a4cb129fc3db5"
+    },
+    {
+      "path": "database-design/sql/404notfound_postgresql.sql",
+      "git_blob": "36c61c8d866c5fd9c4893e7707d278a5eae827c4"
+    },
+    {
+      "path": "deliverables/alpha-backend/1天/李泉毅_Day1_成员进展与AI贡献_博客稿.md",
+      "git_blob": "bbafbb7e67dffb297bf66f09ab3bb0704d5b145d"
+    },
+    {
+      "path": "deliverables/alpha-backend/2天/李泉毅_Day2_成员进展与AI贡献_博客稿.md",
+      "git_blob": "8716bbec079770c82d009a76821abe962f2c9ca3"
+    },
+    {
+      "path": "deliverables/alpha-backend/2天/李泉毅_Day2_认证与资料API.md",
+      "git_blob": "0b0d068af5f3d5fbef85ad7b22b1cd2fe97f22d0"
+    },
+    {
+      "path": "deliverables/alpha-backend/3天/李泉毅_Day3_会话任务检索与改密.md",
+      "git_blob": "faab2f3af866636612f1b51308220895f25ad099"
+    },
+    {
+      "path": "deliverables/alpha-backend/3天/李泉毅_Day3_成员进展与AI贡献_博客稿.md",
+      "git_blob": "fb085e19e88981c3f73c5a7677712ce5ce499caa"
+    },
+    {
+      "path": "deliverables/alpha-backend/4天/李泉毅_Day4_成员进展与AI贡献_博客稿.md",
+      "git_blob": "8d6e96f8adbe808d3366506f99dab4db9ff7c070"
+    },
+    {
+      "path": "deliverables/alpha-backend/4天/李泉毅_Day4_记录隔离清除与幂等.md",
+      "git_blob": "6d90f2f823f9f5c96731e9a41efa4eb34b9f766e"
+    },
+    {
+      "path": "deliverables/alpha-backend/5天/李泉毅_Day5_后端候选版本与回归.md",
+      "git_blob": "262e1ee45926f8c3263fa183492978e63909930f"
+    },
+    {
+      "path": "deliverables/alpha-backend/5天/李泉毅_Day5_后端候选版本与缺陷修复.md",
+      "git_blob": "a3f6739ac14704aa8ba23a861e2e8b9edebda188"
+    },
+    {
+      "path": "deliverables/alpha-backend/5天/李泉毅_Day5_成员进展与AI贡献_博客稿.md",
+      "git_blob": "ee70b28a8b6c147625ef72ed868c953227683793"
+    },
+    {
+      "path": "deliverables/alpha-backend/6天/李泉毅_Day6_成员进展与AI贡献_博客稿.md",
+      "git_blob": "812548a59798b32efa59178b279ec31b33357850"
+    },
+    {
+      "path": "deliverables/alpha-backend/7天/李泉毅_Day7_API交接与未完成项.md",
+      "git_blob": "1b46e9c89ba1e916f69859b814ad68fc82032e14"
+    },
+    {
+      "path": "deliverables/alpha-backend/7天/李泉毅_Day7_成员进展与AI贡献_博客稿.md",
+      "git_blob": "34c5ff9343b8ba9267ffb0a8ac59878d7d115bdd"
+    },
+    {
+      "path": "deliverables/alpha-backend/Day1-Day2_完成状态复核_20261024.md",
+      "git_blob": "70fe40f716eaa128d2de71eef8cb485433391acd"
+    },
+    {
+      "path": "deliverables/alpha-backend/Day1-Day6_完成情况复核_20261028.md",
+      "git_blob": "7f68106ece510b293a62da34fadff3cf9307c4c9"
+    },
+    {
+      "path": "docs/README.md",
+      "git_blob": "3cc70cf93b89e058ce28a74ef8ce6aec4d8947a4"
+    },
+    {
+      "path": "docs/alpha/README.md",
+      "git_blob": "066f58d9bd6f240cc3eceb23fe8b4125baca8a33"
+    },
+    {
+      "path": "docs/alpha/关欣/Day1_冲刺随笔素材_20261023.md",
+      "git_blob": "29be7ec5395f1fa2191f274eba0f9ee7769dd029"
+    },
+    {
+      "path": "docs/alpha/关欣/Day1_安全检查清单_20261023.md",
+      "git_blob": "c2e440ea3b591ab81ec0f7c2e98e3db318844cc9"
+    },
+    {
+      "path": "docs/alpha/关欣/Day2_冲刺随笔素材_20261024.md",
+      "git_blob": "3dcefa13a205fbebea62b9a68756084868bd19e7"
+    },
+    {
+      "path": "docs/alpha/关欣/Day2_账号与权限安全复核_20261024.md",
+      "git_blob": "1e149e9f8d94f0e5f682be51b51a680f954c3c81"
+    },
+    {
+      "path": "docs/alpha/关欣/Day3_Day2红灯归因_20261025.md",
+      "git_blob": "080277562d2e6b712c0843877416484e2e763a18"
+    },
+    {
+      "path": "docs/alpha/关欣/Day3_冲刺随笔素材_20261025.md",
+      "git_blob": "177d46e3a6e97aa20b8590870b37c3d3763d8c8c"
+    },
+    {
+      "path": "docs/alpha/关欣/Day3_外部文本边界核对_20261025.md",
+      "git_blob": "2032fe3a65c9a1432dc6770af6b7f24083796028"
+    },
+    {
+      "path": "docs/alpha/关欣/Day3_模型上下文与外部输入审查_20261025.md",
+      "git_blob": "2781dae208193e09f9a8ad588c6503e76ee7206f"
+    },
+    {
+      "path": "docs/alpha/关欣/Day4_20261026/evidence/destroy-runtime-check.json",
+      "git_blob": "4c8f32530ffceba974540f8db6cfdf54d3aeb649"
+    },
+    {
+      "path": "docs/alpha/关欣/Day4_20261026/tests/destroy-runtime-check.cjs",
+      "git_blob": "fc55283b337fcb196e90da092f731d0370a40428"
+    },
+    {
+      "path": "docs/alpha/关欣/Day4_冲刺随笔素材_20261026.md",
+      "git_blob": "811ffceaa07ce392c9de4e56b104a3224b2885f9"
+    },
+    {
+      "path": "docs/alpha/关欣/Day4_文字销毁与越权复核_20261026.md",
+      "git_blob": "92c4e963e3f6eadde84c89097753c13b0c565390"
+    },
+    {
+      "path": "docs/alpha/关欣/Day5_冲刺随笔素材_20261027.md",
+      "git_blob": "f9f18902980f649fd8ce8c0fd66b4861ecb66f16"
+    },
+    {
+      "path": "docs/alpha/关欣/Day5_安全复核表_20261027.md",
+      "git_blob": "412a721f04fbc5f958b777467cd8674225532a32"
+    },
+    {
+      "path": "docs/alpha/冲刺计划_20261023.md",
+      "git_blob": "200887a77d348eb27b4cf685259e9ecf1f594c71"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/01_范围与现状基线.md",
+      "git_blob": "faf81120509eb5bd193dcb8e7a4170da04e36182"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/02_任务板.md",
+      "git_blob": "90e627a16061e9c7c8c9207b061cecc1db8da1c4"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/03_代码规范与冲刺计划_博客.md",
+      "git_blob": "8a3fa134f185dea6a76550528d312507d1bd5d09"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/04_容量环境与启动登记.md",
+      "git_blob": "4e62c4e82cf316a556ba17209895ea26247c9b5f"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/05_接口依赖与差异清单.md",
+      "git_blob": "6b6c81e0a288aa20c70e895982693fedba6bab81"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/06_Day1冲刺日志_博客.md",
+      "git_blob": "0b54a709a372d40a68b7033f39a0189f5a2ec65b"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/07_置顶集合_博客.md",
+      "git_blob": "44e969edae7ce7389b23f00d777877acf93f1e10"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/08_燃尽与验收记录.md",
+      "git_blob": "8a04a98fb326c8f22a7063cd1ea63e9aa115bb1c"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/09_交付核验与待办.md",
+      "git_blob": "1b69a89c5cb4473ba93e8834b72e981eee5bab6c"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/10_GitHub提交说明_20261024.md",
+      "git_blob": "57c275aa05f35c6c29ebaac5f54466c32f877c7a"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/README.md",
+      "git_blob": "bd277152ffb74c432c06a324b31597f2de7ea014"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/数据/GitHub提交自查.json",
+      "git_blob": "ac6b56ba4d1c3e1484099ca6040ae46fbdb7f011"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/数据/burndown.json",
+      "git_blob": "23b73ceea815a473c76cfbd2e355a8160a1103dd"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/数据/issue-drafts.json",
+      "git_blob": "f6946a2f172e34c67f8e4eccd3178186615dca19"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/数据/tasks.json",
+      "git_blob": "22cc9b743c03e4eeafa5c623b8b17eca718a36ff"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day1_20261023/数据/历史自查报告_20261023.json",
+      "git_blob": "7c18e1726bf74a7d93b993ca77f881965af8bcaa"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/01_核心场景检查与Day2回查.md",
+      "git_blob": "dbbe82f53380bce47f061392de86f94eacf167cc"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/02_接口字段协调单.md",
+      "git_blob": "54d71f89290d56f6b8c49096131af0f9d48d390b"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/03_Day4中期验收清单.md",
+      "git_blob": "88e7a5723d347327123120a1861e6e47b9bd68ea"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/04_范围变更与任务更新.md",
+      "git_blob": "3ba515ab2289b9bd55158c2bfdd4eea09d8f66fc"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/05_Day3冲刺日志_博客.md",
+      "git_blob": "682fbb4d731d6daa2b6565bf39aa788a8ad064ac"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/06_燃尽与Day4交接.md",
+      "git_blob": "6081ac6945cbb271583b7d7605942cce58a41fb0"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/README.md",
+      "git_blob": "ee35e56b975a139f83b57ac70279981029ddd193"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/数据/burndown.json",
+      "git_blob": "8d203f1492bfb11c171518818830c1e283ebbece"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/数据/changes.json",
+      "git_blob": "c48ce17896a9d462608bb6d74ff6efc713be30fc"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/数据/interfaces.json",
+      "git_blob": "98cb10ba15943fa14d047c278c35aafe8c1204c5"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/数据/midterm-acceptance.json",
+      "git_blob": "2d7aedc67195c86b9289a19ee46e3c82774c7bdf"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/数据/scenarios.json",
+      "git_blob": "c186993005811ec38177f4cf893dda40d2f67938"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/数据/tasks.json",
+      "git_blob": "18716562f39ec2ee8b09a0bed93225a3d1dcb9c9"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/core-scenarios.json",
+      "git_blob": "51a8a25a32bf2b8f2d2810c26a21df2ef0bdbeaf"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/day2-recheck.json",
+      "git_blob": "42983f213ab97de10b848837f7898932111e0a06"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/day3-core-scenarios.mjs",
+      "git_blob": "c1cbeecb63694525c61ddbb2c767cd8a4008159a"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/day3-live-search.mjs",
+      "git_blob": "f423d1b43b3d77fce21afd1fdafe9b9aeceda1b0"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/day3-recheck-day2.mjs",
+      "git_blob": "4e89009dd6a57777ffb2432ef6b7c9b438d7d421"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/live-search.json",
+      "git_blob": "70168604c88b5fd2f94b6d50478e2ae1c97f4dfb"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/交付自查.json",
+      "git_blob": "6322ee6ffeb19807dfbb8874d9c66d2a892b5ea3"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/来源索引.json",
+      "git_blob": "2b19c2acedbccd7b82de32033ab0eb357691c6e1"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/源码完整性.json",
+      "git_blob": "0c0d912cc1f6048bdec4dfead0ff5391d62f0dad"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day3_20261025/证据/验证摘要.json",
+      "git_blob": "4a0221e89119f0abcd2f2ea63c379c8d86be93d5"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/01_中期验收表.md",
+      "git_blob": "eae064a68a2beaec2a53e0b5574c38b198dce70c"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/02_风险与缺陷处置.md",
+      "git_blob": "14eaa5554fb1b81229de9b39e4f512c341e7e1fa"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/03_偏差重新排期与剩余必做.md",
+      "git_blob": "0f2c9f9b83e59eb33ff47761569210a1657eccee"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/04_完成证据与接口协调.md",
+      "git_blob": "bf882f0ec28816cdbda8ba030cf68451a79034a7"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/05_任务板与燃尽.md",
+      "git_blob": "49e1e3e062070a0fd9adb592a017bf45145878f5"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/06_Day4冲刺日志_博客.md",
+      "git_blob": "9e4b9c882e0e3e4d3a0fa24df186e1a0584c48f3"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/07_验证复现与交付说明.md",
+      "git_blob": "37de024a53498fae2a8d2d9483eca63ed95a4840"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/README.md",
+      "git_blob": "02f83e38855bc539b7031c3603c6929d93ecef7b"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/数据/burndown.json",
+      "git_blob": "8e3c963286140073b19bac78ab06498d0d40152b"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/数据/tasks.json",
+      "git_blob": "ae089a64d7814c33052ed45256efd264509d951f"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/数据/中期验收.json",
+      "git_blob": "5f2fb0875a06646bdfcaf28ff5d1ed69d0acbbeb"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/数据/接口协调.json",
+      "git_blob": "2a0c5571b01977fe71b3478712b719a26808ef06"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/数据/重新排期.json",
+      "git_blob": "2f9ac00c54a1f017766aa27f666e245faf5fea11"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/数据/风险处置.json",
+      "git_blob": "cc382510af5cafda2563f151ac3b8a5cfb7d5e17"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/contract-recheck.json",
+      "git_blob": "d1098414b4db180bab5b92bd7e5f9ec2073e4716"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/core-recheck.json",
+      "git_blob": "a731ffeda9f7881938731e857267a5ee6c1fee3e"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/day4-contract-recheck.mjs",
+      "git_blob": "ad27607a5531db4f717c77d77997a5779923a0c4"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/day4-core-recheck.mjs",
+      "git_blob": "2a5c09c7b7add22e681a3b4cb0d043552907eb20"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/day4-live-search.mjs",
+      "git_blob": "ea0bc06cf78af431e6fe96026b3b2c05db9c353f"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/day4-record-acceptance.mjs",
+      "git_blob": "7f3064bf710b957200628db93362446ddf6a69b8"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/live-search.json",
+      "git_blob": "61663b09a1b42f06b2abcb55756a804dfd5fa066"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/record-acceptance.json",
+      "git_blob": "3cc2aee023e5d4139d518919c4cb6bc4c21f5e05"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/run-results.json",
+      "git_blob": "bd03cf7630129422591544e7201a48f3a981966a"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/交付自查.json",
+      "git_blob": "c275bbd171422eb859e6d33e461c3a8f083705f4"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/来源索引.json",
+      "git_blob": "3bff7f039d0ed38c22f32a86f0f0e5a671fbc847"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/源码完整性.json",
+      "git_blob": "8401c9526ff036d27fcc037c9ef9e7dfc0574c8a"
+    },
+    {
+      "path": "docs/alpha/张王昊/Day4_20261026/证据/验证摘要.json",
+      "git_blob": "f73e963a7c00fd3ccb5b3dd6ce1bd9b59833227e"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/01_启动与构建核验记录.md",
+      "git_blob": "f7450d87c0f8424aad7555c3ec356fb7afcb9252"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/02_Alpha冲刺测试计划.md",
+      "git_blob": "2c365ce3d9ca03165cd2187e479bfb6ca32c61f8"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/03_核心测试用例清单.md",
+      "git_blob": "2ec7c9efbb4f56a82a7801dd03b63060a4d06110"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/04_Day1站会与日志交接.md",
+      "git_blob": "891d882a3f4e23a19c853e5b904e1b4651e523ba"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/05_测试随笔_阶段性草稿.md",
+      "git_blob": "293b7704b491d1892984808d3ccf6771b0398982"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/07_其他成员交付依赖清单.md",
+      "git_blob": "cecd484f2ad4c61d1bfaf42e1894e7fd8a2d99c0"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/08_新增后端独立复核记录.md",
+      "git_blob": "13919b96ab748dc8e3b82a283ffdf1c81dc976ef"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/09_Day1团队日志_成员8可粘贴材料.md",
+      "git_blob": "f124f1bed44e65dbde0064989364338355a441f3"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/10_GitHub新增文件核对摘要.md",
+      "git_blob": "85c4a0c653a830971b63fdf03920e8ecc339d7c5"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/11_Day1材料后续修订_20261024.md",
+      "git_blob": "c1b0cbae26d0fd2c11101d7206c431d73ad73e0a"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/12_团队新增交接核对_20261024.md",
+      "git_blob": "18a7525f7db8dfd07d55015251b6b6e7b5e2fb44"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/13_展示图与后续主线变更_20261024.md",
+      "git_blob": "057b1deaad4f6cc2efbf52be5988a5ba700d8bb2"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/14_构建之法第2与13章公开资料阅读记录_20261024.md",
+      "git_blob": "0aaebaa8fa48c56d2a6b5beb14f80efb4fd0c3d7"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/15_CI草稿本地等效复核_20261024.md",
+      "git_blob": "81b9808ba98267c16f5762ebf15cb486e6174843"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/16_GitHub提交前自检_20261024.md",
+      "git_blob": "6d0b6f867ee6a04f540e9efd4575e494b248b022"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/README.md",
+      "git_blob": "fbb8d73a33b551017fb77b5aec5069d8cdac07b2"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/ci/ci-backend.yml",
+      "git_blob": "8fa8bd097780fdcf78fc39a77f815a190cf8915e"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day1_20261023/ci/ci-prototype.yml",
+      "git_blob": "a91af64bb1dd18268ae7fbc7f505178cd1d34c98"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/01_测试矩阵.md",
+      "git_blob": "57823a24b1274a4c7debf2350dc73f4b9b8ba742"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/02_独立运行报告.md",
+      "git_blob": "a83ea56bf405c3c2c8b1fec45381d9b8c66a5497"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/03_安全专项独立复核_0ee6d.md",
+      "git_blob": "29ea753a146a4091f933719fcae502db9cfa8866"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/04_个人进展与未关闭问题.md",
+      "git_blob": "eee3ce8e1ffa3937db4f1dd64abd8dfe2ccb1009"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/README.md",
+      "git_blob": "475abba7719b45fb0f5d80cc304c122dd153f1ec"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/evidence/browser-day2-integrated-230293d.json",
+      "git_blob": "25c8f69adfa27682fa50c717fa7279d274a1bedd"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/evidence/electron-smoke-230293d.json",
+      "git_blob": "dbaa5a0a91b00867dbf7a092d0c6fc8a53a5a11f"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/scripts/auth-profile-api.test.mjs",
+      "git_blob": "ab0cf396faf44bac20868d55618281da8678e1a5"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/scripts/browser-day2-integrated.mjs",
+      "git_blob": "8afb1eb64ca511a027c53de85c11d66abf2525bc"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/scripts/electron-smoke-local.cjs",
+      "git_blob": "492ab0e9019784eaf17473422ca915d22c3f5335"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/scripts/run-browser-isolated-api.mjs",
+      "git_blob": "67b0e40c6862975137fe2d3b3e377dc1fbafbb7e"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day2_20261024/scripts/run-isolated-auth-profile.mjs",
+      "git_blob": "945595b009ac96080995b7cee4a1a2b9c4eea76c"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/01_Day3场景测试矩阵.md",
+      "git_blob": "48d6eeddfe8cf811705d46c8450c3eaa5b1dc34c"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/02_首轮独立执行与阻塞报告.md",
+      "git_blob": "6c12aebd6ba82115ecf341744abd307d42b84294"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/03_登录到陪伴端到端用例与取证方案.md",
+      "git_blob": "289d3b942a8cce76ace7868fd9e2eb652f0622c1"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/04_接口与版本交接需求.md",
+      "git_blob": "9d77c3f096c40b131a1cdb54ec0c5a86668c9bdc"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/05_Day3个人进展记录_20261025.md",
+      "git_blob": "18435c90c7f70825d0b18419f0b72ae114e0ea5c"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/06_当日自动化复跑与端到端状态_20261025.md",
+      "git_blob": "a7a444923c9661cd42cc1e3edbbc68a039e97146"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/07_新主线增量复核与截图交接_20261025.md",
+      "git_blob": "33182d9f4a219c347bbbe10c167f337f2f95f7da"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/08_最新主线与成员交付独立验收_20261025.md",
+      "git_blob": "e3be110d5a61ccace8f2094bda2ac9dea55a540a"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/README.md",
+      "git_blob": "b609bda1326334f0ad88f2a0b088337a0d277a74"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/browser-day3-integrated-b1447bf.json",
+      "git_blob": "f64aac60ef73a78fbb193c0f117fd376ae470977"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/browser-day3-main-6e69910.json",
+      "git_blob": "429895c1829d266778a656cc1f73a776557716c7"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/day3-real-search-0ee6d-local.json",
+      "git_blob": "a8fb5b1904b3de56dc5ae1fac96f1725832ffc07"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/day3-real-search-20261025-6e69910-local.json",
+      "git_blob": "fbba2df4e6a4aad6c0969c4daa067040f589c44c"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/day3-real-search-20261025-a25c912-local.json",
+      "git_blob": "3d3a227eec50194695ca83046eebcd63c3aa0184"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/day3-real-search-20261025-b1447bf-local.json",
+      "git_blob": "79f42e81e3d3b229d946807830d6119b39929071"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/tests/day3-companion-adapter.test.mjs",
+      "git_blob": "6e2d238490818c1dd32672c6af8de61e79baf109"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/tests/day3-main-browser-auth-to-companion.mjs",
+      "git_blob": "7bf303c0bd2ce78c8e276c51e3a0f7cc0bafad5c"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/tests/day3-pr40-authenticated-business-http.mjs",
+      "git_blob": "34fcff9bd83724da79b10aaf37ed1932237fdfcb"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/tests/day3-real-search-smoke.mjs",
+      "git_blob": "57850e71876b6bf517cd4bc5e9f094e439fdf1bd"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day3_20261025/tests/day3-search-session-http.test.mjs",
+      "git_blob": "f13f4cf24149ba020830ad69d4dc0aa8d012333e"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/01_中期集成测试报告_20261026.md",
+      "git_blob": "8a1118f13467e31958e461c392069a2f48de2f2f"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/02_缺陷分级与复测条件.md",
+      "git_blob": "b3f750e52458a3b2578fcfc5127d07b586beffff"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/03_销毁流程网络与存储观察.md",
+      "git_blob": "ad2125e8bf65dc7e01b96c7e9f7b9701baf0f7b0"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/04_个人进展与组长交接.md",
+      "git_blob": "e28eec4aedccddee6bad105118d537c3ed677ad1"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/05_最新主线增量复核_20261026.md",
+      "git_blob": "17b73b84a14f58f2445905d60aaf8b7194ecc03e"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/06_安全新增证据交叉复核_20261026.md",
+      "git_blob": "7c6fd07f279b4fffd5332dbb63098f06b2d8ba0b"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/README.md",
+      "git_blob": "526bbdf7b1b6ed645fea26513d4bc428c6069194"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/day4-browser-api-assisted-20261026-main2c756cf.json",
+      "git_blob": "438d8e178a1df597ec747b23bb0fc7dfa9e52ff1"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/day4-destroy-browser-20261026-main2c756cf.json",
+      "git_blob": "5944f89653672f3be10d854839cde36c0a6cc5c8"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/day4-pm-acceptance-rerun-20261026-mainc3ffddef.json",
+      "git_blob": "7a3b5c17ff657b4d059c4d2db63f21c2f13b1f2f"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/latest-c3ffddef/day4-browser-api-assisted-20261026-mainc3ffddef.json",
+      "git_blob": "894e3e61eb9dfe268e017e957644f1c15cf21800"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/latest-c3ffddef/day4-destroy-browser-20261026-mainc3ffddef.json",
+      "git_blob": "b3c9b4e0960a1dff7670fb0a80325da51e726ee2"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/tests/day4-browser-api-assisted-record.mjs",
+      "git_blob": "d41c89deb5b0d939d14569164f8db5a44fd98912"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/tests/day4-destruction-browser.mjs",
+      "git_blob": "13739bd1504b9437fbb2f626e6e7f90ba4097b7b"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/tests/day4-record-privacy-http.test.mjs",
+      "git_blob": "a8108d3f39a054fe36e2abf435238aace2d4ab1b"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day4_20261026/tests/qa-harness/day4-privacy-qa.jsx",
+      "git_blob": "275c1cb6d6016e8eb97b0b0a87bd042abb9b5f8a"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/01_最新主线独立复核_34d751c.md",
+      "git_blob": "ec82b2829ebde204170c0517e68f82ddd44da31a"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/02_给组长_Day5最新博客素材_34d751c.md",
+      "git_blob": "34cab080294413092d381bf0bd629173590d5a7b"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/03_最新用例与缺陷分诊_34d751c.md",
+      "git_blob": "cdea4cddbd488dfae9155ab6d0eed3cb84742f36"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/04_测试随笔更新稿_34d751c.md",
+      "git_blob": "aa4b28b264de3b9e28bd5c7fd978e0e9139f8ef6"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/README.md",
+      "git_blob": "9f992c2fef4a2ee1d53d63fa450b215a42e9535c"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/day5-record-acceptance-20261027-main34d751c.json",
+      "git_blob": "c0e34524aa5ecd585284677294a60577f81e6b89"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/evidence/main34d751c/day5-browser-api-assisted-20261027-main34d751c.json",
+      "git_blob": "618284dae1d4162cf3a085649a197cfffe1e6637"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/evidence/main34d751c/day5-static-browser-smoke-main34d751c.json",
+      "git_blob": "0dd548b42159bdc4d27ee911b023c2ab465cbe42"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/references/构建之法第2与13章公开资料阅读记录.md",
+      "git_blob": "0aaebaa8fa48c56d2a6b5beb14f80efb4fd0c3d7"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/tests/day5-browser-api-assisted-record.mjs",
+      "git_blob": "f072a3d714775dc4704d5645bfae2ce44d39c1a3"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/tests/day5-record-acceptance-rerun.mjs",
+      "git_blob": "55f8b95e1150a8b4d0a454f7ad5285cdc16d085e"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day5_20261027/tests/day5-static-browser-smoke.mjs",
+      "git_blob": "58d05b147d66fc6cf6f199d16580f69c6de8a852"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day3_20261025/README.md",
+      "git_blob": "07a0fb2c0d812bc4a75be3758890af5f973cad60"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day3_20261025/scripts/walkthrough.cjs",
+      "git_blob": "3eb12e84ec95e136d09231d9c82edc065a2ff59a"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day3_20261025/交互走查记录.md",
+      "git_blob": "9dd623ab0c179fd83fc6263a89c213c1425adaca"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day3_20261025/页面组件交付.md",
+      "git_blob": "84d3448ae61a140a88fbd13dd470597dd0ed6016"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day3_20261025/验证与截图清单.json",
+      "git_blob": "8f7f3e5c24b01c656d0b8c75f8e5f05b12a8a561"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/Day4_个人站会材料_20261026.md",
+      "git_blob": "99dbd11205b937db1294fbc9a3347fef4aab1df6"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/README.md",
+      "git_blob": "d030c6fed1c64ace9b3f3eb8ee75b4aa46a70521"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/evidence/initial-focus-failure.json",
+      "git_blob": "5897abce2cf64cb1f66a8723a1b5159c2de0c7d5"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/scripts/walkthrough.cjs",
+      "git_blob": "e7c71530464ee57f07b4f9aad3e3ab3796592217"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/交付核对.json",
+      "git_blob": "5b012c1ff5c7dd85d51e71a47cee8bd047898342"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/保存与历史页面交付.md",
+      "git_blob": "b6aa4e5b13d0aa9616884697bbb0cd870a4ae5ab"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/文字销毁操作说明.md",
+      "git_blob": "574985c47962b5c607d4d90522612a090082b625"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/窄屏弹窗验证.json",
+      "git_blob": "2c5247f9f54d649a6a65c9dd88150f6a0693f67c"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/走查问题清单.md",
+      "git_blob": "03ade7434fa265c04852220c88b7967993cbe942"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day4_20261026/验证与截图清单.json",
+      "git_blob": "ef351892dd087a647c198ab025eb6991dea68180"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/Day5_个人站会材料_20261027.md",
+      "git_blob": "41000195a9c830fc4593a585403580c0ae6f2611"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/PPT内容与备注.md",
+      "git_blob": "882bd0c384bbd0fd3498c2d190eadcb49ab5e90d"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/PPT制作与核对说明.md",
+      "git_blob": "6cecc9c76f2bf4db7a7e30f4f70aba46bdaa3b10"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/PPT回读核对.conversion_profile.json",
+      "git_blob": "1d5b937738a58c8650fc12afb43134a0716eb683"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/PPT回读核对.md",
+      "git_blob": "2f6cad123565c7a8f84cd330373c30996652089e"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/PPT回读核对_files/image_manifest.json",
+      "git_blob": "8fbf7ca763ff9c833e89e2fa30d36c6c465d8457"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/PPT截图裁切清单.json",
+      "git_blob": "7109df96ae48e1b06ff125694afec345e21486dc"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/PPT页序与证据映射.md",
+      "git_blob": "6938839e5d299bb777ddcc97de44b8237887eaad"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/README.md",
+      "git_blob": "1136b35ecf3643dbda1c7bfda2b35ea95cb5dfb2"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/pptx-delivery.json",
+      "git_blob": "0a5b02fa698d5c9807f735719be217ad7a75abf1"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+      "git_blob": "9c42fcb1ff088d0c83a367bd5dc5b0eb68079b1e"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/scripts/day4-regression.cjs",
+      "git_blob": "cbe75f274d5c4b18bdd4e4bd5f3b648099db9d56"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/scripts/walkthrough-day5.cjs",
+      "git_blob": "3ba651d4018954af783115bca1896eba9ed4b0f3"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/svg-quality.json",
+      "git_blob": "a18f8f188be0ffd8094dd414398a4e8d7936e28c"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/交互修订记录.md",
+      "git_blob": "e2f13f0daeef6e2840b21cff7f35eb170c2574af"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/交付核对.json",
+      "git_blob": "a0cb63a0594f5196000b0855213cec4733f8a40c"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/截图索引.md",
+      "git_blob": "793ffe9d3cf895971ae4eccd90eaaadcab5788ec"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+      "git_blob": "33c89278e2d8c84ec6a55510cbd09c656a9295cb"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/README.md",
+      "git_blob": "6118033cd23874a6553a14a799ffdb252353fbf1"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/交互状态表_20261023.md",
+      "git_blob": "ea65f7b8e03c12194a4848723a61d9a67ff44127"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/界面对齐_20261025/README.md",
+      "git_blob": "edee618b20613453791a8bc881f080449fcc1f18"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/界面对齐_20261025/验证与截图清单.json",
+      "git_blob": "280d889d191f3c22f4c1981054e68d267b8f1169"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/组件展示页交付_20261024/README.md",
+      "git_blob": "16a65da78c4a98a1b24dca8bae9b33120b94a8dd"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/组件展示页交付_20261024/截图清单.json",
+      "git_blob": "b33fb14a4704bdb80d8f1122f0fbcf2d2557ede0"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/组件规范_20261023.md",
+      "git_blob": "2e4adfd71e1721bac8d36d250926789492765cf2"
+    },
+    {
+      "path": "docs/alpha/郭昱祺/页面交接清单_20261023.md",
+      "git_blob": "8c489625f5cb29a6531a0658a293fcfa87d3c020"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/README.md",
+      "git_blob": "cbe09274074c56528d3f261b9345f5ff0ae37adf"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/README.md",
+      "git_blob": "d8dbdfcdfe1e2a6e83d2360c4d858668a463fbdf"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/package.json",
+      "git_blob": "e451a69f64291f7e7f24a46379ca737e43240f32"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/src/app.js",
+      "git_blob": "5a31eedc2fca47e2000f726f56cc65868963e56b"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/src/config.js",
+      "git_blob": "8595dc268746375df8d0e3ead2d66f1656589776"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/src/http.js",
+      "git_blob": "6991571a3e60ff68dfbee5a7afbaa449de72a0a7"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/src/index.js",
+      "git_blob": "ebd9abe16f61fdba19b2f42acbb5330b00449ea2"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/src/routes/auth.routes.js",
+      "git_blob": "0936c0afc22b91347085d486e4d16b4bc9aff4b0"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/src/routes/health.routes.js",
+      "git_blob": "36800aefc7ce8b8f2ba6c13303ef5d6fb413a0c5"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/src/routes/profile.routes.js",
+      "git_blob": "34767022291b0195b52b7552f06e7668662e3f49"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/test/api.test.js",
+      "git_blob": "dcd9d083b18f7b1307755c732ee3723bf236a6ea"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/server/test/contracts.test.js",
+      "git_blob": "e6a085ccfdd5b7577db8bcc77058d0ed38d8044d"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/account.js",
+      "git_blob": "6d18d877904386f03222ae2a280079be37a4d490"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/agent-task.js",
+      "git_blob": "14e58a91d06e6efc2f1cd92ebd60222edbd760ba"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/common.js",
+      "git_blob": "a840ac838f6cfaeb806a671a9ce8bc2ff211c368"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/consent.js",
+      "git_blob": "140a1859a42272c22e6ad0a01c54e2c5127a3871"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/errors.js",
+      "git_blob": "60eb3dbf6cea3342b4c15831bb83f1229c7cfff3"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/profile.js",
+      "git_blob": "68130e55889c225711e216714d4c33495b26f578"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/record.js",
+      "git_blob": "437ae97e34f79cf7754ab9e7ff8ca2921031f4d9"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/search-task.js",
+      "git_blob": "f1ea7fac6df39684d54d9521acbb3aebe5795d28"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/contracts/session.js",
+      "git_blob": "4ab08c17137a1da93776ebc7fa0c1cc54368c6a8"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/index.js",
+      "git_blob": "8915e0556e7799e724afd3b5720ac818e2daabcc"
+    },
+    {
+      "path": "docs/alpha/阿法冲刺第一天/shared/package.json",
+      "git_blob": "b1c39cf3ada5019dea6c29d2f741a6400d9bef5e"
+    },
+    {
+      "path": "docs/仓库维护约定.md",
+      "git_blob": "336d5692f57aad8bd5e0b2c262752dfcf91c5d26"
+    },
+    {
+      "path": "docs/代码规范.md",
+      "git_blob": "a281914b1932f6e4d34d889b960d23ced5840aec"
+    },
+    {
+      "path": "docs/团队协作规则.md",
+      "git_blob": "0568ba9e9e693f1965ba5630153ac317c9b7f24c"
+    },
+    {
+      "path": "docs/第三次作业_张王昊/09_全功能接口与限制规范.md",
+      "git_blob": "e6529dc36dbe950a9fa61a2ed76cc0feef309bbb"
+    },
+    {
+      "path": "docs/第三次作业_程杰/01_前端设计章节.md",
+      "git_blob": "2ad85615947dba71be1d4a3e57ff1e564efe77bd"
+    },
+    {
+      "path": "docs/第三次作业_程杰/02_组件关系图.md",
+      "git_blob": "5d509f5f6c86975d14459920dcba5b1674b8a2cc"
+    },
+    {
+      "path": "docs/第三次作业_程杰/03_关键状态与时序图.md",
+      "git_blob": "2db6b37acdfdc943632637f17452b07944c50cc0"
+    },
+    {
+      "path": "docs/第三次作业_程杰/04_入口能力矩阵.md",
+      "git_blob": "d1f65e45a9241ea54467b3b2099d2dabe2da3f9c"
+    },
+    {
+      "path": "docs/第三次作业_程杰/05_前端所需接口表.md",
+      "git_blob": "d6f19d08a4c6331a121238d09f3f660dfd4df021"
+    },
+    {
+      "path": "docs/第三次作业_程杰/07_第二天认证联调记录与Electron样机_20261024.md",
+      "git_blob": "f2bd18397e02c95f2c5b3f68ddac85b48ef91acd"
+    },
+    {
+      "path": "docs/第三次作业_程杰/09_第三天Web运行截图与桌面能力记录_20261025.md",
+      "git_blob": "cfaffcfe899b8dcf1ff145247b3cd751dacd2f15"
+    },
+    {
+      "path": "prototype/.env.example",
+      "git_blob": "f5ba6df71392f923a28c8eae61f05d8c2cc81d76"
+    },
+    {
+      "path": "prototype/README.md",
+      "git_blob": "79b5911777073c88f4e56ad0355ec71f6dc24196"
+    },
+    {
+      "path": "prototype/electron/README.md",
+      "git_blob": "e2dcba54701fa13f68c96e9ef128672824248669"
+    },
+    {
+      "path": "prototype/electron/main.cjs",
+      "git_blob": "984287592c0abd67e677f1ec4fd001aac32d97f2"
+    },
+    {
+      "path": "prototype/electron/preload.cjs",
+      "git_blob": "336b85b10aad846d11c59e565abac503d8d3b6bb"
+    },
+    {
+      "path": "prototype/electron/renderer.css",
+      "git_blob": "06c9b5604810441a2fa36f3860bbe86232ca26e2"
+    },
+    {
+      "path": "prototype/electron/renderer.html",
+      "git_blob": "c332709ba0d2020deae925d6fcbbbd60606da70b"
+    },
+    {
+      "path": "prototype/electron/renderer.js",
+      "git_blob": "fa37a75709c2331e83975ecac1616d3df769d049"
+    },
+    {
+      "path": "prototype/index.html",
+      "git_blob": "1fb9ce0454d77de9f9ef204a447bbdf4132913e0"
+    },
+    {
+      "path": "prototype/package-lock.json",
+      "git_blob": "1bb48c30da0438b3857cf326dc86667e98a0c3cf"
+    },
+    {
+      "path": "prototype/package.json",
+      "git_blob": "50873df4f7b4603c6af6768b32024029c594171c"
+    },
+    {
+      "path": "prototype/src/App.jsx",
+      "git_blob": "b0842c9c14266039945dab879aa0efa8b0de5f08"
+    },
+    {
+      "path": "prototype/src/api/client.js",
+      "git_blob": "9fb67732ad61a35837c7746ec676d4d56898ea66"
+    },
+    {
+      "path": "prototype/src/api/client.test.js",
+      "git_blob": "b55ee5e70e7b50de1e3328671b5f13880285a170"
+    },
+    {
+      "path": "prototype/src/api/mock-data-manifest.js",
+      "git_blob": "fe61119b984ed1e54b93d69a5cc3095a1b5f950e"
+    },
+    {
+      "path": "prototype/src/auth/AuthDialog.jsx",
+      "git_blob": "1fb62e4c20e7438ea4046c46419efede4d3c431f"
+    },
+    {
+      "path": "prototype/src/auth/useAuth.js",
+      "git_blob": "09f4c463de460db23cc02562810c4b62295ddcae"
+    },
+    {
+      "path": "prototype/src/components/SiteChrome.jsx",
+      "git_blob": "3d67c252e5c694d20c75424cb513fc9cba26a0b4"
+    },
+    {
+      "path": "prototype/src/context.jsx",
+      "git_blob": "25a81f28a7b2daee8d0af1897e9bbf62706f7ef1"
+    },
+    {
+      "path": "prototype/src/current-home.css",
+      "git_blob": "2e087489f1c8859c2c3c805dec278a972d28e576"
+    },
+    {
+      "path": "prototype/src/main.jsx",
+      "git_blob": "a235bcdbc7ac2eb3a19efb3356615ab310199566"
+    },
+    {
+      "path": "prototype/src/pages/Account.jsx",
+      "git_blob": "bbf6eeade6e148804d3884c111d4191574385612"
+    },
+    {
+      "path": "prototype/src/pages/Exercises.jsx",
+      "git_blob": "bccf6d02face75afd09e912a22d57ef6314f629f"
+    },
+    {
+      "path": "prototype/src/pages/Tools.jsx",
+      "git_blob": "d0128b140c7b41ca4543c25ed4e1a95c4c5ed894"
+    },
+    {
+      "path": "prototype/src/pages/Workspace.jsx",
+      "git_blob": "ed3721f881d3f7b8cf7c681314015ec21d0f3be5"
+    },
+    {
+      "path": "prototype/src/pet/DesktopPet.jsx",
+      "git_blob": "d4b9227e48683d4ad9e614368708a64d38d80265"
+    },
+    {
+      "path": "prototype/src/pet/PetAvatar.jsx",
+      "git_blob": "5fd0f698e8269702f9fcb33c7884c5dc0a994627"
+    },
+    {
+      "path": "prototype/src/pet/pet.css",
+      "git_blob": "f3abf72feb982f3723f69e88db32056349a0f256"
+    },
+    {
+      "path": "prototype/src/req14/useTextDestructionState.js",
+      "git_blob": "74060c11fdc64d0e1f36f2d58414113a21efe417"
+    },
+    {
+      "path": "prototype/src/routes.jsx",
+      "git_blob": "6025388d6bc164c76f88eb802ac565f0bbc179bc"
+    },
+    {
+      "path": "prototype/src/style.css",
+      "git_blob": "e5bc383d29d92363d45b44c37efc8f9d3b2d84ed"
+    },
+    {
+      "path": "prototype/src/ui.jsx",
+      "git_blob": "d538dc0736d77e479901c66e46fc1d969d0048e6"
+    },
+    {
+      "path": "prototype/src/ux-showcase/Day3Components.jsx",
+      "git_blob": "41b62d45b655597451798c0b2fd059f2b334f931"
+    },
+    {
+      "path": "prototype/src/ux-showcase/Day3Previews.jsx",
+      "git_blob": "9c4222f45b9be5769d1dd320b5eb2bd89e75d476"
+    },
+    {
+      "path": "prototype/src/ux-showcase/Day4Components.jsx",
+      "git_blob": "6acd208e4871d7e577ba21a0a56a228b6334b07a"
+    },
+    {
+      "path": "prototype/src/ux-showcase/Day4Previews.jsx",
+      "git_blob": "aa2fd79c34e71e203e04ca64bc7571e2f026ba29"
+    },
+    {
+      "path": "prototype/src/ux-showcase/components.jsx",
+      "git_blob": "8d2158fc6028fff97611a6ca79f3a11bca076043"
+    },
+    {
+      "path": "prototype/src/ux-showcase/data.js",
+      "git_blob": "f0c5e42be586ddb48ff588c7798906b6283c7df5"
+    },
+    {
+      "path": "prototype/src/ux-showcase/day4.css",
+      "git_blob": "adda70da1c1d8795056060a4076e48b1c46547e5"
+    },
+    {
+      "path": "prototype/src/ux-showcase/main.jsx",
+      "git_blob": "853be351e81ebddc4a942cb588a80ed1d8480ba5"
+    },
+    {
+      "path": "prototype/src/ux-showcase/pages.jsx",
+      "git_blob": "f926e93d184f8861f2c36e1ce272a9bb8e9b71ad"
+    },
+    {
+      "path": "prototype/src/ux-showcase/showcase.css",
+      "git_blob": "10df5e26c72564b64f608466a4d083516e76e7f7"
+    },
+    {
+      "path": "prototype/ux-components.html",
+      "git_blob": "c52839fd9a8e727e55c0b301e4e27995ca0b030f"
+    },
+    {
+      "path": "prototype/vite.config.js",
+      "git_blob": "895720a5485c55fb19d61414fd0711e304814674"
+    },
+    {
+      "path": "server/.env.example",
+      "git_blob": "ee48955ee44656396ada0491e3dc8552b9a8aac9"
+    },
+    {
+      "path": "server/README.md",
+      "git_blob": "d8dbdfcdfe1e2a6e83d2360c4d858668a463fbdf"
+    },
+    {
+      "path": "server/package-lock.json",
+      "git_blob": "d17fb5444ff529dd28a7b49c9152f9c45087bddf"
+    },
+    {
+      "path": "server/package.json",
+      "git_blob": "e451a69f64291f7e7f24a46379ca737e43240f32"
+    },
+    {
+      "path": "server/src/app.js",
+      "git_blob": "5a31eedc2fca47e2000f726f56cc65868963e56b"
+    },
+    {
+      "path": "server/src/config.js",
+      "git_blob": "8595dc268746375df8d0e3ead2d66f1656589776"
+    },
+    {
+      "path": "server/src/http.js",
+      "git_blob": "6991571a3e60ff68dfbee5a7afbaa449de72a0a7"
+    },
+    {
+      "path": "server/src/index.js",
+      "git_blob": "ebd9abe16f61fdba19b2f42acbb5330b00449ea2"
+    },
+    {
+      "path": "server/src/routes/auth.routes.js",
+      "git_blob": "0936c0afc22b91347085d486e4d16b4bc9aff4b0"
+    },
+    {
+      "path": "server/src/routes/health.routes.js",
+      "git_blob": "36800aefc7ce8b8f2ba6c13303ef5d6fb413a0c5"
+    },
+    {
+      "path": "server/src/routes/profile.routes.js",
+      "git_blob": "34767022291b0195b52b7552f06e7668662e3f49"
+    },
+    {
+      "path": "server/test/api.test.js",
+      "git_blob": "dcd9d083b18f7b1307755c732ee3723bf236a6ea"
+    },
+    {
+      "path": "server/test/contracts.test.js",
+      "git_blob": "e6a085ccfdd5b7577db8bcc77058d0ed38d8044d"
+    },
+    {
+      "path": "shared/contracts/account.js",
+      "git_blob": "6d18d877904386f03222ae2a280079be37a4d490"
+    },
+    {
+      "path": "shared/contracts/agent-task.js",
+      "git_blob": "14e58a91d06e6efc2f1cd92ebd60222edbd760ba"
+    },
+    {
+      "path": "shared/contracts/common.js",
+      "git_blob": "a840ac838f6cfaeb806a671a9ce8bc2ff211c368"
+    },
+    {
+      "path": "shared/contracts/consent.js",
+      "git_blob": "140a1859a42272c22e6ad0a01c54e2c5127a3871"
+    },
+    {
+      "path": "shared/contracts/errors.js",
+      "git_blob": "60eb3dbf6cea3342b4c15831bb83f1229c7cfff3"
+    },
+    {
+      "path": "shared/contracts/profile.js",
+      "git_blob": "68130e55889c225711e216714d4c33495b26f578"
+    },
+    {
+      "path": "shared/contracts/record.js",
+      "git_blob": "e84af64c267c30eeacf111e4b3f3a892cc8fcb4d"
+    },
+    {
+      "path": "shared/contracts/search-task.js",
+      "git_blob": "f1ea7fac6df39684d54d9521acbb3aebe5795d28"
+    },
+    {
+      "path": "shared/contracts/session.js",
+      "git_blob": "4ab08c17137a1da93776ebc7fa0c1cc54368c6a8"
+    },
+    {
+      "path": "shared/contracts/training.js",
+      "git_blob": "e039cd73e6859278d8eac865a506da05490a7f4d"
+    },
+    {
+      "path": "shared/index.js",
+      "git_blob": "af69e49742b51f185923ff9f8b767aff87d37adb"
+    },
+    {
+      "path": "shared/package-lock.json",
+      "git_blob": "e376ae580009dc416897028121b2b9bb1651e8e0"
+    },
+    {
+      "path": "shared/package.json",
+      "git_blob": "b1c39cf3ada5019dea6c29d2f741a6400d9bef5e"
+    },
+    {
+      "path": "web-prototype/assets/404-mark.svg",
+      "git_blob": "b82574154c6f8de29844a283cfde313139e7b555"
+    },
+    {
+      "path": "web-prototype/assets/worry-pet.png",
+      "git_blob": "a31a5b1c0e9f3732531ec67b4f0317d95d022760"
+    },
+    {
+      "path": "web-prototype/calendar-empty.html",
+      "git_blob": "1e4be093bb37fd7bc5babfe7e9c2b607963d6794"
+    },
+    {
+      "path": "web-prototype/calendar.html",
+      "git_blob": "492e5ae2e69427680852fc3a36515a6fd5161c23"
+    },
+    {
+      "path": "web-prototype/companion-empty.html",
+      "git_blob": "ef00b89c7e06f344f457c90b9cd545b3f977a89f"
+    },
+    {
+      "path": "web-prototype/companion-error.html",
+      "git_blob": "fb19808b53362167668ca47be6a414bf0aa749ea"
+    },
+    {
+      "path": "web-prototype/companion-loading.html",
+      "git_blob": "f9028af451e149e5b414f247ca89ab4c5fcdb9d4"
+    },
+    {
+      "path": "web-prototype/companion.html",
+      "git_blob": "d8f24f7a424c66eef60945f67ac8a7dd1223321f"
+    },
+    {
+      "path": "web-prototype/emotion-card.html",
+      "git_blob": "4913a0bfe236024f2b1241c33087c63a0c7616dc"
+    },
+    {
+      "path": "web-prototype/five-senses.html",
+      "git_blob": "315f2a64ee58cc7c87d5400a5b4d27ce975fd2c6"
+    },
+    {
+      "path": "web-prototype/games.html",
+      "git_blob": "a7ed0beb0e9096ed305cade9f72c5512eb9d2c79"
+    },
+    {
+      "path": "web-prototype/home.html",
+      "git_blob": "6798f832745955bbf299eb21d336758ff01496ce"
+    },
+    {
+      "path": "web-prototype/info-empty.html",
+      "git_blob": "f85d5b7c60d069603acf44184303b2bbe01e97b5"
+    },
+    {
+      "path": "web-prototype/info-query.html",
+      "git_blob": "465ee7a33bdf6c807f00493dc19a13992f68c473"
+    },
+    {
+      "path": "web-prototype/login.html",
+      "git_blob": "8825010a89b51a9872bc3af17a24b709ff1363e5"
+    },
+    {
+      "path": "web-prototype/pause-organize.html",
+      "git_blob": "c92d84a51c5f256988e3e28f5206318187656b0b"
+    },
+    {
+      "path": "web-prototype/practice-layout.css",
+      "git_blob": "0ead70ad2e78a615dfd4e35c5e9e2797fa93b0df"
+    },
+    {
+      "path": "web-prototype/practice-pages.css",
+      "git_blob": "7294c1fa5de8d4f3e5e79aa6d713f31d5bfc429d"
+    },
+    {
+      "path": "web-prototype/practice-pages.js",
+      "git_blob": "1ad42ad829087f0d9b2d06ec9de34b619a8758db"
+    },
+    {
+      "path": "web-prototype/pressure-toy.html",
+      "git_blob": "7d63e6092c0c81b989131ffa34dbd5ad32bd3f49"
+    },
+    {
+      "path": "web-prototype/profile.html",
+      "git_blob": "5255a3c285f4df509e1e3e930012301d9b8b0c84"
+    },
+    {
+      "path": "web-prototype/prototype-guide.html",
+      "git_blob": "f328582a70dd2f2edb67c6ac42d21dd1b88462e0"
+    },
+    {
+      "path": "web-prototype/register.html",
+      "git_blob": "55490001649c7da67ccae906c61037f2008e3901"
+    },
+    {
+      "path": "web-prototype/rehearsal-complete.html",
+      "git_blob": "155e128738829b550abf0e26d6ef7a8a3bc8c47f"
+    },
+    {
+      "path": "web-prototype/rehearsal.html",
+      "git_blob": "38ca81f53aecfb7d0fd2df2a621179d234f005f9"
+    },
+    {
+      "path": "web-prototype/settings.html",
+      "git_blob": "039c128c4a78e041e9da00d7aaf08933d7ebc81f"
+    },
+    {
+      "path": "web-prototype/site-nav.js",
+      "git_blob": "28a1132a51c41d42bfd267a1bf7378fa937a04a7"
+    },
+    {
+      "path": "web-prototype/task-splitting.html",
+      "git_blob": "ac2fc0e49d8b59da2383be4901d55e414b7121ee"
+    },
+    {
+      "path": "web-prototype/theme.css",
+      "git_blob": "2de9ea3c3b11bebc1b962ef70597bbfd882de70b"
+    },
+    {
+      "path": "web-prototype/theme.js",
+      "git_blob": "553d953e7de98e7425fd0c61a618dc55280b5bb7"
+    },
+    {
+      "path": "web-prototype/things-organize.html",
+      "git_blob": "f3ca6b85fc8f7fe5b3505c16238525574c9764ee"
+    },
+    {
+      "path": "web-prototype/worry-room.html",
+      "git_blob": "fd072176c2e41605346da5b8965d2ec6f7509ddf"
+    }
+  ]
+}

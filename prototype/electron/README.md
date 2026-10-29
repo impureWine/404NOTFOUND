@@ -1,22 +1,9 @@
-# Electron 桌宠样机
+# Electron 真实业务入口
 
-这是 Day 2 的最小桌面窗口验证样机，独立于 React 页面和真实业务服务。它只加载本地 `renderer.html`，不请求远程页面，不读取账号 Cookie，也不实现真实桌宠业务。
+启动真实工作台并保留透明置顶宠物窗口、拖动、隐藏、点击穿透和恢复快捷键 Alt+Shift+P。宠物按钮可打开工作台与全屏发泄浮层，浮层按 Esc 退出。
 
-## 能力范围
+从 prototype 运行 `npm run electron:dev`。默认 DESKTOP_APP_URL=http://127.0.0.1:5174，必须先启动该地址的真实前后端。建议独立后端使用 APP_ENTRY_POINT=DESKTOP、PORT=3001、APP_ORIGIN=http://127.0.0.1:5174，前端 API_PROXY_TARGET 指向 http://127.0.0.1:3001。
 
-- 无边框、透明、置顶窗口。
-- 标题栏可拖动；按钮区域标记为不可拖动。
-- 隐藏和显式退出；主进程退出时释放窗口和快捷键。
-- 点击穿透由主进程控制，状态只通过受限 preload API 传递。
-- `Alt+Shift+P` 是恢复交互的紧急快捷键。
-- `contextIsolation: true`、`nodeIntegration: false`、`sandbox: true`；拒绝窗口打开、页面跳转和权限请求。
+完整命令见 [运行指南](../../docs/真实服务接入与运行.md)。需要安装 Electron 二进制；源码语法检查不代表已完成目标电脑的窗口与浮层验收。
 
-## 启动
-
-在已安装 Electron 依赖的环境中，从 `prototype/` 执行：
-
-```powershell
-npx --no-install electron electron/main.cjs
-```
-
-当前工作区已登记 Electron npm 包，但本次环境未完成 Electron 二进制下载（运行时 `fetch failed`），因此本样机源码已完成，桌面窗口运行尚未执行。补齐二进制后再按上面的命令记录实际系统、Electron 版本、窗口行为和失败原因。
+渲染进程禁用 Node、启用隔离与 sandbox；工作台使用独立会话分区，仅允许当前配置的应用来源导航，拒绝任意新窗口和权限请求。密钥保留在后端，不传入桌宠渲染器。

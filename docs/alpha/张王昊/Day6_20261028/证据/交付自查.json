@@ -1,0 +1,12 @@
+{
+  "source_blob_files_unchanged": 463,
+  "backend_pass": 124,
+  "frontend_pass": 6,
+  "integration_explicit_pass": 39,
+  "restore_pass": 1,
+  "failure_outputs_preserved": true,
+  "whole_browser_e2e_passed": false,
+  "actual_sp_and_member_hours_not_fabricated": true,
+  "deleted_project_files": 0,
+  "generated_at": "2026-10-28T19:46:22+08:00"
+}

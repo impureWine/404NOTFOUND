@@ -1,0 +1,164 @@
+{
+  "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "recordedAt": "2026-10-28T11:29:13.051Z",
+  "environment": "PGlite + localhost; real identity/consent services; synthetic model and controllable training clock; no real model/browser",
+  "checks": [
+    {
+      "id": "BG-01",
+      "name": "主线真实用途许可→正式Agent HTTP→合成模型结果",
+      "expected": {
+        "grant": 201,
+        "accepted": 202,
+        "completed": true
+      },
+      "actual": {
+        "grant": 201,
+        "accepted": 202,
+        "status": "completed",
+        "hasText": true
+      },
+      "pass": true
+    },
+    {
+      "id": "BG-02",
+      "name": "AI完成默认不保存",
+      "expected": {
+        "records": 0
+      },
+      "actual": {
+        "records": 0
+      },
+      "pass": true
+    },
+    {
+      "id": "BG-03",
+      "name": "SAVE与AI_PROCESS不可互换",
+      "expected": {
+        "saveWithAI": 403,
+        "aiWithSave": 403
+      },
+      "actual": {
+        "saveWithAI": 403,
+        "aiWithSave": 403
+      },
+      "pass": true
+    },
+    {
+      "id": "BG-04",
+      "name": "账号B不能读取账号A任务",
+      "expected": {
+        "status": 404
+      },
+      "actual": {
+        "status": 404
+      },
+      "pass": true
+    },
+    {
+      "id": "BG-05",
+      "name": "显式取消后的迟到AI回复不回填",
+      "expected": {
+        "status": "cancelled",
+        "result": false
+      },
+      "actual": {
+        "status": "cancelled",
+        "result": false
+      },
+      "pass": true
+    },
+    {
+      "id": "BG-06",
+      "name": "重来后旧代次AI回复不回填",
+      "expected": {
+        "status": "cancelled",
+        "result": false
+      },
+      "actual": {
+        "status": "cancelled",
+        "result": false
+      },
+      "pass": true
+    },
+    {
+      "id": "BG-07",
+      "name": "END使已完成AI结果失效",
+      "expected": {
+        "resultReadable": false
+      },
+      "actual": {
+        "status": 200,
+        "resultReadable": true
+      },
+      "pass": false
+    },
+    {
+      "id": "BG-08",
+      "name": "撤回用途许可使已完成AI结果失效",
+      "expected": {
+        "resultReadable": false
+      },
+      "actual": {
+        "status": 200,
+        "resultReadable": true
+      },
+      "pass": false
+    },
+    {
+      "id": "BG-09",
+      "name": "同账号不同入口不能取AI结果",
+      "expected": {
+        "status": 404
+      },
+      "actual": {
+        "status": 200,
+        "resultReadable": true
+      },
+      "pass": false
+    },
+    {
+      "id": "BG-10",
+      "name": "退出后重新登录不恢复旧登录会话临时回复",
+      "expected": {
+        "resultReadable": false
+      },
+      "actual": {
+        "status": 200,
+        "resultReadable": true
+      },
+      "pass": false
+    },
+    {
+      "id": "BG-11",
+      "name": "训练暂停保留步骤且有效时间不推进",
+      "expected": {
+        "state": "paused",
+        "elapsedMs": 1000
+      },
+      "actual": {
+        "start": 201,
+        "pause": 200,
+        "state": "paused",
+        "elapsedMs": 1000
+      },
+      "pass": true
+    },
+    {
+      "id": "BG-12",
+      "name": "训练继续/退出及结束后禁止恢复",
+      "expected": {
+        "state": "exited",
+        "elapsedMs": 2000,
+        "resume": 409
+      },
+      "actual": {
+        "state": "exited",
+        "elapsedMs": 2000,
+        "resume": 409
+      },
+      "pass": true
+    }
+  ],
+  "passed": 8,
+  "failed": 4
+}

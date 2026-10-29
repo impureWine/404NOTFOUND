@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: mock mode never calls fetch or claims an API success
+ok 1 - mock mode never calls fetch or claims an API success
+  ---
+  duration_ms: 1.33
+  type: 'test'
+  ...
+# Subtest: real mode uses same-origin no-store requests and the configured CSRF header
+ok 2 - real mode uses same-origin no-store requests and the configured CSRF header
+  ---
+  duration_ms: 16.1515
+  type: 'test'
+  ...
+# Subtest: real mode refuses writes before context has configured CSRF state
+ok 3 - real mode refuses writes before context has configured CSRF state
+  ---
+  duration_ms: 0.1721
+  type: 'test'
+  ...
+# Subtest: authentication methods preserve the shared request names and credential policy
+ok 4 - authentication methods preserve the shared request names and credential policy
+  ---
+  duration_ms: 0.9899
+  type: 'test'
+  ...
+# Subtest: identity changes discard the in-memory CSRF token even when the response is lost
+ok 5 - identity changes discard the in-memory CSRF token even when the response is lost
+  ---
+  duration_ms: 0.3736
+  type: 'test'
+  ...
+# Subtest: record vault uses the shared consent, list, detail, and two-step clear endpoints
+ok 6 - record vault uses the shared consent, list, detail, and two-step clear endpoints
+  ---
+  duration_ms: 2.0805
+  type: 'test'
+  ...
+# Subtest: API errors preserve the contract code and request id without retaining raw bodies
+ok 7 - API errors preserve the contract code and request id without retaining raw bodies
+  ---
+  duration_ms: 0.6475
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 128.0254

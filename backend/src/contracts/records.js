@@ -40,8 +40,8 @@ const emotionDetailsSchema = z.strictObject({
     max: 20,
     trim: true,
     name: 'emotionWord',
-  })).min(1).max(5),
-  intensity: z.number().int().min(1).max(5),
+  })).max(5),
+  intensity: z.number().int().min(1).max(5).nullable(),
   timezoneName: ianaTimeZoneSchema,
   eventCiphertext: encryptedBytesSchema.nullable().default(null),
   cipherKeyVersion: z.number().int().positive().nullable().default(null),
@@ -128,6 +128,8 @@ export const recordCreateSchema = z.discriminatedUnion('kind', [
 export const recordListSchema = scopeSchema.extend({
   kind: z.enum(recordKinds).optional(),
   limit: z.number().int().min(1).max(50).default(20),
+  from: isoDateSchema.optional(),
+  to: isoDateSchema.optional(),
   cursor: z.string().min(1).max(2048).optional(),
 });
 
