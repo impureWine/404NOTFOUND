@@ -1,5 +1,3 @@
-import { timingSafeEqual } from 'node:crypto';
-
 import express from 'express';
 import { createWechatRouter } from './integrations/wechat.js';
 
@@ -15,54 +13,6 @@ import {
   requireAuthentication,
   sessionCookie,
 } from './http/request.js';
-
-function modelHttpStatus(result) {
-  if (result.status === 'success') {
-    return 200;
-  }
-  switch (result.error?.code) {
-    case 'INVALID_REQUEST':
-      return 400;
-    case 'MODEL_RATE_LIMITED':
-      return 429;
-    case 'MODEL_TIMEOUT':
-      return 504;
-    case 'MODEL_CANCELLED':
-      return 499;
-    case 'EMPTY_MODEL_OUTPUT':
-    case 'INVALID_MODEL_OUTPUT':
-    case 'CONTENT_REJECTED':
-      return 502;
-    default:
-      return 503;
-  }
-}
-
-function unavailableModelResponse(requestId) {
-  return {
-    contract_version: '1.1',
-    request_id: typeof requestId === 'string' ? requestId : 'unknown',
-    status: 'error',
-    error: {
-      code: 'MODEL_UNAVAILABLE',
-      retryable: true,
-      user_message: '模型服务暂时不可用。',
-      internal_message: 'MODEL_UNAVAILABLE',
-    },
-    model_info: { provider: 'zhipu', model: 'glm-4.7-flash', mock: false },
-    timing: { latency_ms: 0, attempts: 0 },
-  };
-}
-
-function hasInternalModelAccess(request, expectedToken) {
-  if (typeof expectedToken !== 'string' || expectedToken.length < 16) return false;
-  const authorization = request.get('authorization') ?? '';
-  if (!authorization.startsWith('Bearer ')) return false;
-  const suppliedToken = authorization.slice('Bearer '.length);
-  const supplied = Buffer.from(suppliedToken);
-  const expected = Buffer.from(expectedToken);
-  return supplied.length === expected.length && timingSafeEqual(supplied, expected);
-}
 
 export function createApp({
   database,
@@ -99,47 +49,11 @@ export function createApp({
     }
   });
 
-  app.post('/internal/v1/model/generate', async (request, response, next) => {
-    if (!hasInternalModelAccess(request, internalModelToken)) {
-      response.status(403).json({
-        error: { code: 'ACCESS_DENIED', message: '内部模型入口拒绝访问' },
-        meta: { requestId: request.requestId },
-      });
-      return;
-    }
-
-    if (authService) {
-      try {
-        const cookies = parseCookies(request.get('cookie'));
-        request.accessContext = await authService.resolveContext(readSessionToken(cookies));
-      } catch (error) {
-        next(error);
-        return;
-      }
-      if (!request.accessContext?.accountId) {
-        requireAuthentication(request, response, next);
-        return;
-      }
-    }
-    const controller = new AbortController();
-    const abort = () => controller.abort();
-    request.once('aborted', abort);
-    response.once('close', abort);
-    let result;
-    try {
-      result = modelAdapter
-        ? await modelAdapter.respond(request.body, { signal: controller.signal })
-        : unavailableModelResponse(request.body?.request_id);
-    } catch {
-      result = unavailableModelResponse(request.body?.request_id);
-    } finally {
-      request.off('aborted', abort);
-      response.off('close', abort);
-    }
-    response
-      .status(modelHttpStatus(result))
-      .set('Cache-Control', 'no-store')
-      .json(result);
+  app.post('/internal/v1/model/generate', (_request, response) => {
+    // This endpoint is intentionally removed from the browser-facing app.
+    // Model calls must go through /api/agent/tasks, where Origin, CSRF and
+    // AI_PROCESS consent are bound to the session/activity context.
+    response.status(404).json({ error: { code: 'NOT_FOUND', message: 'Not found' } });
   });
 
   if (authService) {

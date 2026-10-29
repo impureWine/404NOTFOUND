@@ -193,3 +193,22 @@ test('password change revokes every active session for the account', async () =>
     assert.equal((await fetch(`${baseUrl}/api/profile`, { headers: { Cookie: second.cookie } })).status, 401);
   });
 });
+
+test('resolving an active session refreshes its idle-activity timestamp', async () => {
+  await withApi(async ({ baseUrl, database }) => {
+    const anonymous = await context(baseUrl);
+    const password = 'correct-horse-battery';
+    assert.equal((await post(baseUrl, '/api/auth/register', anonymous, {
+      requestId: `${requestId.slice(0, -1)}c`, loginName: 'idle_refresh_user', password, confirmPassword: password,
+    })).status, 201);
+    const login = await post(baseUrl, '/api/auth/login', anonymous, {
+      loginName: 'idle_refresh_user', password, target: 'PROFILE',
+    });
+    const cookie = login.headers.get('set-cookie').split(';')[0];
+    await database.query("UPDATE login_sessions SET issued_at = now() - interval '2 minutes', last_seen_at = now() - interval '1 minute' WHERE id = (SELECT id FROM login_sessions ORDER BY issued_at DESC LIMIT 1)");
+    const before = await database.query('SELECT last_seen_at FROM login_sessions ORDER BY issued_at DESC LIMIT 1');
+    await context(baseUrl, cookie);
+    const after = await database.query('SELECT last_seen_at FROM login_sessions ORDER BY issued_at DESC LIMIT 1');
+    assert.ok(new Date(after.rows[0].last_seen_at) > new Date(before.rows[0].last_seen_at));
+  });
+});

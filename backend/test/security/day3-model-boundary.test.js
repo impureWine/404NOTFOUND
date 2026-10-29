@@ -19,7 +19,7 @@ import { buildModelMessages } from '../../src/ai/model-input.js';
 import { createSyntheticModelRequest } from '../fixtures/model-requests.js';
 
 const MODEL_ENV = Object.freeze({
-  ZHIPU_MODEL: 'glm-4.7-flash',
+  ZHIPU_MODEL: 'glm-4.5-flash',
   ZHIPU_BASE_URL: 'https://open.bigmodel.cn/api/paas/v4/',
   ZHIPU_API_KEY: 'synthetic-api-key-not-a-real-credential',
 });
@@ -45,7 +45,7 @@ function adapterReturning(content) {
     async invoke() {
       return {
         content: JSON.stringify(content),
-        response_metadata: { model_name: 'glm-4.7-flash' },
+        response_metadata: { model_name: 'glm-4.5-flash' },
       };
     },
   };

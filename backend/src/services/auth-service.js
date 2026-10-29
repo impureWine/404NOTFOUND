@@ -74,12 +74,13 @@ export class AuthService {
     if (!sessionToken) return null;
     const result = await this.database.query(
       `
-        SELECT id, account_id, entry_point_id, csrf_token_digest, expires_at
-        FROM login_sessions
+        UPDATE login_sessions
+        SET last_seen_at = now()
         WHERE token_digest = $1
           AND revoked_at IS NULL
           AND expires_at > now()
           AND last_seen_at >= now() - interval '30 minutes'
+        RETURNING id, account_id, entry_point_id, csrf_token_digest, expires_at
       `,
       [sha256(sessionToken)],
     );

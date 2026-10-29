@@ -128,7 +128,7 @@ async function registerAndLogin(baseUrl, loginName) {
   return context(baseUrl, login.headers.get('set-cookie').split(';')[0]);
 }
 
-test('D5-01 内部模型入口：缺少内部令牌的匿名与已登录请求均被拦截', async () => {
+test('D5-01 内部模型入口：内部入口已关闭，匿名与已登录请求均不调用模型', async () => {
   await withApi(async ({ baseUrl, modelAdapter }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_day5_internal');
     const body = createSyntheticModelRequest({ request_id: 'req-synthetic-d5-01' });
@@ -141,7 +141,7 @@ test('D5-01 内部模型入口：缺少内部令牌的匿名与已登录请求�
       body: JSON.stringify(body),
     });
     observation.anonymous = { status: anonymous.status, callsAfter: modelAdapter.calls.length };
-    assert.equal(anonymous.status, 403, '缺少内部令牌应返回 403');
+    assert.equal(anonymous.status, 404, '已关闭入口应返回 404');
 
     // 2) 有会话但 Origin 错误、且不带 CSRF。
     const callsBefore = modelAdapter.calls.length;
@@ -189,12 +189,12 @@ test('D5-01 内部模型入口：缺少内部令牌的匿名与已登录请求�
     };
     console.log('[D5-01]', JSON.stringify(observation));
 
-    // 内部入口要求独立令牌；登录会话不能替代内部凭据。
-    assert.equal(observation.badOrigin.status, 403);
+    // 内部入口已关闭；登录会话和内部凭据均不能绕过业务授权。
+    assert.equal(observation.badOrigin.status, 404);
     assert.equal(observation.badOrigin.adapterCalls, 0);
-    assert.equal(observation.noCsrf.status, 403);
+    assert.equal(observation.noCsrf.status, 404);
     assert.equal(observation.noCsrf.adapterCalls, 0);
-    assert.equal(observation.noConsent.status, 403);
+    assert.equal(observation.noConsent.status, 404);
     assert.equal(observation.noConsent.adapterCalls, 0);
   });
 });

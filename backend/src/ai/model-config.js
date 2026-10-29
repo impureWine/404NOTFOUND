@@ -32,7 +32,7 @@ export function getModelConfig(env = process.env) {
   const baseUrl = env.ZHIPU_BASE_URL ?? ALLOWED_BASE_URL;
 
   if (model !== ALLOWED_MODEL) {
-    throw new Error('模型配置被阻止：当前仅允许 glm-4.7-flash。');
+    throw new Error('模型配置被阻止：当前仅允许 glm-4.5-flash。');
   }
 
   if (baseUrl !== ALLOWED_BASE_URL) {
