@@ -23,21 +23,37 @@ function delay(signal) {
     if (signal.aborted) abort(); else signal.addEventListener('abort', abort, { once: true });
   });
 }
-export async function runTask(session, input, { signal, search = false, onAccepted = () => {} }) {
+export async function runTask(session, input, { signal, search = false, onAccepted = () => {}, client = apiClient }) {
   const requestId = id();
   const payload = { sessionId: session.sessionId, activityId: session.activityId,
     sessionGeneration: session.sessionGeneration, activityGeneration: session.activityGeneration, ...input };
-  const cancel = () => (search ? apiClient.cancelSearchTask : apiClient.cancelAgentTask)(requestId, { requestId: id() }).catch(() => {});
+  const cancel = () => (search ? client.cancelSearchTask : client.cancelAgentTask)(requestId, { requestId: id() }).catch(() => {});
   try {
-    const consent = await apiClient.createConsent({ requestId: id(), purpose: search ? 'SEARCH_PROCESS' : 'AI_PROCESS', operation: search ? 'SEARCH_TASK_CREATE' : 'AGENT_TASK_CREATE', payload }, { signal });
-    const accepted = await (search ? apiClient.createSearchTask : apiClient.createAgentTask)({ ...payload, requestId, consentId: consent.consentId }, { signal });
+    const consent = await client.createConsent({ requestId: id(), purpose: search ? 'SEARCH_PROCESS' : 'AI_PROCESS', operation: search ? 'SEARCH_TASK_CREATE' : 'AGENT_TASK_CREATE', payload }, { signal });
+    const accepted = await (search ? client.createSearchTask : client.createAgentTask)({ ...payload, requestId, consentId: consent.consentId }, { signal });
     onAccepted(accepted);
     const deadline = Date.now() + 75000;
     while (Date.now() < deadline) {
       if (signal.aborted) throw new DOMException('已取消', 'AbortError');
-      const result = await (search ? apiClient.getSearchTask : apiClient.getAgentTask)(requestId, { signal });
+      const result = await (search ? client.getSearchTask : client.getAgentTask)(requestId, { signal });
       if (result.status === 'completed') return result;
-      if (['failed', 'expired', 'cancelled'].includes(result.status)) throw new Error(({ TIMEOUT: '模型响应超时，请稍后重试。', PROVIDER_UNAVAILABLE: '模型服务暂不可用，请检查服务配置或稍后重试。', OUTPUT_INVALID: '模型返回内容无法使用，请重新尝试。' })[result.failureReason] || (result.status === 'cancelled' ? '本次任务已取消。' : '服务未完成任务，请稍后重试。'));
+      if (['failed', 'expired', 'cancelled'].includes(result.status)) {
+        const failureMessages = search ? {
+          TIMEOUT: 'Wikipedia 搜索超时，请检查网络连接后重试。',
+          SERVICE_UNAVAILABLE: 'Wikipedia 搜索服务暂不可用，请检查网络连接或稍后重试。',
+          PROVIDER_UNAVAILABLE: 'Wikipedia 搜索服务暂不可用，请检查网络连接或稍后重试。',
+        } : {
+          TIMEOUT: '模型响应超时，请稍后重试。',
+          PROVIDER_UNAVAILABLE: '模型服务暂不可用，请检查服务配置或稍后重试。',
+          OUTPUT_INVALID: '模型返回内容无法使用，请重新尝试。',
+        };
+        const fallback = result.status === 'cancelled'
+          ? (search ? '查询已取消。' : '本次任务已取消。')
+          : result.status === 'expired'
+            ? (search ? '查询已过期，请重新查询。' : '本次任务已过期，请重新尝试。')
+            : (search ? '查询未完成，请稍后重试。' : '服务未完成任务，请稍后重试。');
+        throw new Error(failureMessages[result.failureReason] || fallback);
+      }
       await delay(signal);
     }
     await cancel(); throw new Error('任务等待超时；已请求取消，请稍后重试。');
