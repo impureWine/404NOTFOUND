@@ -15,10 +15,13 @@
         <div class="window-actions"><button type="button" class="window-button" data-action="hide" aria-label="隐藏桌宠">−</button><button type="button" class="window-button close" data-action="close" aria-label="关闭桌宠">×</button></div>
       </header>
       <section class="pet-card">
-        <div class="pet-orb" aria-hidden="true"><span>☁</span></div>
+        <div class="pet-orb" aria-hidden="true"><img src="./assets/pet-mascot.png" alt="" /></div>
         <div class="pet-copy"><span class="eyebrow">桌面陪伴</span><h1>先停一下，也可以。</h1><p>打开工作台使用陪伴与记录。桌宠支持置顶、拖动、隐藏和点击穿透。</p></div>
       </section>
-      <button type="button" class="control-button" data-action="open-workspace">打开工作台</button><button type="button" class="control-button" data-action="open-pressure">打开桌面发泄浮层（Esc 退出）</button>
+      <section class="pet-actions" aria-label="桌面功能">
+        <button type="button" class="control-button" data-action="open-workspace"><span class="control-dot" aria-hidden="true"></span><span><strong>打开工作台</strong><small>查看陪伴与记录页面</small></span></button>
+        <button type="button" class="control-button" data-action="open-pressure"><span class="control-dot" aria-hidden="true"></span><span><strong>打开桌面发泄浮层</strong><small>全屏运行 · Esc 退出</small></span></button>
+      </section>
       <section class="pet-controls" aria-label="窗口控制">
         <button type="button" class="control-button" data-action="click-through" aria-pressed="false"><span class="control-dot"></span><span><strong>点击穿透</strong><small>允许鼠标点击下方窗口</small></span></button>
         <span class="status" role="status" data-status>普通交互模式</span>

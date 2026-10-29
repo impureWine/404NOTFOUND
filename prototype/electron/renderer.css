@@ -15,18 +15,21 @@ button { font: inherit; cursor: pointer; }
 .window-button:hover { background: #f9eaf0; }
 .window-button.close:hover { background: #f1d5df; color: #813e5a; }
 .pet-card { display: flex; align-items: center; gap: 14px; margin-top: 10px; padding: 16px; border: 1px solid #f0dce4; border-radius: 18px; background: #fff; }
-.pet-orb { display: grid; place-items: center; flex: 0 0 64px; width: 64px; height: 64px; border-radius: 50%; background: #f9eaf0; color: #c86b8c; font-size: 28px; box-shadow: inset 0 0 0 8px #fdf5f8; }
+.pet-orb { display: grid; place-items: center; flex: 0 0 76px; width: 76px; height: 76px; overflow: hidden; border: 1px solid #f0dce4; border-radius: 18px; background: #fdf5f8; }
+.pet-orb img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .pet-copy { min-width: 0; }
 .eyebrow { color: #984762; font-size: 9px; }
 .pet-copy h1 { margin: 7px 0 0; color: #33403f; font-size: 18px; line-height: 1.3; }
 .pet-copy p { margin: 7px 0 0; color: #6b7875; font-size: 10px; line-height: 1.65; }
-.pet-controls { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
-.control-button { display: flex; align-items: center; gap: 8px; min-width: 170px; padding: 8px 10px; border: 1px solid #ebcbd8; border-radius: 11px; background: #fff; color: #6b7875; text-align: left; }
+.pet-actions { display: grid; gap: 8px; margin-top: 10px; }
+.pet-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; margin-top: 8px; }
+.control-button { display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0; min-height: 42px; padding: 8px 10px; border: 1px solid #ebcbd8; border-radius: 11px; background: #fff; color: #6b7875; text-align: left; }
 .control-button[aria-pressed="true"] { border-color: #c86b8c; background: #f9eaf0; color: #984762; }
 .control-dot { flex: 0 0 9px; width: 9px; height: 9px; border-radius: 50%; background: #b8c5c0; }
 .control-button[aria-pressed="true"] .control-dot { background: #c86b8c; }
 .control-button strong, .control-button small { display: block; line-height: 1.25; }
 .control-button strong { font-size: 10px; }
 .control-button small { margin-top: 3px; color: #8b9995; font-size: 8px; }
-.status { margin-left: auto; color: #6b7875; font-size: 9px; text-align: right; }
+.pet-controls .control-button { min-height: 42px; }
+.status { max-width: 108px; color: #6b7875; font-size: 9px; line-height: 1.35; text-align: right; }
 .pet-footnote { margin: 11px 3px 0; color: #998790; font-size: 8.5px; line-height: 1.5; }
