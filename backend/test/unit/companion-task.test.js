@@ -235,3 +235,24 @@ test('ending a session also rejects an in-flight late model reply', async () => 
     expectedActivityGeneration: 0,
   }), /不能执行 RESUME/);
 });
+
+
+test('immediate danger interrupts normal model processing and provides a real-world support prompt', async () => {
+  let called=false;
+  const service=createService({respond:async()=>{called=true;return successResponse();}});
+  const session=service.createSession(context,{requestId:ids.sessionRequest,mode:'LISTEN'});
+  service.createAgentTask(context,{...taskBody(session),selectedText:'我现在准备自杀'});
+  await new Promise(resolve=>setImmediate(resolve));
+  const result=service.getAgentTask(context,ids.taskRequest);
+  assert.equal(called,false);assert.equal(result.result.safety,true);assert.match(result.result.text,/紧急服务|急诊/);
+});
+test('same account cannot read tasks or sessions created through a different entry',()=>{
+  const service=createService({respond:async()=>successResponse()});
+  const web={sessionId:'web',accountId:'same-account',entryPointId:'web-entry'};
+  const desktop={sessionId:'desktop',accountId:'same-account',entryPointId:'desktop-entry'};
+  const session=service.createSession(web,{requestId:ids.sessionRequest,mode:'LISTEN'});
+  service.createAgentTask(web,taskBody(session));
+  assert.throws(()=>service.getSession(desktop,session.sessionId));
+  assert.throws(()=>service.getAgentTask(desktop,ids.taskRequest));
+  assert.throws(()=>service.cancelAgentTask(desktop,ids.taskRequest));
+});

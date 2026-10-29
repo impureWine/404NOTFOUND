@@ -199,7 +199,7 @@ test('D5-01 内部模型入口：缺少内部令牌的匿名与已登录请求�
   });
 });
 
-test('D5-02 同账号跨入口：DESKTOP 会话可读并取消 WEB 的 AI 任务', async () => {
+test('D5-02 同账号跨入口：DESKTOP 不能读取或取消 WEB 的 AI 任务', async () => {
   await withApi(async ({ baseUrl, database, authService }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_day5_cross_entry');
     const accountId = (await database.query(
@@ -277,12 +277,12 @@ test('D5-02 同账号跨入口：DESKTOP 会话可读并取消 WEB 的 AI 任务
     };
     console.log('[D5-02]', JSON.stringify(observation));
 
-    // 缺陷签名：跨入口读取与取消均返回 200，且可读到已完成的 result。
+    // 回归断言：跨入口读取与取消必须返回 404，不泄露 result。
     assert.equal(observation.webSession.status, 200);
     assert.equal(observation.webSession.hasResult, true);
-    assert.equal(observation.desktopCrossRead.status, 200, '跨入口读取未被拒绝（缺陷 D5-02）');
-    assert.equal(observation.desktopCrossRead.hasResult, true, '跨入口可读到 result（缺陷 D5-02）');
-    assert.equal(observation.desktopCrossCancel.status, 200, '跨入口取消未被拒绝（缺陷 D5-02）');
+    assert.equal(observation.desktopCrossRead.status, 404, '必须拒绝跨入口读取');
+    assert.equal(observation.desktopCrossRead.hasResult, false, '不得泄露其他入口的 result');
+    assert.equal(observation.desktopCrossCancel.status, 404, '必须拒绝跨入口取消');
   });
 });
 
