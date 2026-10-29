@@ -18,16 +18,18 @@ function messageFor(error) {
 export function useAuth() {
   const [status, setStatus] = useState(initialStatus);
   const [profile, setProfile] = useState(null);
+  const [identityKey, setIdentityKey] = useState(0);
   const [authView, setAuthView] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
-  const [pageNotice, setPageNotice] = useState(apiMode === 'mock' ? '认证 API 未连接；登录、注册和退出请求不会模拟成功。' : '');
+  const [pageNotice, setPageNotice] = useState(apiMode === 'mock' ? '访客可浏览和使用本地练习；账户服务未连接。' : '');
   const [logoutPending, setLogoutPending] = useState(false);
 
   const clearLocalIdentity = useCallback(() => {
     apiClient.clearAuthContext();
     setProfile(null);
+    setIdentityKey(value => value + 1);
     setStatus('anonymous');
     setAuthView(null);
     setError('');
@@ -46,14 +48,15 @@ export function useAuth() {
     refreshIdentity(controller.signal).then(currentProfile => {
       if (controller.signal.aborted) return;
       setProfile(currentProfile);
+      if (currentProfile) setIdentityKey(value => value + 1);
       setStatus(currentProfile ? 'authenticated' : 'anonymous');
-      setPageNotice(currentProfile ? '' : '当前为未登录访客。');
+      setPageNotice(currentProfile ? '' : '访客体验已开放；登录后可读取和保存个人内容。');
     }).catch(errorValue => {
       if (controller.signal.aborted) return;
       apiClient.clearAuthContext();
       setProfile(null);
       setStatus('unavailable');
-      setPageNotice(`认证服务暂不可用：${messageFor(errorValue)}`);
+      setPageNotice(`账户服务暂不可用，访客体验仍可继续。${messageFor(errorValue)}`);
     });
     return () => controller.abort();
   }, [refreshIdentity]);
@@ -91,6 +94,7 @@ export function useAuth() {
       if (context?.authenticated) {
         const currentProfile = await apiClient.getProfile();
         setProfile(currentProfile);
+        setIdentityKey(value => value + 1);
         setStatus('authenticated');
         setPageNotice('登录身份已由认证服务核验。');
         closeAuth();
@@ -100,6 +104,7 @@ export function useAuth() {
       const currentProfile = await refreshIdentity();
       if (!currentProfile) throw new Error('登录请求已完成，但服务端身份上下文未确认；私密界面保持锁定。');
       setProfile(currentProfile);
+      setIdentityKey(value => value + 1);
       setStatus('authenticated');
       setPageNotice('登录成功，身份与个人资料已从认证服务读取。');
       closeAuth();
@@ -151,6 +156,7 @@ export function useAuth() {
   return {
     status,
     profile,
+    identityKey,
     authView,
     busy,
     error,

@@ -1,0 +1,56 @@
+{
+  "integration_file_count": 14,
+  "results": [
+    {
+      "file": "integration-explicit-files.tap",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "test/integration/ai-synthetic-regression.test.js",
+        "test/integration/auth-api.test.js",
+        "test/integration/companion-training-http.test.js",
+        "test/integration/day4-ai-privacy.test.js",
+        "test/integration/day6-demo-restore.test.js",
+        "test/integration/deposit-and-restore.test.js",
+        "test/integration/health.test.js",
+        "test/integration/identity-repository.test.js",
+        "test/integration/migration.test.js",
+        "test/integration/model-http.test.js",
+        "test/integration/record-api.test.js",
+        "test/integration/record-repository.test.js",
+        "test/integration/saved-query-repository.test.js",
+        "test/integration/task-api.test.js"
+      ]
+    },
+    {
+      "file": "restore-special.tap",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "test/integration/day6-demo-restore.test.js"
+      ]
+    },
+    {
+      "file": "release-empty.log",
+      "exit_code": 1,
+      "command": [
+        "node",
+        "D:\\大学\\软件工程\\404烦恼未找到\\output\\张王昊_Day7交付包_20261029_v1.0\\_evidence_latest\\source\\backend\\scripts\\release-check.js"
+      ]
+    },
+    {
+      "file": "release-synthetic.log",
+      "exit_code": 0,
+      "command": [
+        "node",
+        "D:\\大学\\软件工程\\404烦恼未找到\\output\\张王昊_Day7交付包_20261029_v1.0\\_evidence_latest\\source\\backend\\scripts\\release-check.js"
+      ]
+    }
+  ],
+  "real_configuration_read": false,
+  "database_connected": false
+}

@@ -1,0 +1,20 @@
+{
+  "candidate_id": "alpha-day5-review-20261027+66504bc",
+  "as_of": "2026-10-27T10:39:44+08:00",
+  "scope_req_count": 17,
+  "sp_baseline": 100,
+  "state": "本次PM候选评审停止接收影响交付的新功能",
+  "allowed": [
+    "既有需求内P0/P1缺陷修复",
+    "契约对齐、测试、取证、启动和文案修正"
+  ],
+  "requires_exception_record": [
+    "新增需求",
+    "供应商/付费模型/技术栈更换",
+    "破坏兼容的契约变化",
+    "确认移出本轮范围"
+  ],
+  "exceptions": [],
+  "team_acceptance": "待责任人与团队确认；不声称已配置分支保护/审批机器人",
+  "no_automatic_merge": true
+}

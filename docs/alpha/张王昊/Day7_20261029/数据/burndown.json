@@ -1,0 +1,59 @@
+{
+  "baseline_sp": 100,
+  "scope_req": 17,
+  "actual_eod_remaining": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "accepted_events": [],
+  "note": "无逐任务完整验收事件映射，不推算实际SP；台账未签认100不代表没有工作或实测剩余100。Day7不强制归零。",
+  "rows": [
+    {
+      "day": 1,
+      "ideal_remaining": 85.7,
+      "stage_remaining": 88,
+      "actual_remaining": null
+    },
+    {
+      "day": 2,
+      "ideal_remaining": 71.4,
+      "stage_remaining": 72,
+      "actual_remaining": null
+    },
+    {
+      "day": 3,
+      "ideal_remaining": 57.1,
+      "stage_remaining": 54,
+      "actual_remaining": null
+    },
+    {
+      "day": 4,
+      "ideal_remaining": 42.9,
+      "stage_remaining": 36,
+      "actual_remaining": null
+    },
+    {
+      "day": 5,
+      "ideal_remaining": 28.6,
+      "stage_remaining": 20,
+      "actual_remaining": null
+    },
+    {
+      "day": 6,
+      "ideal_remaining": 14.3,
+      "stage_remaining": 8,
+      "actual_remaining": null
+    },
+    {
+      "day": 7,
+      "ideal_remaining": 0.0,
+      "stage_remaining": 0,
+      "actual_remaining": null
+    }
+  ]
+}

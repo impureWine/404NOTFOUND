@@ -1,12 +1,18 @@
 import React from 'react';
 import { Bell, Bot, CalendarDays, ChevronRight, FlaskConical, Gamepad2, House, List, MessageCircle, Mic2, Search, ShieldCheck, Smile, UserCircle } from 'lucide-react';
 
-const page = path => `${import.meta.env.BASE_URL}${path}`;
+const routeNames = { 'companion': 'companion', 'calendar': 'calendar', 'worry-room': 'worry', 'rehearsal': 'rehearsal', 'games': 'games', 'things-organize': 'things', 'emotion-card': 'emotion', 'info-query': 'search', 'settings': 'settings', 'home': 'home' };
+const page = path => path.endsWith('.html') && routeNames[path.slice(0,-5)] ? `${import.meta.env.BASE_URL}#${routeNames[path.slice(0,-5)]}` : `${import.meta.env.BASE_URL}${path}`;
 
 const navigation = [
   ['home', '首页', House, './'],
   ['companion', '陪伴交流', MessageCircle, 'companion.html'],
   ['calendar', '情绪日历', CalendarDays, 'calendar.html'],
+  ['query-records', '查询记录', Search, './#query-records'],
+  ['notes', '文字备忘与全部历史', List, './#notes'],
+  ['records', '陪伴记录', MessageCircle, './#records'],
+  ['deposit', '烦恼寄存所', List, './#deposit'],
+  ['rehearsal-records', '我的排练表达', Mic2, './#rehearsal-records'],
   ['worry', '担忧桌宠', Bot, 'worry-room.html'],
   ['rehearsal', '对话排练', Mic2, 'rehearsal.html'],
   ['games', '减压小游戏', Gamepad2, 'games.html'],
@@ -30,11 +36,11 @@ export function Link({ href, children, className = '', ...rest }) {
   return <a href={page(href)} className={className} {...rest}>{children}</a>;
 }
 
-export function Sidebar({ mobileOpen, closeMobile, authenticated, nickname, onLogin, onAccount, onLogout, activePage = 'home', onNavigate, guestDescription = '访客体验；登录状态由认证服务确认。' }) {
+export function Sidebar({ mobileOpen, closeMobile, authenticated, nickname, onLogin, onAccount, onLogout, activePage = 'home', onNavigate, guestDescription = '访客可浏览全部功能；登录后读取和保存本人内容。' }) {
   return <aside className={`home-sidebar ${mobileOpen ? 'is-open' : ''}`}>
     <Link href="./" className="home-brand" onClick={closeMobile}>
       <span className="brand-mark"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span>
-      <span><strong>NOTFOUND</strong><small>情绪自助演示原型</small></span>
+      <span><strong>NOTFOUND</strong><small>情绪自助与陪伴</small></span>
     </Link>
     <nav className="home-nav" aria-label="主导航">
       {navigation.map(([key, label, Icon, href]) => <Link key={key} href={href} onClick={event => { closeMobile(); if (onNavigate?.(key)) event.preventDefault(); }} aria-current={key === activePage ? 'page' : undefined} className={`home-nav-link ${key === activePage ? 'active' : ''}`}>
@@ -78,7 +84,7 @@ export function HeroGuest({ onLogin, onBrowse }) {
 
 export function SiteTopbar({ title = '首页', dateLabel, authStatus, nickname, showAccount, activePage = 'home', onNavigate }) {
   return <><header className="home-topbar"><div className="topbar-heading"><span className="mobile-logo"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span><div><h1>{title}</h1><p>{dateLabel} · 今天也慢慢来</p></div></div>
-        <div className="topbar-actions"><span className="prototype-badge"><FlaskConical size={15} />演示原型</span><Link href="settings.html" aria-label="通知与提醒" className="topbar-icon"><Bell size={17} /></Link><button type="button" onClick={showAccount} className="account-pill"><span>{authStatus === 'authenticated' ? nickname.slice(0, 1) : <UserCircle size={16} />}</span><b>{authStatus === 'checking' ? '核验中' : authStatus === 'authenticated' ? nickname : '访客登录'}</b></button></div>
+        <div className="topbar-actions"><span className="prototype-badge"><FlaskConical size={15} />{authStatus === 'unavailable' ? '服务未连接 · 可预览' : authStatus === 'checking' ? '连接核验中 · 可预览' : ['guest', 'anonymous'].includes(authStatus) ? '访客预览 · 功能开放' : '真实服务'}</span><Link href="settings.html" aria-label="通知与提醒" className="topbar-icon"><Bell size={17} /></Link><button type="button" onClick={showAccount} className="account-pill"><span>{authStatus === 'authenticated' ? nickname.slice(0, 1) : <UserCircle size={16} />}</span><b>{authStatus === 'checking' ? '核验中' : authStatus === 'authenticated' ? nickname : '访客浏览'}</b></button></div>
       </header>
       <nav className="mobile-home-nav">{navigation.slice(0, 6).map(([key, label, Icon, href]) => <Link key={key} href={href} onClick={event => { if (onNavigate?.(key)) event.preventDefault(); }} className={key === activePage ? 'active' : ''}><Icon size={15} />{label}</Link>)}</nav></>;
 }

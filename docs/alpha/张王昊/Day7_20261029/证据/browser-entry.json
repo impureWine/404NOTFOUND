@@ -1,0 +1,62 @@
+{
+  "commit": "1483f8330c3c47ecf88863968f518705a1a84918",
+  "recordedAt": "2026-10-29T08:23:02.363Z",
+  "browser": "Microsoft Edge headless 1440x1100",
+  "buildMode": "unmodified default production build, mock API mode; no business backend",
+  "main": {
+    "status": 200,
+    "title": "404NOTFOUND · 404烦恼未找到",
+    "destroyControls": [
+      {
+        "text": "销毁文字",
+        "href": null
+      }
+    ],
+    "textareaCount": 1,
+    "privateRecordsNotConnectedNotice": true,
+    "screenshot": "day7-main-home.png"
+  },
+  "candidates": [
+    {
+      "path": "/destroy",
+      "status": 404,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    },
+    {
+      "path": "/text-destroy.html",
+      "status": 404,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    },
+    {
+      "path": "/destroy.html",
+      "status": 404,
+      "hasDestroyUi": false,
+      "textareaCount": 0
+    },
+    {
+      "path": "/?page=destroy",
+      "status": 200,
+      "hasDestroyUi": false,
+      "textareaCount": 1
+    },
+    {
+      "path": "/#destroy",
+      "status": 200,
+      "hasDestroyUi": false,
+      "textareaCount": 1
+    }
+  ],
+  "ux": {
+    "title": "本人历史 · HS-N · UX 组件展示",
+    "syntheticNotice": true,
+    "screenshot": "day7-ux-history.png"
+  },
+  "requestCount": 27,
+  "apiRequests": 0,
+  "pageErrors": [],
+  "destructionRuntimeVerdict": "REQUIRES-INTERACTION-CHECK",
+  "privacyInteractionExecuted": false,
+  "wholeE2EPassed": false
+}

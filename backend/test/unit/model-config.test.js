@@ -6,7 +6,7 @@ import { getModelConfig } from '../../src/ai/model-config.js';
 test('uses the approved free model and official API address by default', () => {
   assert.deepEqual(getModelConfig({}), {
     provider: 'zhipu',
-    model: 'glm-4.7-flash',
+    model: 'glm-4.5-flash',
     baseUrl: 'https://open.bigmodel.cn/api/paas/v4/',
     timeoutMs: 30_000,
     maxOutputTokens: 256,
@@ -16,7 +16,7 @@ test('uses the approved free model and official API address by default', () => {
 
 test('blocks any model outside the approved free model', () => {
   assert.throws(
-    () => getModelConfig({ ZHIPU_MODEL: 'glm-4.7-flashx' }),
+    () => getModelConfig({ ZHIPU_MODEL: 'glm-4.5-flashx' }),
     /模型配置被阻止/,
   );
 });

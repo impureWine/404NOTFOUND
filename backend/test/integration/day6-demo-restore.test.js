@@ -23,6 +23,7 @@ test('Day 6 isolated restore preserves scoped records and revokes restored sessi
       '003_interface_contract_alignment.sql',
       '004_auth_http_support.sql',
       '004_identity_repository_support.sql',
+      '005_optional_emotion_fields.sql',
     ];
     assert.deepEqual(await runMigrations(source), expectedMigrations);
     assert.deepEqual(await runMigrations(source), []);
@@ -107,7 +108,7 @@ test('Day 6 isolated restore preserves scoped records and revokes restored sessi
         (SELECT count(*)::int FROM saved_messages) AS messages,
         (SELECT count(*)::int FROM schema_migrations) AS migrations
     `);
-    assert.deepEqual(counts.rows[0], { records: 2, messages: 2, migrations: 5 });
+    assert.deepEqual(counts.rows[0], { records: 2, messages: 2, migrations: expectedMigrations.length });
   } finally {
     await source.close();
     if (restored) await restored.close();

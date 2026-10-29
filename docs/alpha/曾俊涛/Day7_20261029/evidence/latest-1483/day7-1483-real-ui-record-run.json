@@ -1,0 +1,152 @@
+{
+  "source": "main@1483f8330c3c47ecf88863968f518705a1a84918 executable reconstruction",
+  "environment": "Edge + Vite real API mode + local backend/PGlite + synthetic accounts",
+  "screenshots": [
+    {
+      "filename": "day7-1483-01-temporary-text.png",
+      "desc": "临时文字输入；未发送 API"
+    },
+    {
+      "filename": "day7-1483-02-text-destroyed.png",
+      "desc": "点击销毁后当前界面清空；只证明浏览器状态"
+    },
+    {
+      "filename": "day7-1483-03-empty-vault.png",
+      "desc": "A 登录后真实 API 返回空列表"
+    },
+    {
+      "filename": "day7-1483-04-save-consent-review.png",
+      "desc": "保存前审核文字及单次 SAVE 许可"
+    },
+    {
+      "filename": "day7-1483-05-record-saved-list.png",
+      "desc": "服务端确认保存后，本人列表显示 1 条元数据"
+    },
+    {
+      "filename": "day7-1483-06-record-detail-metadata.png",
+      "desc": "详情只显示元数据；正文未获可读展示"
+    },
+    {
+      "filename": "day7-1483-07-clear-confirmation.png",
+      "desc": "清除前一次性确认已签发"
+    },
+    {
+      "filename": "day7-1483-08-cleared-empty-vault.png",
+      "desc": "确认清除后本人列表回到空状态"
+    },
+    {
+      "filename": "day7-1483-09-b-empty-vault.png",
+      "desc": "B 登录后独立空列表"
+    }
+  ],
+  "apiResponses": [
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/profile",
+      "status": 200
+    },
+    {
+      "path": "/api/records",
+      "status": 200
+    },
+    {
+      "path": "/api/consents",
+      "status": 201
+    },
+    {
+      "path": "/api/records",
+      "status": 201
+    },
+    {
+      "path": "/api/records",
+      "status": 200
+    },
+    {
+      "path": "/api/records/d3aa17dc-cc4d-480a-976f-480c0ea8211a",
+      "status": 200
+    },
+    {
+      "path": "/api/records/d3aa17dc-cc4d-480a-976f-480c0ea8211a/clear-confirmations",
+      "status": 201
+    },
+    {
+      "path": "/api/records/d3aa17dc-cc4d-480a-976f-480c0ea8211a/clear",
+      "status": 200
+    },
+    {
+      "path": "/api/records",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/logout",
+      "status": 204
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/profile",
+      "status": 200
+    },
+    {
+      "path": "/api/records",
+      "status": 200
+    }
+  ],
+  "pageErrors": [],
+  "assertions": {
+    "registerA": 201,
+    "loginA": 200,
+    "save": 201,
+    "detail": 200,
+    "clear": 200,
+    "logoutA": 204,
+    "registerB": 201,
+    "loginB": 200,
+    "pageErrors": 0
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "recordedAt": "2026-10-28T11:29:08.223Z",
+  "environment": "PGlite + localhost HTTP; synthetic users; model/search substitutes only",
+  "checks": [
+    {
+      "id": "D3-01",
+      "name": "命名卡确定性路由（直接模块）",
+      "kind": "module",
+      "expected": {
+        "targets": [
+          null,
+          "COMPANION",
+          "COMPANION",
+          "SEARCH"
+        ],
+        "searchRequiresQuestion": true
+      },
+      "actual": {
+        "targets": [
+          null,
+          "COMPANION",
+          "COMPANION",
+          "SEARCH"
+        ],
+        "searchRequiresQuestion": true
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-02",
+      "name": "匿名请求不能进入内部模型适配器",
+      "kind": "security",
+      "expected": {
+        "status": "401/403",
+        "adapterCalls": 0
+      },
+      "actual": {
+        "status": 401,
+        "adapterCalls": 0,
+        "mock": true
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-03",
+      "name": "正式陪伴任务入口已登记",
+      "kind": "availability",
+      "expected": {
+        "status": "非404；未实现时明确503"
+      },
+      "actual": {
+        "status": 400,
+        "code": "INVALID_INPUT"
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-04",
+      "name": "查询受理至完成（检索替身）",
+      "kind": "http_stub",
+      "expected": {
+        "accepted": 202,
+        "status": "completed",
+        "sources": 1
+      },
+      "actual": {
+        "accepted": 202,
+        "status": "completed",
+        "sources": 1
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-05",
+      "name": "创建会话HTTP响应符合共享Schema",
+      "kind": "contract",
+      "expected": {
+        "valid": true
+      },
+      "actual": {
+        "valid": true,
+        "unknownOwnerKey": false
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-06",
+      "name": "查询结果符合共享Schema",
+      "kind": "contract",
+      "expected": {
+        "valid": true
+      },
+      "actual": {
+        "valid": false,
+        "sourceKeys": [
+          "id",
+          "title",
+          "url",
+          "publishedAt",
+          "retrievedAt",
+          "quality"
+        ],
+        "resultKeys": [
+          "requestId",
+          "sessionId",
+          "activityId",
+          "sessionGeneration",
+          "activityGeneration",
+          "status",
+          "answer",
+          "searchState",
+          "partial",
+          "hasConflict",
+          "claims",
+          "sources"
+        ]
+      },
+      "pass": false
+    },
+    {
+      "id": "D3-07",
+      "name": "他人匿名上下文不能读取查询任务",
+      "kind": "http_stub",
+      "expected": {
+        "status": 404
+      },
+      "actual": {
+        "status": 404
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-08",
+      "name": "结束业务会话后完成结果立即不可取",
+      "kind": "lifecycle",
+      "expected": {
+        "end": 200,
+        "resultReadable": false
+      },
+      "actual": {
+        "end": 200,
+        "resultReadable": true,
+        "status": "completed"
+      },
+      "pass": false
+    },
+    {
+      "id": "D3-09",
+      "name": "显式取消后迟到结果不回填",
+      "kind": "http_stub",
+      "expected": {
+        "status": "cancelled",
+        "sources": false
+      },
+      "actual": {
+        "cancel": 200,
+        "status": "cancelled",
+        "sources": false
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-10",
+      "name": "暂停会话拒绝创建新的外部任务",
+      "kind": "lifecycle",
+      "expected": {
+        "status": 409
+      },
+      "actual": {
+        "status": 409
+      },
+      "pass": true
+    },
+    {
+      "id": "D3-11",
+      "name": "撤销检索许可后任务结果不可读取",
+      "kind": "lifecycle",
+      "expected": {
+        "resultReadable": false
+      },
+      "actual": {
+        "status": 200,
+        "resultReadable": true
+      },
+      "pass": false
+    },
+    {
+      "id": "D3-12",
+      "name": "改密撤销同账号两个旧会话",
+      "kind": "http",
+      "expected": {
+        "change": 204,
+        "a": 401,
+        "b": 401
+      },
+      "actual": {
+        "change": 204,
+        "a": 401,
+        "b": 401
+      },
+      "pass": true
+    }
+  ],
+  "passed": 9,
+  "failed": 3
+}

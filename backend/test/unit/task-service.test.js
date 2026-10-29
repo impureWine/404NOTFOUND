@@ -75,3 +75,15 @@ test('same account task and session ownership is isolated by entry point', () =>
   const session = service.createSession(web, { requestId, mode: 'SEARCH' });
   assert.throws(() => service.getSession(desktop, session.sessionId), /not found/i);
 });
+
+test('account invalidation ends all its entry-point sessions while preserving other accounts', () => {
+  const service = new TaskService({ consentService: { assert() {} } });
+  const web = { accountId: 'account-a', entryPointId: 'web', sessionId: 'context-web' };
+  const desktop = { ...web, entryPointId: 'desktop', sessionId: 'context-desktop' };
+  const other = { ...web, accountId: 'account-b', sessionId: 'context-other' };
+  const sessions = [web, desktop, other].map(context => service.createSession(context, { requestId, mode: 'SEARCH' }));
+  assert.equal(service.invalidateAccount('account-a').sessionsInvalidated, 2);
+  assert.equal(service.getSession(web, sessions[0].sessionId).state, 'ended');
+  assert.equal(service.getSession(desktop, sessions[1].sessionId).state, 'ended');
+  assert.equal(service.getSession(other, sessions[2].sessionId).state, 'ready');
+});

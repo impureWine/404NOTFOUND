@@ -1,0 +1,13 @@
+vite v6.4.4 building for production...
+transforming...
+✓ 1592 modules transformed.
+rendering chunks...
+computing gzip size...
+../../frontend-build-verified/index.html                          0.51 kB │ gzip:  0.34 kB
+../../frontend-build-verified/ux-components.html                  0.82 kB │ gzip:  0.51 kB
+../../frontend-build-verified/assets/current-home-bLbJI4m2.css   21.90 kB │ gzip:  4.70 kB
+../../frontend-build-verified/assets/uxComponents-kY-xrX59.css   29.26 kB │ gzip:  5.75 kB
+../../frontend-build-verified/assets/main-J8_GKvB0.js            37.01 kB │ gzip: 12.35 kB
+../../frontend-build-verified/assets/uxComponents-DMilTt4O.js    65.42 kB │ gzip: 20.62 kB
+../../frontend-build-verified/assets/current-home-k-ve5pO0.js   159.97 kB │ gzip: 51.50 kB
+✓ built in 2.51s

@@ -1,0 +1,121 @@
+[
+  {
+    "id": "REQ01",
+    "name": "陪伴",
+    "status": "部分",
+    "actual": "正式Agent与真实许可/合成模型通；真实模型和页面链未过",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ02",
+    "name": "基础训练",
+    "status": "部分",
+    "actual": "HTTP与受控时钟运行通过，真实页面训练未验",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ03",
+    "name": "查询",
+    "status": "阻塞",
+    "actual": "数据降级/幂等改进入main；本日真实TIMEOUT/0来源，公开Schema未齐",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ04",
+    "name": "模式切换",
+    "status": "部分",
+    "actual": "模块/双代次/取消在途通过，已完成结果生命周期未过",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ05",
+    "name": "会话保存清除",
+    "status": "阻塞",
+    "actual": "保存/清除规则通过；正文DTO仍不可读；退出重登旧AI回复失效已过，END/撤回仍未过",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ06",
+    "name": "多入口",
+    "status": "阻塞",
+    "actual": "记录双维隔离通过，AI跨入口失败；Electron Day6启动受限，微信仅适配/模拟",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ07",
+    "name": "安全隐私",
+    "status": "仍阻塞",
+    "actual": "内部模型无令牌请求403/调用0；AI跨入口仍失败，REQ14有限动态通过，整体安全未验收",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ08",
+    "name": "日历",
+    "status": "准备",
+    "actual": "数据/仓储与样例和不自动分析边界，未做完整业务",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ09",
+    "name": "命名卡",
+    "status": "部分",
+    "actual": "模块路由、UX组件存在；真实用户页面链未验",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ10",
+    "name": "物件化",
+    "status": "原型/准备",
+    "actual": "沿用设计与依赖，未做真实业务完成声明",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ11",
+    "name": "排练室",
+    "status": "原型/准备",
+    "actual": "契约/原型存在，真实业务未验",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ12",
+    "name": "寄存",
+    "status": "准备",
+    "actual": "仓储/样例及不自动展开边界，未做完整页面联调",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ13",
+    "name": "屏幕发泄",
+    "status": "原型",
+    "actual": "窗口/物理/音频依赖仍需后续运行证据",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ14",
+    "name": "文字销毁",
+    "status": "部分通过",
+    "actual": "主线首页有入口；销毁/清空/模拟pagehide/刷新及受测网络/Storage/IDB写入有限通过，异常/Cache/真实关闭等未覆盖",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ15",
+    "name": "弹珠机",
+    "status": "原型",
+    "actual": "前端分支资源释放作者回归，尚未入主线验收",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ16",
+    "name": "认证",
+    "status": "部分",
+    "actual": "HTTP与旧会话撤销通过；幂等/续期/33字登录名未关",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  },
+  {
+    "id": "REQ17",
+    "name": "个人主页",
+    "status": "部分",
+    "actual": "本人资料基础通过；资料重放/可读历史/页面绑定仍缺",
+    "source_commit": "1483f8330c3c47ecf88863968f518705a1a84918"
+  }
+]

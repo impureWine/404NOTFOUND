@@ -4,10 +4,12 @@ import {
   createAgentTaskRequestSchema,
   createSearchTaskRequestSchema,
   createSessionRequestSchema,
+  switchSessionRequestSchema,
   sessionActionRequestSchema,
 } from '@404notfound/contracts';
 
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
+import { routeSafetyInput } from '../ai/safety-router.js';
 
 function parse(schema, value) {
   const result = schema.safeParse(value);
@@ -16,10 +18,12 @@ function parse(schema, value) {
 }
 
 export class TaskService {
-  constructor({ searchProvider, consentService, modelAdapter = null }) {
+  constructor({ searchProvider, consentService, modelAdapter = null, resolveSelectedContext = null, resolveObject = null }) {
     this.searchProvider = searchProvider;
     this.consentService = consentService;
     this.modelAdapter = modelAdapter;
+    this.resolveSelectedContext = resolveSelectedContext;
+    this.resolveObject = resolveObject;
     this.sessions = new Map();
     this.agentTasks = new Map();
     this.searchTasks = new Map();
@@ -40,6 +44,7 @@ export class TaskService {
       mode: value.mode,
       state: 'ready',
       ownerKey: this.ownerKey(context),
+      entryPointId: context.entryPointId,
       contextSessionId: context.sessionId,
     };
     this.sessions.set(session.sessionId, session);
@@ -48,7 +53,7 @@ export class TaskService {
 
   getSession(context, sessionId) {
     const session = this.sessions.get(sessionId);
-    if (!session || session.ownerKey !== this.ownerKey(context)) throw new NotFoundError();
+    if (!session || session.ownerKey !== this.ownerKey(context) || session.entryPointId !== context.entryPointId) throw new NotFoundError();
     return session;
   }
 
@@ -89,6 +94,20 @@ export class TaskService {
     return this.publicSession(session);
   }
 
+  switchMode(context, sessionId, body) {
+    const value = parse(switchSessionRequestSchema, body);
+    const session = this.getSession(context, sessionId);
+    if (session.state === 'ended' || session.sessionGeneration !== value.expectedSessionGeneration) throw new ConflictError('会话已结束或版本已变化');
+
+    this.cancelSessionTasks(sessionId, { includeCompleted: true });
+    session.mode = value.targetMode;
+    session.sessionGeneration += 1;
+    session.activityGeneration += 1;
+    session.activityId = randomUUID();
+    session.state = 'ready';
+    return this.publicSession(session);
+  }
+
   createSearchTask(context, body) {
     const value = parse(createSearchTaskRequestSchema, body);
     this.consentService.assert(context, value.consentId, 'SEARCH_PROCESS', 'SEARCH_TASK_CREATE', {
@@ -111,6 +130,7 @@ export class TaskService {
     const task = {
       requestId: value.requestId,
       ownerKey: session.ownerKey,
+      entryPointId: context.entryPointId,
       sessionId: session.sessionId,
       activityId: session.activityId,
       sessionGeneration: session.sessionGeneration,
@@ -118,6 +138,8 @@ export class TaskService {
       status: 'pending',
       controller,
     };
+    if (this.searchTasks.has(task.requestId)) throw new ConflictError('requestId 已用于另一个查询任务');
+    task.question = value.question;
     this.searchTasks.set(task.requestId, task);
     queueMicrotask(async () => {
       if (task.status === 'cancelled') return;
@@ -163,14 +185,14 @@ export class TaskService {
     ) {
       throw new ConflictError('AI 任务不属于当前可运行活动');
     }
-    if (!this.modelAdapter) {
+    const safetyRoute = routeSafetyInput(value.selectedText);
+    if (!this.modelAdapter && !safetyRoute) {
       const error = new Error('模型适配器不可用');
       error.code = 'SERVICE_UNAVAILABLE';
       throw error;
     }
-    if (value.selectedContextIds.length > 0) {
-      throw new InvalidInputError('当前版本尚未接入历史消息读取，请仅提交本轮明确选择的文本');
-    }
+    if (value.selectedContextIds.length > 0 && (!context.accountId || !this.resolveSelectedContext)) throw new InvalidInputError('历史内容需要登录并由服务端解析');
+    if (value.resourceId && (!context.accountId || !this.resolveObject)) throw new InvalidInputError('已保存物件需要登录后读取');
     if (this.agentTasks.has(value.requestId)) {
       throw new ConflictError('requestId 已用于另一个 AI 任务');
     }
@@ -179,6 +201,7 @@ export class TaskService {
     const task = {
       requestId: value.requestId,
       ownerKey: session.ownerKey,
+      entryPointId: context.entryPointId,
       sessionId: session.sessionId,
       activityId: session.activityId,
       sessionGeneration: session.sessionGeneration,
@@ -186,6 +209,7 @@ export class TaskService {
       status: 'pending',
       controller,
     };
+    task.selectedContextIds = value.selectedContextIds;
     this.agentTasks.set(task.requestId, task);
     session.state = 'running';
 
@@ -193,8 +217,23 @@ export class TaskService {
       if (task.status === 'cancelled') return;
       task.status = 'running';
       try {
+        if (safetyRoute) {
+          task.status = 'completed';
+          task.route = safetyRoute.route;
+          task.safetyReason = safetyRoute.reason;
+          task.result = {
+            text: safetyRoute.text,
+            safety: true,
+            userMessageId: randomUUID(),
+            replyMessageId: randomUUID(),
+          };
+          return;
+        }
+        const selectedRecords = value.selectedContextIds.length ? await this.resolveSelectedContext(context, value.selectedContextIds) : [];
+        const objectDraft = value.resourceId ? await this.resolveObject(context, value.resourceId, value.resourceVersion) : value.objectDraft;
+        if (task.status === 'cancelled') return;
         const response = await this.modelAdapter.respond(
-          this.buildAgentModelRequest(value, session),
+          this.buildAgentModelRequest(value, session, selectedRecords, objectDraft),
           { signal: controller.signal },
         );
         const current = this.sessions.get(task.sessionId);
@@ -230,18 +269,26 @@ export class TaskService {
 
   getAgentTask(context, requestId) {
     const task = this.agentTasks.get(requestId);
-    if (!task || task.ownerKey !== this.ownerKey(context)) throw new NotFoundError();
+    if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) throw new NotFoundError();
     return this.publicTask(task);
   }
 
   cancelAgentTask(context, requestId) {
     const task = this.agentTasks.get(requestId);
-    if (!task || task.ownerKey !== this.ownerKey(context)) throw new NotFoundError();
+    if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) throw new NotFoundError();
     task.status = 'cancelled';
     task.controller.abort();
     delete task.result;
     delete task.failureReason;
     return this.publicTask(task);
+  }
+
+  invalidateRecord(context, recordId) {
+    for (const task of this.agentTasks.values()) {
+      if (task.ownerKey === this.ownerKey(context) && task.entryPointId === context.entryPointId && task.selectedContextIds?.includes(recordId)) {
+        task.status = 'cancelled'; task.controller.abort(); delete task.result;
+      }
+    }
   }
 
   invalidateContext(context) {
@@ -251,7 +298,7 @@ export class TaskService {
 
   invalidateAccount(accountId) {
     if (!accountId) return { sessionsInvalidated: 0 };
-    return this.invalidateSessions((session) => session.ownerKey === accountId);
+    return this.invalidateSessions((session) => session.ownerKey === this.ownerKey({ accountId, entryPointId: session.entryPointId }));
   }
 
   invalidateSessions(matches) {
@@ -285,7 +332,7 @@ export class TaskService {
     };
   }
 
-  buildAgentModelRequest(value, session) {
+  buildAgentModelRequest(value, session, selectedRecords = [], objectDraft = value.objectDraft) {
     return {
       contract_version: '1.1',
       request_id: value.requestId,
@@ -295,12 +342,12 @@ export class TaskService {
       locale: 'zh-CN',
       state: {
         session_state: session.state,
-        confirmed_goal: null,
+        confirmed_goal: value.simulation ? JSON.stringify(value.simulation).slice(0, 1000) : value.mode === 'ORGANIZE' ? '帮助用户梳理事情与可执行的小步骤' : null,
         history_retention: false,
         long_term_memory_enabled: false,
       },
       context: {
-        summary: null,
+        summary: { selected_records: selectedRecords, task: value.operation, mode: value.mode, ...(value.simulation ? { simulation: value.simulation } : {}), ...(objectDraft ? { objectDraft } : {}), ...(value.recognizedMessageIds ? { recognizedMessageIds: value.recognizedMessageIds } : {}) },
         recent_messages: [{ role: 'user', content: value.selectedText }],
         sources: [],
         relevant_memories: [],
@@ -322,31 +369,31 @@ export class TaskService {
 
   modelFailureReason(code) {
     if (code === 'MODEL_TIMEOUT') return 'TIMEOUT';
-    if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST'].includes(code)) {
+    if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST', 'CONTENT_REJECTED'].includes(code)) {
       return 'OUTPUT_INVALID';
     }
     return 'PROVIDER_UNAVAILABLE';
   }
 
   publicTask(task) {
-    const { ownerKey: _ownerKey, controller: _controller, ...result } = task;
+    const { ownerKey: _ownerKey, entryPointId: _entryPointId, question: _question, selectedContextIds: _selectedContextIds, safetyReason: _safetyReason, controller: _controller, ...result } = task;
     return result;
   }
 
   publicSession(session) {
-    const { ownerKey: _ownerKey, contextSessionId: _contextSessionId, ...result } = session;
+    const { ownerKey: _ownerKey, entryPointId: _entryPointId, contextSessionId: _contextSessionId, ...result } = session;
     return result;
   }
 
   getSearchTask(context, requestId) {
     const task = this.searchTasks.get(requestId);
-    if (!task || task.ownerKey !== this.ownerKey(context)) throw new NotFoundError();
+    if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) throw new NotFoundError();
     return this.publicTask(task);
   }
 
   cancelSearchTask(context, requestId) {
     const task = this.searchTasks.get(requestId);
-    if (!task || task.ownerKey !== this.ownerKey(context)) throw new NotFoundError();
+    if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) throw new NotFoundError();
     task.status = 'cancelled';
     task.controller.abort();
     delete task.answer;

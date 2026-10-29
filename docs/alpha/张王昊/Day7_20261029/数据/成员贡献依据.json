@@ -1,0 +1,82 @@
+[
+  {
+    "name": "张王昊",
+    "role": "PM/需求",
+    "artifact": "本包：Day7日志、总结、集合、逐项提交核对、最终主线独立复测",
+    "boundary": "本人审阅/会议/真实工时及贡献确认待补",
+    "source": "本包",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  },
+  {
+    "name": "郭昱祺",
+    "role": "UX/PPT",
+    "artifact": "PR86已合并；12页最终PPTX、同版PDF、来源及检查记录已收到并登记",
+    "boundary": "作者实际试讲/投影与接收方人工审阅待补；不等于团队业务通过",
+    "source": "85",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  },
+  {
+    "name": "程杰",
+    "role": "前端/Electron",
+    "artifact": "Issue88：分支0db4943作者12/12、1592模块构建、25静态入口200及当天图",
+    "boundary": "Electron有进程而窗口未确认；动态隐私/真实业务E2E未测。PR90 OPEN不当主线",
+    "source": "88",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  },
+  {
+    "name": "李泉毅",
+    "role": "后端",
+    "artifact": "PR73已合并；API/配置与遗留项交接；111/111提前脏工作树结果保留原边界",
+    "boundary": "本日PM干净固定主线141/141；原集成命令仍失败；正式PG/页面链未验",
+    "source": "72",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  },
+  {
+    "name": "程群",
+    "role": "AI",
+    "artifact": "PR84 OPEN；七天AI复盘/异常预案已通过UX引用材料取得",
+    "boundary": "10-24历史成功；10-29真实请求限流471ms mock=false。分支40/40及107/111不算主线",
+    "source": "83",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  },
+  {
+    "name": "庄剀涵",
+    "role": "数据/检索",
+    "artifact": "Issue87/ed57939已main；当天141/141、检索失败与数据交接有记录",
+    "boundary": "正式PG16、独立删除日志重放与真实来源成功未完成；PM恢复专项1/1独立通过",
+    "source": "87",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  },
+  {
+    "name": "关欣",
+    "role": "安全/评审",
+    "artifact": "Issue89已提交；跨入口P0仍未关闭，内部模型无令牌路径已阻断；腾讯文档已提供，本日PM无登录访问200/只读",
+    "boundary": "作者“REQ14无UI”与新主线不符，本日已修正；未代签整体安全通过",
+    "source": "89",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  },
+  {
+    "name": "曾俊涛",
+    "role": "测试/运维",
+    "artifact": "主线Day6目录已有最新主线/安全增量及运行截图报告，测试随笔最新可核稿仍Day5",
+    "boundary": "完整Day7独立报告/发布包与正式测试博客URL未取得，历史测试计数不替代今天",
+    "source": "测试资料",
+    "actual_hours": null,
+    "contribution_percent": null,
+    "member_confirmed": false
+  }
+]

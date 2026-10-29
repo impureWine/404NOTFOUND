@@ -128,20 +128,20 @@ async function registerAndLogin(baseUrl, loginName) {
   return context(baseUrl, login.headers.get('set-cookie').split(';')[0]);
 }
 
-test('D5-01 内部模型入口：匿名已拦截，但 Origin/CSRF/用途许可仍未校验', async () => {
+test('D5-01 内部模型入口：内部入口已关闭，匿名与已登录请求均不调用模型', async () => {
   await withApi(async ({ baseUrl, modelAdapter }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_day5_internal');
     const body = createSyntheticModelRequest({ request_id: 'req-synthetic-d5-01' });
     const observation = {};
 
-    // 1) 匿名调用：已由 Day 4 的修复拦截。
+    // 1) 匿名调用缺少内部令牌，应在适配器调用前拒绝。
     const anonymous = await fetch(`${baseUrl}/internal/v1/model/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
     observation.anonymous = { status: anonymous.status, callsAfter: modelAdapter.calls.length };
-    assert.equal(anonymous.status, 401, '匿名调用应返回 401');
+    assert.equal(anonymous.status, 404, '已关闭入口应返回 404');
 
     // 2) 有会话但 Origin 错误、且不带 CSRF。
     const callsBefore = modelAdapter.calls.length;
@@ -189,17 +189,17 @@ test('D5-01 内部模型入口：匿名已拦截，但 Origin/CSRF/用途许可�
     };
     console.log('[D5-01]', JSON.stringify(observation));
 
-    // 缺陷签名：三种不当请求均仍被放行且各自触发一次适配器调用。
-    assert.equal(observation.badOrigin.status, 200, '当前实现未拦截错误 Origin（缺陷 D5-01）');
-    assert.equal(observation.badOrigin.adapterCalls, 1);
-    assert.equal(observation.noCsrf.status, 200, '当前实现未校验 CSRF（缺陷 D5-01）');
-    assert.equal(observation.noCsrf.adapterCalls, 1);
-    assert.equal(observation.noConsent.status, 200, '当前实现未校验 AI_PROCESS 许可（缺陷 D5-01）');
-    assert.equal(observation.noConsent.adapterCalls, 1);
+    // 内部入口已关闭；登录会话和内部凭据均不能绕过业务授权。
+    assert.equal(observation.badOrigin.status, 404);
+    assert.equal(observation.badOrigin.adapterCalls, 0);
+    assert.equal(observation.noCsrf.status, 404);
+    assert.equal(observation.noCsrf.adapterCalls, 0);
+    assert.equal(observation.noConsent.status, 404);
+    assert.equal(observation.noConsent.adapterCalls, 0);
   });
 });
 
-test('D5-02 同账号跨入口：DESKTOP 会话可读并取消 WEB 的 AI 任务', async () => {
+test('D5-02 同账号跨入口：DESKTOP 不能读取或取消 WEB 的 AI 任务', async () => {
   await withApi(async ({ baseUrl, database, authService }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_day5_cross_entry');
     const accountId = (await database.query(
@@ -277,12 +277,12 @@ test('D5-02 同账号跨入口：DESKTOP 会话可读并取消 WEB 的 AI 任务
     };
     console.log('[D5-02]', JSON.stringify(observation));
 
-    // 缺陷签名：跨入口读取与取消均返回 200，且可读到已完成的 result。
+    // 回归断言：跨入口读取与取消必须返回 404，不泄露 result。
     assert.equal(observation.webSession.status, 200);
     assert.equal(observation.webSession.hasResult, true);
-    assert.equal(observation.desktopCrossRead.status, 200, '跨入口读取未被拒绝（缺陷 D5-02）');
-    assert.equal(observation.desktopCrossRead.hasResult, true, '跨入口可读到 result（缺陷 D5-02）');
-    assert.equal(observation.desktopCrossCancel.status, 200, '跨入口取消未被拒绝（缺陷 D5-02）');
+    assert.equal(observation.desktopCrossRead.status, 404, '必须拒绝跨入口读取');
+    assert.equal(observation.desktopCrossRead.hasResult, false, '不得泄露其他入口的 result');
+    assert.equal(observation.desktopCrossCancel.status, 404, '必须拒绝跨入口取消');
   });
 });
 

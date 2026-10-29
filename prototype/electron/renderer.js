@@ -6,7 +6,8 @@
 
   function render() {
     clickThroughButton.setAttribute('aria-pressed', String(clickThrough));
-    status.textContent = clickThrough ? '点击穿透已开启 · Alt+Shift+P 恢复' : '普通交互模式';
+    status.textContent = clickThrough ? '点击穿透已开启 · Alt+Shift+P 恢复操作' : '顶部可拖动窗口';
+    clickThroughButton.title = clickThrough ? '点击穿透已开启 · Alt+Shift+P 恢复' : '点击穿透';
   }
 
   document.querySelector('[data-action="click-through"]').addEventListener('click', () => {
@@ -20,5 +21,7 @@
     clickThrough = enabled;
     render();
   });
+  document.querySelector('[data-action="open-workspace"]').addEventListener('click', () => bridge.openWorkspace());
+  document.querySelector('[data-action="open-pressure"]').addEventListener('click', () => bridge.openPressure());
   render();
 })();

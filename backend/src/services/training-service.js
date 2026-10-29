@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import catalogue from '../../../shared/training-definitions.json' with { type: 'json' };
 
 import {
   startTrainingRequestSchema,
@@ -7,17 +8,7 @@ import {
 
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
 
-const FIVE_SENSES = Object.freeze({
-  definitionId: 'FIVE_SENSES',
-  title: '五感安定练习',
-  steps: Object.freeze([
-    Object.freeze({ stepId: 'SEE', title: '看见', instruction: '慢慢环顾四周，说出五样你能看见的东西。' }),
-    Object.freeze({ stepId: 'TOUCH', title: '触碰', instruction: '留意四种你能触碰或感受到的质地。' }),
-    Object.freeze({ stepId: 'HEAR', title: '听见', instruction: '安静片刻，辨认三种你能听见的声音。' }),
-    Object.freeze({ stepId: 'SMELL', title: '闻到', instruction: '留意两种你能闻到或能回想起的气味。' }),
-    Object.freeze({ stepId: 'TASTE', title: '尝到', instruction: '留意一种此刻能尝到的味道，然后按自己的节奏结束。' }),
-  ]),
-});
+const DEFINITIONS = Object.fromEntries(catalogue.definitions.map(value => [value.id, value]));
 
 function parse(schema, value) {
   const result = schema.safeParse(value);
@@ -39,10 +30,11 @@ export class TrainingService {
 
   start(context, body) {
     const value = parse(startTrainingRequestSchema, body);
+    const definition = DEFINITIONS[value.definitionId];
     const session = {
       trainingSessionId: randomUUID(),
       definitionId: value.definitionId,
-      title: FIVE_SENSES.title,
+      title: definition.title,
       state: 'running',
       stepIndex: 0,
       elapsedMs: 0,
@@ -85,7 +77,7 @@ export class TrainingService {
       this.settleElapsed(session);
       session.state = 'exited';
     } else if (value.action === 'NEXT') {
-      if (session.stepIndex === FIVE_SENSES.steps.length - 1) {
+      if (session.stepIndex === DEFINITIONS[session.definitionId].steps.length - 1) {
         this.settleElapsed(session);
         session.state = 'completed';
       } else {
@@ -117,17 +109,17 @@ export class TrainingService {
       : session.elapsedMs;
     const step = ['completed', 'exited'].includes(session.state)
       ? null
-      : FIVE_SENSES.steps[session.stepIndex];
+      : DEFINITIONS[session.definitionId].steps[session.stepIndex];
     return {
       trainingSessionId: session.trainingSessionId,
       definitionId: session.definitionId,
       title: session.title,
       state: session.state,
       stepIndex: session.stepIndex,
-      totalSteps: FIVE_SENSES.steps.length,
+      totalSteps: DEFINITIONS[session.definitionId].steps.length,
       elapsedMs,
       version: session.version,
-      step,
+      step: step ? { stepId: step.stepId, title: step.title, instruction: step.instruction } : null,
     };
   }
 }

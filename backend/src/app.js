@@ -1,4 +1,5 @@
 import express from 'express';
+import { createWechatRouter } from './integrations/wechat.js';
 
 import { NamingCard } from './ai/naming-card-router.js';
 import {
@@ -13,38 +14,6 @@ import {
   sessionCookie,
 } from './http/request.js';
 
-function modelHttpStatus(result) {
-  if (result.status === 'success') {
-    return 200;
-  }
-  switch (result.error?.code) {
-    case 'INVALID_REQUEST':
-      return 400;
-    case 'MODEL_RATE_LIMITED':
-      return 429;
-    case 'MODEL_TIMEOUT':
-      return 504;
-    default:
-      return 503;
-  }
-}
-
-function unavailableModelResponse(requestId) {
-  return {
-    contract_version: '1.1',
-    request_id: typeof requestId === 'string' ? requestId : 'unknown',
-    status: 'error',
-    error: {
-      code: 'MODEL_UNAVAILABLE',
-      retryable: true,
-      user_message: '模型服务暂时不可用。',
-      internal_message: 'MODEL_UNAVAILABLE',
-    },
-    model_info: { provider: 'zhipu', model: 'glm-4.7-flash', mock: false },
-    timing: { latency_ms: 0, attempts: 0 },
-  };
-}
-
 export function createApp({
   database,
   modelAdapter = null,
@@ -55,12 +24,21 @@ export function createApp({
   consentService,
   appOrigin = 'http://127.0.0.1:5173',
   secureCookies = false,
+  staticDirectory = null,
+  internalModelToken = null,
 }) {
   const app = express();
   app.disable('x-powered-by');
   app.use(requestContext);
   app.use(express.json({ limit: '128kb', strict: true }));
+  app.use('/integrations/wechat', createWechatRouter({ modelAdapter, searchProvider: taskService?.searchProvider }));
 
+  app.get('/api/capabilities', (_request, response) => response.json({ data: {
+    api: true, modelConfigured: Boolean(process.env.ZHIPU_API_KEY), searchProvider: taskService?.searchProvider?.getCapabilities?.().provider ?? null,
+    searchConfigured: Boolean(taskService?.searchProvider?.getCapabilities?.().configured),
+    entryPoint: process.env.APP_ENTRY_POINT || 'WEB', wechatConfigured: Boolean(process.env.WECHAT_TOKEN),
+    records: ['CONVERSATION', 'EMOTION', 'WORRY_OBJECT', 'REHEARSAL_DRAFT', 'DEPOSIT'],
+  } }));
   app.get('/health/live', (_request, response) => response.json({ status: 'ok' }));
   app.get('/health/ready', async (_request, response) => {
     try {
@@ -71,7 +49,7 @@ export function createApp({
     }
   });
 
-  app.post('/internal/v1/model/generate', async (request, response, next) => {
+  app.post('/internal/v1/model/generate', (_request, response) => {
     // This endpoint is intentionally removed from the browser-facing app.
     // Model calls must go through /api/agent/tasks, where Origin, CSRF and
     // AI_PROCESS consent are bound to the session/activity context.
@@ -143,6 +121,15 @@ export function createApp({
       }
     });
 
+    app.get('/api/profile/summary', requireAuthentication, async (request, response, next) => {
+      try { response.json({ data: await authService.getSummary(request.accessContext), meta: { requestId: request.requestId } }); } catch (error) { next(error); }
+    });
+    app.get('/api/preferences', requireAuthentication, async (request, response, next) => {
+      try { response.json({ data: await authService.getPreferences(request.accessContext), meta: { requestId: request.requestId } }); } catch (error) { next(error); }
+    });
+    app.patch('/api/preferences', requireAuthentication, async (request, response, next) => {
+      try { response.json({ data: await authService.updatePreferences(request.accessContext, request.body), meta: { requestId: request.requestId } }); } catch (error) { next(error); }
+    });
     app.get('/api/profile', requireAuthentication, async (request, response, next) => {
       try {
         const data = await authService.getProfile(request.accessContext.accountId);
@@ -200,6 +187,9 @@ export function createApp({
         }
       });
 
+      app.post('/api/sessions/:id/switch', (request, response, next) => {
+        try { response.json({ data: taskService.switchMode(request.accessContext, request.params.id, request.body), meta: { requestId: request.requestId } }); } catch (error) { next(error); }
+      });
       app.post('/api/sessions/:id/actions', (request, response, next) => {
         try {
           const data = taskService.action(request.accessContext, request.params.id, request.body);
@@ -294,6 +284,9 @@ export function createApp({
     }
 
     if (recordService) {
+      app.post('/api/saved-queries', requireAuthentication, async (request, response, next) => {
+        try { response.status(201).json({ data: await recordService.saveQuery(request.accessContext, request.body), meta: { requestId: request.requestId } }); } catch (error) { next(error); }
+      });
       app.post('/api/records', requireAuthentication, async (request, response, next) => {
         try {
           const data = await recordService.create(request.accessContext, request.body);
@@ -310,6 +303,21 @@ export function createApp({
         } catch (error) {
           next(error);
         }
+      });
+
+      app.get('/api/records/:id/deposit', requireAuthentication, async (request, response, next) => {
+        try { response.json({ data: await recordService.getDeposit(request.accessContext, request.params.id), meta: { requestId: request.requestId } }); } catch (error) { next(error); }
+      });
+      for (const [action, method] of [['retrieve', 'retrieveDeposit'], ['postpone', 'postponeDeposit']]) {
+        app.post(`/api/records/:id/deposit/${action}`, requireAuthentication, async (request, response, next) => {
+          try { response.json({ data: await recordService[method](request.accessContext, request.params.id, request.body), meta: { requestId: request.requestId } }); } catch (error) { next(error); }
+        });
+      }
+      app.patch('/api/records/:id', requireAuthentication, async (request, response, next) => {
+        try {
+          const data = await recordService.update(request.accessContext, request.params.id, request.body);
+          response.json({ data, meta: { requestId: request.requestId } });
+        } catch (error) { next(error); }
       });
 
       app.get('/api/records/:id', requireAuthentication, async (request, response, next) => {
@@ -333,6 +341,7 @@ export function createApp({
       app.post('/api/records/:id/clear', requireAuthentication, async (request, response, next) => {
         try {
           const data = await recordService.clear(request.accessContext, request.params.id, request.body);
+          taskService?.invalidateRecord?.(request.accessContext, request.params.id);
           response.json({ data, meta: { requestId: request.requestId } });
         } catch (error) {
           next(error);
@@ -341,6 +350,7 @@ export function createApp({
     }
   }
 
+  if (staticDirectory) app.use(express.static(staticDirectory));
   app.use(notFound);
   app.use(errorHandler);
   return app;

@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0",
+  "evidence_type": "day7_real_model_availability_recheck",
+  "executed_at": "2026-10-29T10:00:47.186+08:00",
+  "environment": {
+    "scope": "local_demo_candidate",
+    "production_deployment": false,
+    "node": "v22.23.1",
+    "npm": "10.9.8",
+    "git_commit": "d7c61a2e433319cc8a1f7ab252236f12ca9c335c",
+    "git_branch_at_call": "codex/ai-day6-demo-readiness"
+  },
+  "precheck": {
+    "credential_present": true,
+    "credential_source": "uncommitted_server_environment_file",
+    "credential_value_recorded": false
+  },
+  "preceding_attempt": {
+    "configured_timeout_ms": 30000,
+    "final_result_observed": false,
+    "note": "The outer command observation ended at about 30 seconds before a final JSON result was captured. No availability conclusion is drawn from this attempt."
+  },
+  "recorded_request": {
+    "command": "$env:ZHIPU_TIMEOUT_MS='15000'; npm run smoke:model",
+    "request_id": "req-live-smoke-1793239247186",
+    "provider": "zhipu",
+    "configured_model": "glm-4.7-flash",
+    "base_url_host": "open.bigmodel.cn",
+    "timeout_ms": 15000,
+    "max_output_tokens": 256,
+    "automatic_retries": 0,
+    "input": "synthetic_non_personal_text"
+  },
+  "response": {
+    "status": "error",
+    "error_code": "MODEL_RATE_LIMITED",
+    "user_message": "模型服务当前繁忙，请稍后重试。",
+    "latency_ms": 471,
+    "attempts": 1,
+    "mock": false,
+    "provider_reported_model": null,
+    "usage": null
+  },
+  "conclusion": {
+    "provider_reached": true,
+    "successful_generation_available_today": false,
+    "verification_status": "blocked_by_rate_limit",
+    "historical_success_record_exists": true,
+    "note": "The repository records a successful synthetic call on 2026-10-24, but the 2026-10-29 recheck was rate limited. Historical success does not establish current availability."
+  }
+}

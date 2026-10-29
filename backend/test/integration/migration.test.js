@@ -14,6 +14,7 @@ test('baseline and support migrations execute once on a clean database', async (
       '003_interface_contract_alignment.sql',
       '004_auth_http_support.sql',
       '004_identity_repository_support.sql',
+      '005_optional_emotion_fields.sql',
     ]);
     assert.deepEqual(await runMigrations(database), []);
 
@@ -26,6 +27,7 @@ test('baseline and support migrations execute once on a clean database', async (
       '003_interface_contract_alignment.sql',
       '004_auth_http_support.sql',
       '004_identity_repository_support.sql',
+      '005_optional_emotion_fields.sql',
     ]);
 
     const tables = await database.query(`

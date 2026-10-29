@@ -3,9 +3,10 @@ import {
   loginRequestSchema,
   registerRequestSchema,
   updateProfileRequestSchema,
+  updatePreferencesRequestSchema,
 } from '@404notfound/contracts';
 
-import { normalizeLoginIdentifier } from '../repositories/identity-repository.js';
+import { IdentityRepository, normalizeLoginIdentifier } from '../repositories/identity-repository.js';
 import { withTransaction } from '../db/database.js';
 import {
   decryptProfileText,
@@ -26,7 +27,10 @@ function parse(schema, value) {
 }
 
 export class AuthService {
-  constructor(database, { profileKey, now = () => new Date() }) {
+  constructor(database, { profileKey, now = () => new Date(), entryCode = 'WEB' }) {
+    if (!['WEB', 'DESKTOP', 'WECHAT'].includes(entryCode)) throw new Error('入口配置无效');
+    this.entryCode = entryCode;
+    this.identityRepository = new IdentityRepository(database);
     this.database = database;
     this.profileKey = profileKey;
     this.now = now;
@@ -36,10 +40,10 @@ export class AuthService {
     const result = await this.database.query(
       `
         INSERT INTO entry_points (code)
-        VALUES ('WEB')
+        VALUES ($1)
         ON CONFLICT (code) DO UPDATE SET code = EXCLUDED.code
         RETURNING id
-      `,
+      `, [this.entryCode],
     );
     return result.rows[0].id;
   }
@@ -211,6 +215,12 @@ export class AuthService {
     if (result.rows.length === 0) throw new ConflictError('资料版本已经变化');
     return this.getProfile(accountId);
   }
+
+  getPreferences(context) { return this.identityRepository.getPreferences({ accountId: context.accountId }); }
+  updatePreferences(context, body) {
+    return this.identityRepository.updatePreferences({ accountId: context.accountId, entryPointId: context.entryPointId, ...parse(updatePreferencesRequestSchema, body) });
+  }
+  getSummary(context) { return this.identityRepository.getProfileSummary({ accountId: context.accountId, entryPointId: context.entryPointId }); }
 
   async changePassword(accountId, body) {
     const value = parse(changePasswordRequestSchema, body);

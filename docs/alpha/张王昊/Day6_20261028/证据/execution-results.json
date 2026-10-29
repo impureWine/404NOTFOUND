@@ -1,0 +1,123 @@
+{
+  "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "node": "v26.2.0",
+  "results": [
+    {
+      "name": "backend-tests.tap",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "--test-timeout=30000"
+      ],
+      "cwd_suffix": "backend",
+      "started_at": "2026-10-28T11:28:50.129485+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "backend-integration-command.log",
+      "command": [
+        "npm.cmd",
+        "run",
+        "test:integration"
+      ],
+      "cwd_suffix": "backend",
+      "started_at": "2026-10-28T11:29:05.714553+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "core-recheck.json",
+      "command": [
+        "node",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\day6-core-recheck.mjs",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\source"
+      ],
+      "cwd_suffix": "workspace/output",
+      "started_at": "2026-10-28T11:29:06.589064+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "contract-recheck.json",
+      "command": [
+        "node",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\day6-contract-recheck.mjs",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\source"
+      ],
+      "cwd_suffix": "workspace/output",
+      "started_at": "2026-10-28T11:29:08.261100+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "record-acceptance.json",
+      "command": [
+        "node",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\day6-record-acceptance.mjs",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\source"
+      ],
+      "cwd_suffix": "workspace/output",
+      "started_at": "2026-10-28T11:29:09.800844+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "business-gates.json",
+      "command": [
+        "node",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\day6-business-gates.mjs",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\source"
+      ],
+      "cwd_suffix": "workspace/output",
+      "started_at": "2026-10-28T11:29:11.423950+00:00",
+      "exit_code": 1
+    },
+    {
+      "name": "live-search.json",
+      "command": [
+        "node",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\day6-live-search.mjs",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\source"
+      ],
+      "cwd_suffix": "workspace/output",
+      "started_at": "2026-10-28T11:29:13.088192+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "frontend-api-tests.tap",
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "src/api/client.test.js"
+      ],
+      "cwd_suffix": "prototype",
+      "started_at": "2026-10-28T11:29:23.826161+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "frontend-build.log",
+      "command": [
+        "node",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\source\\prototype\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\frontend-build-verified",
+        "--emptyOutDir",
+        "false"
+      ],
+      "cwd_suffix": "prototype",
+      "started_at": "2026-10-28T11:29:24.121461+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "browser-output.log",
+      "command": [
+        "node",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\day6-browser-entry.cjs",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\frontend-build-verified",
+        "D:\\\u5927\u5b66\\\u8f6f\u4ef6\u5de5\u7a0b\\404\u70e6\u607c\u672a\u627e\u5230\\output\\\u5f20\u738b\u660a_Day6\u4ea4\u4ed8\u5305_20261028_v1.0\\_evidence\\browser"
+      ],
+      "cwd_suffix": "workspace/output",
+      "started_at": "2026-10-28T11:29:27.133217+00:00",
+      "exit_code": 0
+    }
+  ]
+}

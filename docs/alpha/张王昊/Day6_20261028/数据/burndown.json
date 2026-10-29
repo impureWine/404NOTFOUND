@@ -1,0 +1,67 @@
+{
+  "baseline_sp": 100,
+  "accepted_events": [],
+  "actual_eod_sp": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "unaccepted_evidence_ledger_sp": 100,
+  "ledger_is_not_measured_remaining": true,
+  "note": "100为未完成验收事件映射的证据台账，不代表团队没有工作或实际剩余100SP；不以测试数/commit数扣点。Day6独立复核局部机制，尚未满足对应完整任务如正式PG/完整生命周期。",
+  "rows": [
+    {
+      "day": 1,
+      "date": "2026-10-23",
+      "ideal_remaining": 85.7,
+      "stage_remaining": 88,
+      "actual_remaining": null
+    },
+    {
+      "day": 2,
+      "date": "2026-10-24",
+      "ideal_remaining": 71.4,
+      "stage_remaining": 72,
+      "actual_remaining": null
+    },
+    {
+      "day": 3,
+      "date": "2026-10-25",
+      "ideal_remaining": 57.1,
+      "stage_remaining": 54,
+      "actual_remaining": null
+    },
+    {
+      "day": 4,
+      "date": "2026-10-26",
+      "ideal_remaining": 42.9,
+      "stage_remaining": 36,
+      "actual_remaining": null
+    },
+    {
+      "day": 5,
+      "date": "2026-10-27",
+      "ideal_remaining": 28.6,
+      "stage_remaining": 20,
+      "actual_remaining": null
+    },
+    {
+      "day": 6,
+      "date": "2026-10-28",
+      "ideal_remaining": 14.3,
+      "stage_remaining": 8,
+      "actual_remaining": null
+    },
+    {
+      "day": 7,
+      "date": "2026-10-29",
+      "ideal_remaining": 0.0,
+      "stage_remaining": 0,
+      "actual_remaining": null
+    }
+  ]
+}

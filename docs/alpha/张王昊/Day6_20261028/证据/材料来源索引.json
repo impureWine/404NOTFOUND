@@ -1,0 +1,205 @@
+{
+  "as_of": "2026-10-28T19:46:22+08:00",
+  "commit": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "issues": [
+    {
+      "number": 74,
+      "title": "[Alpha冲刺 Day6][项目管理] 完成最终验收整理、总结候选与提交材料核对",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/74",
+      "updatedAt": "2026-10-28T11:44:44Z"
+    },
+    {
+      "number": 72,
+      "title": "[Alpha冲刺 Day 7][后端][李泉毅] 完成最终复核准备与 API 交接",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/72",
+      "updatedAt": "2026-10-28T11:40:24Z"
+    },
+    {
+      "number": 71,
+      "title": "[Alpha冲刺 Day 6][前端][程杰] 最终演示回归与交接",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/71",
+      "updatedAt": "2026-10-28T09:41:13Z"
+    },
+    {
+      "number": 70,
+      "title": "[Alpha][WP04-05] Day 6 候选迁移与恢复交接",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/70",
+      "updatedAt": "2026-10-28T05:04:22Z"
+    },
+    {
+      "number": 68,
+      "title": "[Alpha冲刺 Day 5][UX/产品设计][郭昱祺] 完成交互修订与PPT初稿",
+      "state": "CLOSED",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/68",
+      "updatedAt": "2026-10-27T15:01:55Z"
+    },
+    {
+      "number": 67,
+      "title": "[Alpha冲刺 Day 6][后端][李泉毅] 完成发布验证与交接、修复 Windows 集成命令",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/67",
+      "updatedAt": "2026-10-28T11:24:13Z"
+    },
+    {
+      "number": 66,
+      "title": "[Alpha冲刺 Day 5][安全] 完成 P0 缺陷复测与安全复核表，发布判定 BLOCKED",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/66",
+      "updatedAt": "2026-10-27T15:23:14Z"
+    },
+    {
+      "number": 64,
+      "title": "[Alpha冲刺 Day 5][前端][程杰] 游戏资源清理与桌面候选验证",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/64",
+      "updatedAt": "2026-10-27T13:58:39Z"
+    },
+    {
+      "number": 62,
+      "title": "[Day 5][AI] 修复模型异常、取消与路由问题并补充合成回归集",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/62",
+      "updatedAt": "2026-10-27T07:19:31Z"
+    },
+    {
+      "number": 61,
+      "title": "[Alpha冲刺 Day 5][庄剀涵][数据与检索] 完成缺陷修复与候选版本回归",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/61",
+      "updatedAt": "2026-10-27T03:30:55Z"
+    },
+    {
+      "number": 59,
+      "title": "[Alpha冲刺 Day5][项目管理] 完成缺陷分诊、候选冻结与总结初稿整合",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/59",
+      "updatedAt": "2026-10-27T02:44:22Z"
+    },
+    {
+      "number": 47,
+      "title": "[Alpha冲刺 Day4][项目管理] 完成中期验收、风险处置与剩余任务重新排期",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/47",
+      "updatedAt": "2026-10-26T06:32:05Z"
+    },
+    {
+      "number": 36,
+      "title": "[Alpha冲刺 Day3][项目管理] 完成核心场景检查、接口协调与中期验收准备",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/36",
+      "updatedAt": "2026-10-25T02:51:20Z"
+    },
+    {
+      "number": 26,
+      "title": "[Alpha冲刺 Day2][项目管理] 完成Day2环境阻塞跟踪、接口依赖评审与任务余量更新",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/26",
+      "updatedAt": "2026-10-24T09:20:36Z"
+    },
+    {
+      "number": 18,
+      "title": "[Alpha冲刺][项目管理] 范围基线、任务拆分与冲刺交付材料整合",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/18",
+      "updatedAt": "2026-10-23T16:24:57Z"
+    }
+  ],
+  "prs": [
+    {
+      "number": 73,
+      "title": "docs(alpha): Day7 backend review and handoff (#72)",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/73",
+      "headRefOid": "27759fd50faf6d0673651f7f45816d01e29008d9",
+      "mergedAt": null
+    },
+    {
+      "number": 69,
+      "title": "docs(security): 完成 Day 5 P0 复测与安全复核表",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/69",
+      "headRefOid": "c77787fe41334599388407cdc685e56f74e94c33",
+      "mergedAt": "2026-10-27T15:34:10Z"
+    },
+    {
+      "number": 65,
+      "title": "Chengjie/day5 frontend resource cleanup",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/65",
+      "headRefOid": "a518b27ceab9fe8291dd8ccac359cd3e59fd3e79",
+      "mergedAt": null
+    },
+    {
+      "number": 63,
+      "title": "fix(ai): harden cancellation routing and safety regression",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/63",
+      "headRefOid": "29e0e87efb2c8f6deb753b571af2a942d6c0d8bb",
+      "mergedAt": null
+    },
+    {
+      "number": 60,
+      "title": "docs(alpha): 提交张王昊Day5缺陷分诊、候选冻结与总结初稿",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/60",
+      "headRefOid": "e3221f4ae6bae196fe3a86675b288215c8fd4cf0",
+      "mergedAt": null
+    },
+    {
+      "number": 54,
+      "title": "feat(ai): 分离保存与外发许可并使旧回复失效",
+      "state": "OPEN",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/54",
+      "headRefOid": "2505a391b8f03650db7daf0a6353cfe93f53b952",
+      "mergedAt": null
+    },
+    {
+      "number": 48,
+      "title": "docs(alpha): 提交张王昊Day4中期验收、风险处置与剩余任务排期",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/48",
+      "headRefOid": "a0640d3739891d31457c76d5ac6271b1f5c6ac9a",
+      "mergedAt": "2026-10-26T11:08:56Z"
+    },
+    {
+      "number": 40,
+      "title": "feat(ai): 完成模型适配、陪伴路由与五感训练",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/40",
+      "headRefOid": "4c348521da72526fc4ada86078f6588bc30d4b28",
+      "mergedAt": "2026-10-26T10:52:53Z"
+    },
+    {
+      "number": 37,
+      "title": "docs(alpha): 提交张王昊Day3场景检查、接口协调与中期验收清单",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/37",
+      "headRefOid": "7bc80f6eff02bb0a85349c2e96cbd1e788f84eb2",
+      "mergedAt": "2026-10-26T10:53:13Z"
+    },
+    {
+      "number": 27,
+      "title": "docs(alpha): 提交张王昊Day2任务跟踪、接口预审与实测证据",
+      "state": "CLOSED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/27",
+      "headRefOid": "5eff53479680f86a8e08b11f48c17653b5fa5719",
+      "mergedAt": null
+    },
+    {
+      "number": 19,
+      "title": "docs(alpha): 提交张王昊Day1范围、任务与冲刺交付材料",
+      "state": "MERGED",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/19",
+      "headRefOid": "ffb1c595413edd329dbbdc0b73804e39cd2ae998",
+      "mergedAt": "2026-10-24T03:34:42Z"
+    }
+  ],
+  "frontend_day6_author_report_sha": "0379a5626b7e499e0dbd53ad72ddf5a62ced17cf",
+  "course_source": "https://bbs.csdn.net/topics/620563653",
+  "course_read_date_utc8": "2026-10-28",
+  "course_status": "读取公开原帖；未提交课程页面或发送群消息"
+}

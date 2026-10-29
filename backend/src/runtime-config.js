@@ -38,6 +38,10 @@ export function getRuntimeConfig(env = process.env) {
     throw new Error('SESSION_COOKIE_SECURE must be true when APP_ORIGIN uses https');
   }
 
+  if (env.SEARCH_PROVIDER && env.SEARCH_PROVIDER !== 'bing') throw new Error('SEARCH_PROVIDER must be bing (via SerpAPI)');
+  const market = env.BING_SEARCH_MARKET || 'zh-CN';
+  if (!/^[a-z]{2,3}-[A-Z]{2}$/.test(market)) throw new Error('BING_SEARCH_MARKET must be a language-country code such as zh-CN');
+
   return Object.freeze({
     port: integer(env.PORT, { name: 'PORT', fallback: 3000, min: 1, max: 65_535 }),
     appOrigin: origin,
@@ -57,9 +61,10 @@ export function getRuntimeConfig(env = process.env) {
       }),
     }),
     search: Object.freeze({
-      language: env.SEARCH_LANGUAGE ?? 'zh',
+      provider: 'bing',
+      market,
       timeoutMs: integer(env.SEARCH_TIMEOUT_MS, {
-        name: 'SEARCH_TIMEOUT_MS', fallback: 5000, min: 100, max: 30_000,
+        name: 'SEARCH_TIMEOUT_MS', fallback: 15000, min: 100, max: 30_000,
       }),
     }),
   });
