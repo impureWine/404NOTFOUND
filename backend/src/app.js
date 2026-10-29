@@ -72,31 +72,10 @@ export function createApp({
   });
 
   app.post('/internal/v1/model/generate', async (request, response, next) => {
-    if (authService) {
-      try {
-        const cookies = parseCookies(request.get('cookie'));
-        request.accessContext = await authService.resolveContext(readSessionToken(cookies));
-      } catch (error) {
-        next(error);
-        return;
-      }
-      if (!request.accessContext?.accountId) {
-        requireAuthentication(request, response, next);
-        return;
-      }
-    }
-    let result;
-    try {
-      result = modelAdapter
-        ? await modelAdapter.respond(request.body)
-        : unavailableModelResponse(request.body?.request_id);
-    } catch {
-      result = unavailableModelResponse(request.body?.request_id);
-    }
-    response
-      .status(modelHttpStatus(result))
-      .set('Cache-Control', 'no-store')
-      .json(result);
+    // This endpoint is intentionally removed from the browser-facing app.
+    // Model calls must go through /api/agent/tasks, where Origin, CSRF and
+    // AI_PROCESS consent are bound to the session/activity context.
+    response.status(404).json({ error: { code: 'NOT_FOUND', message: 'Not found' } });
   });
 
   if (authService) {

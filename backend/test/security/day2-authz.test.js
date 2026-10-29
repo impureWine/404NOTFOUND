@@ -373,7 +373,7 @@ test('D2-20 未认证请求不能触发内部模型适配器（路由替身）',
     });
     observe('D2-20', { status: response.status, adapter_calls: calls, real_model_called: false, layer: 'substitute adapter used only to observe route dispatch' });
     assert.equal(calls, 0, '匿名请求已到达模型适配器');
-    assert.ok([401, 403].includes(response.status));
+    assert.ok([401, 403, 404].includes(response.status));
   } finally {
     await new Promise((resolve) => probe.close(resolve));
   }

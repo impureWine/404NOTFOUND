@@ -7,7 +7,7 @@ import {
 
 import { InvalidInputError } from '../domain/errors.js';
 import { stableHash } from '../domain/stable-hash.js';
-import { encryptProfileText } from '../security/crypto.js';
+import { decryptProfileText, encryptProfileText } from '../security/crypto.js';
 
 function parse(schema, value) {
   const result = schema.safeParse(value);
@@ -37,7 +37,7 @@ export class RecordService {
       error.code = 'SERVICE_UNAVAILABLE';
       throw error;
     }
-    return this.repository.create({
+    const created = await this.repository.create({
       ...this.scope(context),
       requestId: value.requestId,
       kind: value.kind,
@@ -51,6 +51,7 @@ export class RecordService {
         }],
       },
     }, stableHash({ kind: value.kind, content: value.content }));
+    return this.publicRecord(created);
   }
 
   list(context, query) {
@@ -62,11 +63,38 @@ export class RecordService {
       ...(value.kind ? { kind: value.kind } : {}),
       limit: value.limit,
       ...(value.cursor ? { cursor: value.cursor } : {}),
-    });
+    }).then((result) => ({
+      ...result,
+      items: result.items.map((item) => this.publicRecord(item)),
+    }));
   }
 
   get(context, recordId) {
-    return this.repository.get({ ...this.scope(context), recordId });
+    return this.repository.get({ ...this.scope(context), recordId }).then((record) => this.publicRecord(record));
+  }
+
+  publicRecord(record) {
+    const result = { ...record };
+    if (result.titleCiphertext) {
+      result.title = decryptProfileText(result.titleCiphertext, this.encryptionKey);
+      delete result.titleCiphertext;
+      delete result.titleKeyVersion;
+    }
+    if (result.details?.messages) {
+      result.details = {
+        ...result.details,
+        messages: result.details.messages.map((message) => {
+          const next = { ...message };
+          if (next.contentCiphertext) {
+            next.content = decryptProfileText(next.contentCiphertext, this.encryptionKey);
+            delete next.contentCiphertext;
+            delete next.cipherKeyVersion;
+          }
+          return next;
+        }),
+      };
+    }
+    return result;
   }
 
   issueClearConfirmation(context, recordId, body) {

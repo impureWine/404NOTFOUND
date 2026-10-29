@@ -26,7 +26,8 @@ export class TaskService {
   }
 
   ownerKey(context) {
-    return context.accountId ?? `anonymous:${context.sessionId}`;
+    const principal = context.accountId ?? `anonymous:${context.sessionId}`;
+    return `${principal}:entry:${context.entryPointId ?? 'unknown'}`;
   }
 
   createSession(context, body) {

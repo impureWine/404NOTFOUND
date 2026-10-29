@@ -67,3 +67,11 @@ test('ending a session cancels an in-flight search and prevents late refill', as
   assert.equal(task.status, 'cancelled');
   assert.equal(task.sources, undefined);
 });
+
+test('same account task and session ownership is isolated by entry point', () => {
+  const service = new TaskService({ consentService: { assert() {} }, searchProvider: { search: async () => ({ sources: [] }) } });
+  const web = { accountId: 'account-a', entryPointId: 'web', sessionId: 'session-web' };
+  const desktop = { accountId: 'account-a', entryPointId: 'desktop', sessionId: 'session-desktop' };
+  const session = service.createSession(web, { requestId, mode: 'SEARCH' });
+  assert.throws(() => service.getSession(desktop, session.sessionId), /not found/i);
+});
