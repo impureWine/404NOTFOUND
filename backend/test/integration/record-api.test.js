@@ -238,3 +238,65 @@ test('Day 4 record HTTP flow validates queries, versions, idempotency, revoked s
     })).status, 401);
   });
 });
+
+
+test('real records preserve dialogue roles, decrypt only owner reads, and support optional calendar fields and versioned edits', async () => {
+  await withApi(async ({ baseUrl, database }) => {
+    const alice = await registerAndLogin(baseUrl, 'live_alice');
+    const bob = await registerAndLogin(baseUrl, 'live_bob');
+    const read = async (path, state = alice) => fetch(`${baseUrl}${path}`, { headers: { Cookie: state.cookie } });
+    const grant = async (operation, payload, state = alice) => {
+      const response = await mutate(baseUrl, '/api/consents', state, { requestId: nextId(), purpose: 'SAVE', operation, payload });
+      assert.equal(response.status, 201);
+      return (await response.json()).data.consentId;
+    };
+    const create = async payload => {
+      const response = await mutate(baseUrl, '/api/records', alice, { requestId: nextId(), consentId: await grant('RECORD_CREATE', payload), ...payload });
+      assert.equal(response.status, 201, JSON.stringify(await response.clone().json()));
+      return (await response.json()).data;
+    };
+    const messages = [{ role: 'USER', content: '这是我的真实记录' }, { role: 'ASSISTANT', content: '保留助手角色' }];
+    const conversation = await create({ kind: 'CONVERSATION', content: { title: '完整对话', messages } });
+    const recovered = (await (await read(`/api/records/${conversation.id}`)).json()).data;
+    assert.deepEqual(recovered.content.messages, messages);
+    assert.equal(JSON.stringify(recovered).includes('Ciphertext'), false);
+    assert.equal(recovered.title, '完整对话');
+    assert.equal((await read(`/api/records/${conversation.id}`, bob)).status, 404);
+
+    const content = { title: '今天', recordDate: '2026-10-29', emotionCodes: [], intensity: null, timezoneName: 'Asia/Hong_Kong', note: '只记下一句话' };
+    const emotion = await create({ kind: 'EMOTION', content });
+    const stored = (await database.query('SELECT event_ciphertext FROM emotion_records WHERE saved_record_id = $1', [emotion.id])).rows[0];
+    assert.equal(Buffer.from(stored.event_ciphertext).includes(Buffer.from(content.note)), false);
+    const detail = (await (await read(`/api/records/${emotion.id}`)).json()).data;
+    const { title, ...expectedContent } = content;
+    assert.deepEqual(detail.content, expectedContent);
+    const october = (await (await read('/api/records?kind=EMOTION&from=2026-10-01&to=2026-10-31')).json()).data;
+    assert.deepEqual(october.items.map(item => item.id), [emotion.id]);
+    assert.equal((await (await read('/api/records?kind=EMOTION&from=2026-11-01&to=2026-11-30')).json()).data.items.length, 0);
+    assert.equal((await read('/api/records?kind=EMOTION&from=2026-02-30&to=2026-03-01')).status, 400);
+    assert.equal((await read('/api/records?kind=EMOTION&from=2026-11-01')).status, 400);
+    assert.equal((await (await read('/api/records?kind=EMOTION', bob)).json()).data.items.length, 0);
+    await create({ kind: 'EMOTION', content: { ...content, title: '另一条' } });
+    const page = (await (await read('/api/records?kind=EMOTION&from=2026-10-01&to=2026-10-31&limit=1')).json()).data;
+    assert.ok(page.nextCursor);
+    assert.equal((await read(`/api/records?kind=EMOTION&from=2026-11-01&to=2026-11-30&cursor=${page.nextCursor}`)).status, 400);
+    const changed = { ...content, emotionCodes: ['平静'], intensity: 2, note: '修改后的备注' };
+    const updatePayload = { recordId: emotion.id, expectedVersion: emotion.version, content: changed };
+    const updateBody = { requestId: nextId(), expectedVersion: emotion.version, content: changed, consentId: await grant('RECORD_UPDATE', updatePayload) };
+    const patch = (body, state = alice) => fetch(`${baseUrl}/api/records/${emotion.id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', Cookie: state.cookie, Origin: ORIGIN, 'X-CSRF-Token': state.csrf }, body: JSON.stringify(body) });
+    assert.equal((await patch(updateBody, bob)).status, 404);
+    const updated = await patch(updateBody);
+    assert.equal(updated.status, 200);
+    assert.equal((await updated.json()).data.version, emotion.version + 1);
+    assert.equal((await patch(updateBody)).status, 200, 'same request retries despite randomized encryption');
+    assert.equal((await patch({ ...updateBody, requestId: nextId() })).status, 409);
+    const reopened = (await (await read(`/api/records/${emotion.id}`)).json()).data;
+    assert.equal(reopened.content.note, changed.note);
+    assert.equal(reopened.content.intensity, 2);
+    const wrongBody = { ...updateBody, requestId: nextId(), expectedVersion: emotion.version + 1, content: { ...changed, note: '未经许可修改' } };
+    assert.equal((await patch(wrongBody)).status, 403);
+    const mismatched = { kind: 'EMOTION', content: { title: '错误类型', messages } };
+    const rejected = await mutate(baseUrl, '/api/records', alice, { ...mismatched, requestId: nextId(), consentId: await grant('RECORD_CREATE', mismatched) });
+    assert.equal(rejected.status, 400);
+  });
+});

@@ -7,6 +7,7 @@ const navigation = [
   ['home', '首页', House, './'],
   ['companion', '陪伴交流', MessageCircle, 'companion.html'],
   ['calendar', '情绪日历', CalendarDays, 'calendar.html'],
+  ['records', '陪伴记录', MessageCircle, './#records'],
   ['worry', '担忧桌宠', Bot, 'worry-room.html'],
   ['rehearsal', '对话排练', Mic2, 'rehearsal.html'],
   ['games', '减压小游戏', Gamepad2, 'games.html'],

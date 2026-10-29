@@ -1,0 +1,16 @@
+.live-records { margin: 24px 0; padding: 24px; }
+.live-records form { margin-top: 24px; border-top: 1px solid #ddd; padding-top: 16px; }
+.live-records fieldset { border: 0; padding: 0; min-width: 0; }
+.live-records label { display: grid; gap: 6px; margin: 12px 0; }
+.live-records input, .live-records textarea, .live-records select { font: inherit; padding: 10px; border: 1px solid #aaa; border-radius: 8px; width: 100%; box-sizing: border-box; background: white; color: #263b36; }
+.live-records textarea { min-height: 100px; resize: vertical; }
+.live-records button { cursor: pointer; font: inherit; padding: 8px 12px; margin: 4px; border: 1px solid #bacac0; border-radius: 8px; color: #294c40; background: #f1f6f2; }
+.live-records button[aria-pressed=true] { background: #cee3d6; border-color: #355e4b; }
+.live-records button:disabled { opacity: .55; cursor: wait; }
+.live-records [role=alert] { color: #a32b22; }
+.live-record-list { list-style: none; padding: 0; }
+.live-record-list li { padding: 12px 0; border-bottom: 1px solid #ddd; }
+.record-message, .live-records li p { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.record-month-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; margin-top: 16px; }
+.record-month-grid button { margin: 0; padding: 8px 2px; }

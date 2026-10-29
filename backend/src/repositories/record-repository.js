@@ -146,6 +146,8 @@ function decodeCursor(token, scope) {
       value.accountId !== scope.accountId
       || value.entryPointId !== scope.entryPointId
       || (value.kind ?? null) !== (scope.kind ?? null)
+      || (value.from ?? null) !== (scope.from ?? null)
+      || (value.to ?? null) !== (scope.to ?? null)
       || Number.isNaN(Date.parse(value.createdAt))
       || !nonZeroUuidSchema.safeParse(value.id).success
     ) {
@@ -439,6 +441,10 @@ export class RecordRepository {
             OR created_at < $4
             OR (created_at = $4 AND id < $5::uuid)
           )
+          AND ($7::date IS NULL OR EXISTS (
+            SELECT 1 FROM emotion_records e WHERE e.saved_record_id = saved_records.id
+              AND e.record_date BETWEEN $7::date AND $8::date
+          ))
         ORDER BY created_at DESC, id DESC
         LIMIT $6
       `,
@@ -449,6 +455,8 @@ export class RecordRepository {
         cursor?.createdAt ?? null,
         cursor?.id ?? null,
         value.limit + 1,
+        value.from ?? null,
+        value.to ?? null,
       ],
     );
     const hasMore = result.rows.length > value.limit;
@@ -461,6 +469,8 @@ export class RecordRepository {
         accountId: value.accountId,
         entryPointId: value.entryPointId,
         kind: value.kind ?? null,
+        from: value.from ?? null,
+        to: value.to ?? null,
         createdAt: new Date(last.created_at).toISOString(),
         id: last.id,
       }) : null,
@@ -519,9 +529,9 @@ export class RecordRepository {
     };
   }
 
-  async update(input) {
+  async update(input, canonicalPayloadHash = null) {
     const value = parse(recordUpdateSchema, input);
-    const payloadHash = stableHash({
+    const payloadHash = canonicalPayloadHash ?? stableHash({
       recordId: value.recordId,
       expectedVersion: value.expectedVersion,
       titleCiphertext: value.titleCiphertext,

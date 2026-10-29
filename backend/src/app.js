@@ -333,6 +333,13 @@ export function createApp({
         }
       });
 
+      app.patch('/api/records/:id', requireAuthentication, async (request, response, next) => {
+        try {
+          const data = await recordService.update(request.accessContext, request.params.id, request.body);
+          response.json({ data, meta: { requestId: request.requestId } });
+        } catch (error) { next(error); }
+      });
+
       app.get('/api/records/:id', requireAuthentication, async (request, response, next) => {
         try {
           const data = await recordService.get(request.accessContext, request.params.id);

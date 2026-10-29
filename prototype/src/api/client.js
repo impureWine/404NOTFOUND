@@ -125,6 +125,9 @@ export function createApiClient({
     createSearchTask: (payload, options) => post('/api/search/tasks', payload, options),
     getSearchTask: (requestId, options) => get(`/api/search/tasks/${encodeURIComponent(requestId)}`, options),
     cancelSearchTask: (requestId, cancelPayload, options) => post(`/api/search/tasks/${encodeURIComponent(requestId)}/cancel`, cancelPayload, options),
+    createConsent: (payload, options) => post('/api/consents', payload, options),
+    getRecord: (id, options) => get(`/api/records/${encodeURIComponent(id)}`, options),
+    updateRecord: (id, payload, options) => request('PATCH', `/api/records/${encodeURIComponent(id)}`, { ...options, body: payload }),
     createRecord: (payload, options) => post('/api/records', payload, options),
     listRecords(query = {}, options) {
       const search = new URLSearchParams(query);
