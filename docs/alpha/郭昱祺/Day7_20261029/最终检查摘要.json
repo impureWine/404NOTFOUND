@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-29",
+  "status": "passed",
+  "visual_review": "两版12页总览及第11、12页全尺寸图未见裁切、重叠、缺字",
+  "pptx_sha256": "d8bcb070b2b8b2b8f552b1226b882392d2be3bb8cd044de12625ed81ff0654d2",
+  "pdf_sha256": "ece50898ee1f9f431de4f6afb5efaafb59bb2c3bb21e28404ebe450dcea55609",
+  "rehearsal_completed": false,
+  "recipient_acknowledgment": false,
+  "project_release_status": "BLOCKED"
+}

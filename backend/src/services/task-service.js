@@ -355,6 +355,11 @@ export class TaskService {
     return result;
   }
 
+  publicSession(session) {
+    const { ownerKey: _ownerKey, contextSessionId: _contextSessionId, ...result } = session;
+    return result;
+  }
+
   getSearchTask(context, requestId) {
     const task = this.searchTasks.get(requestId);
     if (!task || task.ownerKey !== this.ownerKey(context)) throw new NotFoundError();

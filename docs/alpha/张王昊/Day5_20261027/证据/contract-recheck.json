@@ -1,0 +1,110 @@
+{
+  "fixedCommit": "66504bc3dc382c237c3650fb9d7ce8525a4f6478",
+  "recordedAt": "2026-10-27T02:09:08.176Z",
+  "environment": "PGlite memory + localhost HTTP; synthetic only",
+  "smokeChecks": [
+    {
+      "id": "SM-01",
+      "name": "注册不自动登录",
+      "status": 401,
+      "pass": true
+    },
+    {
+      "id": "SM-02",
+      "name": "登录、资料读取、退出与旧Cookie拒绝",
+      "login": 200,
+      "profile": 200,
+      "logout": 204,
+      "staleProfile": 401,
+      "pass": true
+    }
+  ],
+  "probes": [
+    {
+      "id": "RV-01",
+      "name": "非法JSON与requestId",
+      "expected": {
+        "status": 400,
+        "code": "INVALID_INPUT",
+        "requestId": true
+      },
+      "actual": {
+        "status": 400,
+        "code": "INVALID_INPUT",
+        "requestId": true
+      },
+      "pass": true
+    },
+    {
+      "id": "RV-02",
+      "name": "请求体超限与requestId",
+      "expected": {
+        "status": 413,
+        "requestId": true
+      },
+      "actual": {
+        "status": 503,
+        "code": "SERVICE_UNAVAILABLE",
+        "requestId": true
+      },
+      "pass": false
+    },
+    {
+      "id": "RV-03",
+      "name": "注册同requestId同载荷重放",
+      "expected": {
+        "first": 201,
+        "replay": 201,
+        "sameAccount": true
+      },
+      "actual": {
+        "first": 201,
+        "replay": 409,
+        "sameAccount": false
+      },
+      "pass": false
+    },
+    {
+      "id": "RV-04",
+      "name": "资料PATCH同requestId同载荷重放",
+      "expected": {
+        "first": 200,
+        "replay": 200,
+        "sameVersion": true
+      },
+      "actual": {
+        "first": 200,
+        "replay": 409,
+        "sameVersion": false
+      },
+      "pass": false
+    },
+    {
+      "id": "RV-05",
+      "name": "有效资料访问刷新会话空闲时间",
+      "expected": {
+        "status": 200,
+        "lastSeenRefreshed": true
+      },
+      "actual": {
+        "status": 200,
+        "lastSeenRefreshed": false
+      },
+      "pass": false
+    },
+    {
+      "id": "RV-06",
+      "name": "规范允许的33字符登录名可注册",
+      "expected": {
+        "status": 201
+      },
+      "actual": {
+        "status": 503,
+        "code": "SERVICE_UNAVAILABLE"
+      },
+      "pass": false
+    }
+  ],
+  "passed": 1,
+  "failed": 5
+}

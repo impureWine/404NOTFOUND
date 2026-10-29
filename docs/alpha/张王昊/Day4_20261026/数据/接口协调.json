@@ -1,0 +1,50 @@
+[
+  {
+    "id": "C4-01",
+    "topic": "记录详情/列表公开DTO",
+    "proposal": "当前RecordService直接返回仓储密文；需服务端授权解密并与前端明确id/kind/title/body/version/times公开字段",
+    "owner": "李泉毅/庄剀涵/程杰",
+    "closure": "待采纳；D4-07关闭后原样历史页面复验",
+    "confirmed": false
+  },
+  {
+    "id": "C4-02",
+    "topic": "记录操作边界",
+    "proposal": "创建仍只开放CONVERSATION；列表kind不含QUERY；QUERY已有专用仓储但不宣称HTTP保存完整",
+    "owner": "李泉毅/庄剀涵",
+    "closure": "保存查询专用门面另行按既有09规范接入，不扩大当前已完成声明",
+    "confirmed": false
+  },
+  {
+    "id": "C4-03",
+    "topic": "模型调用许可",
+    "proposal": "SAVE与AI_PROCESS分离；内部入口已有匿名认证拒绝，但登录后未统一Origin/CSRF、用途/载荷/代次",
+    "owner": "李泉毅/程群/关欣",
+    "closure": "禁止把已有D2-20绿灯视为外发许可已合格",
+    "confirmed": false
+  },
+  {
+    "id": "C4-04",
+    "topic": "查询公共Schema",
+    "proposal": "provider id为UUID、附发布时间/摘要/评级字段；shared searchSourceSchema仍sourceId且严格；session含ownerKey",
+    "owner": "李泉毅/庄剀涵/程群/程杰",
+    "closure": "以09号规范为协调基线，统一映射后成功/空/失败/取消均测",
+    "confirmed": false
+  },
+  {
+    "id": "C4-05",
+    "topic": "生命周期与入口",
+    "proposal": "TaskService.ownerKey只以accountId或anonymous sessionId识别；记录scope则accountId+entryPointId",
+    "owner": "李泉毅/程群/关欣",
+    "closure": "任务也按入口/有效会话/代次/许可读写，补同账号跨入口任务检查",
+    "confirmed": false
+  },
+  {
+    "id": "C4-06",
+    "topic": "真实入口接线",
+    "proposal": "App.jsx业务链接多为HTML演示；React DestroyPage/UX点击训练不等于真实主入口流程",
+    "owner": "程杰/郭昱祺/曾俊涛",
+    "closure": "明确每条验收使用入口和实现文件，不用未挂载代码替代实测",
+    "confirmed": false
+  }
+]

@@ -79,6 +79,42 @@ test('provider marks incomplete results partial', async () => {
 
 });
 
+test('provider deduplicates repeated source identifiers and URLs', async () => {
+  const provider = new WikipediaSearchProvider({
+    fetchImplementation: async () => new Response(JSON.stringify({
+      batchcomplete: true,
+      query: {
+        pages: [
+          {
+            pageid: 11,
+            title: '唯一来源',
+            fullurl: 'https://zh.wikipedia.org/wiki/%E5%94%AF%E4%B8%80%E6%9D%A5%E6%BA%90',
+            extract: '合成摘要。',
+          },
+          {
+            pageid: 11,
+            title: '重复编号',
+            fullurl: 'https://zh.wikipedia.org/wiki/%E9%87%8D%E5%A4%8D%E7%BC%96%E5%8F%B7',
+            extract: '不应重复返回。',
+          },
+          {
+            pageid: 12,
+            title: '重复链接',
+            fullurl: 'https://zh.wikipedia.org/wiki/%E5%94%AF%E4%B8%80%E6%9D%A5%E6%BA%90',
+            extract: '不应重复返回。',
+          },
+        ],
+      },
+    }), { status: 200, headers: { 'content-type': 'application/json' } }),
+  });
+
+  const result = await provider.search({ question: '重复来源', limit: 5 });
+  assert.equal(result.searchState, 'SUCCESS');
+  assert.equal(result.partial, true);
+  assert.equal(result.sources.length, 1);
+  assert.equal(result.sources[0].title, '唯一来源');
+});
+
 test('provider rejects a non-empty result containing only invalid sources', async () => {
   const provider = new WikipediaSearchProvider({
     fetchImplementation: async () => new Response(JSON.stringify({

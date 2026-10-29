@@ -117,6 +117,9 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e3a9bd; outline-offs
 .auth-dialog { position: relative; width: min(100%, 440px); padding: 30px; border: 1px solid #e7edeb; border-radius: 16px; background: #fff; box-shadow: 0 18px 60px #26363230; }
 .auth-dialog-close { position: absolute; top: 13px; right: 13px; display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 9px; background: transparent; color: #6b7875; }
 .auth-dialog-close:hover { background: #f6f8f7; }
+dialog.auth-dialog { width: min(440px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; color: #33403f; }
+dialog.auth-dialog::backdrop { background: #27353270; }
+.auth-field-hint { margin-top: -6px; color: #6b7875; font-size: 11px; line-height: 1.7; }
 .auth-dialog-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: #f9eaf0; color: #984762; }
 .auth-dialog h2 { margin: 16px 0 5px; color: #33403f; font-size: 20px; }
 .auth-dialog-description { margin: 0; color: #6b7875; font-size: 12.5px; line-height: 1.65; }
@@ -193,4 +196,67 @@ button:focus-visible, a:focus-visible { outline: 3px solid #e3a9bd; outline-offs
   .privacy-home-card { padding: 16px; }
   .auth-dialog { padding: 24px 20px; }
   .home-auth-notice { flex-direction: column; }
+}
+
+.record-vault { margin-top: 24px; padding-top: 23px; border-top: 1px solid #e7edeb; }
+.record-vault-heading, .record-history-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.record-vault-heading h2 { margin: 5px 0 4px; color: #33403f; font-size: 18px; }
+.record-vault-heading p, .record-save-panel > p { margin: 0; color: #6b7875; font-size: 12px; line-height: 1.65; }
+.record-vault-grid { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: 14px; margin-top: 15px; align-items: start; }
+.record-save-panel, .record-history-panel { border-radius: 8px; box-shadow: none; }
+.record-save-panel h3, .record-history-panel h3 { margin: 0; color: #33403f; font-size: 14px; }
+.record-save-form { display: grid; gap: 12px; margin-top: 15px; }
+.record-save-form label { display: grid; gap: 6px; color: #52615e; font-size: 12px; }
+.record-save-form input, .record-save-form textarea { width: 100%; min-width: 0; border: 1px solid #dce5e2; border-radius: 8px; background: #fff; color: #33403f; font: inherit; font-size: 12px; padding: 10px 11px; }
+.record-save-form textarea { min-height: 112px; resize: vertical; }
+.record-save-form .button { justify-self: start; }
+.record-field-count, .record-history-heading > div > span { color: #84918e; font-size: 11px; }
+.record-gate { margin: 12px 0 0; padding: 10px 12px; border: 1px solid #ebcbd8; border-radius: 8px; background: #fdf5f8; color: #6b7875; font-size: 11.5px; line-height: 1.65; }
+.record-error { display: grid; gap: 10px; color: #9b5456; font-size: 12px; line-height: 1.6; }
+.record-consent { display: grid; gap: 9px; margin-top: 15px; padding: 13px; border: 1px solid #e5d5bc; border-radius: 8px; background: #fffcf7; }
+.record-consent h4, .record-consent strong { margin: 0; color: #33403f; font-size: 12px; }
+.record-consent p { margin: 0; color: #6b7875; font-size: 11.5px; line-height: 1.65; }
+.record-consent-choice { display: grid; grid-template-columns: 18px minmax(0, 1fr); align-items: start; gap: 8px; padding-top: 9px; border-top: 1px solid #efe5d7; color: #52615e; font-size: 11.5px; line-height: 1.6; }
+.record-consent-choice input { width: 16px; height: 16px; margin: 1px 0 0; accent-color: #c86b8c; }
+.record-history-heading { align-items: center; margin-bottom: 8px; }
+.record-history-heading > div { display: grid; gap: 4px; }
+.record-history-list { display: grid; }
+.record-history-item { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto auto; align-items: center; gap: 9px; padding: 12px 0; border-top: 1px solid #edf0ef; }
+.record-history-icon { width: 32px; height: 32px; display: grid; place-items: center; border-radius: 8px; background: #f9eaf0; color: #984762; }
+.record-history-meta { min-width: 0; display: grid; gap: 3px; }
+.record-history-meta strong { color: #33403f; font-size: 12px; }
+.record-history-meta span, .record-history-meta small { overflow-wrap: anywhere; color: #6b7875; font-size: 10.5px; line-height: 1.5; }
+.record-history-item > .button { min-height: 31px; padding: 6px 10px; font-size: 11px; }
+.record-clear-confirm { grid-column: 2 / -1; display: grid; gap: 8px; padding: 10px; border: 1px solid #ebcbd8; border-radius: 8px; background: #fffbfc; }
+.record-clear-confirm p { margin: 0; color: #795e61; font-size: 11px; line-height: 1.55; }
+.record-detail { display: grid; gap: 8px; margin-top: 14px; padding: 13px; border: 1px solid #e7edeb; border-radius: 8px; background: #f8faf9; }
+.record-detail .record-history-heading { margin: 0; }
+.record-detail h4 { margin: 0; color: #33403f; font-size: 12px; }
+.record-detail p { margin: 0; color: #6b7875; font-size: 11.5px; line-height: 1.65; }
+.record-notice { margin-top: 12px; padding: 10px 12px; border: 1px solid #ebcbd8; border-radius: 8px; background: #fff; color: #6b7875; font-size: 11.5px; line-height: 1.6; }
+.record-vault > .demo-note { margin-top: 12px; }
+.text-destruction-tool { display: grid; grid-template-columns: minmax(0, 1fr) 120px; align-items: center; gap: 24px; margin-top: 24px; padding: 22px; border: 1px solid #e7edeb; border-radius: 12px; background: #fff; }
+.text-destruction-copy { min-width: 0; display: grid; justify-items: start; gap: 9px; }
+.text-destruction-copy h2 { margin: -4px 0 0; color: #33403f; font-size: 17px; }
+.text-destruction-copy p { margin: 0; color: #6b7875; font-size: 12px; line-height: 1.65; }
+.text-destruction-copy label { margin-top: 4px; color: #52615e; font-size: 12px; font-weight: 600; }
+.text-destruction-copy textarea { width: 100%; min-height: 96px; resize: vertical; padding: 10px 12px; border: 1px solid #dce5e2; border-radius: 8px; background: #fff; color: #33403f; font: inherit; font-size: 12px; line-height: 1.65; }
+.text-destruction-copy textarea:focus-visible { outline: 3px solid #e3a9bd; outline-offset: 2px; }
+.text-destruction-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.text-destruction-actions > span { color: #6b7875; font-size: 11px; }
+.text-destruction-visual { width: 104px; aspect-ratio: 1; display: grid; place-items: center; justify-self: center; overflow: hidden; border: 12px solid #d9e2df; border-radius: 50%; background: #40585a; }
+.text-destruction-visual span { width: 74%; aspect-ratio: 1; border: 1px solid #d6e8df88; border-radius: 50%; opacity: 0; transform: scale(.12); }
+.text-destruction-visual[data-phase='destroyed'] span { animation: home-destroy-collapse 650ms ease-out both; }
+@keyframes home-destroy-collapse { 35% { opacity: .7; transform: scale(1); } 100% { opacity: 0; transform: scale(.15); } }
+@media (prefers-reduced-motion: reduce) { .text-destruction-visual span { animation: none !important; transition: none !important; } }
+@media (max-width: 920px) { .record-vault-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) {
+  .record-vault-heading { flex-direction: column; }
+  .record-vault-heading > .button { align-self: flex-start; }
+  .record-history-item { grid-template-columns: 30px minmax(0, 1fr) auto; }
+  .record-history-item > .button:last-of-type { grid-column: 3; }
+  .record-clear-confirm { grid-column: 1 / -1; }
+  .record-history-icon { width: 28px; height: 28px; }
+  .text-destruction-tool { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+  .text-destruction-visual { width: 72px; justify-self: start; }
 }

@@ -1,0 +1,49 @@
+{
+  "source": "GitHub main@b1447bf text files, blob hashes verified",
+  "browser": "local Microsoft Edge headless",
+  "data": "ephemeral PGlite, synthetic accounts only",
+  "phases": [
+    {
+      "name": "shipped Vite config, real mode",
+      "api": [
+        {
+          "path": "/api/auth/context",
+          "status": 404
+        }
+      ],
+      "authUnavailableVisible": true
+    },
+    {
+      "name": "test-only proxy, unmodified application login",
+      "registerStatus": 201,
+      "loginStatus": 400,
+      "loginError": "请求字段不符合接口契约",
+      "privateVisible": false
+    },
+    {
+      "name": "conditional target rewrite only; original app source unchanged",
+      "rewrite": "login request target 'home' -> 'HOME' at browser route",
+      "accountA": {
+        "registerStatus": 201,
+        "loginStatus": 200,
+        "stateContainsOwnName": true,
+        "profileStatus": 200,
+        "profileNicknameMatches": true
+      },
+      "accountB": {
+        "registerStatus": 201,
+        "loginStatus": 200,
+        "stateContainsOwnName": true,
+        "profileStatus": 200,
+        "profileNicknameMatches": true
+      },
+      "isolation": {
+        "aDidNotShowB": true,
+        "bDidNotShowA": true,
+        "distinctProfiles": true,
+        "afterLogoutA": 401,
+        "stillLoggedB": 200
+      }
+    }
+  ]
+}

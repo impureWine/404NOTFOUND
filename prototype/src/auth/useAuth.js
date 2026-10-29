@@ -18,6 +18,7 @@ function messageFor(error) {
 export function useAuth() {
   const [status, setStatus] = useState(initialStatus);
   const [profile, setProfile] = useState(null);
+  const [identityKey, setIdentityKey] = useState(0);
   const [authView, setAuthView] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -28,6 +29,7 @@ export function useAuth() {
   const clearLocalIdentity = useCallback(() => {
     apiClient.clearAuthContext();
     setProfile(null);
+    setIdentityKey(value => value + 1);
     setStatus('anonymous');
     setAuthView(null);
     setError('');
@@ -46,6 +48,7 @@ export function useAuth() {
     refreshIdentity(controller.signal).then(currentProfile => {
       if (controller.signal.aborted) return;
       setProfile(currentProfile);
+      if (currentProfile) setIdentityKey(value => value + 1);
       setStatus(currentProfile ? 'authenticated' : 'anonymous');
       setPageNotice(currentProfile ? '' : '当前为未登录访客。');
     }).catch(errorValue => {
@@ -91,15 +94,17 @@ export function useAuth() {
       if (context?.authenticated) {
         const currentProfile = await apiClient.getProfile();
         setProfile(currentProfile);
+        setIdentityKey(value => value + 1);
         setStatus('authenticated');
         setPageNotice('登录身份已由认证服务核验。');
         closeAuth();
         return;
       }
-      await apiClient.login({ loginName: form.loginName.trim(), password: form.password, target: 'home' });
+      await apiClient.login({ loginName: form.loginName.trim(), password: form.password, target: 'HOME' });
       const currentProfile = await refreshIdentity();
       if (!currentProfile) throw new Error('登录请求已完成，但服务端身份上下文未确认；私密界面保持锁定。');
       setProfile(currentProfile);
+      setIdentityKey(value => value + 1);
       setStatus('authenticated');
       setPageNotice('登录成功，身份与个人资料已从认证服务读取。');
       closeAuth();
@@ -151,6 +156,7 @@ export function useAuth() {
   return {
     status,
     profile,
+    identityKey,
     authView,
     busy,
     error,

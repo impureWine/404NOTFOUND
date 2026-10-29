@@ -16,6 +16,16 @@ export function createPoolFromEnv(env = process.env) {
   });
 }
 
+export function createPoolFromConfig(config) {
+  return new Pool({
+    connectionString: config.url,
+    ssl: config.ssl ? { rejectUnauthorized: true } : false,
+    max: config.poolMax,
+    statement_timeout: config.statementTimeoutMs,
+    connectionTimeoutMillis: config.connectTimeoutMs,
+  });
+}
+
 export async function withTransaction(database, work) {
   if (typeof database.connect === 'function') {
     const client = await database.connect();

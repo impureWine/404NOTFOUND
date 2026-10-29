@@ -1,0 +1,5 @@
+{
+  "authoring_dir": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\404NOTFOUND-ux-day5-20261027\\docs\\alpha\\郭昱祺\\Day5_20261027\\presentation-workspace\\authoring-svg-flat",
+  "summary": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\404NOTFOUND-ux-day5-20261027\\docs\\alpha\\郭昱祺\\Day5_20261027\\presentation-workspace\\authoring-svg-flat\\authoring_summary.json",
+  "summary_bytes": 6463
+}

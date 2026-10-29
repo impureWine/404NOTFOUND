@@ -115,6 +115,7 @@ export function createApiClient({
     },
     getProfile: options => get('/api/profile', options),
     updateProfile: (payload, options) => request('PATCH', '/api/profile', { ...options, body: payload }),
+    createConsent: (payload, options) => post('/api/consents', payload, options),
     getCapabilities: options => get('/api/capabilities', options),
     createSession: (payload, options) => post('/api/sessions', payload, options),
     switchSessionMode: (sessionId, payload, options) => post(`/api/sessions/${encodeURIComponent(sessionId)}/switch`, payload, options),
@@ -130,6 +131,9 @@ export function createApiClient({
       const search = new URLSearchParams(query);
       return get(`/api/records${search.size ? `?${search}` : ''}`, options);
     },
+    getRecord: (recordId, options) => get(`/api/records/${encodeURIComponent(recordId)}`, options),
+    createRecordClearConfirmation: (recordId, payload, options) => post(`/api/records/${encodeURIComponent(recordId)}/clear-confirmations`, payload, options),
+    clearRecord: (recordId, payload, options) => post(`/api/records/${encodeURIComponent(recordId)}/clear`, payload, options),
   });
 }
 

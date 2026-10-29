@@ -1,9 +1,12 @@
 import {
+  clearConfirmationRequestSchema,
   clearRecordRequestSchema,
   createRecordRequestSchema,
+  listRecordsQuerySchema,
 } from '@404notfound/contracts';
 
 import { InvalidInputError } from '../domain/errors.js';
+import { stableHash } from '../domain/stable-hash.js';
 import { encryptProfileText } from '../security/crypto.js';
 
 function parse(schema, value) {
@@ -47,15 +50,18 @@ export class RecordService {
           cipherKeyVersion: 1,
         }],
       },
-    });
+    }, stableHash({ kind: value.kind, content: value.content }));
   }
 
   list(context, query) {
+    // Express exposes req.query as a null-prototype object. Normalize it so
+    // Zod strict-object validation can still reject unknown client fields.
+    const value = parse(listRecordsQuerySchema, { ...query });
     return this.repository.list({
       ...this.scope(context),
-      ...(query.kind ? { kind: query.kind } : {}),
-      limit: query.limit ? Number(query.limit) : 20,
-      ...(query.cursor ? { cursor: query.cursor } : {}),
+      ...(value.kind ? { kind: value.kind } : {}),
+      limit: value.limit,
+      ...(value.cursor ? { cursor: value.cursor } : {}),
     });
   }
 
@@ -64,11 +70,11 @@ export class RecordService {
   }
 
   issueClearConfirmation(context, recordId, body) {
+    const value = parse(clearConfirmationRequestSchema, body);
     return this.repository.issueClearConfirmation({
       ...this.scope(context),
       recordId,
-      requestId: body.requestId,
-      expectedVersion: body.expectedVersion,
+      ...value,
     });
   }
 

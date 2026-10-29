@@ -8,6 +8,46 @@ function hashesEqual(left, right) {
   return leftBuffer.length === rightBuffer.length && timingSafeEqual(leftBuffer, rightBuffer);
 }
 
+export async function findCompletedIdempotencyResult(
+  database,
+  {
+    accountId,
+    entryPointId,
+    operation,
+    requestId,
+    payloadHash,
+    requireResourceId = true,
+  },
+) {
+  const existing = await database.query(
+    `
+      SELECT id, payload_hash, result_resource_id, result_version
+      FROM idempotency_keys
+      WHERE account_id = $1
+        AND entry_point_id = $2
+        AND operation = $3
+        AND request_id = $4
+    `,
+    [accountId, entryPointId, operation, requestId],
+  );
+
+  const row = existing.rows[0];
+  if (!row) return null;
+  if (!hashesEqual(row.payload_hash, payloadHash)) {
+    throw new ConflictError('requestId was already used with a different payload');
+  }
+  if (!row.result_version || (requireResourceId && !row.result_resource_id)) {
+    throw new ConflictError('The matching request is still being finalized');
+  }
+
+  return {
+    id: row.id,
+    existing: true,
+    resultResourceId: row.result_resource_id,
+    resultVersion: row.result_version,
+  };
+}
+
 export async function claimIdempotencyKey(
   transaction,
   {
@@ -40,32 +80,18 @@ export async function claimIdempotencyKey(
     return { id: inserted.rows[0].id, existing: false };
   }
 
-  const existing = await transaction.query(
-    `
-      SELECT id, payload_hash, result_resource_id, result_version
-      FROM idempotency_keys
-      WHERE account_id = $1
-        AND entry_point_id = $2
-        AND operation = $3
-        AND request_id = $4
-    `,
-    [accountId, entryPointId, operation, requestId],
-  );
-
-  const row = existing.rows[0];
-  if (!row || !hashesEqual(row.payload_hash, payloadHash)) {
-    throw new ConflictError('requestId was already used with a different payload');
+  const existing = await findCompletedIdempotencyResult(transaction, {
+    accountId,
+    entryPointId,
+    operation,
+    requestId,
+    payloadHash,
+    requireResourceId,
+  });
+  if (!existing) {
+    throw new ConflictError('The matching request could not be resolved');
   }
-  if (!row.result_version || (requireResourceId && !row.result_resource_id)) {
-    throw new ConflictError('The matching request is still being finalized');
-  }
-
-  return {
-    id: row.id,
-    existing: true,
-    resultResourceId: row.result_resource_id,
-    resultVersion: row.result_version,
-  };
+  return existing;
 }
 
 export async function completeIdempotencyKey(

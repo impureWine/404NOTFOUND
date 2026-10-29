@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>首页 · 404NOTFOUND</title>
+<script src="https://modao.cc/agent-py/static/source/js/tailwindcss.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: { DEFAULT: 'var(--brand)', dark: 'var(--brand-dark)', soft: 'var(--brand-soft)', line: 'var(--brand-line)' },
+          ink: '#33403F',
+          sub: '#6B7875',
+          mist: '#F6F8F7',
+          line: '#E7EDEB',
+          sand: '#C2A08A',
+          sandsoft: '#F8F3EE'
+        }
+      }
+    }
+  };
+</script>
+<script src="https://modao.cc/agent-py/static/source/js/iconify-icon.min.js"></script>
+<style>
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+  }
+  ::-webkit-scrollbar { width: 0px; height: 0px; }
+  @keyframes pulseSoft { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+  .floaty { animation: pulseSoft 4.5s ease-in-out infinite; }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body class="h-full w-full m-0 overflow-hidden bg-mist text-ink antialiased">
+<div class="flex h-full w-full">
+<!-- ===== 左侧导航（全站一致） ===== -->
+<aside class="hidden md:flex md:flex-col md:w-[220px] lg:w-[248px] shrink-0 bg-white border-r border-line">
+<a class="flex items-center gap-2.5 h-16 px-5 lg:px-6 shrink-0" href="home.html">
+<span class="w-14 h-8 shrink-0 rounded-xl text-brand grid place-items-center">
+<img src="assets/404-mark.svg?v=4" alt="404" style="width:100%;height:auto;max-height:100%;object-fit:contain"/>
+</span>
+<span class="leading-tight">
+<span class="block text-[15px] font-semibold text-ink">NOTFOUND</span>
+<span class="block text-[11px] text-sub">情绪自助演示原型</span>
+</span>
+</a>
+<nav class="flex-1 min-h-0 overflow-y-auto px-3 py-2 space-y-1 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] font-medium bg-brand-soft text-brand-dark" href="home.html">
+<iconify-icon class="text-[18px]" icon="ph:house-line"></iconify-icon>首页
+      </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="companion.html">
+<iconify-icon class="text-[18px]" icon="ph:chats-circle"></iconify-icon>陪伴交流
+      </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="calendar.html">
+<iconify-icon class="text-[18px]" icon="ph:calendar-blank"></iconify-icon>情绪日历
+      </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="worry-room.html">
+<iconify-icon class="text-[18px]" icon="ph:robot"></iconify-icon>担忧桌宠
+      </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="rehearsal.html">
+<iconify-icon class="text-[18px]" icon="ph:microphone-stage"></iconify-icon>对话排练
+      </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="games.html">
+<iconify-icon class="text-[18px]" icon="ph:game-controller"></iconify-icon>减压小游戏
+      </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="things-organize.html"><iconify-icon class="text-[18px]" icon="ph:list-bullets"></iconify-icon>事情整理</a>
+
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="emotion-card.html"><iconify-icon class="text-[18px]" icon="ph:smiley"></iconify-icon>情绪命名卡</a><a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="info-query.html">
+<iconify-icon class="text-[18px]" icon="ph:magnifying-glass"></iconify-icon>信息查询
+      </a>
+<div class="pt-3 mt-3 border-t border-line space-y-1">
+<p class="px-3 pb-1 text-[11px] tracking-wide text-sub">账户与设置</p>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="profile.html">
+<iconify-icon class="text-[18px]" icon="ph:user-circle"></iconify-icon>个人主页
+        </a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13.5px] text-sub hover:bg-mist hover:text-ink transition" href="settings.html">
+<iconify-icon class="text-[18px]" icon="ph:shield-check"></iconify-icon>会话与隐私设置
+        </a>
+</div>
+</nav>
+<div class="shrink-0 border-t border-line p-3 space-y-2">
+<div class="rounded-xl bg-mist border border-line p-3" id="side-guest">
+<p class="text-[12px] text-sub leading-relaxed">当前为未登录访客，记录仅保存在本机演示环境。</p>
+<div class="mt-2 flex gap-2">
+<a class="flex-1 text-center px-2 py-1.5 rounded-lg bg-brand text-white text-[12px] font-medium hover:bg-brand-dark transition" href="login.html">登录</a>
+<a class="flex-1 text-center px-2 py-1.5 rounded-lg bg-white border border-brand-line text-brand-dark text-[12px] font-medium hover:bg-brand-soft transition" href="register.html">注册</a>
+</div>
+</div>
+<div class="hidden rounded-xl bg-mist border border-line p-3" id="side-user">
+<div class="flex items-center gap-2.5">
+<span class="w-8 h-8 rounded-full bg-brand text-white grid place-items-center text-[12px] font-medium">满</span>
+<div class="min-w-0">
+<p class="text-[12.5px] font-medium text-ink truncate">小满</p>
+<p class="text-[11px] text-sub truncate">已登录 · 演示账号</p>
+</div>
+</div>
+<a class="mt-2 block text-center px-2 py-1.5 rounded-lg bg-white border border-line text-sub text-[12px] hover:bg-brand-soft hover:text-brand-dark transition" href="login.html">退出登录</a>
+</div>
+</div>
+</aside>
+<!-- ===== 主区域 ===== -->
+<div class="flex-1 min-w-0 flex flex-col">
+<header class="shrink-0 h-16 flex items-center justify-between gap-3 px-4 lg:px-8 bg-white border-b border-line">
+<div class="flex items-center gap-3 min-w-0">
+<a class="md:hidden w-12 h-8 shrink-0 rounded-lg text-brand grid place-items-center" href="home.html">
+<img src="assets/404-mark.svg?v=4" alt="404" style="width:100%;height:auto;max-height:100%;object-fit:contain"/>
+</a>
+<div class="min-w-0">
+<h1 class="text-[15px] font-semibold text-ink truncate">首页</h1>
+<p class="hidden sm:block text-[11.5px] text-sub truncate">2026 年 10 月 14 日 星期三 · 今天也慢慢来</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-mist border border-line text-sub text-[11px]">
+<iconify-icon class="text-brand" icon="ph:flask"></iconify-icon>演示原型
+        </span>
+<a aria-label="通知与提醒" class="w-9 h-9 rounded-xl border border-line text-sub grid place-items-center hover:bg-mist hover:text-ink transition" href="settings.html">
+<iconify-icon class="text-[17px]" icon="ph:bell"></iconify-icon>
+</a>
+<a class="flex items-center gap-2 pl-1 pr-3 py-1 rounded-xl border border-line hover:bg-mist transition" href="profile.html">
+<span class="w-7 h-7 rounded-full bg-brand text-white grid place-items-center text-[11px] font-medium">满</span>
+<span class="hidden sm:block text-[12.5px] text-ink">小满</span>
+</a>
+</div>
+</header>
+<!-- 窄屏横向导航 -->
+<nav class="md:hidden shrink-0 flex gap-2 px-4 py-2.5 bg-white border-b border-line overflow-x-auto [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] font-medium bg-brand-soft text-brand-dark" href="home.html">首页</a>
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="companion.html">陪伴交流</a>
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="calendar.html">情绪日历</a>
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="worry-room.html">担忧桌宠</a>
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="rehearsal.html">对话排练</a>
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="games.html">减压小游戏</a>
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="things-organize.html">事情整理</a>
+
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="emotion-card.html">情绪命名卡</a><a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="info-query.html">信息查询</a>
+<a class="shrink-0 px-3 py-1.5 rounded-full text-[12.5px] text-sub bg-mist" href="settings.html">设置</a>
+</nav>
+<main class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden">
+<div class="max-w-[1180px] mx-auto px-4 py-6 lg:px-8 lg:py-8 space-y-6">
+<!-- 演示状态切换 -->
+<div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-dashed border-brand-line bg-white px-4 py-3">
+<div class="flex items-center gap-2 text-[12.5px] text-sub">
+<iconify-icon class="text-[16px] text-brand" icon="ph:toggle-left"></iconify-icon>
+            演示状态切换：对比「未登录访客」与「已登录用户」两种首页显示
+          </div>
+<div class="inline-flex p-1 rounded-xl bg-mist border border-line">
+<button class="px-3.5 py-1.5 rounded-lg text-[12.5px] font-medium bg-white text-brand-dark shadow-sm transition" id="tab-guest" onclick="switchHomeState('guest')">未登录访客</button>
+<button class="px-3.5 py-1.5 rounded-lg text-[12.5px] text-sub transition" id="tab-user" onclick="switchHomeState('user')">已登录用户</button>
+</div>
+</div>
+<!-- ===== 访客视图 ===== -->
+<div class="space-y-6" id="guest-view">
+<section class="rounded-3xl border border-line bg-white overflow-hidden">
+<div class="grid lg:grid-cols-[1.15fr_.85fr]">
+<div class="order-2 lg:order-1 p-6 lg:p-9">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-soft text-brand-dark text-[11.5px]">
+<iconify-icon class="text-[13px]" icon="ph:sparkle"></iconify-icon>低压陪伴 · 不用急着好起来
+                </span>
+<h2 class="mt-4 text-[24px] lg:text-[28px] leading-snug font-semibold text-ink">先和自己待一会儿，<br class="hidden sm:block"/>再决定要不要说点什么。</h2>
+<p class="mt-3 text-[13.5px] leading-relaxed text-sub max-w-[430px]">
+                  404NOTFOUND 是一个情绪自助的练习空间：模拟陪伴对话、具象化担忧、预演难开口的对话、记录每天的情绪。
+                  所有回复与数据都是演示内容，不涉及真实 AI 服务，也不构成医疗建议。
+                </p>
+<div class="mt-6 flex flex-wrap gap-3">
+<a class="px-5 py-2.5 rounded-xl bg-brand text-white text-[13.5px] font-medium hover:bg-brand-dark transition" href="login.html">登录演示账号</a>
+<a class="px-5 py-2.5 rounded-xl bg-white border border-brand-line text-brand-dark text-[13.5px] font-medium hover:bg-brand-soft transition" href="register.html">创建演示账号</a>
+<a class="px-5 py-2.5 rounded-xl text-sub text-[13.5px] font-medium hover:bg-mist transition" href="companion.html">先随便逛逛 →</a>
+</div>
+<p class="mt-4 flex items-start gap-2 text-[11.5px] leading-relaxed text-sub">
+<iconify-icon class="text-[14px] text-brand mt-0.5 shrink-0" icon="ph:info"></iconify-icon>
+                  访客模式下可体验全部页面；记录仅保存在本机演示环境，不会同步到任何服务器。
+                </p>
+</div>
+<div class="order-1 lg:order-2 relative min-h-[190px] lg:min-h-[320px] bg-gradient-to-br from-brand-soft via-[#F3F7F6] to-sandsoft">
+<img alt="A calm morning window with a cup of tea on a wooden desk" class="absolute inset-0 w-full h-full object-cover opacity-90" src="https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg"/>
+<div class="absolute top-4 left-4 right-4 flex items-center gap-2 rounded-xl bg-white/90 backdrop-blur px-3 py-2 border border-white/70">
+<iconify-icon class="text-brand text-[18px] shrink-0" icon="ph:cloud-sun"></iconify-icon>
+<span class="text-[12px] text-ink">今日提示：只要记录一句，也算完成</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="rounded-2xl border border-line bg-white p-6">
+<div class="flex items-start gap-3">
+<span class="w-10 h-10 rounded-xl bg-mist text-sub grid place-items-center shrink-0">
+<iconify-icon class="text-[20px]" icon="ph:clock-counter-clockwise"></iconify-icon>
+</span>
+<div>
+<h3 class="text-[14.5px] font-semibold text-ink">最近陪伴记录</h3>
+<p class="mt-1 text-[12.5px] text-sub">访客状态下没有历史记录。登录后，这里会显示你最近 3 次陪伴会话与情绪记录。</p>
+<a class="mt-3 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-brand-soft text-brand-dark text-[12.5px] font-medium hover:bg-brand-line transition" href="login.html">
+<iconify-icon class="text-[15px]" icon="ph:sign-in"></iconify-icon>登录查看我的记录
+                </a>
+</div>
+</div>
+</section>
+</div>
+<!-- ===== 已登录视图 ===== -->
+<div class="hidden space-y-6" id="user-view">
+<section class="rounded-3xl border border-line bg-white p-6 lg:p-7">
+<div class="flex flex-wrap items-start justify-between gap-4">
+<div>
+<p class="text-[12.5px] text-sub">2026 年 10 月 14 日 星期三</p>
+<h2 class="mt-1.5 text-[22px] font-semibold text-ink">下午好，小满</h2>
+<p class="mt-2 text-[13px] leading-relaxed text-sub max-w-[460px]">你已经连续记录情绪 6 天。今天想先聊聊，还是先安静记一笔？</p>
+</div>
+<div class="flex items-center gap-5">
+<div class="text-center">
+<p class="text-[22px] font-semibold text-brand">6</p>
+<p class="text-[11px] text-sub">连续记录（天）</p>
+</div>
+<div class="w-px h-9 bg-line"></div>
+<div class="text-center">
+<p class="text-[22px] font-semibold text-brand">3</p>
+<p class="text-[11px] text-sub">本周陪伴会话</p>
+</div>
+</div>
+</div>
+<div class="mt-6 rounded-2xl bg-mist border border-line p-4 lg:p-5">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<p class="text-[13px] font-medium text-ink">今日情绪打卡</p>
+<p class="text-[11.5px] text-sub" id="checkin-tip">选择此刻最接近的一种感受</p>
+</div>
+<div class="mt-3 flex flex-wrap gap-2" id="mood-chips">
+<button class="mood-chip px-3.5 py-2 rounded-xl bg-white border border-line text-[12.5px] text-sub hover:border-brand-line hover:text-brand-dark transition" onclick="pickMood(this,'平静')">😌 平静</button>
+<button class="mood-chip px-3.5 py-2 rounded-xl bg-white border border-line text-[12.5px] text-sub hover:border-brand-line hover:text-brand-dark transition" onclick="pickMood(this,'疲惫')">😴 疲惫</button>
+<button class="mood-chip px-3.5 py-2 rounded-xl bg-white border border-line text-[12.5px] text-sub hover:border-brand-line hover:text-brand-dark transition" onclick="pickMood(this,'焦虑')">😟 焦虑</button>
+<button class="mood-chip px-3.5 py-2 rounded-xl bg-white border border-line text-[12.5px] text-sub hover:border-brand-line hover:text-brand-dark transition" onclick="pickMood(this,'低落')">😔 低落</button>
+<button class="mood-chip px-3.5 py-2 rounded-xl bg-white border border-line text-[12.5px] text-sub hover:border-brand-line hover:text-brand-dark transition" onclick="pickMood(this,'轻松')">🙂 轻松</button>
+<button class="mood-chip px-3.5 py-2 rounded-xl bg-white border border-line text-[12.5px] text-sub hover:border-brand-line hover:text-brand-dark transition" onclick="pickMood(this,'说不上来')">😶 说不上来</button>
+</div>
+<div class="mt-4 flex flex-wrap items-center gap-3">
+<button class="px-4 py-2 rounded-xl bg-brand text-white text-[12.5px] font-medium hover:bg-brand-dark transition" onclick="submitCheckin()">保存今日记录</button>
+<a class="text-[12.5px] text-sub hover:text-brand-dark transition" href="calendar.html">查看情绪日历 →</a>
+</div>
+</div>
+</section>
+<section class="rounded-2xl border border-line bg-white p-6">
+<div class="flex items-center justify-between gap-3">
+<h3 class="text-[14.5px] font-semibold text-ink">最近的记录</h3>
+<a class="text-[12.5px] text-sub hover:text-brand-dark transition" href="calendar.html">全部记录 →</a>
+</div>
+<ul class="mt-4 divide-y divide-line">
+<li class="flex items-start gap-3 py-3.5">
+<span class="w-9 h-9 rounded-xl bg-brand-soft text-brand-dark grid place-items-center shrink-0 text-[12px] font-medium">10/14</span>
+<div class="min-w-0 flex-1">
+<p class="text-[13px] text-ink">陪伴交流 ·「今天开会前一直心慌」</p>
+<p class="mt-1 text-[12px] text-sub">时长 12 分钟 · 演示对话记录</p>
+</div>
+<a class="shrink-0 text-[12.5px] text-brand-dark hover:underline" href="companion.html">继续</a>
+</li>
+<li class="flex items-start gap-3 py-3.5">
+<span class="w-9 h-9 rounded-xl bg-mist text-sub grid place-items-center shrink-0 text-[12px] font-medium">10/13</span>
+<div class="min-w-0 flex-1">
+<p class="text-[13px] text-ink">情绪打卡 · 疲惫（3 / 5）</p>
+<p class="mt-1 text-[12px] text-sub">备注：加班到九点，回家路上听了会儿歌</p>
+</div>
+<a class="shrink-0 text-[12.5px] text-brand-dark hover:underline" href="calendar.html">查看</a>
+</li>
+<li class="flex items-start gap-3 py-3.5">
+<span class="w-9 h-9 rounded-xl bg-mist text-sub grid place-items-center shrink-0 text-[12px] font-medium">10/12</span>
+<div class="min-w-0 flex-1">
+<p class="text-[13px] text-ink">担忧盒 ·「怕被同事觉得我不专业」</p>
+<p class="mt-1 text-[12px] text-sub">状态：已具象化 · 在第 2 天回看</p>
+</div>
+<a class="shrink-0 text-[12.5px] text-brand-dark hover:underline" href="worry-room.html">打开</a>
+</li>
+</ul>
+</section>
+</div>
+<section class="w-full max-w-[1180px] mx-auto">
+<div class="flex items-end justify-between gap-3">
+<div>
+<h3 class="text-[15px] font-semibold text-ink">今天想做什么</h3>
+<p class="mt-1 text-[12.5px] text-sub">按当下的状态，挑一个入口开始</p>
+</div>
+</div>
+<div class="mt-4 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="companion.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-brand-soft text-brand-dark grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:chats-circle"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">陪伴交流</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">把心里的话说给一个不会催你的窗口听，回复为演示内容。</p>
+</a>
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="calendar.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-sandsoft text-sand grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:calendar-blank"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">情绪日历</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">用颜色和一句话记下每天的心情，回看时更容易发现规律。</p>
+</a>
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="worry-room.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-mist text-sub grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:robot"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">担忧桌宠</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">把抽象的担心放进房间，变成看得见、放得下的小物件。</p>
+</a>
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="rehearsal.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-brand-soft text-brand-dark grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:microphone-stage"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">对话排练</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">在安全的沙盘里，先练习那句难开口的话。</p>
+</a>
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="games.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-sandsoft text-sand grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:game-controller"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">减压小游戏</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">弹珠轨道与呼吸节奏，两分钟把注意力还给身体。</p>
+</a>
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="info-query.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-mist text-sub grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:magnifying-glass"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">信息查询</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">查询情绪相关概念，附来源与不确定性提示。</p>
+</a>
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="things-organize.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-brand-soft text-brand-dark grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:list-bullets"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">事情整理</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">暂停整理思绪，或把任务拆成小步骤。</p>
+</a>
+<a class="group min-h-[176px] flex flex-col items-center justify-center text-center rounded-2xl border border-line bg-white p-6 hover:border-brand-line hover:shadow-[0_4px_18px_rgba(80,110,105,0.07)] transition" href="emotion-card.html">
+<span class="w-[30px] h-[30px] shrink-0 rounded-lg bg-sandsoft text-sand grid place-items-center"><iconify-icon class="text-[15px]" icon="ph:smiley"></iconify-icon></span>
+<h4 class="mt-3.5 text-[14px] font-medium text-ink group-hover:text-brand-dark">情绪命名卡</h4>
+<p class="mt-1.5 max-w-[32ch] text-[12.5px] leading-relaxed text-sub">由你选择词语，描述此刻的感受。</p>
+</a>
+
+</div>
+</section>
+<!-- 隐私与留存提示 -->
+<section class="rounded-2xl border border-brand-line bg-brand-soft/60 p-5">
+<div class="flex items-start gap-3">
+<iconify-icon class="text-[20px] text-brand shrink-0" icon="ph:shield-check"></iconify-icon>
+<div>
+<h4 class="text-[13.5px] font-medium text-brand-dark">隐私与留存说明</h4>
+<ul class="mt-2 space-y-1.5 text-[12.5px] leading-relaxed text-sub list-disc pl-4">
+<li>对话、情绪记录与担忧盒内容默认保存在本机演示环境，不接入任何真实后端。</li>
+<li>默认留存 30 天，可在「会话与隐私设置」中改为 7 天、90 天或永久保留，也可随时一键清除。</li>
+<li>清除操作不可恢复，执行前会有二次确认弹窗。</li>
+</ul>
+<a class="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-medium text-brand-dark hover:underline" href="settings.html">
+                前往会话与隐私设置<iconify-icon class="text-[14px]" icon="ph:arrow-right"></iconify-icon>
+</a>
+</div>
+</div>
+</section>
+<!-- 演示声明 -->
+<div class="rounded-2xl border border-dashed border-line bg-white px-5 py-4">
+<p class="flex items-start gap-2 text-[12px] leading-relaxed text-sub">
+<iconify-icon class="text-[15px] text-brand mt-0.5 shrink-0" icon="ph:info"></iconify-icon>
+<span>本页面为演示原型：问候语、统计数据与记录示例均为模拟内容，未连接真实 AI、搜索、短信、邮箱或后端服务；页面不提供医疗诊断、治疗建议或风险评分。</span>
+</p>
+</div>
+</div>
+</main>
+</div>
+</div>
+<script>
+  function switchHomeState(state) {
+    var guestView = document.getElementById('guest-view');
+    var userView = document.getElementById('user-view');
+    var tabGuest = document.getElementById('tab-guest');
+    var tabUser = document.getElementById('tab-user');
+    var sideGuest = document.getElementById('side-guest');
+    var sideUser = document.getElementById('side-user');
+    var on = 'px-3.5 py-1.5 rounded-lg text-[12.5px] font-medium bg-white text-brand-dark shadow-sm transition';
+    var off = 'px-3.5 py-1.5 rounded-lg text-[12.5px] text-sub transition';
+
+    if (state === 'user') {
+      guestView.classList.add('hidden');
+      userView.classList.remove('hidden');
+      sideGuest.classList.add('hidden');
+      sideUser.classList.remove('hidden');
+      tabUser.className = on;
+      tabGuest.className = off;
+    } else {
+      userView.classList.add('hidden');
+      guestView.classList.remove('hidden');
+      sideUser.classList.add('hidden');
+      sideGuest.classList.remove('hidden');
+      tabGuest.className = on;
+      tabUser.className = off;
+    }
+  }
+
+  function pickMood(el, mood) {
+    var chips = document.querySelectorAll('.mood-chip');
+    for (var i = 0; i < chips.length; i++) {
+      chips[i].className = 'mood-chip px-3.5 py-2 rounded-xl bg-white border border-line text-[12.5px] text-sub hover:border-brand-line hover:text-brand-dark transition';
+    }
+    el.className = 'mood-chip px-3.5 py-2 rounded-xl bg-brand text-white border border-brand text-[12.5px] font-medium transition';
+    document.getElementById('checkin-tip').textContent = '已选择：' + mood + '，可继续补充一句备注再保存';
+  }
+
+  function submitCheckin() {
+    var tip = document.getElementById('checkin-tip');
+    tip.textContent = '已保存今日记录（演示）：记录会出现在情绪日历中';
+    tip.className = 'text-[11.5px] text-brand-dark font-medium';
+  }
+</script>
+<script src="site-nav.js"></script><script src="theme.js"></script>
+</body>
+</html>

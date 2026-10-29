@@ -1,0 +1,27 @@
+[
+  {
+    "file": "backend-tests.tap",
+    "exit_code": 0,
+    "stderr_bytes": 0
+  },
+  {
+    "file": "frontend-api-tests.log",
+    "exit_code": 0,
+    "stderr_bytes": 0
+  },
+  {
+    "file": "core-recheck.json",
+    "exit_code": 1,
+    "stderr_bytes": 0
+  },
+  {
+    "file": "contract-recheck.json",
+    "exit_code": 1,
+    "stderr_bytes": 0
+  },
+  {
+    "file": "live-search.json",
+    "exit_code": 0,
+    "stderr_bytes": 0
+  }
+]

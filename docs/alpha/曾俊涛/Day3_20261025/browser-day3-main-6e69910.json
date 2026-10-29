@@ -1,0 +1,29 @@
+{
+  "source": "GitHub main@6e699103ac5fb2c1cbcc74dfd1bb61d7df642fe0; changed product blobs verified",
+  "browser": "local Microsoft Edge headless",
+  "data": "ephemeral PGlite and synthetic account",
+  "requestRewrite": false,
+  "steps": [
+    {
+      "name": "shipped Vite config reaches backend context",
+      "status": 200
+    },
+    {
+      "name": "register, login, profile without proxy or request rewrite",
+      "registrationStatus": 201,
+      "loginStatus": 200,
+      "profileStatus": 200
+    },
+    {
+      "name": "companion navigation after real login",
+      "urlPath": "/companion.html",
+      "pageTitle": "陪伴交流 · 404NOTFOUND",
+      "apiResponses": [],
+      "businessApiCalled": false
+    },
+    {
+      "name": "logout invalidates profile access",
+      "profileStatusAfterLogout": 401
+    }
+  ]
+}

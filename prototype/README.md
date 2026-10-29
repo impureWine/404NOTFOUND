@@ -16,6 +16,10 @@ npm run dev -- --host 127.0.0.1 --port 5173
 
 ## UX 组件与状态展示（2026-10-24）
 
+2026-10-25 Day3：[页面组件与交互走查交付](../docs/alpha/郭昱祺/Day3_20261025/README.md)。展示入口扩展为 `login/home/chat/sources/emotion/training` 六场景；聊天／来源额外支持 `state=timeout`。新增选词、命名卡预览、明确携带草稿和训练开始／暂停／继续／退出组件；保存 93 项浏览器检查与 40 张截图。
+
+2026-10-25 界面修订：展示页与首页共同使用 `src/components/SiteChrome.jsx` 和 `src/current-home.css`，登录采用当前认证弹窗样式。[当前截图与验证说明](../docs/alpha/郭昱祺/界面对齐_20261025/README.md)。
+
 独立入口：`http://localhost:5173/ux-components.html?page=home&state=normal`。提供登录、首页、聊天、来源展示的正常／加载／空／失败状态切换；全部采用本地模拟数据。`npm run build` 同时构建现有首页和展示入口。
 
 源码位于 `src/ux-showcase/`，复用 `src/ui.jsx` 中的 Button 与 Panel；[完整交付说明及状态截图](../docs/alpha/郭昱祺/组件展示页交付_20261024/README.md) 记录运行范围与待接入内容。页面装配、认证、模型、检索及保存接口仍待前端整合，演示成功不等于正式接口已完成。
@@ -27,6 +31,8 @@ npm run dev -- --host 127.0.0.1 --port 5173
 入口：`src/api/client.js`。当前默认 `VITE_API_MODE=mock`（未设置时也是模拟模式），所有 API 方法会明确报 `API_NOT_CONNECTED`，不会伪造成功或发出请求。
 
 适配器已按接口表提供上下文、能力、认证、资料、会话、陪伴任务、查询任务和记录方法。真实模式使用同源 `/api`、JSON、`credentials: include` 和 `no-store`；写请求需要内存中的当前 CSRF token，以及由共享契约配置的 `VITE_CSRF_HEADER_NAME`。代码不猜 CSRF 头名。认证上下文失效或身份操作结束时清除内存 token。
+
+本地真实模式可复制 `.env.example`，Vite 会将 `/api` 代理到 `API_PROXY_TARGET`（默认 `http://127.0.0.1:3000`）。登录目标使用共享契约枚举 `HOME`。代理和契约测试通过只表示联调条件已准备，不代表浏览器人工流程或正式环境验收已经完成。
 
 当前没有后端联调；设置真实模式只会启用适配调用，不表示后端可用或接口验收通过。
 

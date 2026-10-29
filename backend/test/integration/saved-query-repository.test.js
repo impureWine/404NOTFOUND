@@ -200,11 +200,122 @@ test('empty or unfinished searches cannot be persisted as query history', async 
   }
 });
 
+test('saved query replay remains idempotent after the completed search expires', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scope = await seedScope(database, 'query_replay');
+    const requestId = randomUUID();
+    const searchRequestId = randomUUID();
+    const results = new Map([
+      [searchRequestId, completedResult(scope, searchRequestId)],
+    ]);
+    const repository = repositoryWithResults(database, results);
+    const first = await repository.save({ ...scope, requestId, searchRequestId });
+
+    results.delete(searchRequestId);
+    const replay = await repository.save({ ...scope, requestId, searchRequestId });
+    assert.equal(replay.id, first.id);
+    assert.equal(replay.idempotent, true);
+
+    await assert.rejects(
+      repository.save({ ...scope, requestId, searchRequestId: randomUUID() }),
+      ConflictError,
+    );
+  } finally {
+    await database.close();
+  }
+});
+
+test('unreliable sources downgrade supported claims and query certainty', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scope = await seedScope(database, 'query_reliability');
+    const searchRequestId = randomUUID();
+    const result = completedResult(scope, searchRequestId);
+    result.sources[0].quality = 'UNKNOWN';
+    result.sources[0].verificationState = 'UNAVAILABLE';
+    const repository = repositoryWithResults(database, new Map([[searchRequestId, result]]));
+
+    const saved = await repository.save({
+      ...scope,
+      requestId: randomUUID(),
+      searchRequestId,
+    });
+    assert.equal(saved.status, 'PARTIAL_SUCCESS');
+
+    const loaded = await repository.get({ ...scope, recordId: saved.id });
+    assert.equal(loaded.claims[0].status, 'UNKNOWN');
+    assert.match(loaded.uncertaintyNote, /downgraded to unknown/i);
+  } finally {
+    await database.close();
+  }
+});
+
+test('older source snapshots cannot overwrite newer source verification metadata', async () => {
+  const database = await createTestDatabase();
+  try {
+    const scope = await seedScope(database, 'query_source_order');
+    const newerRequestId = randomUUID();
+    const olderRequestId = randomUUID();
+    const newer = completedResult(scope, newerRequestId);
+    newer.sources[0].title = 'New verified title';
+    newer.sources[0].retrievedAt = '2026-10-27T09:00:00.000Z';
+    const older = completedResult(scope, olderRequestId);
+    older.sources[0].title = 'Old stale title';
+    older.sources[0].quality = 'STALE';
+    older.sources[0].verificationState = 'UNAVAILABLE';
+    older.sources[0].retrievedAt = '2026-10-26T09:00:00.000Z';
+    const repository = repositoryWithResults(database, new Map([
+      [newerRequestId, newer],
+      [olderRequestId, older],
+    ]));
+
+    await repository.save({
+      ...scope,
+      requestId: randomUUID(),
+      searchRequestId: newerRequestId,
+    });
+    const staleSave = await repository.save({
+      ...scope,
+      requestId: randomUUID(),
+      searchRequestId: olderRequestId,
+    });
+    assert.equal(staleSave.status, 'STALE_SOURCE');
+
+    const source = await database.query(
+      `
+        SELECT title, quality, verification_state, retrieved_at
+        FROM sources
+        WHERE canonical_url = 'https://example.org/facts'
+      `,
+    );
+    assert.equal(source.rows[0].title, 'New verified title');
+    assert.equal(source.rows[0].quality, 'CURRENT');
+    assert.equal(source.rows[0].verification_state, 'VERIFIED');
+    assert.equal(
+      new Date(source.rows[0].retrieved_at).toISOString(),
+      '2026-10-27T09:00:00.000Z',
+    );
+  } finally {
+    await database.close();
+  }
+});
+
 test('persistent query status follows conflict, partial, stale, success priority', () => {
-  const current = [{ quality: 'CURRENT' }];
-  const stale = [{ quality: 'STALE' }];
+  const current = [{ quality: 'CURRENT', verificationState: 'VERIFIED' }];
+  const stale = [{ quality: 'STALE', verificationState: 'VERIFIED' }];
+  const unknown = [{ quality: 'UNKNOWN', verificationState: 'VERIFIED' }];
+  const unavailable = [{ quality: 'CURRENT', verificationState: 'UNAVAILABLE' }];
   assert.equal(persistentStatus({ hasConflict: true, partial: true, sources: stale }), 'CONFLICTED');
   assert.equal(persistentStatus({ hasConflict: false, partial: true, sources: stale }), 'PARTIAL_SUCCESS');
   assert.equal(persistentStatus({ hasConflict: false, partial: false, sources: stale }), 'STALE_SOURCE');
+  assert.equal(
+    persistentStatus({ hasConflict: false, partial: false, sources: unknown }),
+    'PARTIAL_SUCCESS',
+  );
+  assert.equal(
+    persistentStatus({ hasConflict: false, partial: false, sources: unavailable }),
+    'PARTIAL_SUCCESS',
+  );
   assert.equal(persistentStatus({ hasConflict: false, partial: false, sources: current }), 'SUCCESS');
 });

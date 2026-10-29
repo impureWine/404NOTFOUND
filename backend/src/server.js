@@ -2,7 +2,7 @@ import { loadEnvFile } from 'node:process';
 
 import { createApp } from './app.js';
 import { LangChainModelAdapter } from './ai/langchain-model-adapter.js';
-import { createPoolFromEnv } from './db/database.js';
+import { createPoolFromConfig } from './db/database.js';
 import { runMigrations } from './db/migration-runner.js';
 import { parseProfileKey } from './security/crypto.js';
 import { AuthService } from './services/auth-service.js';
@@ -12,6 +12,7 @@ import { WikipediaSearchProvider } from './search/wikipedia-search-provider.js';
 import { RecordRepository } from './repositories/record-repository.js';
 import { RecordService } from './services/record-service.js';
 import { ConsentService } from './services/consent-service.js';
+import { getRuntimeConfig } from './runtime-config.js';
 
 try {
   loadEnvFile();
@@ -21,12 +22,12 @@ try {
   }
 }
 
-const database = createPoolFromEnv();
-if (process.env.MIGRATE_ON_START === 'true') {
+const config = getRuntimeConfig();
+const database = createPoolFromConfig(config.database);
+if (config.migrateOnStart) {
   await runMigrations(database);
 }
 
-const port = Number(process.env.PORT ?? 3000);
 const modelAdapter = new LangChainModelAdapter();
 const authService = new AuthService(database, {
   profileKey: parseProfileKey(process.env.PROFILE_ENCRYPTION_KEY),
@@ -36,8 +37,8 @@ const taskService = new TaskService({
   consentService,
   modelAdapter,
   searchProvider: new WikipediaSearchProvider({
-    language: process.env.SEARCH_LANGUAGE ?? 'zh',
-    timeoutMs: Number(process.env.SEARCH_TIMEOUT_MS ?? 5000),
+    language: config.search.language,
+    timeoutMs: config.search.timeoutMs,
   }),
 });
 const trainingService = new TrainingService();
@@ -53,12 +54,12 @@ const app = createApp({
   trainingService,
   recordService,
   consentService,
-  appOrigin: process.env.APP_ORIGIN ?? 'http://127.0.0.1:5173',
-  secureCookies: process.env.SESSION_COOKIE_SECURE === 'true',
+  appOrigin: config.appOrigin,
+  secureCookies: config.secureCookies,
   internalModelToken: process.env.INTERNAL_MODEL_TOKEN ?? null,
 });
-const server = app.listen(port, '127.0.0.1', () => {
-  console.log(`Data service listening on http://127.0.0.1:${port}`);
+const server = app.listen(config.port, '127.0.0.1', () => {
+  console.log(`Data service listening on http://127.0.0.1:${config.port}`);
 });
 
 async function shutdown() {

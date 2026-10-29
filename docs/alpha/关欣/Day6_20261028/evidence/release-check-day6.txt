@@ -1,0 +1,13 @@
+
+> 404notfound-data-service@0.1.0 check:release
+> node scripts/release-check.js
+
+node.exe : Release readiness: BLOCKED
+所在位置 行:1 字符: 1
++ & "D:\Nodejs/node.exe" "D:\Nodejs/node_modules/npm/bin/npm-cli.js" ru ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Release readiness: BLOCKED:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+- DATABASE_URL is required
+- PROFILE_ENCRYPTION_KEY is required

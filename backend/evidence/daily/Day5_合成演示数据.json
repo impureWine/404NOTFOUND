@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0",
+  "candidateVersion": "0.1.0-alpha.20261027.zkh-day5",
+  "classification": "synthetic-only",
+  "notice": "This file is an isolated demonstration input manifest, not production seed data.",
+  "scopes": [
+    {
+      "label": "ACCOUNT_A_WEB",
+      "accountRef": "synthetic:account-a",
+      "entryPoint": "WEB",
+      "records": [
+        {
+          "kind": "CONVERSATION",
+          "title": "synthetic:day5-idempotency",
+          "messages": [
+            {
+              "role": "USER",
+              "content": "synthetic:repeat-save-payload"
+            }
+          ]
+        },
+        {
+          "kind": "EMOTION",
+          "title": "synthetic:day5-version-race",
+          "recordDate": "2026-10-27",
+          "emotionCodes": [
+            "CALM"
+          ],
+          "intensity": 2,
+          "timezoneName": "Asia/Shanghai"
+        }
+      ]
+    },
+    {
+      "label": "ACCOUNT_B_WEB",
+      "accountRef": "synthetic:account-b",
+      "entryPoint": "WEB",
+      "expectedVisibleRecordsFromAccountA": 0
+    }
+  ],
+  "searchCases": [
+    {
+      "label": "CURRENT_VERIFIED",
+      "url": "https://example.com/synthetic/current",
+      "title": "synthetic:current-source",
+      "quality": "CURRENT",
+      "verificationState": "VERIFIED",
+      "retrievedAt": "2026-10-27T09:00:00.000Z",
+      "expectedSavedStatus": "SUCCESS",
+      "expectedClaimStatus": "SUPPORTED"
+    },
+    {
+      "label": "OLDER_STALE",
+      "url": "https://example.com/synthetic/current",
+      "title": "synthetic:older-stale-source",
+      "quality": "STALE",
+      "verificationState": "UNAVAILABLE",
+      "retrievedAt": "2026-10-26T09:00:00.000Z",
+      "expectedSavedStatus": "STALE_SOURCE",
+      "expectedClaimStatus": "UNKNOWN",
+      "mustNotOverwriteNewerSourceMetadata": true
+    },
+    {
+      "label": "UNKNOWN_UNAVAILABLE",
+      "url": "https://example.com/synthetic/unavailable",
+      "title": "synthetic:unavailable-source",
+      "quality": "UNKNOWN",
+      "verificationState": "UNAVAILABLE",
+      "retrievedAt": "2026-10-27T09:05:00.000Z",
+      "expectedSavedStatus": "PARTIAL_SUCCESS",
+      "expectedClaimStatus": "UNKNOWN"
+    }
+  ],
+  "assertions": [
+    "same save request and search request return the original saved record",
+    "same save request with a different search request returns a conflict",
+    "two updates using the same expected version produce one success and one conflict",
+    "unreliable evidence cannot remain a supported deterministic claim",
+    "older source metadata cannot replace newer verification metadata"
+  ]
+}

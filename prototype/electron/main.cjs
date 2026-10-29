@@ -27,7 +27,7 @@ function createPetWindow() {
     resizable: false,
     alwaysOnTop: true,
     skipTaskbar: true,
-    show: false,
+    show: true,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -38,7 +38,6 @@ function createPetWindow() {
 
   petWindow.setAlwaysOnTop(true, 'floating');
   petWindow.loadFile(path.join(__dirname, 'renderer.html'));
-  petWindow.once('ready-to-show', () => petWindow.show());
   petWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   petWindow.webContents.on('will-navigate', event => event.preventDefault());
   petWindow.webContents.on('render-process-gone', () => {

@@ -1,0 +1,199 @@
+
+> 404notfound-data-service@0.1.0 test
+> node --test
+
+✔ test\fixtures\model-requests.js (92.5424ms)
+✔ test\helpers\database.js (189.4561ms)
+✔ register, login, profile, logout and password change form a real isolated flow (3455.3626ms)
+✔ mutating routes reject missing CSRF and foreign Origin (811.4968ms)
+✔ HTTP flow routes naming card, completes companion reply, and controls one training (295.567ms)
+✔ deposit becomes available by database time and reveals body only after active retrieval (2989.6868ms)
+✔ isolated backup restore preserves data and blocks opening until deletion replay is confirmed (1945.1953ms)
+✔ health endpoints report process and database readiness without exposing details (2934.1376ms)
+✔ account creation writes credentials, profile, and preferences atomically (3117.8438ms)
+✔ account creation rolls back all identity rows when a later write fails (927.4985ms)
+✔ session lookup uses a 32-byte digest and rejects revoked sessions (802.8576ms)
+✔ profile update uses optimistic locking (558.9489ms)
+✔ profile summary and preferences are scoped and versioned (521.507ms)
+✔ baseline and support migrations execute once on a clean database (2994.935ms)
+✔ database constraints reject duplicate normalized login identifiers (1051.0675ms)
+✔ model endpoint returns a normal unified response without caching (160.7308ms)
+✔ model endpoint exposes stable timeout and unavailable prompts (32.521ms)
+✔ model endpoint hides unexpected adapter errors behind the unavailable prompt (13.5253ms)
+✔ record API binds SAVE consent, isolates owners, encrypts content and clears in two steps (3611.2621ms)
+✔ records are isolated by both account and entry point (3048.1775ms)
+✔ same idempotency key returns the original record and rejects changed payload (992.532ms)
+✔ record update enforces scope, version, editable kind, and idempotency (794.6059ms)
+✔ clear enforces version and scope, hides the record, and creates deletion outbox state (556.1072ms)
+✔ record cursors are opaque and bound to account, entry, and kind (526.0538ms)
+✔ clear confirmation expires after its two-minute window (450.8836ms)
+✔ record type details are written in the same transaction (465.7178ms)
+✔ saved query copies server-owned completed search evidence and enforces isolation (2992.4577ms)
+✔ saved query rejects client supplied evidence and invalid server evidence (960.4109ms)
+✔ empty or unfinished searches cannot be persisted as query history (826.1418ms)
+✔ persistent query status follows conflict, partial, stale, success priority (0.4823ms)
+✔ D2-01 注册→登录→查看本人资料→退出，旧 Cookie 失效 (3583.1895ms)
+✔ D2-02 大小写与 NFKC 同名被拒绝，账号相关表没有重复行 (166.0955ms)
+✖ D2-03 重复注册响应不得明确披露登录名已被使用 (60.1212ms)
+✔ D2-04 密码为实际 Argon2id 摘要，会话仅保存 32 字节摘要 (5.1614ms)
+✔ D2-05 未登录或随机伪造 Cookie 不能读取资料和记录 (44.6645ms)
+✔ D2-06 绝对过期会话不能读取资料 (14.6161ms)
+✔ D2-07 空闲过期会话不能读取资料 (15.3854ms)
+✔ D2-08 已撤销会话不能读取资料 (16.1477ms)
+✔ D2-09 改密撤销两个旧会话，旧密码失败、新密码可登录 (444.9518ms)
+✔ D2-10 不存在账号与错误密码返回相同错误 (84.7589ms)
+✔ D2-11 伪造 accountId 的查询只能返回当前 B 的资料，写入额外归属字段被拒绝 (36.9359ms)
+✔ D2-12 B 读 A 的记录与读不存在记录均为同一 404，列表不泄露 A 的记录 (31.6371ms)
+✔ D2-13 B 不能给 A 的记录签发清除确认，A 的记录仍在 (31.1568ms)
+✔ D2-14 服务端切换入口后不能读取 WEB 记录，客户端入口参数不能绕过 (45.7566ms)
+✔ D2-15 缺少/错误 CSRF 与外部 Origin 的写入被拒绝 (46.6389ms)
+✔ D2-16 HTTP Cookie 包含 HttpOnly/SameSite/Path，安全配置生成 Host Cookie (2.5947ms)
+✖ D2-17 未知数据库异常不得把内部错误信息返回客户端（异常注入） (15.7231ms)
+✖ D2-18 非法 JSON 应为 400 且有请求标识 (13.8234ms)
+✔ D2-19 登录、资料响应和捕获的 console 不泄露敏感值 (51.3599ms)
+✖ D2-20 未认证请求不能触发内部模型适配器（路由替身） (6.1314ms)
+✔ D2-21 preload 不能传入任意 IPC 通道，订阅可解除（VM 替身） (4.0516ms)
+✖ D2-22 获取认证上下文不应把 DESKTOP 会话重绑定为 WEB 并开放 WEB 记录 (34.389ms)
+✔ SEC-03 / AT-SEC-02：客户端自报归属字段被契约拒绝，scope 不可省略 (11.7025ms)
+✔ SEC-03 / AT-SEC-01：他人记录编号无法读取，也无法签发清除确认 (2999.1026ms)
+✔ SEC-09 / AT-SEC-03：同账号换入口默认读不到记录（跨入口隔离） (910.1689ms)
+✔ SEC-02 / AT-SEC-04：会话撤销后旧令牌摘要不能再查到会话 (735.6863ms)
+✔ SEC-12：数据库不可用时健康检查只返回通用错误，不泄露连接串或异常细节 (40.9759ms)
+✔ SEC-08 结构检查：数据库与记录类型中不存在文字销毁正文的存储位 (536.2375ms)
+✔ companion task calls the constrained model request and exposes a completed reply (19.3427ms)
+✔ model timeout becomes a stable task failure reason (1.5397ms)
+✔ pause cancels an in-flight model task and a late reply cannot refill it after resume (2.1343ms)
+✔ ending a session also rejects an in-flight late model reply (1.766ms)
+✔ consent is owner, scope, expiry, revocation and payload bound (20.0475ms)
+✔ shared contracts reject zero UUIDs and unknown request fields (5.7406ms)
+✔ text limits count Unicode code points instead of UTF-16 code units (31.7257ms)
+✔ emotion records require a real date and supported IANA time zone (6.7775ms)
+✔ model input contains only the approved payload fields (44.9995ms)
+✔ model input rejects memories without explicit authorization (5.6285ms)
+✔ adapter maps a valid provider response to the unified contract (5.5328ms)
+✔ adapter accepts a JSON object wrapped in a Markdown fence (1.4583ms)
+✔ adapter rejects an action outside the request allowlist (1.4068ms)
+✔ failure substitute returns stable errors without calling a provider (1.0141ms)
+✔ adapter returns an unavailable message when the API key is missing (0.437ms)
+✔ adapter enforces its timeout even if the provider does not settle (1022.5364ms)
+✔ uses the approved free model and official API address by default (2.7821ms)
+✔ blocks any model outside the approved free model (0.6882ms)
+✔ blocks any API address outside the approved official endpoint (0.2476ms)
+✔ accepts a bounded model timeout and rejects unsafe values (1.4347ms)
+✔ naming card routes listening and organizing needs to companion mode (4.6833ms)
+✔ naming card routes search need to clarification before querying (0.4315ms)
+✔ naming card does not route before the user selects a need (0.3105ms)
+✔ naming card rejects duplicate or unknown selections (1.8159ms)
+✔ search task returns sources and remains scoped to its owner (10.5072ms)
+✔ ending a session cancels an in-flight search and prevents late refill (2.5993ms)
+✔ five-senses training pauses without advancing and resumes at the same step (4.3703ms)
+✔ five-senses training advances deterministically and exits in one action (0.832ms)
+✔ training sessions are isolated by owner and reject stale actions (0.3799ms)
+✔ provider maps real-source fields without inventing claims (37.1619ms)
+✔ provider distinguishes an empty result (1.3823ms)
+✔ provider marks incomplete results partial (1.5207ms)
+✔ provider rejects a non-empty result containing only invalid sources (1.6573ms)
+✔ provider rejects API errors, invalid JSON, and unsafe configuration (2.4887ms)
+✔ provider reports timeout separately from other upstream errors (7.9468ms)
+✔ provider maps network faults to service unavailable (0.9191ms)
+✔ provider preserves caller cancellation instead of reporting a timeout (7.5939ms)
+ℹ tests 95
+ℹ suites 0
+ℹ pass 90
+ℹ fail 5
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7296.999
+
+✖ failing tests:
+
+test at test\security\day2-authz.test.js:161:1
+✖ D2-03 重复注册响应不得明确披露登录名已被使用 (60.1212ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /已被使用|已注册|already|exists/i. Input:
+  
+  '登录名已被使用'
+  
+      at TestContext.<anonymous> (file:///<local-source>/backend/test/security/day2-authz.test.js:164:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '登录名已被使用',
+    expected: /已被使用|已注册|already|exists/i,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at test\security\day2-authz.test.js:314:1
+✖ D2-17 未知数据库异常不得把内部错误信息返回客户端（异常注入） (15.7231ms)
+  AssertionError [ERR_ASSERTION]: 错误响应暴露了合成内部异常
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///<local-source>/backend/test/security/day2-authz.test.js:327:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\security\day2-authz.test.js:333:1
+✖ D2-18 非法 JSON 应为 400 且有请求标识 (13.8234ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  503 !== 400
+  
+      at TestContext.<anonymous> (file:///<local-source>/backend/test/security/day2-authz.test.js:339:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 503,
+    expected: 400,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\security\day2-authz.test.js:363:1
+✖ D2-20 未认证请求不能触发内部模型适配器（路由替身） (6.1314ms)
+  AssertionError [ERR_ASSERTION]: 匿名请求已到达模型适配器
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///<local-source>/backend/test/security/day2-authz.test.js:375:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\security\day2-authz.test.js:410:1
+✖ D2-22 获取认证上下文不应把 DESKTOP 会话重绑定为 WEB 并开放 WEB 记录 (34.389ms)
+  AssertionError [ERR_ASSERTION]: 上下文换发把 DESKTOP 会话改为 WEB 并读取了 WEB 私密记录
+  
+  200 !== 404
+  
+      at TestContext.<anonymous> (file:///<local-source>/backend/test/security/day2-authz.test.js:421:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 200,
+    expected: 404,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

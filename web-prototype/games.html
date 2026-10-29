@@ -283,6 +283,7 @@
   var marbleSpeed = 1;
   var marbleTimer = null;
   var marbleTick = null;
+  var marbleFinishTimer = null;
   var progress = 0;
   var path = null;
   var pathLength = 0;
@@ -309,11 +310,14 @@
     var btn = document.getElementById('marble-btn');
     var status = document.getElementById('marble-status');
     if (marbleTimer) {
-      clearInterval(marbleTimer);
-      marbleTimer = null;
+      stopMarbleTimers();
       btn.textContent = '继续';
       status.textContent = '已暂停，弹珠停在当前位置';
       return;
+    }
+    if (marbleFinishTimer) {
+      clearTimeout(marbleFinishTimer);
+      marbleFinishTimer = null;
     }
     btn.textContent = '暂停';
     status.textContent = '跟着弹珠走一会儿，不用做任何事';
@@ -322,14 +326,16 @@
       if (progress >= 1) {
         progress = 1;
         renderMarble();
-        clearInterval(marbleTimer);
-        marbleTimer = null;
+        stopMarbleTimers();
         marbleRuns += 1;
         document.getElementById('stat-runs').textContent = marbleRuns + ' 次';
         document.getElementById('marble-btn').textContent = '再来一次';
         document.getElementById('marble-status').textContent = '这一趟走完了，歇一会儿也可以';
         progress = 0;
-        setTimeout(renderMarble, 900);
+        marbleFinishTimer = setTimeout(function () {
+          marbleFinishTimer = null;
+          renderMarble();
+        }, 900);
         return;
       }
       renderMarble();
@@ -344,6 +350,15 @@
         document.getElementById('stat-time').textContent = m + ' 分 ' + s + ' 秒';
       }, 1000);
     }
+  }
+
+  function stopMarbleTimers() {
+    if (marbleTimer) clearInterval(marbleTimer);
+    if (marbleTick) clearInterval(marbleTick);
+    if (marbleFinishTimer) clearTimeout(marbleFinishTimer);
+    marbleTimer = null;
+    marbleTick = null;
+    marbleFinishTimer = null;
   }
 
   function setMarbleSpeed(value) {
@@ -396,6 +411,7 @@
     if (breathRunning) {
       breathRunning = false;
       clearTimeout(breathTimer);
+      breathTimer = null;
       btn.textContent = '开始';
       applyCircle(1, '已暂停', 'var(--brand-soft)');
       return;
@@ -409,6 +425,7 @@
   function stopBreath() {
     breathRunning = false;
     clearTimeout(breathTimer);
+    breathTimer = null;
     document.getElementById('breath-btn').textContent = '开始';
     applyCircle(1, '准备', 'var(--brand-soft)');
     document.getElementById('breath-count').textContent = '已停下。想休息多久都可以。';
@@ -437,11 +454,46 @@
       button.setAttribute('aria-pressed', key === which ? 'true' : 'false');
     });
     if (which !== 'breath') stopBreath();
-    if (which !== 'marble' && marbleTimer) {
-      clearInterval(marbleTimer);
-      marbleTimer = null;
-      document.getElementById('marble-btn').textContent = '继续';
+    if (which !== 'marble' && (marbleTimer || marbleTick || marbleFinishTimer)) {
+      var wasRunning = Boolean(marbleTimer);
+      var wasFinishing = Boolean(marbleFinishTimer);
+      stopMarbleTimers();
+      if (wasRunning) {
+        document.getElementById('marble-btn').textContent = '继续';
+        document.getElementById('marble-status').textContent = '已暂停，弹珠停在当前位置';
+      } else if (wasFinishing) {
+        renderMarble();
+      }
     }
+  }
+
+  function pauseForVisibilityChange() {
+    if (!document.hidden) return;
+    if (marbleTimer || marbleTick || marbleFinishTimer) {
+      var wasRunning = Boolean(marbleTimer);
+      var wasFinishing = Boolean(marbleFinishTimer);
+      stopMarbleTimers();
+      if (wasRunning) {
+        document.getElementById('marble-btn').textContent = '继续';
+        document.getElementById('marble-status').textContent = '页面转入后台，弹珠已暂停';
+      } else if (wasFinishing) {
+        renderMarble();
+      }
+    }
+    if (breathRunning) {
+      breathRunning = false;
+      clearTimeout(breathTimer);
+      breathTimer = null;
+      document.getElementById('breath-btn').textContent = '开始';
+      applyCircle(1, '页面转入后台，训练已暂停', 'var(--brand-soft)');
+    }
+  }
+
+  function releaseGameResources() {
+    stopMarbleTimers();
+    breathRunning = false;
+    clearTimeout(breathTimer);
+    breathTimer = null;
   }
 
   function openModal(id) {
@@ -456,6 +508,7 @@
   }
   function confirmReset() {
     closeModal('reset-modal');
+    stopMarbleTimers();
     marbleRuns = 0;
     marbleSeconds = 0;
     progress = 0;
@@ -467,6 +520,8 @@
 
   initPath();
   renderMarble();
+  document.addEventListener('visibilitychange', pauseForVisibilityChange);
+  window.addEventListener('pagehide', releaseGameResources, { once: true });
 </script>
 <script src="site-nav.js"></script><script src="theme.js"></script>
 </body>

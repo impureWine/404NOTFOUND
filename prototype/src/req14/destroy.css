@@ -1,0 +1,53 @@
+.destroy-layout .black-hole {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 14px solid #d9e2df;
+  background: #40585a;
+}
+
+.destroy-layout .black-hole::before {
+  position: absolute;
+  z-index: 0;
+  inset: 12%;
+  border: 1px solid #d6e8df88;
+  border-radius: 50%;
+  content: '';
+  opacity: 0;
+  transform: scale(.12);
+}
+
+.destroy-layout .black-hole[data-phase='destroyed']::before {
+  animation: req14-collapse 650ms ease-out both;
+}
+
+.destroy-layout .black-hole[data-phase='destroyed'] span {
+  animation: req14-label-fade 650ms ease-out both;
+}
+
+.destroy-layout .black-hole span,
+.destroy-layout .black-hole small {
+  position: relative;
+}
+
+.destroy-layout textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+@keyframes req14-collapse {
+  35% { opacity: .7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(.15); }
+}
+
+@keyframes req14-label-fade {
+  40% { opacity: 1; }
+  100% { opacity: .45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .destroy-layout .black-hole[data-phase='destroyed']::before,
+  .destroy-layout .black-hole[data-phase='destroyed'] span {
+    animation: none;
+  }
+}
