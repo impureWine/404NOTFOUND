@@ -276,11 +276,11 @@ test('D2-14 服务端切换入口后不能读取 WEB 记录，客户端入口参
   await database.query('UPDATE login_sessions SET entry_point_id=$1 WHERE id=$2', [desktopEntry.rows[0].id, issued.sessionId]);
   const state = { cookie: sessionCookie(issued.sessionToken).split(';')[0], csrf: issued.csrfToken };
   const denied = await get(`/api/records/${record.id}?entry=WEB&accountId=${accountId}`, state);
-  const list = (await (await get('/api/records?entry=WEB', state)).json()).data;
+  const listResponse = await get('/api/records?entry=WEB', state);
   const profile = await get('/api/profile', state);
-  observe('D2-14', { record_status: denied.status, list_count: list.items.length, profile_status: profile.status, fixture: 'server-side session entry changed in PGlite; not native desktop login' });
+  observe('D2-14', { record_status: denied.status, forged_list_status: listResponse.status, profile_status: profile.status, fixture: 'server-side session entry changed in PGlite; not native desktop login' });
   assert.equal(denied.status, 404);
-  assert.equal(list.items.length, 0);
+  assert.equal(listResponse.status, 400);
 });
 
 test('D2-15 缺少/错误 CSRF 与外部 Origin 的写入被拒绝', async () => {

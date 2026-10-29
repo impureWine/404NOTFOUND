@@ -1,37 +1,27 @@
-# Alpha 冲刺 Day 3 · 成员 8 自动化复跑与联调状态
+# Alpha 冲刺 Day 3 · 曾俊涛测试交付索引
 
-执行日：2026-10-25；负责人：曾俊涛。依据组长七天执行计划 Day 3：陪伴、训练、查询的成功／异常自动化和首个登录到陪伴端到端用例。`02` 与旧日志保留 10 月 24 日提前预跑；**10 月 25 日实测以 `06` 号报告和当日 TAP 为准**。基线 `main@a25c912` 只增加本人 Day 2 文件，产品源码与前一次核对版本相同。本目录按 `docs/alpha/曾俊涛/Day3_20261025/` 的仓库路径组织；测试脚本的相对导入指向同仓库 `backend/`。
+日期：2026-10-25；角色：测试／运维。以组长七天执行计划 Day 3 为首要任务依据。此目录保留各固定 SHA 的历史执行记录，并在 08 号报告中给出最新判定。
 
-| 文件 | 内容 |
+先读[08_最新主线与成员交付独立验收_20261025.md](08_最新主线与成员交付独立验收_20261025.md)：GitHub main@55b173c 后端 96/96、前端 6/6 与双入口构建通过；真实浏览器注册/登录/资料/退出成功，陪伴页面仍为静态演示，0 次业务 API；真实 Wikipedia 8 秒超时。AI PR #40 的本人新增认证 HTTP 测试 3/3 通过，但 PR 未合并且模型、许可均为替身。不能把各层的通过数相加为“整体端到端通过”。
+
+| 文件 | 用途 |
 |---|---|
-| [01_Day3场景测试矩阵.md](01_Day3场景测试矩阵.md) | 覆盖目标、当前可执行层、真实集成条件与判定状态 |
-| [02_首轮独立执行与阻塞报告.md](02_首轮独立执行与阻塞报告.md) | 本人固定版本六项本地 HTTP/PGlite 测试、真实检索尝试和阻断点 |
-| [03_登录到陪伴端到端用例与取证方案.md](03_登录到陪伴端到端用例与取证方案.md) | 可执行验收步骤、录像与网络证据要求；当前未冒写成功 |
-| [04_接口与版本交接需求.md](04_接口与版本交接需求.md) | 为继续测试所需的具体版本、接口和安全修复交接 |
-| [05_Day3个人进展记录_20261025.md](05_Day3个人进展记录_20261025.md) | 本人当日实际测试进展、困难与 AI 辅助情况；不代写团队会议或工时 |
-| [06_当日自动化复跑与端到端状态_20261025.md](06_当日自动化复跑与端到端状态_20261025.md) | 今日 11/11 的真实层次、公开检索超时和端到端阻塞结论 |
-| [tests/day3-search-session-http.test.mjs](tests/day3-search-session-http.test.mjs) | 六项查询及一项 `REHEARSE` 状态本地 HTTP/PGlite 测试；检索源为替身 |
-| [tests/day3-companion-adapter.test.mjs](tests/day3-companion-adapter.test.mjs) | 四项命名卡与陪伴适配层合成用例，无真实模型调用 |
-| [tests/day3-real-search-smoke.mjs](tests/day3-real-search-smoke.mjs) | 公共维基百科检索一次性冒烟，不使用私人内容 |
-| [day3-tests-20261025-a25c912-local.tap](day3-tests-20261025-a25c912-local.tap)、[day3-real-search-20261025-a25c912-local.json](day3-real-search-20261025-a25c912-local.json) | 今日原始执行输出：11/11 与真实公开检索超时 |
-| [day3-repo-layout-20261025-a25c912-local.tap](day3-repo-layout-20261025-a25c912-local.tap) | 将仓库式相对导入副本放入对应 `docs/` 路径后再次复跑，11/11 通过 |
-| [day3-preflight-0ee6d-local.tap](day3-preflight-0ee6d-local.tap)、[day3-real-search-0ee6d-local.json](day3-real-search-0ee6d-local.json) | 10 月 24 日提前预跑原始输出 |
-| [SHA256SUMS.txt](SHA256SUMS.txt) | 本目录其余文件的 SHA-256 校验清单 |
+| [01_Day3场景测试矩阵.md](01_Day3场景测试矩阵.md) | 陪伴、训练、查询及首个端到端的当前判定 |
+| [03_登录到陪伴端到端用例与取证方案.md](03_登录到陪伴端到端用例与取证方案.md) | 已执行的真实账号段、未完成的业务段与截图规则 |
+| [04_接口与版本交接需求.md](04_接口与版本交接需求.md) | 仅剩的接线、真实调用和来源映射条件 |
+| [05_Day3个人进展记录_20261025.md](05_Day3个人进展记录_20261025.md) | 本人当日工作及晚间更新 |
+| [08_最新主线与成员交付独立验收_20261025.md](08_最新主线与成员交付独立验收_20261025.md) | 最新结论、版本、日志与截图证据 |
+| [02_首轮独立执行与阻塞报告.md](02_首轮独立执行与阻塞报告.md)、[06_当日自动化复跑与端到端状态_20261025.md](06_当日自动化复跑与端到端状态_20261025.md)、[07_新主线增量复核与截图交接_20261025.md](07_新主线增量复核与截图交接_20261025.md) | 较早 SHA 的历史执行记录；旧 404/400 与 5 条 D2 红灯已在当前主线复测转绿 |
+| [tests/day3-search-session-http.test.mjs](tests/day3-search-session-http.test.mjs)、[tests/day3-companion-adapter.test.mjs](tests/day3-companion-adapter.test.mjs)、[tests/day3-real-search-smoke.mjs](tests/day3-real-search-smoke.mjs) | 本人原有 Day 3 查询、陪伴合成及真实外网冒烟脚本 |
+| [tests/day3-main-browser-auth-to-companion.mjs](tests/day3-main-browser-auth-to-companion.mjs) | 主线原样 Vite 代理＋Edge 账号到演示陪伴入口脚本 |
+| [tests/day3-pr40-authenticated-business-http.mjs](tests/day3-pr40-authenticated-business-http.mjs) | AI PR #40 的真实账号、合成模型/许可替身 HTTP 独立用例 |
 
-## 从仓库根目录复跑
+原始证据：主线[全量后端 96/96](day3-main-backend-full-20261025-55b173c.log)、[安全聚焦 6/6](day3-main-security-focused-20261025-55b173c.log)、[本人 11/11](day3-repo-layout-20261025-6e69910-local.tap)、[浏览器 JSON](browser-day3-main-6e69910.json)、[真实检索 JSON](day3-real-search-20261025-6e69910-local.json)；PR #40 [本人 3/3](day3-pr40-authenticated-business-http-20261025-4c34852.tap)、[作者套件复跑 27/27](day3-pr40-ai-tests-20261025-4c34852.log)。两张真实浏览器截图分别为[登录成功](browser-05-main-login-success-6e69910.png)与[陪伴演示入口](browser-06-main-companion-entry-6e69910.png)。
 
-先按 `backend/pnpm-lock.yaml` 安装后端依赖（Node.js 24、pnpm 11）；再从仓库根目录执行：
+组长博客可用的更新截图包另存本地；所有结果按固定 SHA 和“真实浏览器／HTTP 替身／真实外网”层次标注。真实模型、真实检索成功及完整页面业务联调仍无证据。
 
-```text
-cd backend
-pnpm install --frozen-lockfile
-cd ..
-node --test --test-reporter=tap docs/alpha/曾俊涛/Day3_20261025/tests/day3-search-session-http.test.mjs docs/alpha/曾俊涛/Day3_20261025/tests/day3-companion-adapter.test.mjs
-node docs/alpha/曾俊涛/Day3_20261025/tests/day3-real-search-smoke.mjs
-```
+## 增量脚本复跑
 
-第一行只启动本机环回 HTTP、PGlite 和合成模型／检索替身；第二行会向公开中文 Wikipedia 发出合成词查询，可能因网络超时返回非零退出码。**不要把脚本的离线 11/11 当作真实模型、真实查询或浏览器端到端通过。** 本地原执行脚本位于另一个工作目录；仓库副本仅调整相对导入路径，测试断言未改。仓库式路径已在含固定产品源码的本地目录中实际复跑，原始结果见上表。
+- 主线浏览器脚本需 Node 24、已安装的前后端依赖、Playwright Core 与 Microsoft Edge。设置 `PLAYWRIGHT_MODULE_PATH` 指向本机 `playwright-core/index.mjs`；若源码在另一目录，用 `DAY3_REPO_ROOT` 指向固定 SHA 的仓库根目录；可用 `EDGE_EXECUTABLE_PATH` 指定 Edge。此脚本会在 `DAY3_OUTPUT_DIR`（默认本目录）写入 JSON 与两张截图，并使用本机 3000/5173 端口及隔离 PGlite。账号为随机合成值。记录的是账号到演示陪伴入口，不会调用真实模型。
+- [PR #40 专项脚本](tests/day3-pr40-authenticated-business-http.mjs)需在 `4c34852` 的完整仓库 checkout 上运行，或以 `DAY3_PR_REPO_ROOT` 指向该 checkout；主线未合并训练服务时不能直接在主线上运行。脚本使用真实 AuthService/PGlite，但注入合成模型和许可替身，不产生外部模型请求。`node --test` 输出与本目录 TAP 可对照。
 
-**当前结论：** 今日复跑 **11/11 通过**，其中陪伴适配层四项为合成模型替身，查询及会话七项使用本地 HTTP/PGlite 与替身检索源；均不证明真实模型、真实搜索或页面联调。默认 `zh` Wikipedia 今日直连再次 **8 秒超时**。主线原样认证的 `/api` 404 和目标键 400 尚未修复，陪伴页面与正式业务 API 未接通；登录到陪伴的真实浏览器端到端及核心流程录像**仍无完成证据**。
-
-本目录的结论固定于上述版本和执行日期。后续修复须另记复测 SHA 与原始证据，不回填历史通过数。

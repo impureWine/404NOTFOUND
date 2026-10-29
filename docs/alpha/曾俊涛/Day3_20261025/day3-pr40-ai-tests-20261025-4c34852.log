@@ -1,0 +1,39 @@
+
+> 404notfound-data-service@0.1.0 test:ai
+> node --test test/unit/model-config.test.js test/unit/model-adapter.test.js test/unit/naming-card-router.test.js test/unit/companion-task.test.js test/unit/training-service.test.js test/integration/model-http.test.js test/integration/companion-training-http.test.js
+
+✔ HTTP flow routes naming card, completes companion reply, and controls one training (170.9063ms)
+✔ model endpoint returns a normal unified response without caching (69.0626ms)
+✔ model endpoint exposes stable timeout and unavailable prompts (12.8575ms)
+✔ model endpoint hides unexpected adapter errors behind the unavailable prompt (5.282ms)
+✔ companion task calls the constrained model request and exposes a completed reply (8.1379ms)
+✔ model timeout becomes a stable task failure reason (0.684ms)
+✔ pause cancels an in-flight model task and a late reply cannot refill it after resume (1.1433ms)
+✔ ending a session also rejects an in-flight late model reply (0.9473ms)
+✔ model input contains only the approved payload fields (3.9054ms)
+✔ model input rejects memories without explicit authorization (1.2212ms)
+✔ adapter maps a valid provider response to the unified contract (1.4346ms)
+✔ adapter accepts a JSON object wrapped in a Markdown fence (0.3446ms)
+✔ adapter rejects an action outside the request allowlist (0.3563ms)
+✔ failure substitute returns stable errors without calling a provider (0.2881ms)
+✔ adapter returns an unavailable message when the API key is missing (0.144ms)
+✔ adapter enforces its timeout even if the provider does not settle (1011.628ms)
+✔ uses the approved free model and official API address by default (1.1169ms)
+✔ blocks any model outside the approved free model (0.3256ms)
+✔ blocks any API address outside the approved official endpoint (0.0992ms)
+✔ accepts a bounded model timeout and rejects unsafe values (0.8401ms)
+✔ naming card routes listening and organizing needs to companion mode (2.4998ms)
+✔ naming card routes search need to clarification before querying (0.1958ms)
+✔ naming card does not route before the user selects a need (0.1146ms)
+✔ naming card rejects duplicate or unknown selections (1.0062ms)
+✔ five-senses training pauses without advancing and resumes at the same step (3.0137ms)
+✔ five-senses training advances deterministically and exits in one action (0.5077ms)
+✔ training sessions are isolated by owner and reject stale actions (0.2402ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1579.2185

@@ -33,7 +33,16 @@ export const updateRecordRequestSchema = z.strictObject({
   content: recordContentSchema,
 });
 
-export const clearConfirmationRequestSchema = z.strictObject({ requestId: requestIdSchema });
+export const listRecordsQuerySchema = z.strictObject({
+  kind: recordKindSchema.optional(),
+  limit: z.coerce.number().int().min(1).max(50).default(20),
+  cursor: z.string().min(1).max(2048).optional(),
+});
+
+export const clearConfirmationRequestSchema = z.strictObject({
+  requestId: requestIdSchema,
+  expectedVersion: positiveVersionSchema,
+});
 export const clearRecordRequestSchema = z.strictObject({
   requestId: requestIdSchema,
   expectedVersion: positiveVersionSchema,

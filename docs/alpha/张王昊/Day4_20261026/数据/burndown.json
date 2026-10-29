@@ -1,0 +1,58 @@
+{
+  "as_of": "2026-10-26T14:31:04+08:00",
+  "initial_sp": 100,
+  "accepted_events": [],
+  "unaccepted_evidence_sp": 100,
+  "actual_day4_eod": null,
+  "note": "没有完整且映射到任务的验收签认事件，实际日终留空；100仅为未获完整验收证据的台账点数，不表示开发工作没有发生。",
+  "series": [
+    {
+      "day": 0,
+      "ideal": 100,
+      "plan": 100,
+      "actual": 100
+    },
+    {
+      "day": 1,
+      "ideal": 85.7,
+      "plan": 88,
+      "actual": null
+    },
+    {
+      "day": 2,
+      "ideal": 71.4,
+      "plan": 72,
+      "actual": null
+    },
+    {
+      "day": 3,
+      "ideal": 57.1,
+      "plan": 54,
+      "actual": null
+    },
+    {
+      "day": 4,
+      "ideal": 42.9,
+      "plan": 36,
+      "actual": null
+    },
+    {
+      "day": 5,
+      "ideal": 28.6,
+      "plan": null,
+      "actual": null
+    },
+    {
+      "day": 6,
+      "ideal": 14.3,
+      "plan": null,
+      "actual": null
+    },
+    {
+      "day": 7,
+      "ideal": 0.0,
+      "plan": null,
+      "actual": null
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+
+> 404notfound-prototype@1.0.0 build
+> vite build
+
+vite v6.4.4 building for production...
+transforming...
+✓ 1588 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                          0.51 kB │ gzip:  0.34 kB
+dist/ux-components.html                  0.82 kB │ gzip:  0.51 kB
+dist/assets/current-home-iZDCqHQs.css   16.36 kB │ gzip:  3.71 kB
+dist/assets/uxComponents-kY-xrX59.css   29.26 kB │ gzip:  5.75 kB
+dist/assets/main-DtkLu7pg.js            18.41 kB │ gzip:  6.78 kB
+dist/assets/uxComponents-DioYeY3C.js    66.33 kB │ gzip: 20.76 kB
+dist/assets/current-home-G5V1DfsF.js   158.14 kB │ gzip: 51.05 kB
+✓ built in 5.10s

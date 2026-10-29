@@ -1,0 +1,198 @@
+{
+  "commit": "2c756cf5666b424f643098e029ed2bda2f4c2d1d",
+  "recordedAt": "2026-10-26T06:18:30.486Z",
+  "environment": "PGlite memory + localhost; synthetic accounts; counted mock model; no browser or real model",
+  "checks": [
+    {
+      "id": "D4-01",
+      "name": "默认不保存；游客不得读取私密历史",
+      "expected": {
+        "records": 0,
+        "guest": 401
+      },
+      "actual": {
+        "records": 0,
+        "guest": 401
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-02",
+      "name": "无许可拒绝；签发SAVE许可不自动保存",
+      "expected": {
+        "denied": 403,
+        "afterGrant": 0
+      },
+      "actual": {
+        "denied": 403,
+        "afterGrant": 0
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-03",
+      "name": "保存载荷与许可绑定",
+      "expected": {
+        "status": 403
+      },
+      "actual": {
+        "status": 403
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-04",
+      "name": "主动保存与同请求重放",
+      "expected": {
+        "first": 201,
+        "replay": 201,
+        "sameId": true
+      },
+      "actual": {
+        "first": 201,
+        "replay": 201,
+        "sameId": true
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-05",
+      "name": "受测正文与标题不以明文入库",
+      "expected": {
+        "plaintext": false
+      },
+      "actual": {
+        "plaintext": false
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-06",
+      "name": "本人列表与详情受理",
+      "expected": {
+        "list": 1,
+        "detail": 200
+      },
+      "actual": {
+        "list": 1,
+        "detail": 200
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-07",
+      "name": "本人历史能够恢复可展示正文（纵向交付门槛）",
+      "expected": {
+        "readableBody": true,
+        "ciphertextExposed": false
+      },
+      "actual": {
+        "readableBody": false,
+        "ciphertextExposed": true
+      },
+      "pass": false,
+      "layer": "API/UI交接"
+    },
+    {
+      "id": "D4-08",
+      "name": "账号B不可见账号A记录",
+      "expected": {
+        "list": 0,
+        "detail": 404
+      },
+      "actual": {
+        "list": 0,
+        "detail": 404
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-09",
+      "name": "同账号跨入口及上下文换发不扩大读取范围",
+      "expected": {
+        "direct": 404,
+        "refreshed": 404
+      },
+      "actual": {
+        "direct": 404,
+        "refreshed": 404
+      },
+      "pass": true,
+      "layer": "服务端夹具入口/HTTP"
+    },
+    {
+      "id": "D4-10",
+      "name": "严格列表参数与过期版本拒绝",
+      "expected": {
+        "limit": 400,
+        "unknown": 400,
+        "stale": 409
+      },
+      "actual": {
+        "limit": 400,
+        "unknown": 400,
+        "stale": 409
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-11",
+      "name": "两步清除、幂等与读取/正文同步失效",
+      "expected": {
+        "clear": 200,
+        "replay": 200,
+        "detail": 404,
+        "list": 0,
+        "messages": 0
+      },
+      "actual": {
+        "clear": 200,
+        "replay": 200,
+        "detail": 404,
+        "list": 0,
+        "messages": 0
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    },
+    {
+      "id": "D4-12",
+      "name": "登录本身不足以替代Origin/CSRF与AI_PROCESS许可",
+      "expected": {
+        "denied": true,
+        "adapterCalls": 0
+      },
+      "actual": {
+        "status": 200,
+        "adapterCalls": 1,
+        "mock": true
+      },
+      "pass": false,
+      "layer": "安全替身，无真实模型"
+    },
+    {
+      "id": "D4-13",
+      "name": "退出后旧Cookie拒绝私密历史",
+      "expected": {
+        "logout": 204,
+        "history": 401
+      },
+      "actual": {
+        "logout": 204,
+        "history": 401
+      },
+      "pass": true,
+      "layer": "HTTP/PGlite"
+    }
+  ],
+  "passed": 11,
+  "failed": 2
+}

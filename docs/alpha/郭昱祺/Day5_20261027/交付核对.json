@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-27T14:00:20.032581+00:00",
+  "status": "passed",
+  "scope": "本地交付核对；不表示 GitHub 上传、非作者评审或真实服务验收",
+  "browserCheckGroups": {
+    "day5": 36,
+    "day4Regression": 77,
+    "total": 113
+  },
+  "screenshots": {
+    "day5": 21,
+    "day4Regression": 29
+  },
+  "pptx": {
+    "file": "UX_界面原型设计答辩_初稿_v0.1_20261027.pptx",
+    "bytes": 153710,
+    "sha256": "f83b1e932051330f6fa8aca43c9a8f50833e35fd6823ab47268eed6abb81e053",
+    "slides": 12,
+    "notes": 12,
+    "masters": 1,
+    "layouts": 5,
+    "renderedPages": 12,
+    "placeholders": 0
+  },
+  "localMarkdownLinksChecked": 107,
+  "publishedToGitHub": false
+}

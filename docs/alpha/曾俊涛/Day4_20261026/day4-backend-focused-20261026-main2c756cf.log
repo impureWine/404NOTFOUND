@@ -1,0 +1,40 @@
+✔ record API binds SAVE consent, isolates owners, encrypts content and clears in two steps (1451.6667ms)
+✔ Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope (774.1454ms)
+✔ records are isolated by both account and entry point (1067.1244ms)
+✔ same idempotency key returns the original record and rejects changed payload (515.23ms)
+✔ record update enforces scope, version, editable kind, and idempotency (557.8375ms)
+✔ clear enforces version and scope, hides the record, and creates deletion outbox state (470.9147ms)
+✔ record cursors are opaque and bound to account, entry, and kind (468.5626ms)
+✔ clear confirmation expires after its two-minute window (421.0756ms)
+✔ record type details are written in the same transaction (447.6978ms)
+✔ D2-01 注册→登录→查看本人资料→退出，旧 Cookie 失效 (1500.2036ms)
+✔ D2-02 大小写与 NFKC 同名被拒绝，账号相关表没有重复行 (127.3231ms)
+✔ D2-03 重复注册响应不得明确披露登录名已被使用 (43.1198ms)
+✔ D2-04 密码为实际 Argon2id 摘要，会话仅保存 32 字节摘要 (1.3572ms)
+✔ D2-05 未登录或随机伪造 Cookie 不能读取资料和记录 (57.1249ms)
+✔ D2-06 绝对过期会话不能读取资料 (14.819ms)
+✔ D2-07 空闲过期会话不能读取资料 (16.0637ms)
+✔ D2-08 已撤销会话不能读取资料 (16.212ms)
+✔ D2-09 改密撤销两个旧会话，旧密码失败、新密码可登录 (322.3349ms)
+✔ D2-10 不存在账号与错误密码返回相同错误 (77.8116ms)
+✔ D2-11 伪造 accountId 的查询只能返回当前 B 的资料，写入额外归属字段被拒绝 (39.7671ms)
+✔ D2-12 B 读 A 的记录与读不存在记录均为同一 404，列表不泄露 A 的记录 (34.1599ms)
+✔ D2-13 B 不能给 A 的记录签发清除确认，A 的记录仍在 (30.7453ms)
+✔ D2-14 服务端切换入口后不能读取 WEB 记录，客户端入口参数不能绕过 (19.007ms)
+✔ D2-15 缺少/错误 CSRF 与外部 Origin 的写入被拒绝 (40.1221ms)
+✔ D2-16 HTTP Cookie 包含 HttpOnly/SameSite/Path，安全配置生成 Host Cookie (15.3349ms)
+✔ D2-17 未知数据库异常不得把内部错误信息返回客户端（异常注入） (15.6245ms)
+✔ D2-18 非法 JSON 应为 400 且有请求标识 (15.6221ms)
+✔ D2-19 登录、资料响应和捕获的 console 不泄露敏感值 (76.3829ms)
+✔ D2-20 未认证请求不能触发内部模型适配器（路由替身） (4.4289ms)
+✔ D2-21 preload 不能传入任意 IPC 通道，订阅可解除（VM 替身） (3.427ms)
+✔ D2-22 获取认证上下文不应把 DESKTOP 会话重绑定为 WEB 并开放 WEB 记录 (39.2763ms)
+✔ consent is owner, scope, expiry, revocation and payload bound (11.0874ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 32
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4149.8528

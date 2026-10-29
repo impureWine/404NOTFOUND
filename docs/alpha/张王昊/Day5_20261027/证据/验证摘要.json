@@ -1,0 +1,103 @@
+{
+  "as_of": "2026-10-27T10:39:44+08:00",
+  "source_commit": "66504bc3dc382c237c3650fb9d7ce8525a4f6478",
+  "backend": {
+    "tests": 115,
+    "pass": 115,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "frontend": {
+    "pass": 6,
+    "fail": 0
+  },
+  "record": {
+    "pass": 11,
+    "fail": 2
+  },
+  "core": {
+    "pass": 9,
+    "fail": 3
+  },
+  "contract": {
+    "pass": 1,
+    "fail": 5
+  },
+  "business": {
+    "pass": 8,
+    "fail": 4
+  },
+  "live_search": {
+    "commit": "66504bc3dc382c237c3650fb9d7ce8525a4f6478",
+    "recordedAt": "2026-10-27T02:09:16.825Z",
+    "provider": "https://zh.wikipedia.org/w/api.php",
+    "syntheticQuestion": "PostgreSQL",
+    "timeoutMs": 8000,
+    "elapsedMs": 8009,
+    "state": "TIMEOUT",
+    "sourceCount": 0,
+    "success": false
+  },
+  "browser": {
+    "commit": "66504bc3dc382c237c3650fb9d7ce8525a4f6478",
+    "recordedAt": "2026-10-27T02:20:49.078Z",
+    "browser": "Microsoft Edge headless 1440x1100",
+    "buildMode": "unmodified default production build, mock API mode; no business backend",
+    "main": {
+      "status": 200,
+      "title": "404NOTFOUND · 404烦恼未找到",
+      "destroyControls": [],
+      "textareaCount": 0,
+      "privateRecordsNotConnectedNotice": true,
+      "screenshot": "day5-main-home.png"
+    },
+    "candidates": [
+      {
+        "path": "/destroy",
+        "status": 404,
+        "hasDestroyUi": false,
+        "textareaCount": 0
+      },
+      {
+        "path": "/text-destroy.html",
+        "status": 404,
+        "hasDestroyUi": false,
+        "textareaCount": 0
+      },
+      {
+        "path": "/destroy.html",
+        "status": 404,
+        "hasDestroyUi": false,
+        "textareaCount": 0
+      },
+      {
+        "path": "/?page=destroy",
+        "status": 200,
+        "hasDestroyUi": false,
+        "textareaCount": 0
+      },
+      {
+        "path": "/#destroy",
+        "status": 200,
+        "hasDestroyUi": false,
+        "textareaCount": 0
+      }
+    ],
+    "ux": {
+      "title": "本人历史 · HS-N · UX 组件展示",
+      "syntheticNotice": true,
+      "screenshot": "day5-ux-history.png"
+    },
+    "requestCount": 27,
+    "apiRequests": 0,
+    "pageErrors": [],
+    "destructionRuntimeVerdict": "NOT-EXECUTED: main has no reachable destroy UI",
+    "privacyInteractionExecuted": false,
+    "wholeE2EPassed": false
+  },
+  "test_sets_overlap": true,
+  "real_model_rerun": false,
+  "formal_pg16": false,
+  "team_signoff": false
+}

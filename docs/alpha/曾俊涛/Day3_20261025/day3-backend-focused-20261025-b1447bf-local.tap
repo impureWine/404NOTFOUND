@@ -1,0 +1,82 @@
+TAP version 13
+# Subtest: saved query copies server-owned completed search evidence and enforces isolation
+ok 1 - saved query copies server-owned completed search evidence and enforces isolation
+  ---
+  duration_ms: 857.7707
+  type: 'test'
+  ...
+# Subtest: saved query rejects client supplied evidence and invalid server evidence
+ok 2 - saved query rejects client supplied evidence and invalid server evidence
+  ---
+  duration_ms: 492.5123
+  type: 'test'
+  ...
+# Subtest: empty or unfinished searches cannot be persisted as query history
+ok 3 - empty or unfinished searches cannot be persisted as query history
+  ---
+  duration_ms: 510.6026
+  type: 'test'
+  ...
+# Subtest: persistent query status follows conflict, partial, stale, success priority
+ok 4 - persistent query status follows conflict, partial, stale, success priority
+  ---
+  duration_ms: 0.2398
+  type: 'test'
+  ...
+# Subtest: provider maps real-source fields without inventing claims
+ok 5 - provider maps real-source fields without inventing claims
+  ---
+  duration_ms: 19.9742
+  type: 'test'
+  ...
+# Subtest: provider distinguishes an empty result
+ok 6 - provider distinguishes an empty result
+  ---
+  duration_ms: 0.5082
+  type: 'test'
+  ...
+# Subtest: provider marks incomplete results partial
+ok 7 - provider marks incomplete results partial
+  ---
+  duration_ms: 0.5638
+  type: 'test'
+  ...
+# Subtest: provider rejects a non-empty result containing only invalid sources
+ok 8 - provider rejects a non-empty result containing only invalid sources
+  ---
+  duration_ms: 0.6549
+  type: 'test'
+  ...
+# Subtest: provider rejects API errors, invalid JSON, and unsafe configuration
+ok 9 - provider rejects API errors, invalid JSON, and unsafe configuration
+  ---
+  duration_ms: 0.7368
+  type: 'test'
+  ...
+# Subtest: provider reports timeout separately from other upstream errors
+ok 10 - provider reports timeout separately from other upstream errors
+  ---
+  duration_ms: 4.8958
+  type: 'test'
+  ...
+# Subtest: provider maps network faults to service unavailable
+ok 11 - provider maps network faults to service unavailable
+  ---
+  duration_ms: 0.3564
+  type: 'test'
+  ...
+# Subtest: provider preserves caller cancellation instead of reporting a timeout
+ok 12 - provider preserves caller cancellation instead of reporting a timeout
+  ---
+  duration_ms: 0.6521
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 12
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2084.9065

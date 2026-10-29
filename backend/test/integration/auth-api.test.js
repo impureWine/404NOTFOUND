@@ -121,6 +121,13 @@ test('register, login, profile, logout and password change form a real isolated 
       target: 'PROFILE',
     });
     assert.equal(freshLogin.status, 200);
+
+    const logoutContext = await context(baseUrl, freshLogin.headers.get('set-cookie').split(';')[0]);
+    const logout = await post(baseUrl, '/api/auth/logout', logoutContext);
+    assert.equal(logout.status, 204);
+    assert.match(logout.headers.get('set-cookie'), /Max-Age=0/);
+    const afterLogout = await fetch(`${baseUrl}/api/profile`, { headers: { Cookie: logoutContext.cookie } });
+    assert.equal(afterLogout.status, 401);
   });
 });
 
@@ -150,5 +157,39 @@ test('mutating routes reject missing CSRF and foreign Origin', async () => {
       body,
     });
     assert.equal(foreignOrigin.status, 403);
+  });
+});
+
+test('password change revokes every active session for the account', async () => {
+  await withApi(async ({ baseUrl }) => {
+    const password = 'correct-horse-battery';
+    const firstAnonymous = await context(baseUrl);
+    const registered = await post(baseUrl, '/api/auth/register', firstAnonymous, {
+      requestId,
+      loginName: 'multi_session_user',
+      password,
+      confirmPassword: password,
+    });
+    assert.equal(registered.status, 201);
+    const secondAnonymous = await context(baseUrl);
+    const firstLogin = await post(baseUrl, '/api/auth/login', firstAnonymous, {
+      loginName: 'multi_session_user', password, target: 'PROFILE',
+    });
+    const secondLogin = await post(baseUrl, '/api/auth/login', secondAnonymous, {
+      loginName: 'multi_session_user', password, target: 'PROFILE',
+    });
+    assert.equal(firstLogin.status, 200);
+    assert.equal(secondLogin.status, 200);
+    const first = await context(baseUrl, firstLogin.headers.get('set-cookie').split(';')[0]);
+    const second = await context(baseUrl, secondLogin.headers.get('set-cookie').split(';')[0]);
+
+    const changed = await post(baseUrl, '/api/auth/change-password', first, {
+      currentPassword: password,
+      newPassword: 'another-valid-password',
+      confirmPassword: 'another-valid-password',
+    });
+    assert.equal(changed.status, 204);
+    assert.equal((await fetch(`${baseUrl}/api/profile`, { headers: { Cookie: first.cookie } })).status, 401);
+    assert.equal((await fetch(`${baseUrl}/api/profile`, { headers: { Cookie: second.cookie } })).status, 401);
   });
 });

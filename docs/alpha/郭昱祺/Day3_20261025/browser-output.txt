@@ -1,0 +1,93 @@
+PASS login/normal width=1440
+PASS login/loading width=1440
+PASS login/empty width=1440
+PASS login/error width=1440
+PASS home/normal width=1440
+PASS home/loading width=1440
+PASS home/empty width=1440
+PASS home/error width=1440
+PASS chat/normal width=1440
+PASS chat/loading width=1440
+PASS chat/empty width=1440
+PASS chat/error width=1440
+PASS chat/timeout width=1440
+PASS sources/normal width=1440
+PASS sources/loading width=1440
+PASS sources/empty width=1440
+PASS sources/error width=1440
+PASS sources/timeout width=1440
+PASS emotion/normal width=1440
+PASS emotion/loading width=1440
+PASS emotion/empty width=1440
+PASS emotion/error width=1440
+PASS training/normal width=1440
+PASS training/loading width=1440
+PASS training/empty width=1440
+PASS training/error width=1440
+PASS login/normal width=390
+PASS login/loading width=390
+PASS login/empty width=390
+PASS login/error width=390
+PASS home/normal width=390
+PASS home/loading width=390
+PASS home/empty width=390
+PASS home/error width=390
+PASS chat/normal width=390
+PASS chat/loading width=390
+PASS chat/empty width=390
+PASS chat/error width=390
+PASS chat/timeout width=390
+PASS sources/normal width=390
+PASS sources/loading width=390
+PASS sources/empty width=390
+PASS sources/error width=390
+PASS sources/timeout width=390
+PASS emotion/normal width=390
+PASS emotion/loading width=390
+PASS emotion/empty width=390
+PASS emotion/error width=390
+PASS training/normal width=390
+PASS training/loading width=390
+PASS training/empty width=390
+PASS training/error width=390
+PASS login/normal width=320
+PASS login/loading width=320
+PASS login/empty width=320
+PASS login/error width=320
+PASS home/normal width=320
+PASS home/loading width=320
+PASS home/empty width=320
+PASS home/error width=320
+PASS chat/normal width=320
+PASS chat/loading width=320
+PASS chat/empty width=320
+PASS chat/error width=320
+PASS chat/timeout width=320
+PASS sources/normal width=320
+PASS sources/loading width=320
+PASS sources/empty width=320
+PASS sources/error width=320
+PASS sources/timeout width=320
+PASS emotion/normal width=320
+PASS emotion/loading width=320
+PASS emotion/empty width=320
+PASS emotion/error width=320
+PASS training/normal width=320
+PASS training/loading width=320
+PASS training/empty width=320
+PASS training/error width=320
+PASS login validation, focus, visibility and local-only submit
+PASS chat failure restore and end confirmation
+PASS source citation expands and focuses current source
+PASS home retry and shared sidebar preview navigation
+PASS sidebar, brand, header, hero button and tools match reference computed styles
+PASS original homepage login and register still open and close
+PASS mobile shared menu navigates and closes
+PASS emotion requires a choice, caps three words and carries only selected words without sending
+PASS description-only carry needs explicit checkbox and is memory-only
+PASS emotion validates Unicode code points at 4000/4001 without truncation
+PASS chat timeout is unresolved, blocks duplicate send and preserves submitted snapshot
+PASS query timeout, explicit failure, successful EMPTY and initial empty remain distinct
+PASS training starts, pauses without advancing, resumes, completes, exits and resets
+PASS homepage tools and six-scene navigation reach Day3 components
+PASS local component walkthrough makes zero API requests

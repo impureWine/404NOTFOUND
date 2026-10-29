@@ -1,0 +1,78 @@
+PASS save/normal renders without horizontal overflow at 1440px
+PASS save/loading renders without horizontal overflow at 1440px
+PASS save/empty renders without horizontal overflow at 1440px
+PASS save/error renders without horizontal overflow at 1440px
+PASS save/timeout renders without horizontal overflow at 1440px
+PASS save/success renders without horizontal overflow at 1440px
+PASS save/expired renders without horizontal overflow at 1440px
+PASS history/normal renders without horizontal overflow at 1440px
+PASS history/loading renders without horizontal overflow at 1440px
+PASS history/empty renders without horizontal overflow at 1440px
+PASS history/error renders without horizontal overflow at 1440px
+PASS history/expired renders without horizontal overflow at 1440px
+PASS record-detail/normal renders without horizontal overflow at 1440px
+PASS record-detail/loading renders without horizontal overflow at 1440px
+PASS record-detail/empty renders without horizontal overflow at 1440px
+PASS record-detail/error renders without horizontal overflow at 1440px
+PASS record-detail/expired renders without horizontal overflow at 1440px
+PASS record-detail/unavailable renders without horizontal overflow at 1440px
+PASS record-detail/conflict renders without horizontal overflow at 1440px
+PASS save/normal renders without horizontal overflow at 390px
+PASS save/loading renders without horizontal overflow at 390px
+PASS save/empty renders without horizontal overflow at 390px
+PASS save/error renders without horizontal overflow at 390px
+PASS save/timeout renders without horizontal overflow at 390px
+PASS save/success renders without horizontal overflow at 390px
+PASS save/expired renders without horizontal overflow at 390px
+PASS history/normal renders without horizontal overflow at 390px
+PASS history/loading renders without horizontal overflow at 390px
+PASS history/empty renders without horizontal overflow at 390px
+PASS history/error renders without horizontal overflow at 390px
+PASS history/expired renders without horizontal overflow at 390px
+PASS record-detail/normal renders without horizontal overflow at 390px
+PASS record-detail/loading renders without horizontal overflow at 390px
+PASS record-detail/empty renders without horizontal overflow at 390px
+PASS record-detail/error renders without horizontal overflow at 390px
+PASS record-detail/expired renders without horizontal overflow at 390px
+PASS record-detail/unavailable renders without horizontal overflow at 390px
+PASS record-detail/conflict renders without horizontal overflow at 390px
+PASS save/normal renders without horizontal overflow at 320px
+PASS save/loading renders without horizontal overflow at 320px
+PASS save/empty renders without horizontal overflow at 320px
+PASS save/error renders without horizontal overflow at 320px
+PASS save/timeout renders without horizontal overflow at 320px
+PASS save/success renders without horizontal overflow at 320px
+PASS save/expired renders without horizontal overflow at 320px
+PASS history/normal renders without horizontal overflow at 320px
+PASS history/loading renders without horizontal overflow at 320px
+PASS history/empty renders without horizontal overflow at 320px
+PASS history/error renders without horizontal overflow at 320px
+PASS history/expired renders without horizontal overflow at 320px
+PASS record-detail/normal renders without horizontal overflow at 320px
+PASS record-detail/loading renders without horizontal overflow at 320px
+PASS record-detail/empty renders without horizontal overflow at 320px
+PASS record-detail/error renders without horizontal overflow at 320px
+PASS record-detail/expired renders without horizontal overflow at 320px
+PASS record-detail/unavailable renders without horizontal overflow at 320px
+PASS record-detail/conflict renders without horizontal overflow at 320px
+PASS save defaults unselected; 80 Unicode code points accepted, 81 and blank title blocked
+PASS snapshot includes only selected message; consent unchecked, safe focus, modal focus containment and Escape cancel without saving
+PASS new range resets consent; repeated confirmation inserts once; history metadata leads to exact saved detail
+PASS clear confirmation defaults retain; cancel preserves body; clear removes selected record and active detail
+PASS history filter distinguishes no match from failure; retry restores metadata and destruction guide opens in place
+PASS detail read retry restores body; conflict hides stale content and requires re-read plus new confirmation
+PASS timeout keeps selection locked; explicit failed fixture requires a fresh save confirmation
+PASS guest default discards selected text on simulated login; no automatic saved record
+PASS guest opt-in carries only selected text in page memory; logged-in preview and new consent still required
+PASS simulated A/B change clears active detail and pending selection; metadata stays in its fixture account
+PASS guest history and detail hide fixture body; login returns to metadata selection
+PASS expired save hides selection and history hides rows; relogin prepares a fresh local view
+PASS local records reset on refresh; storage empty, URL only scenario keys, no business API requests during showcase walkthrough
+PASS existing login normal scene smoke check
+PASS existing home normal scene smoke check
+PASS existing chat normal scene smoke check
+PASS existing sources normal scene smoke check
+PASS existing emotion normal scene smoke check
+PASS existing training normal scene smoke check
+PASS no page errors during walkthrough
+RESULT passed: 77 checks; 29 screenshots

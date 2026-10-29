@@ -1,0 +1,49 @@
+{
+  "as_of": "2026-10-26T14:31:04+08:00",
+  "source_commit": "2c756cf5666b424f643098e029ed2bda2f4c2d1d",
+  "backend": {
+    "tests": 96,
+    "pass": 96,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "frontend": {
+    "tests": 6,
+    "pass": 6,
+    "fail": 0
+  },
+  "record_acceptance": {
+    "checks": 13,
+    "pass": 11,
+    "fail": 2
+  },
+  "core_recheck": {
+    "checks": 12,
+    "pass": 6,
+    "fail": 6
+  },
+  "contract_recheck": {
+    "checks": 6,
+    "pass": 1,
+    "fail": 5
+  },
+  "real_search": {
+    "commit": "2c756cf5666b424f643098e029ed2bda2f4c2d1d",
+    "recordedAt": "2026-10-26T06:15:43.549Z",
+    "provider": "https://zh.wikipedia.org/w/api.php",
+    "syntheticQuestion": "PostgreSQL",
+    "timeoutMs": 8000,
+    "elapsedMs": 8026,
+    "state": "TIMEOUT",
+    "sourceCount": 0,
+    "success": false
+  },
+  "overlap": true,
+  "live_model_rerun": false,
+  "today_browser_rerun": false,
+  "today_native_electron_rerun": false,
+  "formal_pg16": false,
+  "meeting_confirmed": false,
+  "team_sp_signed": false
+}

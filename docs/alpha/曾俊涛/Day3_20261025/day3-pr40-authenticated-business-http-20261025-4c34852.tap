@@ -1,0 +1,11 @@
+✔ authenticated naming-card, companion reply and Five Senses pause/resume/exit work at HTTP layer (990.1853ms)
+✔ other account cannot read companion task or training state; stale training version is rejected (728.3126ms)
+✔ cancelled companion task does not accept a late synthetic model reply (579.1301ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2623.1695

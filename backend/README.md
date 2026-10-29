@@ -29,8 +29,13 @@ Copy-Item .env.example .env
 npm install
 npm run migrate
 npm test
+npm run check:release
 npm start
 ```
+
+`check:release` 只检查发布配置，不连接数据库，也不会输出连接串、密钥或 API Key。
+缺少正式环境变量、仍使用示例占位值、生产环境未启用 HTTPS 安全 Cookie，或把迁移配置成
+生产启动时自动执行，都会明确返回 `BLOCKED`。检查通过也不等于数据库、网络或部署验收通过。
 
 离线查看正常、超时、不可用和命名卡路由样例：
 
@@ -50,11 +55,13 @@ npm run smoke:model
 
 - `MigrationRunner`：按文件名顺序执行迁移，并使用 `schema_migrations` 记录校验和。
 - `IdentityRepository`：注册事务与幂等、摘要会话、资料乐观锁、资料汇总和账号偏好；资料及偏好更新按账号、可信入口和 `requestId` 处理。
-- `RecordRepository`：创建、带作用域游标的列表、详情、允许类型的版本更新、两步确认清除和寄存状态机；所有私密记录均限定账号与入口。
-- 保存幂等：同作用域同 `requestId` 和同载荷返回原结果，不同载荷返回冲突。
+- `RecordRepository`：创建、带作用域游标的列表、详情、允许类型的版本更新、两步确认清除、显式上下文选择和寄存状态机；所有私密记录均限定账号与入口。
+- 保存幂等：同作用域同 `requestId` 和同规范化业务载荷返回原结果，不同载荷返回冲突；随机加密密文不作为HTTP保存链的幂等依据。
 - 乐观锁：资料、偏好、允许编辑的记录和清除操作需要匹配 `expectedVersion`。
 - 清除：先签发两分钟一次性确认；执行时在同一事务清理正文子表、房间关联和授权，令记录不可见，并创建删除任务、目标与 outbox。
+- 上下文边界：只解析用户显式选择且仍有效的本人当前入口记录；通用路径不展开情绪日历或寄存正文。
 - `SavedQueryRepository`：调用方只能提交 `searchRequestId`；仓储从受控的已完成查询解析器复制查询、来源、主张和证据关系，客户端不能自造证据链。
+- 查询保存幂等：同一保存请求在原检索任务过期后仍返回已保存记录；旧来源快照不能覆盖较新的验证状态，未知、过期或不可用来源会降低查询和主张确定性。
 - `WikipediaSearchProvider`：真实调用固定 Wikipedia MediaWiki API；支持超时、空结果和上游错误。
 - 合同校验：严格对象、非全零UUID、Unicode码点长度、真实日历日期和IANA时区。
 - 模型适配：LangChain JS 配置白名单、契约校验、最小上下文构造、统一输出校验、

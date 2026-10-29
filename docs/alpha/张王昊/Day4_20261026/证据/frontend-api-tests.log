@@ -1,0 +1,14 @@
+✔ mock mode never calls fetch or claims an API success (2.6253ms)
+✔ real mode uses same-origin no-store requests and the configured CSRF header (41.3187ms)
+✔ real mode refuses writes before context has configured CSRF state (0.377ms)
+✔ authentication methods preserve the shared request names and credential policy (2.5975ms)
+✔ identity changes discard the in-memory CSRF token even when the response is lost (0.6183ms)
+✔ API errors preserve the contract code and request id without retaining raw bodies (0.5866ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 223.8567

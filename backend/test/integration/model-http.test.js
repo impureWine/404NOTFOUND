@@ -27,6 +27,33 @@ function modelHeaders() {
   };
 }
 
+test('model endpoint requires both internal credentials and an authenticated session when auth is configured', async () => {
+  let calls = 0;
+  let context = null;
+  const app = createApp({
+    database: {},
+    internalModelToken: INTERNAL_MODEL_TOKEN,
+    authService: { async resolveContext() { return context; } },
+    modelAdapter: { async respond() { calls += 1; return { status: 'success' }; } },
+  });
+  const server = app.listen(0, '127.0.0.1');
+  try {
+    await once(server, 'listening');
+    const url = `http://127.0.0.1:${server.address().port}/internal/v1/model/generate`;
+    const post = (headers) => fetch(url, { method: 'POST', headers, body: '{}' });
+    assert.equal((await post(modelHeaders())).status, 401);
+    assert.equal(calls, 0);
+    context = { accountId: 'synthetic-account' };
+    assert.equal((await post({ 'content-type': 'application/json' })).status, 403);
+    assert.equal(calls, 0);
+    assert.equal((await post(modelHeaders())).status, 200);
+    assert.equal(calls, 1);
+  } finally {
+    server.close();
+    await once(server, 'close');
+  }
+});
+
 test('model endpoint returns a normal unified response without caching', async () => {
   await withServer(new MockModelAdapter(), async (baseUrl) => {
     const response = await fetch(`${baseUrl}/internal/v1/model/generate`, {

@@ -1,0 +1,14 @@
+{
+  "scope": "demo build only",
+  "reason": "Remove automatic network dependency of HeroGuest decorative image.",
+  "sourceComponent": "prototype/src/components/SiteChrome.jsx#HeroGuest",
+  "replacement": "existing web-prototype/assets/worry-pet.png fallback",
+  "sourceFilesModified": false,
+  "changes": [
+    {
+      "file": "演示包/site/assets/current-home-G5V1DfsF.js",
+      "beforeSha256": "3bb37670eda8df6ca862010763acc2388bd433ab1f8c74ab0358d6d23a204ee1",
+      "afterSha256": "4b9f8b020e3a4b39431033dd078e347379fcea3a34b431bfec2fa6789c463abe"
+    }
+  ]
+}
