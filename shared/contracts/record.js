@@ -7,6 +7,7 @@ import {
 } from './common.js';
 
 export const recordKindSchema = z.enum([
+  'QUERY',
   'CONVERSATION',
   'EMOTION',
   'WORRY_OBJECT',
@@ -30,6 +31,11 @@ export const emotionContentSchema = z.strictObject({
   }, '时区无效'),
   note: textByCodePoints({ max: 300, label: '备注' }),
 });
+export const worryContentSchema = z.strictObject({ title: titleSchema, shapeCode: z.enum(['TANGLE', 'STONE', 'NOTE']), body: textByCodePoints({ min: 1, max: 4000 }) });
+export const rehearsalContentSchema = z.strictObject({ title: titleSchema, scene: textByCodePoints({ min: 1, max: 4000 }), expressions: z.array(textByCodePoints({ min: 1, max: 4000 })).min(1).max(20) });
+export const depositContentSchema = z.strictObject({ title: titleSchema, body: textByCodePoints({ min: 1, max: 4000 }), reopenAt: z.iso.datetime({ offset: true }) });
+export const depositRequestSchema = z.strictObject({ requestId: requestIdSchema, expectedVersion: positiveVersionSchema });
+export const postponeDepositRequestSchema = depositRequestSchema.extend({ reopenAt: z.iso.datetime({ offset: true }) });
 export const recordContentSchema = z.union([
   z.strictObject({ title: titleSchema, body: textByCodePoints({ min: 1, max: 4000, label: '正文' }) }),
   z.strictObject({ title: titleSchema, messages: z.array(z.strictObject({
@@ -37,6 +43,9 @@ export const recordContentSchema = z.union([
     content: textByCodePoints({ min: 1, max: 4000, label: '消息', trim: true }),
   })).min(1).max(20) }),
   emotionContentSchema,
+  worryContentSchema,
+  rehearsalContentSchema,
+  depositContentSchema,
 ]);
 
 export const createRecordRequestSchema = z.strictObject({
@@ -70,3 +79,5 @@ export const clearRecordRequestSchema = z.strictObject({
   expectedVersion: positiveVersionSchema,
   confirmationId: uuidSchema,
 });
+
+export const saveQueryRequestSchema = z.strictObject({ requestId: requestIdSchema, consentId: uuidSchema, searchRequestId: uuidSchema });

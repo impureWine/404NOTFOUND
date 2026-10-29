@@ -6,7 +6,7 @@ import {
   uuidSchema,
 } from './common.js';
 
-export const trainingDefinitionIdSchema = z.literal('FIVE_SENSES');
+export const trainingDefinitionIdSchema = z.enum(['FIVE_SENSES', 'BREATHING', 'PAUSE_ORGANIZE', 'TASK_SPLIT']);
 export const trainingStateSchema = z.enum(['running', 'paused', 'completed', 'exited']);
 
 export const startTrainingRequestSchema = z.strictObject({

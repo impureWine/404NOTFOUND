@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { listenForHttp } from '../helpers/http.js';
 
 import { createApp } from '../../src/app.js';
 import { sessionCookie } from '../../src/http/request.js';
@@ -7,6 +8,9 @@ import { parseProfileKey } from '../../src/security/crypto.js';
 import { RecordRepository } from '../../src/repositories/record-repository.js';
 import { AuthService } from '../../src/services/auth-service.js';
 import { ConsentService } from '../../src/services/consent-service.js';
+import { TaskService } from '../../src/services/task-service.js';
+import { TrainingService } from '../../src/services/training-service.js';
+import { createSavedQueries } from '../../src/services/saved-query-service.js';
 import { RecordService } from '../../src/services/record-service.js';
 import { createTestDatabase } from '../helpers/database.js';
 
@@ -20,15 +24,20 @@ async function withApi(callback) {
   const database = await createTestDatabase();
   const authService = new AuthService(database, { profileKey: KEY });
   const consentService = new ConsentService();
+  const taskService = new TaskService({ consentService,
+    modelAdapter: { respond: async () => ({ status: 'success', result: { content: '受控测试模型输出' } }) },
+    searchProvider: { search: async () => ({ searchState: 'SUCCESS', sources: [{ id: nextId(), title: '受控测试来源', url: 'https://example.org/source', snippet: '测试来源摘录', publisher: 'Example', sourceTier: 'S3', quality: 'UNKNOWN', publishedAt: null, retrievedAt: new Date().toISOString(), verificationState: 'VERIFIED' }], partial: false, hasConflict: false, claims: [] }) },
+  });
+  const trainingService = new TrainingService();
   const recordService = new RecordService(new RecordRepository(database), {
     encryptionKey: KEY,
+    savedQueries: createSavedQueries(database, taskService, KEY),
     consentService,
   });
-  const server = createApp({ database, authService, consentService, recordService, appOrigin: ORIGIN })
-    .listen(0, '127.0.0.1');
-  await new Promise((resolve) => server.once('listening', resolve));
+  taskService.resolveSelectedContext = (context, ids) => recordService.resolveContext(context, ids);
+  const server = await listenForHttp(createApp({ database, authService, consentService, recordService, taskService, trainingService, appOrigin: ORIGIN }));
   try {
-    await callback({ baseUrl: `http://127.0.0.1:${server.address().port}`, database, authService });
+    await callback({ baseUrl: `http://127.0.0.1:${server.address().port}`, database, authService, recordService, taskService });
   } finally {
     await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
     await database.close();
@@ -298,5 +307,86 @@ test('real records preserve dialogue roles, decrypt only owner reads, and suppor
     const mismatched = { kind: 'EMOTION', content: { title: '错误类型', messages } };
     const rejected = await mutate(baseUrl, '/api/records', alice, { ...mismatched, requestId: nextId(), consentId: await grant('RECORD_CREATE', mismatched) });
     assert.equal(rejected.status, 400);
+  });
+});
+
+
+test('all persisted business kinds, deposit controls, preferences and real search-save wiring work through HTTP', async () => {
+  await withApi(async ({ baseUrl, database, authService, recordService, taskService }) => {
+    const alice = await registerAndLogin(baseUrl, 'all_features_alice');
+    const bob = await registerAndLogin(baseUrl, 'all_features_bob');
+    const read = path => fetch(`${baseUrl}${path}`, { headers: { Cookie: alice.cookie } });
+    const grant = async (payload, purpose = 'SAVE', operation = 'RECORD_CREATE') => (await (await mutate(baseUrl, '/api/consents', alice, { requestId: nextId(), purpose, operation, payload })).json()).data.consentId;
+    const create = async (kind, content) => {
+      const payload = { kind, content };
+      const response = await mutate(baseUrl, '/api/records', alice, { ...payload, requestId: nextId(), consentId: await grant(payload) });
+      assert.equal(response.status, 201, JSON.stringify(await response.clone().json()));
+      return (await response.json()).data;
+    };
+    const conversation = await create('CONVERSATION', { title: '可选历史', messages: [{ role: 'USER', content: '本人选择的历史内容' }] });
+    const aliceContext = await authService.resolveContext(alice.cookie.split('=')[1]);
+    const bobContext = await authService.resolveContext(bob.cookie.split('=')[1]);
+    const selected = await recordService.resolveContext(aliceContext, [conversation.id]);
+    assert.equal(selected[0].content.messages[0].content, '本人选择的历史内容');
+    await assert.rejects(recordService.resolveContext(bobContext, [conversation.id]));
+    const emotion = await create('EMOTION', { title: '不自动展开', recordDate: '2026-10-29', emotionCodes: [], intensity: null, timezoneName: 'Asia/Hong_Kong', note: '日历正文' });
+    await assert.rejects(recordService.resolveContext(aliceContext, [emotion.id]));
+    let modelInput;
+    taskService.modelAdapter = { respond: async input => { modelInput = input; return { status: 'success', result: { content: '测试历史选择链路' } }; } };
+    const aiSession = (await (await mutate(baseUrl, '/api/sessions', alice, { requestId: nextId(), mode: 'LISTEN' })).json()).data;
+    const aiPayload = { sessionId: aiSession.sessionId, activityId: aiSession.activityId, sessionGeneration: 0, activityGeneration: 0, mode: 'LISTEN', operation: 'REPLY', selectedText: '继续整理', selectedContextIds: [conversation.id] };
+    const aiResponse = await mutate(baseUrl, '/api/agent/tasks', alice, { ...aiPayload, requestId: nextId(), consentId: await grant(aiPayload, 'AI_PROCESS', 'AGENT_TASK_CREATE') });
+    assert.equal(aiResponse.status, 202);
+    const aiId = (await aiResponse.json()).data.requestId;
+    for (let attempt=0; attempt<20; attempt++) { if (taskService.getAgentTask(aliceContext, aiId).status === 'completed') break; await new Promise(resolve => setTimeout(resolve, 5)); }
+    assert.equal(modelInput.context.summary.selected_records[0].content.messages[0].content, '本人选择的历史内容');
+    const worry = await create('WORRY_OBJECT', { title: '一件事', shapeCode: 'STONE', body: '需要整理的烦恼' });
+    assert.equal((await (await read(`/api/records/${worry.id}`)).json()).data.content.body, '需要整理的烦恼');
+    const draft = await create('REHEARSAL_DRAFT', { title: '认可的表达', scene: '与同学交流', expressions: ['我需要一点准备时间'] });
+    assert.deepEqual((await (await read(`/api/records/${draft.id}`)).json()).data.content.expressions, ['我需要一点准备时间']);
+    const deposit = await create('DEPOSIT', { title: '先放下', body: '寄存私密正文', reopenAt: new Date(Date.now()+3600000).toISOString() });
+    let state = (await (await read(`/api/records/${deposit.id}/deposit`)).json()).data;
+    assert.equal(state.body, null); assert.equal(state.state, 'STORED');
+    assert.equal(JSON.stringify((await (await read(`/api/records/${deposit.id}`)).json()).data).includes('寄存私密正文'), false);
+    assert.equal((await mutate(baseUrl, `/api/records/${deposit.id}/deposit/retrieve`, alice, { requestId: nextId(), expectedVersion: state.version })).status, 409);
+    assert.equal((await mutate(baseUrl, `/api/records/${deposit.id}/deposit/retrieve`, bob, { requestId: nextId(), expectedVersion: state.version })).status, 404);
+    const postponed = await mutate(baseUrl, `/api/records/${deposit.id}/deposit/postpone`, alice, { requestId: nextId(), expectedVersion: state.version, reopenAt: new Date(Date.now()+7200000).toISOString() });
+    assert.equal(postponed.status, 200); assert.equal((await postponed.json()).data.body, null);
+    await database.query("UPDATE worry_deposits SET reopen_at = now() - interval '1 second' WHERE saved_record_id = $1", [deposit.id]);
+    state = (await (await read(`/api/records/${deposit.id}/deposit`)).json()).data;
+    assert.equal(state.state, 'AVAILABLE'); assert.equal(state.body, null);
+    const retrieved = await mutate(baseUrl, `/api/records/${deposit.id}/deposit/retrieve`, alice, { requestId: nextId(), expectedVersion: state.version });
+    assert.equal(retrieved.status, 200); assert.equal((await retrieved.json()).data.body, '寄存私密正文');
+
+    const prefs = (await (await read('/api/preferences')).json()).data;
+    const update = await fetch(`${baseUrl}/api/preferences`, { method: 'PATCH', headers: { Cookie: alice.cookie, Origin: ORIGIN, 'X-CSRF-Token': alice.csrf, 'Content-Type': 'application/json' }, body: JSON.stringify({ requestId: nextId(), expectedVersion: prefs.version, offerHistorySave: true }) });
+    assert.equal(update.status, 200); assert.equal((await update.json()).data.offerHistorySave, true);
+    assert.equal((await (await read('/api/profile/summary')).json()).data.counts.WORRY_OBJECT, 1);
+
+    for (const definitionId of ['BREATHING','FIVE_SENSES','PAUSE_ORGANIZE','TASK_SPLIT']) {
+      const start = await mutate(baseUrl,'/api/trainings',alice,{ requestId: nextId(), definitionId });
+      assert.equal(start.status,201); const training = (await start.json()).data;
+      assert.equal(training.definitionId,definitionId); assert.equal(training.state,'running');
+      assert.equal((await mutate(baseUrl,`/api/trainings/${training.trainingSessionId}/actions`,alice,{ requestId:nextId(),expectedVersion:training.version,action:'EXIT' })).status,200);
+    }
+    const session = (await (await mutate(baseUrl,'/api/sessions',alice,{ requestId:nextId(),mode:'SEARCH' })).json()).data;
+    const payload = { sessionId:session.sessionId,activityId:session.activityId,sessionGeneration:session.sessionGeneration,activityGeneration:session.activityGeneration,question:'受控测试问题' };
+    const consentId = await grant(payload,'SEARCH_PROCESS','SEARCH_TASK_CREATE');
+    const searchId = nextId();
+    assert.equal((await mutate(baseUrl,'/api/search/tasks',alice,{ ...payload,requestId:searchId,consentId })).status,202);
+    await new Promise(resolve => setImmediate(resolve));
+    const queryPayload = { kind:'QUERY',searchRequestId:searchId };
+    const saved = await mutate(baseUrl,'/api/saved-queries',alice,{ requestId:nextId(),searchRequestId:searchId,consentId:await grant(queryPayload) });
+    assert.equal(saved.status,201,JSON.stringify(await saved.clone().json()));
+    const queryId = (await saved.json()).data.id;
+    const detail = (await (await read(`/api/records/${queryId}`)).json()).data;
+    assert.equal(detail.content.question,'受控测试问题');
+    assert.equal(detail.content.claims[0].text,'测试来源摘录');
+    assert.equal(detail.content.claims[0].status,'UNKNOWN');
+    assert.equal(JSON.stringify(detail).includes('Ciphertext'),false);
+    const forbidden = await mutate(baseUrl,'/api/saved-queries',bob,{ requestId:nextId(),searchRequestId:searchId,consentId:await grant(queryPayload) });
+    assert.equal(forbidden.status,403);
+    const switched = await mutate(baseUrl,`/api/sessions/${session.sessionId}/switch`,alice,{ requestId:nextId(),targetMode:'LISTEN',expectedSessionGeneration:0,selectedContextIds:[] });
+    assert.equal(switched.status,200); assert.equal((await switched.json()).data.mode,'LISTEN');
   });
 });

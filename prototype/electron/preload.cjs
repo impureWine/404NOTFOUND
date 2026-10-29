@@ -4,6 +4,8 @@ contextBridge.exposeInMainWorld('desktopPet', Object.freeze({
   setClickThrough(enabled) {
     ipcRenderer.send('pet:set-click-through', Boolean(enabled));
   },
+  openPressure() { ipcRenderer.send('pet:open-pressure'); },
+  openWorkspace() { ipcRenderer.send('pet:open-workspace'); },
   hide() {
     ipcRenderer.send('pet:hide');
   },

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { apiClient } from '../api/client.js';
 import './records.css';
+import { clearOwned } from '../live/business.js';
 
 const today = () => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const fresh = kind => kind === 'EMOTION'
@@ -91,12 +92,13 @@ export function RecordsPanel({ kind }) {
     })}</div><p>标记基于已加载记录。{selectedDay || '显示本月记录'} <button type="button" onClick={() => setSelectedDay('')}>查看整月</button></p></>}
     <ul className="live-record-list">{items.filter(item => !emotion || !selectedDay || item.content.recordDate === selectedDay).map(item => <li key={item.id}>
       <button type="button" onClick={() => view(item)}>{item.content?.recordDate || new Date(item.createdAt).toLocaleDateString()} · {item.title}</button>
+      <button type="button" disabled={busy} onClick={async () => { if (locked.current) return; locked.current = true; setBusy(true); setError(''); try { if (await clearOwned(item)) { setDetail(null); setRevision(value => value + 1); } } catch (value) { setError(value.message); } finally { locked.current = false; setBusy(false); } }}>清除此条</button>
       {emotion && <><p>{item.content.emotionCodes.join('、') || '未命名'} · 强度：{item.content.intensity ?? '跳过'}</p><p>{item.content.note}</p>
         <button type="button" disabled={busy} onClick={() => { setEditing(item); setContent({ title: item.title, ...item.content }); setDetail(null); }}>编辑</button></>}
     </li>)}</ul>
     {cursor && <button type="button" disabled={loading || busy} onClick={more}>加载更多</button>}
     {detail && <section aria-label="记录详情"><h4>{detail.title}</h4>{detail.content?.messages?.map((message, index) => <p className="record-message" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}{detail.content?.recordDate && <p>{detail.content.recordDate} · {detail.content.note}</p>}<button type="button" onClick={() => setDetail(null)}>关闭详情</button></section>}
-    <form onSubmit={save}><h4>{editing ? '编辑情绪记录' : emotion ? '新增情绪记录' : '保存已有陪伴对话'}</h4>
+    {emotion && <form onSubmit={save}><h4>{editing ? '编辑情绪记录' : emotion ? '新增情绪记录' : '保存已有陪伴对话'}</h4>
       {!emotion && <p>在这里整理并保存已有对话。此表单不会生成 AI 回复，也不会保存独立演示页面中的预设回复。</p>}
       <fieldset disabled={busy}><label>标题（可选）<input value={content.title} maxLength={80} onChange={event => patch({ title: event.target.value })} /></label>
       {emotion ? <>
@@ -109,6 +111,6 @@ export function RecordsPanel({ kind }) {
       <button type="submit">{busy ? '正在保存…' : '确认保存到本人账户'}</button>
       {editing && <button type="button" onClick={() => { setEditing(null); setContent(fresh(kind)); }}>取消编辑</button>}
       </fieldset>
-    </form>
+    </form>}
   </section>;
 }

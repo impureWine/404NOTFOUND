@@ -1,3 +1,6 @@
+import { loadEnvFile } from 'node:process';
+try { loadEnvFile(); } catch (error) { if (error?.code !== 'ENOENT') throw error; }
+
 import { createPoolFromEnv } from './database.js';
 import { runMigrations } from './migration-runner.js';
 

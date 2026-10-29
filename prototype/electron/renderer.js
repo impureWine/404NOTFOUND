@@ -20,5 +20,7 @@
     clickThrough = enabled;
     render();
   });
+  document.querySelector('[data-action="open-workspace"]').addEventListener('click', () => bridge.openWorkspace());
+  document.querySelector('[data-action="open-pressure"]').addEventListener('click', () => bridge.openPressure());
   render();
 })();

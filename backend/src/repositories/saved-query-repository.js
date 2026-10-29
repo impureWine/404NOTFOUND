@@ -336,6 +336,7 @@ export class SavedQueryRepository {
           r.version_no,
           r.created_at,
           r.updated_at,
+          q.raw_query_ciphertext,
           q.status,
           q.uncertainty_note,
           q.trace_id
@@ -404,6 +405,7 @@ export class SavedQueryRepository {
     return {
       id: row.id,
       kind: 'QUERY',
+      rawQueryCiphertext: row.raw_query_ciphertext,
       status: row.status,
       uncertaintyNote: row.uncertainty_note,
       traceId: row.trace_id,

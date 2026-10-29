@@ -126,24 +126,36 @@ export function createApiClient({
     createSearchTask: (payload, options) => post('/api/search/tasks', payload, options),
     getSearchTask: (requestId, options) => get(`/api/search/tasks/${encodeURIComponent(requestId)}`, options),
     cancelSearchTask: (requestId, cancelPayload, options) => post(`/api/search/tasks/${encodeURIComponent(requestId)}/cancel`, cancelPayload, options),
+    saveQuery: (payload, options) => post('/api/saved-queries', payload, options),
+    getSummary: options => get('/api/profile/summary', options),
+    getPreferences: options => get('/api/preferences', options),
+    updatePreferences: (payload, options) => request('PATCH', '/api/preferences', { ...options, body: payload }),
+    routeNamingCard: (payload, options) => post('/api/naming-card/route', payload, options),
+    startTraining: (payload, options) => post('/api/trainings', payload, options),
+    getTraining: (id, options) => get(`/api/trainings/${encodeURIComponent(id)}`, options),
+    actOnTraining: (id, payload, options) => post(`/api/trainings/${encodeURIComponent(id)}/actions`, payload, options),
+    clearConfirmation: (id, payload, options) => post(`/api/records/${encodeURIComponent(id)}/clear-confirmations`, payload, options),
+    clearRecord: (id, payload, options) => post(`/api/records/${encodeURIComponent(id)}/clear`, payload, options),
+    getDeposit: (id, options) => get(`/api/records/${encodeURIComponent(id)}/deposit`, options),
+    retrieveDeposit: (id, payload, options) => post(`/api/records/${encodeURIComponent(id)}/deposit/retrieve`, payload, options),
+    postponeDeposit: (id, payload, options) => post(`/api/records/${encodeURIComponent(id)}/deposit/postpone`, payload, options),
+    getRecord: (id, options) => get(`/api/records/${encodeURIComponent(id)}`, options),
     updateRecord: (id, payload, options) => request('PATCH', `/api/records/${encodeURIComponent(id)}`, { ...options, body: payload }),
     createRecord: (payload, options) => post('/api/records', payload, options),
     listRecords(query = {}, options) {
       const search = new URLSearchParams(query);
       return get(`/api/records${search.size ? `?${search}` : ''}`, options);
     },
-    getRecord: (recordId, options) => get(`/api/records/${encodeURIComponent(recordId)}`, options),
     createRecordClearConfirmation: (recordId, payload, options) => post(`/api/records/${encodeURIComponent(recordId)}/clear-confirmations`, payload, options),
-    clearRecord: (recordId, payload, options) => post(`/api/records/${encodeURIComponent(recordId)}/clear`, payload, options),
   });
 }
 
 const buildEnv = import.meta.env || {};
-export const apiMode = buildEnv.VITE_API_MODE === 'real' ? 'real' : 'mock';
+export const apiMode = 'real';
 export const apiClient = createApiClient({
   mode: apiMode,
-  csrfHeaderName: buildEnv.VITE_CSRF_HEADER_NAME || '',
+  csrfHeaderName: buildEnv.VITE_CSRF_HEADER_NAME || 'X-CSRF-Token',
 });
 export const apiStatusLabel = apiMode === 'mock'
   ? 'API 模拟适配层 · 后端未接入'
-  : '真实 API 模式 · 尚未联调';
+  : '真实服务连接';
