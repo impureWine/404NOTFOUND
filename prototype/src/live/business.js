@@ -39,9 +39,12 @@ export async function runTask(session, input, { signal, search = false, onAccept
       if (result.status === 'completed') return result;
       if (['failed', 'expired', 'cancelled'].includes(result.status)) {
         const failureMessages = search ? {
-          TIMEOUT: 'Wikipedia 搜索超时，请检查网络连接后重试。',
-          SERVICE_UNAVAILABLE: 'Wikipedia 搜索服务暂不可用，请检查网络连接或稍后重试。',
-          PROVIDER_UNAVAILABLE: 'Wikipedia 搜索服务暂不可用，请检查网络连接或稍后重试。',
+          SEARCH_NOT_CONFIGURED: 'Bing 搜索尚未配置，请联系服务管理员配置检索密钥。',
+          SEARCH_AUTH_FAILED: 'Bing 搜索密钥无效或无权限，请检查 SerpAPI 账户配置。',
+          SEARCH_RATE_LIMITED: 'Bing 搜索调用额度不足或请求过于频繁，请检查 SerpAPI 账户后重试。',
+          TIMEOUT: 'Bing 搜索超时，请检查网络连接后重试。',
+          SERVICE_UNAVAILABLE: 'Bing 搜索服务暂不可用，请检查网络连接或稍后重试。',
+          PROVIDER_UNAVAILABLE: 'Bing 搜索服务暂不可用，请检查网络连接或稍后重试。',
         } : {
           TIMEOUT: '模型响应超时，请稍后重试。',
           PROVIDER_UNAVAILABLE: '模型服务暂不可用，请检查服务配置或稍后重试。',

@@ -14,10 +14,10 @@ function fixture(result, search) {
   return { execute, calls };
 }
 
-for (const code of ['TIMEOUT', 'SERVICE_UNAVAILABLE', 'PROVIDER_UNAVAILABLE']) {
+for (const code of ['TIMEOUT', 'SERVICE_UNAVAILABLE', 'PROVIDER_UNAVAILABLE', 'SEARCH_NOT_CONFIGURED', 'SEARCH_AUTH_FAILED', 'SEARCH_RATE_LIMITED']) {
   test(`search ${code} reports the search source, never the AI model`, async () => {
     const h = fixture({ status: 'failed', failureReason: code }, true);
-    await assert.rejects(h.execute(), error => error.message.includes('Wikipedia') && !error.message.includes('模型'));
+    await assert.rejects(h.execute(), error => error.message.includes('Bing') && !error.message.includes('模型'));
     assert.deepEqual(h.calls.map(call => call.name), ['createConsent', 'createSearchTask', 'getSearchTask', 'cancelSearchTask']);
     assert.equal(h.calls[0].args[0].purpose, 'SEARCH_PROCESS');
   });

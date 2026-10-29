@@ -14,7 +14,8 @@
     "test:integration": "node --test test/integration",
     "check:release": "node scripts/release-check.js",
     "sample:ai": "node scripts/ai-samples.js",
-    "smoke:model": "node scripts/model-smoke.js"
+    "smoke:model": "node scripts/model-smoke.js",
+    "smoke:search": "node scripts/search-smoke.js"
   },
   "dependencies": {
     "@404notfound/contracts": "file:..\\shared",
