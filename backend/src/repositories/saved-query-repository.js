@@ -5,7 +5,16 @@ import {
 import { withTransaction } from '../db/database.js';
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
 import { stableHash } from '../domain/stable-hash.js';
-import { claimIdempotencyKey, completeIdempotencyKey } from './idempotency.js';
+import {
+  claimIdempotencyKey,
+  completeIdempotencyKey,
+  findCompletedIdempotencyResult,
+} from './idempotency.js';
+
+const SOURCE_RELIABILITY_NOTE = (
+  'One or more sources are stale, unavailable, or not fully verified; '
+  + 'affected claims were downgraded to unknown.'
+);
 
 function canonicalizeUrl(rawUrl) {
   const url = new URL(rawUrl);
@@ -25,7 +34,18 @@ function persistentStatus(value) {
   if (value.hasConflict) return 'CONFLICTED';
   if (value.partial) return 'PARTIAL_SUCCESS';
   if (value.sources.some((source) => source.quality === 'STALE')) return 'STALE_SOURCE';
+  if (value.sources.some((source) => (
+    source.quality !== 'CURRENT' || source.verificationState !== 'VERIFIED'
+  ))) return 'PARTIAL_SUCCESS';
   return 'SUCCESS';
+}
+
+function isReliableSource(source) {
+  return Boolean(
+    source
+    && source.quality === 'CURRENT'
+    && source.verificationState === 'VERIFIED',
+  );
 }
 
 function parse(schema, input, message) {
@@ -50,6 +70,27 @@ export class SavedQueryRepository {
     );
     if (typeof this.resolveCompletedSearch !== 'function') {
       throw new TypeError('resolveCompletedSearch is required to save query results');
+    }
+
+    const payloadHash = stableHash({ searchRequestId: request.searchRequestId });
+    const idempotencyInput = {
+      accountId: request.accountId,
+      entryPointId: request.entryPointId,
+      operation: 'SAVE_QUERY',
+      requestId: request.requestId,
+      payloadHash,
+    };
+    const completedRequest = await findCompletedIdempotencyResult(
+      this.database,
+      idempotencyInput,
+    );
+    if (completedRequest) {
+      const existing = await this.#getInTransaction(this.database, {
+        accountId: request.accountId,
+        entryPointId: request.entryPointId,
+        recordId: completedRequest.resultResourceId,
+      });
+      return { ...existing, idempotent: true };
     }
 
     const resolved = await this.resolveCompletedSearch({
@@ -106,27 +147,25 @@ export class SavedQueryRepository {
         throw new InvalidInputError('A claim cannot reference the same source more than once');
       }
     }
-
-    const payloadHash = stableHash({
-      searchRequestId: value.searchRequestId,
-      rawQueryCiphertext: value.rawQueryCiphertext,
-      normalizedQueryCiphertext: value.normalizedQueryCiphertext,
-      cipherKeyVersion: value.cipherKeyVersion,
-      partial: value.partial,
-      hasConflict: value.hasConflict,
-      uncertaintyNote: value.uncertaintyNote,
-      sources: normalizedSources,
-      claims: normalizedClaims,
+    const sourcesByUrl = new Map(
+      normalizedSources.map((source) => [source.canonicalUrl, source]),
+    );
+    let reliabilityDowngraded = false;
+    const persistedClaims = normalizedClaims.map((claim) => {
+      if (claim.status !== 'SUPPORTED') return claim;
+      const hasReliableEvidence = claim.evidence.some((link) => (
+        isReliableSource(sourcesByUrl.get(link.canonicalUrl))
+      ));
+      if (hasReliableEvidence) return claim;
+      reliabilityDowngraded = true;
+      return { ...claim, status: 'UNKNOWN' };
     });
+    const uncertaintyNote = reliabilityDowngraded
+      ? (value.uncertaintyNote ?? SOURCE_RELIABILITY_NOTE)
+      : value.uncertaintyNote;
 
     return withTransaction(this.database, async (transaction) => {
-      const idempotency = await claimIdempotencyKey(transaction, {
-        accountId: request.accountId,
-        entryPointId: request.entryPointId,
-        operation: 'SAVE_QUERY',
-        requestId: request.requestId,
-        payloadHash,
-      });
+      const idempotency = await claimIdempotencyKey(transaction, idempotencyInput);
       if (idempotency.existing) {
         const existing = await this.#getInTransaction(transaction, {
           accountId: request.accountId,
@@ -170,7 +209,7 @@ export class SavedQueryRepository {
           value.normalizedQueryCiphertext,
           value.cipherKeyVersion,
           status,
-          value.uncertaintyNote,
+          uncertaintyNote,
           value.searchRequestId,
         ],
       );
@@ -192,14 +231,37 @@ export class SavedQueryRepository {
             )
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             ON CONFLICT (canonical_url) DO UPDATE
-            SET title = EXCLUDED.title,
-                publisher = EXCLUDED.publisher,
-                source_tier = EXCLUDED.source_tier,
-                quality = EXCLUDED.quality,
-                published_at = EXCLUDED.published_at,
+            SET title = CASE
+                  WHEN EXCLUDED.retrieved_at >= sources.retrieved_at THEN EXCLUDED.title
+                  ELSE sources.title
+                END,
+                publisher = CASE
+                  WHEN EXCLUDED.retrieved_at >= sources.retrieved_at THEN EXCLUDED.publisher
+                  ELSE sources.publisher
+                END,
+                source_tier = CASE
+                  WHEN EXCLUDED.retrieved_at >= sources.retrieved_at THEN EXCLUDED.source_tier
+                  ELSE sources.source_tier
+                END,
+                quality = CASE
+                  WHEN EXCLUDED.retrieved_at >= sources.retrieved_at THEN EXCLUDED.quality
+                  ELSE sources.quality
+                END,
+                published_at = CASE
+                  WHEN EXCLUDED.retrieved_at >= sources.retrieved_at THEN EXCLUDED.published_at
+                  ELSE sources.published_at
+                END,
                 retrieved_at = GREATEST(sources.retrieved_at, EXCLUDED.retrieved_at),
-                verification_state = EXCLUDED.verification_state,
-                content_fingerprint = EXCLUDED.content_fingerprint
+                verification_state = CASE
+                  WHEN EXCLUDED.retrieved_at >= sources.retrieved_at
+                    THEN EXCLUDED.verification_state
+                  ELSE sources.verification_state
+                END,
+                content_fingerprint = CASE
+                  WHEN EXCLUDED.retrieved_at >= sources.retrieved_at
+                    THEN EXCLUDED.content_fingerprint
+                  ELSE sources.content_fingerprint
+                END
             RETURNING id
           `,
           [
@@ -217,7 +279,7 @@ export class SavedQueryRepository {
         sourceIdByUrl.set(source.canonicalUrl, savedSource.rows[0].id);
       }
 
-      for (const claim of normalizedClaims) {
+      for (const claim of persistedClaims) {
         const savedClaim = await transaction.query(
           `
             INSERT INTO claims (

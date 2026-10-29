@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-10-26T12:54:18.077Z",
+  "baseUrl": "http://127.0.0.1:5199",
+  "browser": "msedge (headless, Playwright channel)",
+  "markerKind": "synthetic: 前缀 UUID，不含真实用户内容",
+  "reachability": {
+    "homeEntryCandidates": [],
+    "urlProbes": [
+      {
+        "path": "/destroy",
+        "status": 200,
+        "hasDestroyUi": false,
+        "hasTextarea": false,
+        "title": "404NOTFOUND · 404烦恼未找到"
+      },
+      {
+        "path": "/text-destroy.html",
+        "status": 200,
+        "hasDestroyUi": false,
+        "hasTextarea": false,
+        "title": "404NOTFOUND · 404烦恼未找到"
+      },
+      {
+        "path": "/destroy.html",
+        "status": 200,
+        "hasDestroyUi": false,
+        "hasTextarea": false,
+        "title": "404NOTFOUND · 404烦恼未找到"
+      },
+      {
+        "path": "/?page=destroy",
+        "status": 200,
+        "hasDestroyUi": false,
+        "hasTextarea": false,
+        "title": "404NOTFOUND · 404烦恼未找到"
+      },
+      {
+        "path": "/#destroy",
+        "status": 200,
+        "hasDestroyUi": false,
+        "hasTextarea": false,
+        "title": "404NOTFOUND · 404烦恼未找到"
+      }
+    ],
+    "reachable": false,
+    "note": "构建产物中未发现\"文本销毁\"入口，交互检查无法执行"
+  },
+  "steps": {
+    "interactionExecuted": false,
+    "reason": "未找到\"文本销毁\"入口，未执行销毁交互",
+    "homeRequestCount": 6,
+    "homeConsoleErrors": 1,
+    "pageErrors": 0
+  },
+  "violations": [],
+  "functionalGap": "REQ14 文字销毁页在当前构建产物中没有入口，运行时隐私取证无法执行",
+  "requestList": [
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5199/"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5199/assets/main-Bkk5xc51.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5199/assets/current-home-BHO3vkVy.js"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5199/assets/current-home-DGEJ-YQV.css"
+    },
+    {
+      "method": "GET",
+      "url": "http://127.0.0.1:5199/assets/404-mark.svg?v=4"
+    },
+    {
+      "method": "GET",
+      "url": "https://modao.cc/agent-py/media/generated_images/2026-10-14/18e087a80afa4d258a4c0fc7bf3b5e4d.jpg"
+    }
+  ],
+  "verdict": "NOT-EXECUTED"
+}

@@ -1,0 +1,11 @@
+{
+  "commit": "2c756cf5666b424f643098e029ed2bda2f4c2d1d",
+  "recordedAt": "2026-10-26T06:15:43.549Z",
+  "provider": "https://zh.wikipedia.org/w/api.php",
+  "syntheticQuestion": "PostgreSQL",
+  "timeoutMs": 8000,
+  "elapsedMs": 8026,
+  "state": "TIMEOUT",
+  "sourceCount": 0,
+  "success": false
+}

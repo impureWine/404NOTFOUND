@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "members": 56,
+  "bytes": 3275465,
+  "sha256": "103b178bbd70e92661c65c821bf83e342830e14513ff34f3c5bf57154a6d6dbd",
+  "contains": {
+    "pptx": true,
+    "pdf": true,
+    "sources": true,
+    "demo": "引用既有Day6包，未重复打包"
+  }
+}

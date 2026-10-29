@@ -1,0 +1,503 @@
+[
+  {
+    "file": "演示包/备用截图/01-formal-home.png",
+    "url": "http://127.0.0.1:5187/",
+    "evidenceType": "正式首页运行；mock 配置，未认证",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": false,
+    "bytes": 359388,
+    "sha256": "f73d4d94bf1abf660bfdd87a28765140d725a2e882c92e95934f898042fb9368",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/01-formal-home.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/02-formal-login-overlimit.png",
+    "url": "http://127.0.0.1:5187/",
+    "evidenceType": "正式认证表单本地边界反馈；虚构输入",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": false,
+    "bytes": 342681,
+    "sha256": "59e58ae02c6d67b77b501b5e7194441897883a18b859b20343d55616c67adff4",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/02-formal-login-overlimit.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/03-formal-login-disconnected.png",
+    "url": "http://127.0.0.1:5187/",
+    "evidenceType": "正式认证表单；API 未连接的实际本地反馈",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": false,
+    "bytes": 340455,
+    "sha256": "9fd66c532d5ab8254c0a46b5d854b070a294c3a259f5b910fe9dd0bc7af5371b",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/03-formal-login-disconnected.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/03b-formal-login-form.png",
+    "url": "http://127.0.0.1:5187/",
+    "evidenceType": "正式认证表单局部；API 未连接",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 11938,
+    "sha256": "8459156f820403de6a37ba1520d4d65ee8b65a7f88593041af766bcc68a0bf5d",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/03b-formal-login-form.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/04-formal-register-390.png",
+    "url": "http://127.0.0.1:5187/",
+    "evidenceType": "正式注册表单；窄屏运行",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "crop": false,
+    "bytes": 145764,
+    "sha256": "492e6ded107775b684db66fb55ac31c479f13ce0837cf07b743b559b3e9eddb9",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/04-formal-register-390.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/04-formal-register-320.png",
+    "url": "http://127.0.0.1:5187/",
+    "evidenceType": "正式注册表单；窄屏运行",
+    "viewport": {
+      "width": 320,
+      "height": 844
+    },
+    "crop": false,
+    "bytes": 142258,
+    "sha256": "ed701d5e72affddb671b3687be40714499aa77103de2f095baffb7b34c92e0c9",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/04-formal-register-320.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/05-save-title-error.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=save&state=normal",
+    "evidenceType": "组件状态演示；合成片段和边界输入",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 29984,
+    "sha256": "5e17dab77f351efa8f36256d32efc8920b566b56d0b2c68322d3619dce9ae360",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/05-save-title-error.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/06-save-selection.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=save&state=normal",
+    "evidenceType": "组件状态演示；主动选择片段",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 26114,
+    "sha256": "81b5924052da62107daf2791bd3912b63ec917384739baf8cf4a0dbf00179f61",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/06-save-selection.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/07-save-confirmation.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=save&state=normal",
+    "evidenceType": "组件状态演示；单次范围确认",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 29605,
+    "sha256": "157e980aa6ff8ff83aedd15d217ac4e8030edfdf639c83147bf1c340030eae96",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/07-save-confirmation.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/08-history-filter-empty.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=history&state=normal",
+    "evidenceType": "组件状态演示；当前筛选无匹配",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 14887,
+    "sha256": "0ba2081564aa1cee9dbe784af7de619a3fe5b41b8551ecaf04af8b03e2c8762b",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/08-history-filter-empty.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/09-history-list.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=history&state=normal",
+    "evidenceType": "组件状态演示；仅元数据列表",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 19138,
+    "sha256": "5b22b1803f700ca8ee50cdb64f1dfae7f3c29c3609a770bbca34f45a779ff5db",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/09-history-list.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/10-record-clear-confirmation.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=record-detail&state=normal",
+    "evidenceType": "组件状态演示；清除默认为保留",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 24129,
+    "sha256": "d62fcab001cf20900cc405f6896c279a7847ff4c8a9044aac1c96c21872df12f",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/10-record-clear-confirmation.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/11-chat-end-confirmation.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=chat&state=normal",
+    "evidenceType": "组件状态演示；安全默认焦点",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 13933,
+    "sha256": "c7310f5128060c931b8ed19e9c91a20a2d627756d83095081219bee915bff6ec",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/11-chat-end-confirmation.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/12-home-empty.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=home&state=empty",
+    "evidenceType": "组件状态演示；固定示例数据",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 13447,
+    "sha256": "05199ac811045458b3c1ccd3cd50faaf28062642460e1fb811d27526248c23fa",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/12-home-empty.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/13-home-error.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=home&state=error",
+    "evidenceType": "组件状态演示；固定示例数据",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 16054,
+    "sha256": "06d7ce5d7d6634450755adb76ee772b4bcf99d71da30bd94fdf1242729adec42",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/13-home-error.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/14-chat-timeout.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=chat&state=timeout",
+    "evidenceType": "组件状态演示；固定示例数据",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 13931,
+    "sha256": "46212ca8b141b640bdb319c4894478e42554f70e308b8d46a68403234bd74800",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/14-chat-timeout.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/15-sources.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=sources&state=normal",
+    "evidenceType": "组件状态演示；固定示例数据",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 55468,
+    "sha256": "bf025d4f5cd43e6c740ed6c09bfcf8c4a379de23ed9a6781bc3f675769593a71",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/15-sources.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/16-emotion.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=emotion&state=normal",
+    "evidenceType": "组件状态演示；固定示例数据",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 39968,
+    "sha256": "3429d81a363e83985a60d9aba61048eee9d272b6a3bc316ac8a500f933d62344",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/16-emotion.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/17-training.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=training&state=normal",
+    "evidenceType": "组件状态演示；固定示例数据",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 16276,
+    "sha256": "63ef88a6fb6836fcbf35284c88c8b7c1e321f84965484e0283e0e80eb8144e36",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/17-training.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/18-auth-loading-fixture.png",
+    "url": "http://127.0.0.1:5188/",
+    "evidenceType": "正式组件＋拦截请求的忙碌态测试；未连接真实认证服务",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 21116,
+    "sha256": "76a8ba7feebf4d7db1e39ec0d2d863ca3f4648a7ffb4cbec9e2bf58447c9881b",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/18-auth-loading-fixture.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/19-auth-failure-fixture.png",
+    "url": "http://127.0.0.1:5188/",
+    "evidenceType": "正式组件＋拦截的 401 测试响应；不是服务端验收",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "crop": true,
+    "bytes": 23418,
+    "sha256": "86b024c8e3bc069a91fb90425b65c6326fb66b1b7ed3b83ebecf61ae8fccd452",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/screenshots/19-auth-failure-fixture.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/浏览器验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:32:58.541Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/SV-N_save_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=save&state=normal",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 123576,
+    "sha256": "cd307335fec8c31c2a41b699f1435f9c221cddd39b8d9132d07735ecbc84cdb1",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/SV-N_save_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/SV-E_save_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=save&state=empty",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 107521,
+    "sha256": "67690ad9e54eb46dc26221d4cac6db99fa7b83a9f9e24e3968fc62b6b1133ab0",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/SV-E_save_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/SV-F_save_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=save&state=error",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 116681,
+    "sha256": "f8bb314295e80d1ca45518413be4daa3f988efcc769030a0e2d76e8f45bb3244",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/SV-F_save_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/SV-T_save_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=save&state=timeout",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 119033,
+    "sha256": "abce7bff6790b640ae1ad9f49c9864b7b7a41727c0544ec2f2864fdac1c4c75b",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/SV-T_save_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/HS-E_history_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=history&state=empty",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 95677,
+    "sha256": "6e22c8d6a778b0c6d5f7e1a8b8a1feb81dd83b4b4c49a016cb85ada0691e9b4a",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/HS-E_history_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/HS-F_history_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=history&state=error",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 98163,
+    "sha256": "85da5de6a45a843eab2fd467ae15648277910b5da9b66426aa541d6bd0f47ca6",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/HS-F_history_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/RD-N_record-detail_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=record-detail&state=normal",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 94931,
+    "sha256": "72037ca42d8c8044721f10f896e84e5c7a4db4728f2941b95bc6e67bb5014ce8",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/RD-N_record-detail_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/RD-F_record-detail_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=record-detail&state=error",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 85725,
+    "sha256": "d5816be4e40d83d2ba435400244a6b97da277ac5aff2e125f435dd90d42fe0aa",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/RD-F_record-detail_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  },
+  {
+    "file": "演示包/备用截图/RD-X_record-detail_1440.png",
+    "url": "http://127.0.0.1:5187/ux-components.html?page=record-detail&state=expired",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "fullPage": true,
+    "size": 87052,
+    "sha256": "7721a274d899b45751917a02e8cd9ccfab6bf95c47e5d8a05177550953fa0fa4",
+    "original_source": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/screenshots/RD-X_record-detail_1440.png",
+    "original_report": "docs/alpha/郭昱祺/Day5_20261027/regression-day4/验证与截图清单.json",
+    "original_captured_at": "2026-10-27T13:30:32.806Z",
+    "copied_on": "2026-10-28",
+    "new_capture": false
+  }
+]

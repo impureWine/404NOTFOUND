@@ -1,0 +1,56 @@
+{
+  "status": "rendered_for_visual_review",
+  "renderer_ppt": "Microsoft PowerPoint",
+  "renderer_pdf": "Poppler pdftoppm",
+  "pages": [
+    {
+      "page": 1,
+      "mean_absolute_pixel_difference_0_255": 1.0765
+    },
+    {
+      "page": 2,
+      "mean_absolute_pixel_difference_0_255": 2.971
+    },
+    {
+      "page": 3,
+      "mean_absolute_pixel_difference_0_255": 3.5198
+    },
+    {
+      "page": 4,
+      "mean_absolute_pixel_difference_0_255": 1.5857
+    },
+    {
+      "page": 5,
+      "mean_absolute_pixel_difference_0_255": 1.8939
+    },
+    {
+      "page": 6,
+      "mean_absolute_pixel_difference_0_255": 1.7005
+    },
+    {
+      "page": 7,
+      "mean_absolute_pixel_difference_0_255": 1.4782
+    },
+    {
+      "page": 8,
+      "mean_absolute_pixel_difference_0_255": 1.9089
+    },
+    {
+      "page": 9,
+      "mean_absolute_pixel_difference_0_255": 1.5593
+    },
+    {
+      "page": 10,
+      "mean_absolute_pixel_difference_0_255": 1.5973
+    },
+    {
+      "page": 11,
+      "mean_absolute_pixel_difference_0_255": 2.2354
+    },
+    {
+      "page": 12,
+      "mean_absolute_pixel_difference_0_255": 2.8028
+    }
+  ],
+  "boundary": "像素差包含两种渲染器的字体抗锯齿差异，最终排版另行目视检查。"
+}

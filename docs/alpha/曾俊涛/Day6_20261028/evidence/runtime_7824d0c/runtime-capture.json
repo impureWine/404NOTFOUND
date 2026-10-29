@@ -1,0 +1,72 @@
+{
+  "source": "main@7824d0c executable reconstruction from 19ad7eb plus new test",
+  "browser": "Edge headless",
+  "results": [
+    {
+      "scene": "首页",
+      "route": "/",
+      "status": 200,
+      "title": "404NOTFOUND · 404烦恼未找到",
+      "bodyTextLength": 912,
+      "pageErrors": [],
+      "apiRequests": 0,
+      "filename": "01-home.png",
+      "boundary": "浏览器实际打开的本地构建；UX 场景为模拟数据"
+    },
+    {
+      "scene": "组件首页",
+      "route": "/ux-components.html?page=home&state=normal",
+      "status": 200,
+      "title": "首页 · HP-N · UX 组件展示",
+      "bodyTextLength": 865,
+      "pageErrors": [],
+      "apiRequests": 0,
+      "filename": "02-ux-home.png",
+      "boundary": "浏览器实际打开的本地构建；UX 场景为模拟数据"
+    },
+    {
+      "scene": "登录演示",
+      "route": "/ux-components.html?page=login&state=normal",
+      "status": 200,
+      "title": "登录 · LG-N · UX 组件展示",
+      "bodyTextLength": 863,
+      "pageErrors": [],
+      "apiRequests": 0,
+      "filename": "03-ux-login.png",
+      "boundary": "浏览器实际打开的本地构建；UX 场景为模拟数据"
+    },
+    {
+      "scene": "聊天超时演示",
+      "route": "/ux-components.html?page=chat&state=timeout",
+      "status": 200,
+      "title": "聊天 · CH-T · UX 组件展示",
+      "bodyTextLength": 586,
+      "pageErrors": [],
+      "apiRequests": 0,
+      "filename": "04-ux-chat-timeout.png",
+      "boundary": "浏览器实际打开的本地构建；UX 场景为模拟数据"
+    },
+    {
+      "scene": "来源展示",
+      "route": "/ux-components.html?page=sources&state=normal",
+      "status": 200,
+      "title": "来源展示 · SR-N · UX 组件展示",
+      "bodyTextLength": 804,
+      "pageErrors": [],
+      "apiRequests": 0,
+      "filename": "05-ux-sources.png",
+      "boundary": "浏览器实际打开的本地构建；UX 场景为模拟数据"
+    },
+    {
+      "scene": "训练演示",
+      "route": "/ux-components.html?page=training&state=normal",
+      "status": 200,
+      "title": "训练操作 · TR-N · UX 组件展示",
+      "bodyTextLength": 426,
+      "pageErrors": [],
+      "apiRequests": 0,
+      "filename": "06-ux-training.png",
+      "boundary": "浏览器实际打开的本地构建；UX 场景为模拟数据"
+    }
+  ]
+}

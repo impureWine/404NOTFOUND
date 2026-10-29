@@ -1,0 +1,376 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "96cbef8c4c22911a166b7b130e397fff59f298881a3558e0d8115ae4ee3254f7",
+    "file_count": 12,
+    "files": [
+      {
+        "file": "authoring-svg-flat/slide_01.svg",
+        "sha256": "640aba8fb68b0744b43e2188e6353a428397804096a0f60f456fd59760a59d7c"
+      },
+      {
+        "file": "authoring-svg-flat/slide_02.svg",
+        "sha256": "6e62a3c0e6ac3b11d3645c39c2f275af2fc2c490d733ebab4f3019198bf7f1df"
+      },
+      {
+        "file": "authoring-svg-flat/slide_03.svg",
+        "sha256": "a21fab6b50881a277d79b8edee0e43a7c4dd44b82311bc55fb0890ee5dbbe128"
+      },
+      {
+        "file": "authoring-svg-flat/slide_04.svg",
+        "sha256": "91c50f02d8934204e2e451cc220d71408ea11932b3638ebfea601d0c72bafe76"
+      },
+      {
+        "file": "authoring-svg-flat/slide_05.svg",
+        "sha256": "72df31a1a42e797e8eafb5cceb7f1a976a38cb50c7f58902f3caa27aca7f35f5"
+      },
+      {
+        "file": "authoring-svg-flat/slide_06.svg",
+        "sha256": "5643aef2a4a6454d65182fb6b474874c4cfa3d2993076eb9d925c911c76f429a"
+      },
+      {
+        "file": "authoring-svg-flat/slide_07.svg",
+        "sha256": "1a30d8a90b97ca040ced7bb38c9c74e6577b3a4e9a9bb0e852c61431a589e577"
+      },
+      {
+        "file": "authoring-svg-flat/slide_08.svg",
+        "sha256": "e3f430db1de8cd31ceabec586aeb49e438f1d7ddda79deded22892cc0b50a387"
+      },
+      {
+        "file": "authoring-svg-flat/slide_09.svg",
+        "sha256": "6ca45056c83ddc206e74941b9148fefe1c7cbef0390c0eaa3637e152407eeced"
+      },
+      {
+        "file": "authoring-svg-flat/slide_10.svg",
+        "sha256": "a71da5d9aa49a6dffcea8351bb76425ac82c0ef89164dbfd7cf9710b3b4ca790"
+      },
+      {
+        "file": "authoring-svg-flat/slide_11.svg",
+        "sha256": "736b3e8fabf6b3b9e844a9fcf277122b8e91b06939d948f46c2cafa206fa9229"
+      },
+      {
+        "file": "authoring-svg-flat/slide_12.svg",
+        "sha256": "1fe035b1d0d2a947f5556148c32e1980fa53366db2492b10e3f7096fe55550e7"
+      }
+    ]
+  },
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "warnings": 0,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 0,
+      "issues": []
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {},
+    "fonts": {},
+    "sizes": {}
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 0,
+    "totals": {
+      "text_elements": 0,
+      "image_placements": 0,
+      "icons": 0,
+      "svg_geometry_elements": 0,
+      "preset_shapes": 0,
+      "page_frame_elements": 0,
+      "marker_uses": 0,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 0,
+      "icons": 0,
+      "presets": 0,
+      "charts": 0,
+      "tables": 0,
+      "formulas": 0,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": null,
+    "geometry_elements": {},
+    "preset_names": {},
+    "native_objects": {},
+    "image_page_max_frame_share_range": []
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "slide_01.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_01.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 1,
+        "source_slide": 1,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 2,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 4,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "640aba8fb68b0744b43e2188e6353a428397804096a0f60f456fd59760a59d7c"
+    },
+    {
+      "file": "slide_02.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_02.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 2,
+        "source_slide": 2,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 3,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 11,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "6e62a3c0e6ac3b11d3645c39c2f275af2fc2c490d733ebab4f3019198bf7f1df"
+    },
+    {
+      "file": "slide_03.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_03.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 3,
+        "source_slide": 3,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 14,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "a21fab6b50881a277d79b8edee0e43a7c4dd44b82311bc55fb0890ee5dbbe128"
+    },
+    {
+      "file": "slide_04.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_04.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 4,
+        "source_slide": 4,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "91c50f02d8934204e2e451cc220d71408ea11932b3638ebfea601d0c72bafe76"
+    },
+    {
+      "file": "slide_05.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_05.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 5,
+        "source_slide": 5,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 8,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "72df31a1a42e797e8eafb5cceb7f1a976a38cb50c7f58902f3caa27aca7f35f5"
+    },
+    {
+      "file": "slide_06.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_06.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 6,
+        "source_slide": 6,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "5643aef2a4a6454d65182fb6b474874c4cfa3d2993076eb9d925c911c76f429a"
+    },
+    {
+      "file": "slide_07.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_07.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 7,
+        "source_slide": 7,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "1a30d8a90b97ca040ced7bb38c9c74e6577b3a4e9a9bb0e852c61431a589e577"
+    },
+    {
+      "file": "slide_08.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_08.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 8,
+        "source_slide": 8,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 8,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "e3f430db1de8cd31ceabec586aeb49e438f1d7ddda79deded22892cc0b50a387"
+    },
+    {
+      "file": "slide_09.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_09.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 9,
+        "source_slide": 9,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "6ca45056c83ddc206e74941b9148fefe1c7cbef0390c0eaa3637e152407eeced"
+    },
+    {
+      "file": "slide_10.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_10.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 10,
+        "source_slide": 10,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 8,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "a71da5d9aa49a6dffcea8351bb76425ac82c0ef89164dbfd7cf9710b3b4ca790"
+    },
+    {
+      "file": "slide_11.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_11.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 11,
+        "source_slide": 11,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 8,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 6,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "736b3e8fabf6b3b9e844a9fcf277122b8e91b06939d948f46c2cafa206fa9229"
+    },
+    {
+      "file": "slide_12.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-ppt-build-day6\\roundtrip\\authoring-svg-flat\\slide_12.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 12,
+        "source_slide": 12,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 8,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 6,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "1fe035b1d0d2a947f5556148c32e1980fa53366db2492b10e3f7096fe55550e7"
+    }
+  ]
+}

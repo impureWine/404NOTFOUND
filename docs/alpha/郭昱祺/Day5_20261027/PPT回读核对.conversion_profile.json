@@ -1,0 +1,28 @@
+{
+  "schema": "ppt-master.source_to_md.profile.v1",
+  "converter": "ppt_to_md.py",
+  "conversion_type": "pptx",
+  "source": {
+    "path": "UX_界面原型设计答辩_初稿_v0.1_20261027.pptx",
+    "name": "UX_界面原型设计答辩_初稿_v0.1_20261027.pptx",
+    "suffix": ".pptx",
+    "kind": "file",
+    "exists": true,
+    "size_bytes": 153710
+  },
+  "outputs": {
+    "markdown": "PPT回读核对.md",
+    "asset_dir": "PPT回读核对_files",
+    "image_manifest": "PPT回读核对_files/image_manifest.json",
+    "image_count": 10
+  },
+  "markdown": {
+    "line_count": 278,
+    "char_count": 4289,
+    "heading_count": 25,
+    "table_count": 0,
+    "image_ref_count": 10,
+    "link_count": 0
+  },
+  "warnings": []
+}

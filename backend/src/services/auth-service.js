@@ -44,8 +44,8 @@ export class AuthService {
     return result.rows[0].id;
   }
 
-  async createContext(accountId = null) {
-    const entryPointId = await this.ensureWebEntryPoint();
+  async createContext(accountId = null, entryPointId = null) {
+    const resolvedEntryPointId = entryPointId ?? await this.ensureWebEntryPoint();
     const sessionToken = randomToken();
     const csrfToken = randomToken();
     const expiresAt = new Date(this.now().getTime() + SESSION_TTL_MS);
@@ -61,9 +61,9 @@ export class AuthService {
         VALUES ($1, $2, $3, $4, $5)
         RETURNING id
       `,
-      [accountId, entryPointId, sha256(sessionToken), sha256(csrfToken), expiresAt],
+      [accountId, resolvedEntryPointId, sha256(sessionToken), sha256(csrfToken), expiresAt],
     );
-    return { sessionId: result.rows[0].id, sessionToken, csrfToken, expiresAt, accountId, entryPointId };
+    return { sessionId: result.rows[0].id, sessionToken, csrfToken, expiresAt, accountId, entryPointId: resolvedEntryPointId };
   }
 
   async resolveContext(sessionToken) {
@@ -133,7 +133,7 @@ export class AuthService {
       return { accountId: result };
     } catch (error) {
       if (error?.code === '23505' || /unique|duplicate/i.test(error?.message ?? '')) {
-        throw new ConflictError('登录名已被使用');
+        throw new ConflictError('无法完成注册');
       }
       throw error;
     }

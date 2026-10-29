@@ -1,0 +1,132 @@
+{
+  "status": "passed",
+  "slides": 12,
+  "notes": 12,
+  "unchangedSlides": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "editedSlides": [
+    1,
+    2,
+    11,
+    12
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "title": "404NOTFOUND",
+      "nativeTextRuns": 4,
+      "pictures": 0,
+      "slideXmlUnchanged": false,
+      "notesXmlUnchanged": false,
+      "sha256": "1b5eeb177a6d7dd53e5e311c7642ac586fce862a9511371d95c2a17611b7f3e4"
+    },
+    {
+      "page": 2,
+      "title": "个人范围与当前交付层次",
+      "nativeTextRuns": 12,
+      "pictures": 0,
+      "slideXmlUnchanged": false,
+      "notesXmlUnchanged": false,
+      "sha256": "bfc574464f4c7982296d2a630d5448c39ba8324de936ff07ab4cf66e4a1e9f8a"
+    },
+    {
+      "page": 3,
+      "title": "从用户目标到操作路径",
+      "nativeTextRuns": 12,
+      "pictures": 0,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "4790a3f47e215d16f839e96ba0cf4a6a4261a1aee1b034c0cb191279de99bae4"
+    },
+    {
+      "page": 4,
+      "title": "登录：规则可见，焦点可进可退",
+      "nativeTextRuns": 6,
+      "pictures": 1,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "a03744e540021839562993dddc689e9e0fbe4ae7e35a60c45171647cb2f6c82b"
+    },
+    {
+      "page": 5,
+      "title": "主页：空记录与读取失败分开",
+      "nativeTextRuns": 5,
+      "pictures": 2,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "56ba9eda8a74ecb3e5b4478a999bb773479fe6ff0c50166bd2741d8977527fa1"
+    },
+    {
+      "page": 6,
+      "title": "聊天：结束可取消，超时可核实",
+      "nativeTextRuns": 6,
+      "pictures": 1,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "835a575816854fa85ae6792b38ceb1976d1b56fa3a1810bce6a6fcb8be5817f6"
+    },
+    {
+      "page": 7,
+      "title": "来源展示：让依据和未知都可见",
+      "nativeTextRuns": 6,
+      "pictures": 1,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "badfaba6b071edea3cd4ce40dfa923f5a7bb6138280b0af9ea9ae01788c1c8c9"
+    },
+    {
+      "page": 8,
+      "title": "情绪与训练：由用户控制下一步",
+      "nativeTextRuns": 5,
+      "pictures": 2,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "42d408ea93a0a9790b2065d9a94120c816727c4f289665fd97b1b08c1813cdb4"
+    },
+    {
+      "page": 9,
+      "title": "主动保存：每次范围都要再确认",
+      "nativeTextRuns": 6,
+      "pictures": 1,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "c5878095faf9a96bb894fff0079e3c226fc39c1c6c8ab4234027427583ed1c01"
+    },
+    {
+      "page": 10,
+      "title": "本人历史：可返回，也可保留",
+      "nativeTextRuns": 5,
+      "pictures": 2,
+      "slideXmlUnchanged": true,
+      "notesXmlUnchanged": true,
+      "sha256": "fa61aed1d2c939f23118185c239a5eec14292aa0ba75d61dc00bad0211bad282"
+    },
+    {
+      "page": 11,
+      "title": "最新复核：通过项与未通过项",
+      "nativeTextRuns": 12,
+      "pictures": 0,
+      "slideXmlUnchanged": false,
+      "notesXmlUnchanged": false,
+      "sha256": "d9f58b802809a2ba206511e9f6113f7e9c117943644d9a5cc2411e4946004651"
+    },
+    {
+      "page": 12,
+      "title": "交付边界与现场演示预案",
+      "nativeTextRuns": 12,
+      "pictures": 0,
+      "slideXmlUnchanged": false,
+      "notesXmlUnchanged": false,
+      "sha256": "e4d922ba358397b93eba054a345caaf28f4694bbf3ceba9d6e4146dcf6f5526a"
+    }
+  ],
+  "boundary": "Headings, labels, native geometry and notes editable; embedded UI screenshots are images."
+}

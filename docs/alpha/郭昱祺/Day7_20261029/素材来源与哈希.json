@@ -1,0 +1,137 @@
+{
+  "date": "2026-10-29",
+  "source_pptx": "docs/alpha/郭昱祺/Day6_20261028/UX_界面原型设计答辩_可编辑稿_v0.2_20261028.pptx",
+  "source_pptx_sha256": "1e01f5b20068ee9ad0500d4a8022cc5c13949e4771b76d646158d96d48a764ab",
+  "main_baseline": "722bc92338f63e82073106d5b2036110b4acf1bd",
+  "pr84_reference_commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+  "delivery_scope": "UX 课程答辩材料最终稿，非项目发布验收",
+  "embedded_images": [
+    {
+      "part": "ppt/media/image_428cab0d790b2342.png",
+      "bytes": 5910,
+      "sha256": "428cab0d790b2342ea77153df58073f3bb44da8fb1a123e73b3b1aee1dd370e0"
+    },
+    {
+      "part": "ppt/media/image_4a431b70e7ca3d8f.png",
+      "bytes": 7777,
+      "sha256": "4a431b70e7ca3d8f4f566c9f002a178d6bd90da4496740dc21020fc621fcea95"
+    },
+    {
+      "part": "ppt/media/image_8f75862a8d7feb01.png",
+      "bytes": 8382,
+      "sha256": "8f75862a8d7feb0121e79a206dc1cc27d110ea4d4b93cb564c243ea3bac7aee6"
+    },
+    {
+      "part": "ppt/media/image_a8dc35d8baf26583.png",
+      "bytes": 8886,
+      "sha256": "a8dc35d8baf265830e80b651c02218588b99b39133d7862753b907865842dfeb"
+    },
+    {
+      "part": "ppt/media/image_a978ced3b46e00ba.png",
+      "bytes": 7886,
+      "sha256": "a978ced3b46e00ba41a29f286fed2d1bb2a5a897e073cdf87593411f8a8c33ed"
+    },
+    {
+      "part": "ppt/media/image_bb97a3327fdb9de2.png",
+      "bytes": 8241,
+      "sha256": "bb97a3327fdb9de2b8cd397a222247766359c2bb684efb66ab2df6357892f3d3"
+    },
+    {
+      "part": "ppt/media/image_bcc5f108e363e8e3.png",
+      "bytes": 10200,
+      "sha256": "bcc5f108e363e8e33b8e3bc68ddc5d20d9ae0b154cf32edef07b8d80e8bd6550"
+    },
+    {
+      "part": "ppt/media/image_e072054799ae02be.png",
+      "bytes": 9071,
+      "sha256": "e072054799ae02be8beaa474770b47ff4d5f763c40641e40e75a3ccb91ed9a0d"
+    },
+    {
+      "part": "ppt/media/image_f9a8df44adff7d8e.png",
+      "bytes": 15120,
+      "sha256": "f9a8df44adff7d8e8ea2a028f013e060c8a942549bc7440fdafdb2f76d059bea"
+    },
+    {
+      "part": "ppt/media/image_fb22eeba59a5235a.png",
+      "bytes": 10771,
+      "sha256": "fb22eeba59a5235a71daa125dd6adba453235f2abf89bf2a3ec3cb30d8a5dd53"
+    }
+  ],
+  "original_screenshot_count": 30,
+  "new_ui_screenshots_today": 0,
+  "external_stock_images_added": 0,
+  "evidence_sources": [
+    {
+      "path": "backend/evidence/daily/Day7_最终复核和交接.md",
+      "file": "引用证据/Day7_最终复核和交接.md",
+      "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+      "sha256": "db1f0b3698a7b41ec59c87b7565a965c495b2097d84f2a912f4a7a754e9dc1bc",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/daily/Day7_最终复核和交接.md",
+      "status": "PR84 未合入本次主线基线"
+    },
+    {
+      "path": "backend/evidence/程群_Day7_AI复盘终稿_20261029.md",
+      "file": "引用证据/程群_Day7_AI复盘终稿_20261029.md",
+      "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+      "sha256": "8cc13bdff9b83a71ea3c102d73ee0a13c34439ec4ff4aea641b87062e168fdb0",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/程群_Day7_AI复盘终稿_20261029.md",
+      "status": "PR84 未合入本次主线基线"
+    },
+    {
+      "path": "backend/evidence/程群_Day7_模型异常预案_20261029.md",
+      "file": "引用证据/程群_Day7_模型异常预案_20261029.md",
+      "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+      "sha256": "d790c37df42f5e1b9b48762047b8df9309ff1c8a6448e90d5431d23f769b7d9a",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/程群_Day7_模型异常预案_20261029.md",
+      "status": "PR84 未合入本次主线基线"
+    },
+    {
+      "path": "backend/evidence/程群_Day7_真实模型复查记录_20261029.json",
+      "file": "引用证据/程群_Day7_真实模型复查记录_20261029.json",
+      "commit": "4ee7b639d31a43878f81b210f779894cd607c93d",
+      "sha256": "40b07214970f88a4303632b1271ed9f8d5ca93b9cb5611d2ea5e99405839a042",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/4ee7b639d31a43878f81b210f779894cd607c93d/backend/evidence/程群_Day7_真实模型复查记录_20261029.json",
+      "status": "PR84 未合入本次主线基线"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day6_20261028/07_最新主线复核_dd888a6.md",
+      "file": "引用证据/07_最新主线复核_dd888a6.md",
+      "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+      "sha256": "ef437680b0d63314ada18fd06f4a9e1cb5967e5db39a15e09a286df8b3e90650",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/曾俊涛/Day6_20261028/07_最新主线复核_dd888a6.md",
+      "status": "历史报告，执行基线见正文"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day6_20261028/09_安全侧增量核对_7824d0c.md",
+      "file": "引用证据/09_安全侧增量核对_7824d0c.md",
+      "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+      "sha256": "3574cce8722c148d2a32ce3fc447d5d58e0ffef631d32d78170d11e10bbdff89",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/曾俊涛/Day6_20261028/09_安全侧增量核对_7824d0c.md",
+      "status": "历史报告，执行基线见正文"
+    },
+    {
+      "path": "docs/alpha/曾俊涛/Day6_20261028/10_项目运行截图包说明.md",
+      "file": "引用证据/10_项目运行截图包说明.md",
+      "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+      "sha256": "f0c4895c84a14fe052fd5fd9e0a122796b0091062c8e1d6ee82aae618c9c1421",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/曾俊涛/Day6_20261028/10_项目运行截图包说明.md",
+      "status": "历史报告，执行基线见正文"
+    },
+    {
+      "path": "docs/alpha/关欣/Day6_安全验收结论_20261028.md",
+      "file": "引用证据/Day6_安全验收结论_20261028.md",
+      "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+      "sha256": "fa894a2e98c7c42c7399edb46c4385be9a0e76ef1b48ba16a8c0cc7522a42e92",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/docs/alpha/关欣/Day6_安全验收结论_20261028.md",
+      "status": "历史报告，执行基线见正文"
+    },
+    {
+      "path": "backend/evidence/daily/Day6_迁移隔离恢复与答辩交接.md",
+      "file": "引用证据/Day6_迁移隔离恢复与答辩交接.md",
+      "commit": "722bc92338f63e82073106d5b2036110b4acf1bd",
+      "sha256": "8e8c045d2f269884074606730260d7eb571476a0e697924c34b8bd103c7e7b40",
+      "url": "https://github.com/impureWine/404NOTFOUND/blob/722bc92338f63e82073106d5b2036110b4acf1bd/backend/evidence/daily/Day6_迁移隔离恢复与答辩交接.md",
+      "status": "历史报告，执行基线见正文"
+    }
+  ]
+}

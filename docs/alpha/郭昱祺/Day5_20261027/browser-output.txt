@@ -1,0 +1,37 @@
+PASS formal auth dialog starts at login name, contains Tab focus, Escape closes and restores trigger
+PASS 64-character login name and 128-code-point password accepted locally; 129 blocked without truncation; no mock login success
+PASS mode change clears all fields; registration 11 code points blocked, 12 accepted, mismatch points to confirmation field
+PASS formal auth backdrop click closes and restores the opening control
+PASS formal registration fits 390px with operable action and Escape
+PASS formal registration fits 320px with operable action and Escape
+PASS save missing-selection guidance and blank/81-code-point errors are visible and linked; correcting title restores preview
+PASS filtered empty resets to ALL; true empty starts saving; read failure retries without being presented as empty
+PASS chat ending starts on keep; Escape preserves draft and trigger; explicit ending clears draft and messages
+PASS home normal scene remains within 1440px viewport
+PASS chat normal scene remains within 1440px viewport
+PASS sources normal scene remains within 1440px viewport
+PASS emotion normal scene remains within 1440px viewport
+PASS training normal scene remains within 1440px viewport
+PASS save normal scene remains within 1440px viewport
+PASS history normal scene remains within 1440px viewport
+PASS record-detail normal scene remains within 1440px viewport
+PASS home normal scene remains within 390px viewport
+PASS chat normal scene remains within 390px viewport
+PASS sources normal scene remains within 390px viewport
+PASS emotion normal scene remains within 390px viewport
+PASS training normal scene remains within 390px viewport
+PASS save normal scene remains within 390px viewport
+PASS history normal scene remains within 390px viewport
+PASS record-detail normal scene remains within 390px viewport
+PASS home normal scene remains within 320px viewport
+PASS chat normal scene remains within 320px viewport
+PASS sources normal scene remains within 320px viewport
+PASS emotion normal scene remains within 320px viewport
+PASS training normal scene remains within 320px viewport
+PASS save normal scene remains within 320px viewport
+PASS history normal scene remains within 320px viewport
+PASS record-detail normal scene remains within 320px viewport
+PASS mock formal UI and synthetic component walkthrough made no business API requests
+PASS intercepted pending auth request locks fields/mode and reports busy; intercepted 401 restores controls and shows retry feedback
+PASS no browser page errors
+RESULT passed: 36 check groups; 21 screenshots

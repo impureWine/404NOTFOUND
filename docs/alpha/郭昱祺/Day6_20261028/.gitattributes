@@ -1,0 +1,2 @@
+# Preserve delivery bytes so the ZIP and evidence hashes match Git blobs.
+* -text whitespace=trailing-space,space-before-tab,cr-at-eol

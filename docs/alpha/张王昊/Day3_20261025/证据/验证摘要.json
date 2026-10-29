@@ -1,0 +1,52 @@
+{
+  "as_of": "2026-10-25T10:48:32+08:00",
+  "source_commit": "a25c91203680abdbe216cb74f2b92dc3f1c5a09d",
+  "node": "v26.2.0",
+  "backend_regression": {
+    "tests": 82,
+    "pass": 77,
+    "fail": 5,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "backend_duration_ms": 15836.1714,
+  "backend_failures": [
+    "not ok 32 - D2-03 重复注册响应不得明确披露登录名已被使用",
+    "not ok 46 - D2-17 未知数据库异常不得把内部错误信息返回客户端（异常注入）",
+    "not ok 47 - D2-18 非法 JSON 应为 400 且有请求标识",
+    "not ok 49 - D2-20 未认证请求不能触发内部模型适配器（路由替身）",
+    "not ok 51 - D2-22 获取认证上下文不应把 DESKTOP 会话重绑定为 WEB 并开放 WEB 记录"
+  ],
+  "frontend_adapter": {
+    "tests": 6,
+    "pass": 6,
+    "fail": 0
+  },
+  "core_probes": {
+    "checks": 12,
+    "pass": 5,
+    "fail": 7
+  },
+  "day2_recheck": {
+    "checks": 6,
+    "pass": 0,
+    "fail": 6
+  },
+  "live_search": {
+    "commit": "a25c91203680abdbe216cb74f2b92dc3f1c5a09d",
+    "recordedAt": "2026-10-25T02:37:09.087Z",
+    "provider": "https://zh.wikipedia.org/w/api.php",
+    "syntheticQuestion": "PostgreSQL",
+    "timeoutMs": 8000,
+    "elapsedMs": 8009,
+    "state": "TIMEOUT",
+    "sourceCount": 0,
+    "success": false
+  },
+  "tests_overlap": true,
+  "live_model_rerun": false,
+  "browser_rerun": false,
+  "native_electron_rerun": false,
+  "formal_pg16": false,
+  "team_acceptance": false
+}

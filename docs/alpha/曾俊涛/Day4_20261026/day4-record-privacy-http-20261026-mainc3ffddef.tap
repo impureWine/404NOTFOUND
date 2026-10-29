@@ -1,0 +1,12 @@
+✔ D4-01 visitor denied; A explicitly saves, reads and logs out; B cannot view A (2121.6318ms)
+✔ D4-02 missing, mismatched and revoked SAVE consent cannot create a record (1162.2284ms)
+✔ D4-03 two-step clear rejects stale version and other account, removes payload and list visibility (1268.2807ms)
+✔ D4-04 repeated save is idempotent; another entry and a revoked session cannot read the record (882.8321ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5903.622

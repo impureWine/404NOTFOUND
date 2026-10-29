@@ -1,0 +1,125 @@
+{
+  "source": "main@c3ffddef",
+  "date": "2026-10-26 Asia/Shanghai",
+  "layer": "real UI registration/login/logout; QA script directly calls record API from browser",
+  "uiRecordBinding": false,
+  "syntheticAccounts": true,
+  "requestRewrite": false,
+  "steps": [
+    {
+      "name": "A login UI, then QA same-origin API consent/save/list/detail",
+      "consentStatus": 201,
+      "saveStatus": 201,
+      "listStatus": 200,
+      "listCount": 1,
+      "detailStatus": 200,
+      "readableBody": false,
+      "ciphertextExposed": true,
+      "recordId": "09d9f40a-a9c9-4d0c-aa92-5fe7d5dcafc9"
+    },
+    {
+      "name": "A logout",
+      "recordsStatus": 401
+    },
+    {
+      "name": "B login UI and QA API isolation",
+      "listStatus": 200,
+      "listCount": 0,
+      "readAStatus": 404
+    }
+  ],
+  "apiResponses": [
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/profile",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/consents",
+      "status": 201
+    },
+    {
+      "path": "/api/records",
+      "status": 201
+    },
+    {
+      "path": "/api/records",
+      "status": 200
+    },
+    {
+      "path": "/api/records/09d9f40a-a9c9-4d0c-aa92-5fe7d5dcafc9",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/logout",
+      "status": 204
+    },
+    {
+      "path": "/api/records",
+      "status": 401
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/register",
+      "status": 201
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/login",
+      "status": 200
+    },
+    {
+      "path": "/api/auth/context",
+      "status": 200
+    },
+    {
+      "path": "/api/profile",
+      "status": 200
+    },
+    {
+      "path": "/api/records",
+      "status": 200
+    },
+    {
+      "path": "/api/records/09d9f40a-a9c9-4d0c-aa92-5fe7d5dcafc9",
+      "status": 404
+    }
+  ]
+}

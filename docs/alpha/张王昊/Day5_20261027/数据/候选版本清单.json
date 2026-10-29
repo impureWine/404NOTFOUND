@@ -1,0 +1,49 @@
+{
+  "id": "alpha-day5-review-20261027+66504bc",
+  "source_commit": "66504bc3dc382c237c3650fb9d7ce8525a4f6478",
+  "as_of": "2026-10-27T10:39:44+08:00",
+  "candidate_kind": "PM评审基线，非远端tag/生产发布",
+  "release_verdict": "BLOCKED",
+  "blocking_ids": [
+    "D5-01",
+    "D5-02",
+    "D5-03",
+    "D5-04",
+    "D5-05",
+    "D5-06",
+    "D5-07",
+    "D5-08",
+    "D5-11",
+    "D5-12",
+    "D5-15"
+  ],
+  "backend_package_version": "0.1.0",
+  "backend_tests": {
+    "tests": 115,
+    "pass": 115,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "frontend_tests": {
+    "pass": 6,
+    "fail": 0
+  },
+  "build_exit": 0,
+  "formal_pg16": false,
+  "https_deployment": false,
+  "real_model_rerun": false,
+  "live_search_success": false,
+  "authorized_runtime_config_executed": false,
+  "config_rule_probe": {
+    "empty_env": "BLOCKED",
+    "synthetic_production_env": "READY",
+    "database_connected": false
+  },
+  "full_source_archive": "https://github.com/impureWine/404NOTFOUND/archive/66504bc3dc382c237c3650fb9d7ce8525a4f6478.zip",
+  "source_integrity_files": 424,
+  "no_application_changes": true,
+  "no_deletion": true,
+  "team_accepted": false,
+  "binary_release_published": false
+}

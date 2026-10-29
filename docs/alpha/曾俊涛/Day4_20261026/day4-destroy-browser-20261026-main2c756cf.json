@@ -1,0 +1,30 @@
+{
+  "source": "main@2c756cf (same product files as 6e69910); QA-only isolated harness in local mirror",
+  "date": "2026-10-26 Asia/Shanghai",
+  "markerHashPrefix": "7228f4ffc9c8",
+  "scope": "React DestroyPage in fresh Edge context, no backend; checks observable network, DOM and browser storage only",
+  "steps": [
+    {
+      "action": "enter and destroy synthetic text",
+      "textareaEmpty": true,
+      "domMarkerAbsent": true,
+      "storageMarkerAbsent": true,
+      "browserStorage": {
+        "local": {},
+        "session": {},
+        "indexedDbNames": [],
+        "cacheNames": []
+      }
+    },
+    {
+      "action": "reload while text was present",
+      "markerAbsentAfterReload": true
+    }
+  ],
+  "network": {
+    "observedRequests": 26,
+    "apiRequests": 0,
+    "markerInUrlOrBody": 0,
+    "markerInConsole": false
+  }
+}
