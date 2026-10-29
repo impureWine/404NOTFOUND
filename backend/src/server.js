@@ -8,7 +8,7 @@ import { parseProfileKey } from './security/crypto.js';
 import { AuthService } from './services/auth-service.js';
 import { TaskService } from './services/task-service.js';
 import { TrainingService } from './services/training-service.js';
-import { WikipediaSearchProvider } from './search/wikipedia-search-provider.js';
+import { BingSearchProvider } from './search/bing-search-provider.js';
 import { createSavedQueries } from './services/saved-query-service.js';
 import { fileURLToPath } from 'node:url';
 import { RecordRepository } from './repositories/record-repository.js';
@@ -39,8 +39,9 @@ const consentService = new ConsentService();
 const taskService = new TaskService({
   consentService,
   modelAdapter,
-  searchProvider: new WikipediaSearchProvider({
-    language: config.search.language,
+  searchProvider: new BingSearchProvider({
+    apiKey: process.env.SERPAPI_API_KEY,
+    market: config.search.market,
     timeoutMs: config.search.timeoutMs,
   }),
 });

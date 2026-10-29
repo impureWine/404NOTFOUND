@@ -68,3 +68,13 @@ test('release readiness accepts a bounded production configuration', () => {
   assert.equal(result.ready, true);
   assert.deepEqual(result.issues, []);
 });
+
+
+test('runtime selects Bing with bounded market configuration and rejects retired providers', () => {
+  const config = getRuntimeConfig(base);
+  assert.equal(config.search.provider, 'bing');
+  assert.equal(config.search.market, 'zh-CN');
+  assert.equal(config.search.timeoutMs, 15000);
+  assert.throws(() => getRuntimeConfig({ ...base, SEARCH_PROVIDER: 'wikipedia' }), /SEARCH_PROVIDER/);
+  assert.throws(() => getRuntimeConfig({ ...base, BING_SEARCH_MARKET: 'https:\/\/example.org' }), /BING_SEARCH_MARKET/);
+});
