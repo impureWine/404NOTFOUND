@@ -1,0 +1,77 @@
+{
+  "candidate_id": "alpha-day6-review-20261028+3c6b3b3",
+  "as_of": "2026-10-28T19:46:22+08:00",
+  "product_sha": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "product_tree": "3c6b3b3878f5d4e47f82eae23270e58238d73ceb",
+  "node": "v26.2.0",
+  "backend": {
+    "tests": 124,
+    "pass": 124,
+    "fail": 0
+  },
+  "integration_explicit_files": {
+    "tests": 39,
+    "pass": 39,
+    "fail": 0
+  },
+  "restore": {
+    "tests": 1,
+    "pass": 1,
+    "fail": 0
+  },
+  "frontend": {
+    "tests": 6,
+    "pass": 6,
+    "fail": 0
+  },
+  "release_verdict": "BLOCKED",
+  "source_files_verified": 463,
+  "test_sets_overlap": true,
+  "real_model_called": false,
+  "real_pg16_verified": false,
+  "frontend_day6": {
+    "sha": "0379a5626b7e499e0dbd53ad72ddf5a62ced17cf",
+    "state": "branch only",
+    "ahead": 5,
+    "behind": 18
+  },
+  "related_prs": [
+    {
+      "number": 73,
+      "state": "OPEN",
+      "headRefOid": "27759fd50faf6d0673651f7f45816d01e29008d9",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/73"
+    },
+    {
+      "number": 69,
+      "state": "MERGED",
+      "headRefOid": "c77787fe41334599388407cdc685e56f74e94c33",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/69"
+    },
+    {
+      "number": 65,
+      "state": "OPEN",
+      "headRefOid": "a518b27ceab9fe8291dd8ccac359cd3e59fd3e79",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/65"
+    },
+    {
+      "number": 63,
+      "state": "OPEN",
+      "headRefOid": "29e0e87efb2c8f6deb753b571af2a942d6c0d8bb",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/63"
+    },
+    {
+      "number": 60,
+      "state": "OPEN",
+      "headRefOid": "e3221f4ae6bae196fe3a86675b288215c8fd4cf0",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/60"
+    },
+    {
+      "number": 54,
+      "state": "OPEN",
+      "headRefOid": "2505a391b8f03650db7daf0a6353cfe93f53b952",
+      "url": "https://github.com/impureWine/404NOTFOUND/pull/54"
+    }
+  ],
+  "whole_browser_e2e_passed": false
+}
