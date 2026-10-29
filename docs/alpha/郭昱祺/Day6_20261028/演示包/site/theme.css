@@ -1,0 +1,78 @@
+:root {
+  --brand: #c86b8c;
+  --brand-dark: #984762;
+  --brand-soft: #f9eaf0;
+  --brand-line: #ebcbd8;
+  --brand-rgb: 200, 107, 140;
+  --brand-focus: #e3a9bd;
+  --page-bg: #fdf5f8;
+  background: var(--page-bg);
+}
+
+[data-theme="mint"] {
+  --brand: #5f8d86;
+  --brand-dark: #4b736c;
+  --brand-soft: #edf4f3;
+  --brand-line: #dce7e4;
+  --brand-rgb: 95, 141, 134;
+  --brand-focus: #a7c9c3;
+  --page-bg: #f4f8f7;
+}
+
+[data-theme="blue"] {
+  --brand: #557ca8;
+  --brand-dark: #3d5f86;
+  --brand-soft: #eaf1f8;
+  --brand-line: #cbd9e8;
+  --brand-rgb: 85, 124, 168;
+  --brand-focus: #a9c0da;
+  --page-bg: #f3f7fb;
+}
+
+[data-theme="lavender"] {
+  --brand: #8a76a8;
+  --brand-dark: #685681;
+  --brand-soft: #f1edf6;
+  --brand-line: #dcd3e8;
+  --brand-rgb: 138, 118, 168;
+  --brand-focus: #c4b6d8;
+  --page-bg: #f7f4fa;
+}
+
+.brand-icon,
+.w-16.h-9 {
+  width: 56px !important;
+  height: 32px !important;
+  flex: 0 0 56px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.brand-icon > img,
+.w-16.h-9 > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+body { background-color: var(--page-bg); }
+body.bg-mist { background-color: var(--page-bg) !important; }
+
+button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline-color: var(--brand-focus);
+}
+
+.theme-picker { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.theme-choice {
+  min-width: 116px; display: inline-flex; align-items: center; gap: 9px;
+  padding: 9px 12px; border: 1px solid #e7edeb; border-radius: 8px;
+  background: #fff; color: #52615e; font-size: 12px; cursor: pointer;
+}
+.theme-choice:hover { background: #f8faf9; }
+.theme-choice[aria-pressed="true"] { border-color: var(--brand); color: var(--brand-dark); background: var(--brand-soft); }
+.theme-swatch { width: 18px; height: 18px; flex: 0 0 18px; border-radius: 50%; background: var(--swatch); box-shadow: inset 0 0 0 1px #00000012; }
+.theme-choice .theme-check { margin-left: auto; visibility: hidden; color: var(--brand-dark); }
+.theme-choice[aria-pressed="true"] .theme-check { visibility: visible; }
+.theme-status { min-height: 18px; margin-top: 10px; color: #6b7875; font-size: 11.5px; }

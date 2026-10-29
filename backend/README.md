@@ -14,8 +14,10 @@
 `glm-4.7-flash`，不自动切换其他模型。将 `.env.example` 复制为本地 `.env` 后，
 只在 `.env` 中填写 `ZHIPU_API_KEY`；不得把密钥写入源码、文档或提交记录。
 
-模型内部入口为 `POST /internal/v1/model/generate`，请求和响应遵循契约 `1.1`，
-并统一返回超时、限流、不可用及输出无效错误。情绪命名卡使用
+模型内部入口为 `POST /internal/v1/model/generate`，请求和响应遵循契约 `1.1`。
+该入口只接受 `Authorization: Bearer <INTERNAL_MODEL_TOKEN>`；未配置或未匹配时在调用
+适配器前返回 403。令牌只从环境变量读取，不得提交真实值。入口统一返回
+超时、取消、限流、不可用及输出无效错误。情绪命名卡使用
 `NamingCard.select({ emotionWords, need })` 做确定性路由：`LISTEN`/`ORGANIZE`
 进入 `COMPANION`，`SEARCH` 进入 `SEARCH` 并要求先补充具体问题；选词本身不会
 触发模型调用、检索或持久化。
@@ -63,7 +65,9 @@ npm run smoke:model
 - `WikipediaSearchProvider`：真实调用固定 Wikipedia MediaWiki API；支持超时、空结果和上游错误。
 - 合同校验：严格对象、非全零UUID、Unicode码点长度、真实日历日期和IANA时区。
 - 模型适配：LangChain JS 配置白名单、契约校验、最小上下文构造、统一输出校验、
-  合成输入和离线失败替身；提供内部调用入口、超时控制和真实调用冒烟脚本。
+  合成输入和离线失败替身；提供带服务凭据的内部调用入口、超时/取消分离和真实调用冒烟脚本。
+- 安全前置路由：对窄范围、明确且紧迫的合成伤害表达返回固定安全回应，不调用模型；
+  该规则不是临床风险评估或生产级内容安全分类器。
 - 命名卡路由：按用户明确选择将 `LISTEN`/`ORGANIZE` 路由到陪伴，或将
   `SEARCH` 路由到查询澄清，不自动调用模型、检索或保存。
 - 认证与资料：Argon2id 密码摘要、仅存摘要的会话 Cookie、Origin + CSRF 校验、资料乐观锁和 AES-256-GCM 字段加密；HTTPS 使用 `__Host-session`，本机 HTTP 开发使用 `session`。
@@ -86,7 +90,7 @@ npm run smoke:model
 
 ## 尚未完成或尚未正式验证
 
-- 完整 `/api/agent/tasks` 异步陪伴/训练业务链路、AI_PROCESS 许可和前端联调；当前只提供内部模型生成入口及真实调用冒烟验证。
+- `/api/agent/tasks` 异步陪伴和 `AI_PROCESS` 许可已有后端合成回归，但真实前端联调、正式部署及多进程任务队列尚未验收。
 - 正式密钥托管、密钥轮换、限流、审计日志和多实例共享任务队列。
 - 认证应用服务尚未接入 `IdentityRepository.createAccount` 的注册 `requestId` 幂等与服务端HMAC载荷摘要；当前仓储测试只使用合成摘要。
 - 注册幂等元数据的过期清理任务；迁移只记录24小时 `expires_at`，部署前仍需配置清理作业。

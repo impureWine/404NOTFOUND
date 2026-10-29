@@ -1,0 +1,376 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "029286a748d45b4afe347c01cd61c105e163cf014c81d11b44ff5229ce431c05",
+    "file_count": 12,
+    "files": [
+      {
+        "file": "authoring-svg-flat/slide_01.svg",
+        "sha256": "b544346db564fa8bb786a9039a72467d6c94b0b4e69c3d3be4ca0c6d6db653f8"
+      },
+      {
+        "file": "authoring-svg-flat/slide_02.svg",
+        "sha256": "fddd141d9b1c8c87214460d238fa55e3817f51cb114785732ca38334e4b4317b"
+      },
+      {
+        "file": "authoring-svg-flat/slide_03.svg",
+        "sha256": "a21fab6b50881a277d79b8edee0e43a7c4dd44b82311bc55fb0890ee5dbbe128"
+      },
+      {
+        "file": "authoring-svg-flat/slide_04.svg",
+        "sha256": "91c50f02d8934204e2e451cc220d71408ea11932b3638ebfea601d0c72bafe76"
+      },
+      {
+        "file": "authoring-svg-flat/slide_05.svg",
+        "sha256": "72df31a1a42e797e8eafb5cceb7f1a976a38cb50c7f58902f3caa27aca7f35f5"
+      },
+      {
+        "file": "authoring-svg-flat/slide_06.svg",
+        "sha256": "5643aef2a4a6454d65182fb6b474874c4cfa3d2993076eb9d925c911c76f429a"
+      },
+      {
+        "file": "authoring-svg-flat/slide_07.svg",
+        "sha256": "1a30d8a90b97ca040ced7bb38c9c74e6577b3a4e9a9bb0e852c61431a589e577"
+      },
+      {
+        "file": "authoring-svg-flat/slide_08.svg",
+        "sha256": "e3f430db1de8cd31ceabec586aeb49e438f1d7ddda79deded22892cc0b50a387"
+      },
+      {
+        "file": "authoring-svg-flat/slide_09.svg",
+        "sha256": "6ca45056c83ddc206e74941b9148fefe1c7cbef0390c0eaa3637e152407eeced"
+      },
+      {
+        "file": "authoring-svg-flat/slide_10.svg",
+        "sha256": "a71da5d9aa49a6dffcea8351bb76425ac82c0ef89164dbfd7cf9710b3b4ca790"
+      },
+      {
+        "file": "authoring-svg-flat/slide_11.svg",
+        "sha256": "33e2ab3a1925cf2cd38384773f78575a4cf5f2477ab8b39e4a0b79933b95a2da"
+      },
+      {
+        "file": "authoring-svg-flat/slide_12.svg",
+        "sha256": "f4803a30a890c3fbe2399d36252aefce97a7ff806fa475a33b3b4e746cd16686"
+      }
+    ]
+  },
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "warnings": 0,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 0,
+      "issues": []
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {},
+    "fonts": {},
+    "sizes": {}
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 0,
+    "totals": {
+      "text_elements": 0,
+      "image_placements": 0,
+      "icons": 0,
+      "svg_geometry_elements": 0,
+      "preset_shapes": 0,
+      "page_frame_elements": 0,
+      "marker_uses": 0,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 0,
+      "icons": 0,
+      "presets": 0,
+      "charts": 0,
+      "tables": 0,
+      "formulas": 0,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": null,
+    "geometry_elements": {},
+    "preset_names": {},
+    "native_objects": {},
+    "image_page_max_frame_share_range": []
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "slide_01.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_01.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 1,
+        "source_slide": 1,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 2,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 4,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "b544346db564fa8bb786a9039a72467d6c94b0b4e69c3d3be4ca0c6d6db653f8"
+    },
+    {
+      "file": "slide_02.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_02.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 2,
+        "source_slide": 2,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 2,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 12,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "fddd141d9b1c8c87214460d238fa55e3817f51cb114785732ca38334e4b4317b"
+    },
+    {
+      "file": "slide_03.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_03.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 3,
+        "source_slide": 3,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 14,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "a21fab6b50881a277d79b8edee0e43a7c4dd44b82311bc55fb0890ee5dbbe128"
+    },
+    {
+      "file": "slide_04.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_04.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 4,
+        "source_slide": 4,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "91c50f02d8934204e2e451cc220d71408ea11932b3638ebfea601d0c72bafe76"
+    },
+    {
+      "file": "slide_05.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_05.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 5,
+        "source_slide": 5,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 8,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "72df31a1a42e797e8eafb5cceb7f1a976a38cb50c7f58902f3caa27aca7f35f5"
+    },
+    {
+      "file": "slide_06.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_06.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 6,
+        "source_slide": 6,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "5643aef2a4a6454d65182fb6b474874c4cfa3d2993076eb9d925c911c76f429a"
+    },
+    {
+      "file": "slide_07.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_07.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 7,
+        "source_slide": 7,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "1a30d8a90b97ca040ced7bb38c9c74e6577b3a4e9a9bb0e852c61431a589e577"
+    },
+    {
+      "file": "slide_08.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_08.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 8,
+        "source_slide": 8,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 8,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "e3f430db1de8cd31ceabec586aeb49e438f1d7ddda79deded22892cc0b50a387"
+    },
+    {
+      "file": "slide_09.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_09.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 9,
+        "source_slide": 9,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 9,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "6ca45056c83ddc206e74941b9148fefe1c7cbef0390c0eaa3637e152407eeced"
+    },
+    {
+      "file": "slide_10.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_10.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 10,
+        "source_slide": 10,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 0,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 8,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "a71da5d9aa49a6dffcea8351bb76425ac82c0ef89164dbfd7cf9710b3b4ca790"
+    },
+    {
+      "file": "slide_11.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_11.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 11,
+        "source_slide": 11,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 8,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 6,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "33e2ab3a1925cf2cd38384773f78575a4cf5f2477ab8b39e4a0b79933b95a2da"
+    },
+    {
+      "file": "slide_12.svg",
+      "path": "D:\\DSH\\软工实践\\工程\\.codex-project-review\\ux-final-roundtrip-20261029\\authoring-svg-flat\\slide_12.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [],
+      "info": {
+        "output_page": 12,
+        "source_slide": 12,
+        "viewbox": "0 0 1280 720",
+        "edited_text_elements": 8,
+        "roundtrip_text_calibration": {
+          "factor": 0.0,
+          "measured_unchanged": 6,
+          "positive_unchanged": 0
+        }
+      },
+      "passed": true,
+      "source_sha256": "f4803a30a890c3fbe2399d36252aefce97a7ff806fa475a33b3b4e746cd16686"
+    }
+  ]
+}

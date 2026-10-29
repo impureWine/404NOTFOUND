@@ -1,0 +1,14 @@
+[D5-01] {"anonymous":{"status":401,"callsAfter":0},"badOrigin":{"status":200,"adapterCalls":1},"noCsrf":{"status":200,"adapterCalls":1},"noConsent":{"status":200,"adapterCalls":1}}
+✔ D5-01 内部模型入口：匿名已拦截，但 Origin/CSRF/用途许可仍未校验 (949.0847ms)
+[D5-02] {"webSession":{"status":200,"taskStatus":"completed","hasResult":true},"desktopCrossRead":{"status":200,"hasResult":true,"taskStatus":"completed"},"desktopCrossCancel":{"status":200}}
+✔ D5-02 同账号跨入口：DESKTOP 会话可读并取消 WEB 的 AI 任务 (671.7947ms)
+[D5-10] {"staleWriteStatus":403}
+✔ D5-10 失效会话写请求：请求被拒绝但返回 403 而非 401（沿用 Day 4 观察） (638.2245ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2730.7998

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "inventoryEntries": 137,
+  "zipMembers": 139,
+  "checks": [
+    "ZIP testzip passed",
+    "Every inventory member byte length and SHA-256 match",
+    "PPT and both React entries present"
+  ],
+  "archive": "UX_标准演示包_v0.2_20261028.zip",
+  "sha256Sidecar": "UX_标准演示包_v0.2_20261028.zip.sha256",
+  "note": "Archive hash is external to avoid self-reference. All checks are asserted after final ZIP creation."
+}

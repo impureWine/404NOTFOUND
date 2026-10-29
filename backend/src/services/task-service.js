@@ -8,6 +8,7 @@ import {
 } from '@404notfound/contracts';
 
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
+import { routeSafetyInput } from '../ai/safety-router.js';
 
 function parse(schema, value) {
   const result = schema.safeParse(value);
@@ -39,9 +40,10 @@ export class TaskService {
       mode: value.mode,
       state: 'ready',
       ownerKey: this.ownerKey(context),
+      contextSessionId: context.sessionId,
     };
     this.sessions.set(session.sessionId, session);
-    return { ...session, ownerKey: undefined };
+    return this.publicSession(session);
   }
 
   getSession(context, sessionId) {
@@ -84,7 +86,7 @@ export class TaskService {
     if (['PAUSE', 'RESTART', 'FINISH_REHEARSAL', 'END'].includes(value.action)) {
       this.cancelSessionTasks(session.sessionId);
     }
-    return { ...session, ownerKey: undefined };
+    return this.publicSession(session);
   }
 
   createSearchTask(context, body) {
@@ -161,7 +163,8 @@ export class TaskService {
     ) {
       throw new ConflictError('AI 任务不属于当前可运行活动');
     }
-    if (!this.modelAdapter) {
+    const safetyRoute = routeSafetyInput(value.selectedText);
+    if (!this.modelAdapter && !safetyRoute) {
       const error = new Error('模型适配器不可用');
       error.code = 'SERVICE_UNAVAILABLE';
       throw error;
@@ -191,6 +194,17 @@ export class TaskService {
       if (task.status === 'cancelled') return;
       task.status = 'running';
       try {
+        if (safetyRoute) {
+          task.status = 'completed';
+          task.route = safetyRoute.route;
+          task.safetyReason = safetyRoute.reason;
+          task.result = {
+            text: safetyRoute.text,
+            userMessageId: randomUUID(),
+            replyMessageId: randomUUID(),
+          };
+          return;
+        }
         const response = await this.modelAdapter.respond(
           this.buildAgentModelRequest(value, session),
           { signal: controller.signal },
@@ -240,6 +254,30 @@ export class TaskService {
     delete task.result;
     delete task.failureReason;
     return this.publicTask(task);
+  }
+
+  invalidateContext(context) {
+    if (!context?.sessionId) return { sessionsInvalidated: 0 };
+    return this.invalidateSessions((session) => session.contextSessionId === context.sessionId);
+  }
+
+  invalidateAccount(accountId) {
+    if (!accountId) return { sessionsInvalidated: 0 };
+    return this.invalidateSessions((session) => session.ownerKey === accountId);
+  }
+
+  invalidateSessions(matches) {
+    let sessionsInvalidated = 0;
+    for (const session of this.sessions.values()) {
+      if (!matches(session)) continue;
+      if (session.state !== 'ended') {
+        session.state = 'ended';
+        session.sessionGeneration += 1;
+      }
+      this.cancelSessionTasks(session.sessionId, { includeCompleted: true });
+      sessionsInvalidated += 1;
+    }
+    return { sessionsInvalidated };
   }
 
   agentConsentPayload(value) {
@@ -296,14 +334,29 @@ export class TaskService {
 
   modelFailureReason(code) {
     if (code === 'MODEL_TIMEOUT') return 'TIMEOUT';
-    if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST'].includes(code)) {
+    if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST', 'CONTENT_REJECTED'].includes(code)) {
       return 'OUTPUT_INVALID';
     }
     return 'PROVIDER_UNAVAILABLE';
   }
 
   publicTask(task) {
-    const { ownerKey: _ownerKey, controller: _controller, ...result } = task;
+    const {
+      ownerKey: _ownerKey,
+      controller: _controller,
+      safetyReason: _safetyReason,
+      ...result
+    } = task;
+    return result;
+  }
+
+  publicSession(session) {
+    const { ownerKey: _ownerKey, contextSessionId: _contextSessionId, ...result } = session;
+    return result;
+  }
+
+  publicSession(session) {
+    const { ownerKey: _ownerKey, contextSessionId: _contextSessionId, ...result } = session;
     return result;
   }
 
@@ -323,18 +376,30 @@ export class TaskService {
     return this.publicTask(task);
   }
 
-  cancelSessionTasks(sessionId) {
+  cancelSessionTasks(sessionId, { includeCompleted = false } = {}) {
     for (const task of this.agentTasks.values()) {
-      if (task.sessionId === sessionId && ['pending', 'running'].includes(task.status)) {
+      if (
+        task.sessionId === sessionId
+        && (includeCompleted || ['pending', 'running'].includes(task.status))
+        && !['cancelled', 'expired'].includes(task.status)
+      ) {
         task.status = 'cancelled';
         task.controller.abort();
         delete task.result;
+        delete task.failureReason;
       }
     }
     for (const task of this.searchTasks.values()) {
-      if (task.sessionId === sessionId && ['pending', 'running'].includes(task.status)) {
+      if (
+        task.sessionId === sessionId
+        && (includeCompleted || ['pending', 'running'].includes(task.status))
+        && !['cancelled', 'expired'].includes(task.status)
+      ) {
         task.status = 'cancelled';
         task.controller.abort();
+        delete task.answer;
+        delete task.sources;
+        delete task.failureReason;
       }
     }
   }

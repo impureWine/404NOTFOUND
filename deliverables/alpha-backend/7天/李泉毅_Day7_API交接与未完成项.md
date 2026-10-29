@@ -2,7 +2,7 @@
 
 负责人：李泉毅（后端）　复核准备：2026-10-28
 
-本地实测代码：`main@1e1eebf`（本地 checkout）；GitHub 最新可核验 `main@2043c069`。本机 fetch 不可用，因此今日测试不能宣称运行于最新远端 SHA。
+本地复跑工作树基于 `main@1e1eebf`，但含有未提交的其他改动；GitHub `main` 当前为 `3c6b3b3`。测试计数仅代表本地脏工作树，不能宣称对应干净的本地提交、远端 `main` 或本次 issue 分支。
 
 状态：Day7 最终复核准备与交接已完成；正式环境、修复后红灯复测和团队确认仍待实际发生。
 
@@ -10,11 +10,11 @@
 
 | 检查 | 结果 | 范围限制 |
 |---|---:|---|
-| 后端 `npm test` | 111/111 通过 | 本地 `1e1eebf` 工作树；PGlite/合成测试；Node.js 20.18.0，低于 backend 声明的 >=22 |
-| 后端 `npm run test:integration` | 34/34 通过 | 本地 `1e1eebf` 工作树 |
-| Day1 独立 API `npm test` | 8/8 通过 | 仅 API 骨架合同与状态 |
-| 前端 API 适配器 `npm test` | 6/6 通过 | 不代表完整页面端到端 |
-| 前端 `npm run build` | 通过 | Vite 1588 modules；构建不等于联调 |
+| 后端 `npm test` | 111/111 通过 | 含其他未提交改动的本地工作树；PGlite/合成测试；Node.js 20.18.0，低于 backend 声明的 >=22 |
+| 后端 `npm run test:integration` | 34/34 通过 | 含其他未提交改动的本地工作树；不是干净 SHA 验证 |
+| Day1 独立 API `npm test` | 8/8 通过 | 本地工作树；仅 API 骨架合同与状态 |
+| 前端 API 适配器 `npm test` | 6/6 通过 | 本地工作树；不代表完整页面端到端 |
+| 前端 `npm run build` | 通过 | 本地工作树；Vite 1588 modules；构建不等于联调 |
 | `npm run check:release` | BLOCKED | 缺少 `DATABASE_URL`、`PROFILE_ENCRYPTION_KEY` |
 | Wikipedia 实网抽查 | TIMEOUT | `Wikipedia` 查询，8秒超时，来源数0；无链接可抽查 |
 
