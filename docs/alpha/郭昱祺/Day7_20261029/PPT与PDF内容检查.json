@@ -1,0 +1,116 @@
+{
+  "status": "passed",
+  "ppt_pages": 12,
+  "pdf_pages": 12,
+  "notes": 12,
+  "visible_unchanged_pages": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "editable_text_runs": 91,
+  "pages": [
+    {
+      "page": 1,
+      "title": "404NOTFOUND",
+      "visible_source_xml_unchanged": false,
+      "native_text_runs": 4,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 2,
+      "title": "个人范围与当前交付层次",
+      "visible_source_xml_unchanged": false,
+      "native_text_runs": 12,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 3,
+      "title": "从用户目标到操作路径",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 12,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 4,
+      "title": "登录：规则可见，焦点可进可退",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 6,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 5,
+      "title": "主页：空记录与读取失败分开",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 5,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 6,
+      "title": "聊天：结束可取消，超时可核实",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 6,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 7,
+      "title": "来源展示：让依据和未知都可见",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 6,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 8,
+      "title": "情绪与训练：由用户控制下一步",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 5,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 9,
+      "title": "主动保存：每次范围都要再确认",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 6,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 10,
+      "title": "本人历史：可返回，也可保留",
+      "visible_source_xml_unchanged": true,
+      "native_text_runs": 5,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 11,
+      "title": "验收依据与当前边界",
+      "visible_source_xml_unchanged": false,
+      "native_text_runs": 12,
+      "pdf_title_present": true,
+      "notes": true
+    },
+    {
+      "page": 12,
+      "title": "最终交付与演示边界",
+      "visible_source_xml_unchanged": false,
+      "native_text_runs": 12,
+      "pdf_title_present": true,
+      "notes": true
+    }
+  ],
+  "boundary": "标题、正文、原生图形、备注可编辑；界面截图是位图。"
+}
