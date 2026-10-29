@@ -36,7 +36,7 @@ export function Link({ href, children, className = '', ...rest }) {
   return <a href={page(href)} className={className} {...rest}>{children}</a>;
 }
 
-export function Sidebar({ mobileOpen, closeMobile, authenticated, nickname, onLogin, onAccount, onLogout, activePage = 'home', onNavigate, guestDescription = '访客体验；登录状态由认证服务确认。' }) {
+export function Sidebar({ mobileOpen, closeMobile, authenticated, nickname, onLogin, onAccount, onLogout, activePage = 'home', onNavigate, guestDescription = '访客可浏览全部功能；登录后读取和保存本人内容。' }) {
   return <aside className={`home-sidebar ${mobileOpen ? 'is-open' : ''}`}>
     <Link href="./" className="home-brand" onClick={closeMobile}>
       <span className="brand-mark"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span>
@@ -84,7 +84,7 @@ export function HeroGuest({ onLogin, onBrowse }) {
 
 export function SiteTopbar({ title = '首页', dateLabel, authStatus, nickname, showAccount, activePage = 'home', onNavigate }) {
   return <><header className="home-topbar"><div className="topbar-heading"><span className="mobile-logo"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span><div><h1>{title}</h1><p>{dateLabel} · 今天也慢慢来</p></div></div>
-        <div className="topbar-actions"><span className="prototype-badge"><FlaskConical size={15} />{authStatus === 'unavailable' ? '服务未连接' : authStatus === 'checking' ? '连接核验中' : ['guest', 'anonymous'].includes(authStatus) ? '访客预览' : '真实服务'}</span><Link href="settings.html" aria-label="通知与提醒" className="topbar-icon"><Bell size={17} /></Link><button type="button" onClick={showAccount} className="account-pill"><span>{authStatus === 'authenticated' ? nickname.slice(0, 1) : <UserCircle size={16} />}</span><b>{authStatus === 'checking' ? '核验中' : authStatus === 'authenticated' ? nickname : '访客登录'}</b></button></div>
+        <div className="topbar-actions"><span className="prototype-badge"><FlaskConical size={15} />{authStatus === 'unavailable' ? '服务未连接 · 可预览' : authStatus === 'checking' ? '连接核验中 · 可预览' : ['guest', 'anonymous'].includes(authStatus) ? '访客预览 · 功能开放' : '真实服务'}</span><Link href="settings.html" aria-label="通知与提醒" className="topbar-icon"><Bell size={17} /></Link><button type="button" onClick={showAccount} className="account-pill"><span>{authStatus === 'authenticated' ? nickname.slice(0, 1) : <UserCircle size={16} />}</span><b>{authStatus === 'checking' ? '核验中' : authStatus === 'authenticated' ? nickname : '访客浏览'}</b></button></div>
       </header>
       <nav className="mobile-home-nav">{navigation.slice(0, 6).map(([key, label, Icon, href]) => <Link key={key} href={href} onClick={event => { if (onNavigate?.(key)) event.preventDefault(); }} className={key === activePage ? 'active' : ''}><Icon size={15} />{label}</Link>)}</nav></>;
 }

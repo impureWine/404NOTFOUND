@@ -51,7 +51,7 @@ export function RecordVault({ authenticated, accountKey }) {
           {formError && <p className="record-error" role="alert">{formError}</p>}
           <Button type="submit" disabled={!authenticated || apiMode !== 'real' || Boolean(review) || vault.busy}>检查并选择保存</Button>
         </form>
-        {!authenticated && <p className="record-gate" role="status">登录后才能查看或保存私密记录；访客不会请求记录列表。</p>}
+        {!authenticated && <p className="record-gate" role="status">页面已开放浏览；登录后才能读取或保存本人私密记录，访客不会请求记录列表。</p>}
         {apiMode !== 'real' && authenticated && <p className="record-gate" role="status">当前是 API 模拟模式；不会模拟保存成功或展示虚构账户历史。</p>}
         {review && <div className="record-consent" role="group" aria-label="保存前确认">
           <h4>保存前确认</h4><strong>{review.title}</strong><p className="preserve-lines">{review.body}</p>

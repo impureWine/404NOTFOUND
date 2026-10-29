@@ -46,9 +46,9 @@ function openPressure() {
 function createPetWindow() {
   petWindow = new BrowserWindow({
     width: 380,
-    height: 280,
+    height: 410,
     minWidth: 320,
-    minHeight: 240,
+    minHeight: 380,
     frame: false,
     transparent: true,
     resizable: false,

@@ -138,7 +138,7 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
   };
   return <section className="live-records recent-card">
     <div className="section-heading"><h3>{emotion ? '情绪日历' : '陪伴记录'}</h3><span>{readOnly ? '访客预览 · 不读取个人记录' : '本人账户 · 真实服务'}</span></div>
-    {readOnly && <div className="calendar-guest-notice" role="status"><span><CalendarDays size={16} />访客预览</span><p>当前只展示日历界面和交互样式；登录并连接服务后，才会读取、保存和编辑本人记录。</p><button type="button" onClick={onLogin}>登录或注册</button></div>}
+    {readOnly && <div className="calendar-guest-notice" role="status"><span><CalendarDays size={16} />访客预览</span><p>{emotion ? '日历可浏览和选择日期；登录并连接服务后可读取本人记录。' : '页面可浏览；登录并连接服务后可读取本人陪伴记录。'}</p>{onLogin && <button type="button" onClick={onLogin}>登录或注册</button>}</div>}
     {error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {emotion && <div className="calendar-toolbar">
       <label className="calendar-month-picker"><span>查看月份</span><input aria-label="查看月份" type="month" required value={month} disabled={busy} onChange={event => { if (event.target.value) { setMonth(event.target.value); setSelectedDay(''); setFlippedDay(null); } }} /></label>
@@ -146,7 +146,7 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
     </div>}
     {!emotion && <button type="button" disabled={busy || loading} onClick={() => setRevision(value => value + 1)}>重新读取</button>}
     {loading && <p role="status">正在从服务端读取…</p>}
-    {!loading && !items.length && !emotion && <p>暂无主动保存的记录。</p>}
+    {!loading && !items.length && !emotion && <p>{readOnly ? '登录后读取本人陪伴记录。' : '暂无主动保存的记录。'}</p>}
     {emotion && <div className="calendar-layout">
       <section className="calendar-month-card" aria-label={`${monthLabel}情绪日历`}>
         <div className="calendar-card-heading"><div><span className="calendar-eyebrow">每天留下一点痕迹</span><h4>{monthLabel}</h4></div><div className="calendar-month-actions"><button type="button" aria-label="上一个月" onClick={() => changeMonth(-1)} disabled={busy}><ChevronLeft size={18} /></button><button type="button" aria-label="下一个月" onClick={() => changeMonth(1)} disabled={busy}><ChevronRight size={18} /></button></div></div>
