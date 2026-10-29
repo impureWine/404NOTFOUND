@@ -3,19 +3,22 @@ import { ChevronRight, Menu, ShieldCheck, X } from 'lucide-react';
 import { AuthDialog } from './auth/AuthDialog.jsx';
 import { useAuth } from './auth/useAuth.js';
 import { HeroGuest, Link, Sidebar, SiteTopbar, ToolsSection } from './components/SiteChrome.jsx';
+import { RecordVault } from './records/RecordVault.jsx';
+import { TextDestructionTool } from './req14/TextDestructionTool.jsx';
 
-function UserHome({ profile, onAccount, onLogout }) {
+function UserHome({ profile, identityKey, onAccount, onLogout }) {
   const nickname = profile?.nickname || profile?.loginName || '已登录用户';
   return <div className="user-view">
     <section className="user-hero">
-      <div><p className="date-label">账号已通过认证服务核验</p><h2>你好，{nickname}</h2><p>当前只接入账号与个人资料读取；陪伴记录和情绪日历尚未连接真实服务。</p></div>
+      <div><p className="date-label">账号已通过认证服务核验</p><h2>你好，{nickname}</h2><p>仅访问本人当前入口的记录。内容默认不保存，保存与清除都需要你明确确认。</p></div>
       <div className="account-summary-actions"><button type="button" className="button button-outline" onClick={onAccount}>查看账户信息</button><button type="button" className="button button-quiet" onClick={onLogout}>退出登录</button></div>
     </section>
     <section className="recent-card account-limits"><div className="section-heading"><h3>个人资料</h3><span>私密账户信息</span></div>
       <p><strong>昵称</strong><span>{nickname}</span></p>
       <p><strong>简介</strong><span>{profile?.bio || '尚未填写'}</span></p>
-      <p className="account-limit-note">个人资料编辑、内容记录与保存接口尚未联调；此页面不会使用演示数据冒充真实账户内容。</p>
+      <p className="account-limit-note">个人资料编辑尚未联调；记录列表和操作状态见下方。加密正文暂不在前端解密展示。</p>
     </section>
+    <RecordVault authenticated accountKey={identityKey} />
   </div>;
 }
 
@@ -24,6 +27,7 @@ export default function App() {
   const {
     status: authStatus,
     profile,
+    identityKey,
     authView,
     busy: authBusy,
     error: authError,
@@ -58,8 +62,9 @@ export default function App() {
         {pageNotice && <div className="home-auth-notice" role="status"><span>{pageNotice}</span>{logoutPending && <button type="button" className="inline-link" onClick={retryLogout}>重新核实退出</button>}</div>}
         <section className="state-switch"><span><span className="switch-icon">◐</span>{authStatus === 'authenticated' ? `已登录：${nickname} · 私密内容仅在身份核验后显示` : authStatus === 'checking' ? '正在从认证服务核验当前身份' : authStatus === 'unavailable' ? '认证服务暂不可用；私密内容保持隐藏' : '当前为未登录访客，可以先浏览公开演示入口'}</span>{authStatus === 'authenticated' ? <button type="button" className="auth-state-action" onClick={logout}>退出登录</button> : <button type="button" className="auth-state-action" onClick={() => openAuth('login')}>登录账户</button>}</section>
         {authStatus === 'authenticated'
-          ? <UserHome profile={profile} onAccount={showAccount} onLogout={logout} />
-          : <div className="guest-view"><HeroGuest onLogin={openAuth} /><section className="recent-card guest-recent"><div className="recent-empty-icon">◷</div><div><h3>最近陪伴记录</h3><p>登录状态已接入认证服务；私密记录接口尚未联调，因此这里不会展示模拟历史。</p><button type="button" className="button button-soft" onClick={() => openAuth('login')}>登录后查看账户状态</button></div></section></div>}
+          ? <UserHome key={identityKey} identityKey={identityKey} profile={profile} onAccount={showAccount} onLogout={logout} />
+          : <div className="guest-view"><HeroGuest onLogin={openAuth} /><section className="recent-card guest-recent"><div className="recent-empty-icon">◷</div><div><h3>最近陪伴记录</h3><p>登录后可访问本人当前入口的记录；当前 API 模拟模式不会展示虚构历史。</p><button type="button" className="button button-soft" onClick={() => openAuth('login')}>登录后查看账户状态</button></div></section></div>}
+        <TextDestructionTool />
         <ToolsSection />
         <section className="privacy-home-card"><ShieldCheck size={20} /><div><h3>隐私与留存说明</h3><ul><li>登录、注册与退出会调用当前配置的同源认证 API；密码不写入浏览器存储，也不进入 URL。</li><li>Cookie 由服务端设置并通过浏览器凭据通道发送；前端不读取 Cookie 原文。</li><li>陪伴、情绪记录、搜索和其他业务入口仍是演示内容，不代表已连接真实后端。</li></ul><Link href="settings.html">前往会话与隐私设置 <ChevronRight size={14} /></Link></div></section>
         <p className="demo-disclaimer"><span>ⓘ</span>账号界面仅在认证服务确认后显示私密身份信息；业务记录、AI 和搜索仍未完成真实联调。页面不提供医疗诊断、治疗建议或风险评分。</p>

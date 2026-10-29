@@ -48,7 +48,26 @@
   if (page === 'pressure-toy') {
     module.innerHTML = `${panel(`<div class="panel-head"><div><h3>轻点互动区</h3><p>点击目标，让它轻轻移动并显示计数。</p></div><span class="status-dot" id="toy-state">已暂停</span></div><div class="toy-stage" id="toy-stage" aria-label="点击互动区域"><button class="toy-shape shape-a" aria-label="点击圆形目标">●</button><button class="toy-shape shape-b" aria-label="点击方形目标">◆</button><button class="toy-shape shape-c" aria-label="点击圆点目标">●</button><div class="toy-center"><b id="toy-count">0</b><span>次轻点</span></div></div><div class="toolbar">${btn('开始互动', 'primary', 'toy-start')} ${btn('暂停', 'secondary', 'toy-pause')} ${btn('重置', 'secondary', 'toy-reset')}<button class="btn secondary" id="toy-mute" aria-pressed="true">声音：关闭</button><a class="btn text-btn" href="home.html">退出</a></div><p class="fine-print">无自动声音；本原型不播放音效。动画可随时暂停，系统减少动态效果时会降低运动。</p>`, 'toy-panel')}`;
     let active = false, count = 0; const stage = document.getElementById('toy-stage');
-    const setActive = value => { active = value; stage.classList.toggle('active', active); document.getElementById('toy-state').textContent = active ? '互动中' : '已暂停'; document.getElementById('toy-start').textContent = active ? '继续互动' : '开始互动'; };
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const renderActiveState = () => {
+      stage.classList.toggle('active', active);
+      document.getElementById('toy-state').textContent = active ? '互动中' : document.hidden ? '页面隐藏时已暂停' : motionPreference.matches ? '减少动态效果：目标静止' : '已暂停';
+      document.getElementById('toy-start').textContent = active ? '暂停互动' : '开始互动';
+    };
+    const setActive = value => { active = Boolean(value) && !document.hidden && !motionPreference.matches; renderActiveState(); };
+    const stopForPreference = () => {
+      if (document.hidden || motionPreference.matches) active = false;
+      renderActiveState();
+    };
+    const releaseToyResources = () => {
+      setActive(false);
+      document.removeEventListener('visibilitychange', stopForPreference);
+      motionPreference.removeEventListener('change', stopForPreference);
+      clearTimeout(toastTimer);
+    };
+    document.addEventListener('visibilitychange', stopForPreference);
+    motionPreference.addEventListener('change', stopForPreference);
+    window.addEventListener('pagehide', releaseToyResources, { once: true });
     document.getElementById('toy-start').onclick = () => setActive(true); document.getElementById('toy-pause').onclick = () => setActive(false);
     document.getElementById('toy-reset').onclick = () => { setActive(false); count = 0; document.getElementById('toy-count').textContent = '0'; toast('已重置当前演示'); };
     document.getElementById('toy-mute').onclick = e => { e.currentTarget.setAttribute('aria-pressed', 'true'); toast('当前原型没有播放声音'); };
