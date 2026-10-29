@@ -18,7 +18,7 @@ export function Library({ kind, authenticated = false, onOrganize }) {
     finally { locked.current = false; if (alive.current) setBusy(false); }
   };
   const patch = value => setContent(current => ({ ...current, ...value }));
-  const save = event => { event.preventDefault(); action(async () => {
+  const save = event => { event.preventDefault(); if (!authenticated) { setNotice('访客填写仅用于页面预览；登录后才会保存到本人账户。'); return; } action(async () => {
     const normalized = { ...content, title: content.title.trim() || names[kind], ...(kind === 'DEPOSIT' ? { reopenAt: new Date(content.reopenAt).toISOString() } : {}) };
     const fingerprint = JSON.stringify({ kind, normalized, editing });
     if (request.current?.fingerprint !== fingerprint) request.current = { fingerprint, id: id() };

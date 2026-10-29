@@ -144,7 +144,7 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
       <label className="calendar-month-picker"><span>查看月份</span><input aria-label="查看月份" type="month" required value={month} disabled={busy} onChange={event => { if (event.target.value) { setMonth(event.target.value); setSelectedDay(''); setFlippedDay(null); } }} /></label>
       {!readOnly && <button className="calendar-refresh" type="button" disabled={busy || loading} onClick={() => setRevision(value => value + 1)}><RefreshCw size={15} />重新读取</button>}
     </div>}
-    {!emotion && <button type="button" disabled={busy || loading} onClick={() => setRevision(value => value + 1)}>重新读取</button>}
+    {!emotion && !readOnly && <button type="button" disabled={busy || loading} onClick={() => setRevision(value => value + 1)}>重新读取</button>}
     {loading && <p role="status">正在从服务端读取…</p>}
     {!loading && !items.length && !emotion && <p>{readOnly ? '登录后读取本人陪伴记录。' : '暂无主动保存的记录。'}</p>}
     {emotion && <div className="calendar-layout">

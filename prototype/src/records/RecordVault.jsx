@@ -57,7 +57,7 @@ export function RecordVault({ authenticated, accountKey }) {
           <h4>保存前确认</h4><strong>{review.title}</strong><p className="preserve-lines">{review.body}</p>
           <label className="record-consent-choice"><input type="checkbox" checked={saveConsent} onChange={event => setSaveConsent(event.target.checked)} disabled={vault.busy} /><span>我明确选择将以上内容保存为本人当前入口的记录。此许可仅用于 SAVE，不代表允许 AI 处理。</span></label>
           {vault.saveResultUnknown && <p className="record-gate" role="status">服务端保存结果未知。请保持这个快照并用同一请求重试核实；不能取消后改成新内容。</p>}
-          <div className="button-row"><Button disabled={!saveConsent || vault.busy} onClick={confirmSave}>{vault.busy ? '正在保存…' : vault.saveResultUnknown ? '用同一请求重试核实' : vault.hasPendingSave ? '用同一请求重试保存' : '确认保存'}</Button><Button variant="neutral" disabled={vault.busy || vault.saveResultUnknown} onClick={() => { if (vault.cancelSave()) { setReview(null); setSaveConsent(false); setFormError(''); } }}>取消</Button></div>
+          <div className="button-row"><Button disabled={!authenticated || !saveConsent || vault.busy} onClick={confirmSave}>{vault.busy ? '正在保存…' : vault.saveResultUnknown ? '用同一请求重试核实' : vault.hasPendingSave ? '用同一请求重试保存' : '确认保存'}</Button><Button variant="neutral" disabled={vault.busy || vault.saveResultUnknown} onClick={() => { if (vault.cancelSave()) { setReview(null); setSaveConsent(false); setFormError(''); } }}>取消</Button></div>
         </div>}
       </Panel>
 
