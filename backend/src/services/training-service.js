@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import catalogue from '../../../shared/training-definitions.json' with { type: 'json' };
 
 import {
   startTrainingRequestSchema,
@@ -7,35 +8,7 @@ import {
 
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
 
-const FIVE_SENSES = Object.freeze({
-  definitionId: 'FIVE_SENSES',
-  title: '五感安定练习',
-  steps: Object.freeze([
-    Object.freeze({ stepId: 'SEE', title: '看见', instruction: '慢慢环顾四周，说出五样你能看见的东西。' }),
-    Object.freeze({ stepId: 'TOUCH', title: '触碰', instruction: '留意四种你能触碰或感受到的质地。' }),
-    Object.freeze({ stepId: 'HEAR', title: '听见', instruction: '安静片刻，辨认三种你能听见的声音。' }),
-    Object.freeze({ stepId: 'SMELL', title: '闻到', instruction: '留意两种你能闻到或能回想起的气味。' }),
-    Object.freeze({ stepId: 'TASTE', title: '尝到', instruction: '留意一种此刻能尝到的味道，然后按自己的节奏结束。' }),
-  ]),
-});
-
-const DEFINITIONS = {
-  FIVE_SENSES,
-  BREATHING: { title: '呼吸练习', steps: [
-    { stepId: 'IN', title: '吸气', instruction: '以舒服的幅度吸气约四秒；不适时恢复自然呼吸并退出。' },
-    { stepId: 'OUT', title: '呼气', instruction: '慢慢呼气约六秒，不必憋气。可重复，也可在此结束。' },
-  ] },
-  PAUSE_ORGANIZE: { title: '暂停整理', steps: [
-    { stepId: 'STOP', title: '先停一下', instruction: '暂时停下手头的事，把注意力放在身体支撑的位置。' },
-    { stepId: 'NAME', title: '描述事实', instruction: '只描述发生的事，不急着评价自己。' },
-    { stepId: 'CHOOSE', title: '选择下一步', instruction: '选一件现在能完成的小事，或者先休息。' },
-  ] },
-  TASK_SPLIT: { title: '任务拆分', steps: [
-    { stepId: 'GOAL', title: '明确任务', instruction: '写下你想完成的一件事。' },
-    { stepId: 'SMALL', title: '缩小步骤', instruction: '把第一步缩小到十分钟内可以开始的动作。' },
-    { stepId: 'START', title: '安排行动', instruction: '决定何时开始；需要个性化整理时可进入事情整理。' },
-  ] },
-};
+const DEFINITIONS = Object.fromEntries(catalogue.definitions.map(value => [value.id, value]));
 
 function parse(schema, value) {
   const result = schema.safeParse(value);
@@ -146,7 +119,7 @@ export class TrainingService {
       totalSteps: DEFINITIONS[session.definitionId].steps.length,
       elapsedMs,
       version: session.version,
-      step,
+      step: step ? { stepId: step.stepId, title: step.title, instruction: step.instruction } : null,
     };
   }
 }
