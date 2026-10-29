@@ -7,7 +7,7 @@ import { MockModelAdapter } from '../../src/ai/mock-model-adapter.js';
 import { createSyntheticModelRequest } from '../fixtures/model-requests.js';
 
 const fakeConfigEnv = {
-  ZHIPU_MODEL: 'glm-4.7-flash',
+  ZHIPU_MODEL: 'glm-4.5-flash',
   ZHIPU_BASE_URL: 'https://open.bigmodel.cn/api/paas/v4/',
 };
 
@@ -56,7 +56,7 @@ test('adapter maps a valid provider response to the unified contract', async () 
           uncertainty: null,
         }),
         usage_metadata: { input_tokens: 20, output_tokens: 10 },
-        response_metadata: { model_name: 'glm-4.7-flash' },
+        response_metadata: { model_name: 'glm-4.5-flash' },
       };
     },
   };
@@ -64,7 +64,7 @@ test('adapter maps a valid provider response to the unified contract', async () 
   const response = await adapter.respond(createSyntheticModelRequest());
 
   assert.equal(response.status, 'success');
-  assert.equal(response.model_info.model, 'glm-4.7-flash');
+  assert.equal(response.model_info.model, 'glm-4.5-flash');
   assert.equal(response.model_info.mock, false);
   assert.deepEqual(response.usage, { input_tokens: 20, output_tokens: 10 });
 });

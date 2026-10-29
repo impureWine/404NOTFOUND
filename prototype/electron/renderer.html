@@ -9,21 +9,19 @@
   </head>
   <body>
     <main class="pet-shell">
-      <header class="pet-titlebar">
-        <span class="pet-brand"><span class="pet-mark">4</span><span><strong>NOTFOUND</strong><small>桌面入口</small></span></span>
-        <span class="drag-hint">拖动窗口</span>
-        <div class="window-actions"><button type="button" class="window-button" data-action="hide" aria-label="隐藏桌宠">−</button><button type="button" class="window-button close" data-action="close" aria-label="关闭桌宠">×</button></div>
-      </header>
-      <section class="pet-card">
-        <div class="pet-orb" aria-hidden="true"><span>☁</span></div>
-        <div class="pet-copy"><span class="eyebrow">桌面入口能力验证</span><h1>先停一下，也可以。</h1><p>打开工作台可使用真实陪伴、记录和其他业务。窗口支持置顶、拖动、隐藏和点击穿透。</p></div>
+      <div class="pet-drag-zone" aria-label="拖动桌宠窗口"></div>
+      <div class="pet-avatar" aria-hidden="true"><img src="./assets/pet-mascot.png" alt="" /></div>
+      <section class="pet-toolbar" aria-label="桌宠快捷操作">
+        <button type="button" class="tool-button" data-action="open-workspace" aria-label="打开工作台" title="打开工作台"><span class="tool-glyph compose-glyph"></span></button>
+        <span class="tool-divider" aria-hidden="true"></span>
+        <button type="button" class="tool-button" data-action="open-pressure" aria-label="打开桌面发泄浮层" title="打开桌面发泄浮层"><span class="tool-glyph wave-glyph"><i></i><i></i><i></i></span></button>
       </section>
-      <button type="button" class="control-button" data-action="open-workspace">打开真实业务工作台</button><button type="button" class="control-button" data-action="open-pressure">桌面发泄浮层（Esc 退出）</button>
-      <section class="pet-controls" aria-label="窗口控制">
-        <button type="button" class="control-button" data-action="click-through" aria-pressed="false"><span class="control-dot"></span><span><strong>点击穿透</strong><small>允许鼠标点击下方窗口</small></span></button>
-        <span class="status" role="status" data-status>普通交互模式</span>
-      </section>
-      <p class="pet-footnote">关闭或隐藏会停止本桌宠窗口。点击穿透后按 Alt+Shift+P 恢复交互。</p>
+      <div class="pet-window-actions" aria-label="窗口操作">
+        <button type="button" class="window-button pass-window-button" data-action="click-through" aria-label="点击穿透" title="点击穿透" aria-pressed="false">◌</button>
+        <button type="button" class="window-button" data-action="hide" aria-label="隐藏桌宠">−</button>
+        <button type="button" class="window-button close" data-action="close" aria-label="关闭桌宠">×</button>
+      </div>
+      <p class="pet-footnote" role="status" data-status>点击图标打开功能 · 拖动桌宠移动窗口</p>
     </main>
     <script src="./renderer.js"></script>
   </body>

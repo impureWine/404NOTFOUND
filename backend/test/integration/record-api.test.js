@@ -92,6 +92,9 @@ test('record API binds SAVE consent, isolates owners, encrypts content and clear
     const createdResponse = await mutate(baseUrl, '/api/records', alice, createBody);
     assert.equal(createdResponse.status, 201);
     const created = (await createdResponse.json()).data;
+    assert.equal(created.title, '私密标题');
+    assert.equal('titleCiphertext' in created, false);
+    assert.equal('titleKeyVersion' in created, false);
     const stored = await database.query(`
       SELECT r.title_ciphertext, m.content_ciphertext
       FROM saved_records r JOIN saved_messages m ON m.saved_record_id = r.id
@@ -101,7 +104,16 @@ test('record API binds SAVE consent, isolates owners, encrypts content and clear
     assert.equal(JSON.stringify(stored.rows).includes('私密正文'), false);
 
     const aliceList = await fetch(`${baseUrl}/api/records`, { headers: { Cookie: alice.cookie } });
-    assert.equal((await aliceList.json()).data.items.length, 1);
+    const listed = (await aliceList.json()).data.items;
+    assert.equal(listed.length, 1);
+    assert.equal(listed[0].title, '私密标题');
+    assert.equal('titleCiphertext' in listed[0], false);
+    const aliceDetailResponse = await fetch(`${baseUrl}/api/records/${created.id}`, { headers: { Cookie: alice.cookie } });
+    assert.equal(aliceDetailResponse.status, 200);
+    const aliceDetail = (await aliceDetailResponse.json()).data;
+    assert.equal(aliceDetail.title, '私密标题');
+    assert.equal(aliceDetail.content.messages[0].content, '私密正文');
+    assert.equal('contentCiphertext' in aliceDetail.content.messages[0], false);
     const bobList = await fetch(`${baseUrl}/api/records`, { headers: { Cookie: bob.cookie } });
     assert.equal((await bobList.json()).data.items.length, 0);
     assert.equal((await fetch(`${baseUrl}/api/records/${created.id}`, { headers: { Cookie: bob.cookie } })).status, 404);
