@@ -1,4 +1,4 @@
-const ALLOWED_MODEL = 'glm-4.7-flash';
+const ALLOWED_MODEL = 'glm-4.5-flash';
 const ALLOWED_BASE_URL = 'https://open.bigmodel.cn/api/paas/v4/';
 
 function readTimeoutMs(value) {
