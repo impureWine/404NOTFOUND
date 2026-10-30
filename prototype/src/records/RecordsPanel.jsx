@@ -151,6 +151,7 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
       <section className="calendar-month-card" aria-label={`${monthLabel}情绪日历`}>
         <div className="calendar-card-heading"><div><span className="calendar-eyebrow">每天留下一点痕迹</span><h4>{monthLabel}</h4></div><div className="calendar-month-actions"><button type="button" aria-label="上一个月" onClick={() => changeMonth(-1)} disabled={busy}><ChevronLeft size={18} /></button><button type="button" aria-label="下一个月" onClick={() => changeMonth(1)} disabled={busy}><ChevronRight size={18} /></button></div></div>
         <div className="calendar-legend"><span><i className="legend-dot calm" />平静</span><span><i className="legend-dot tired" />疲惫</span><span><i className="legend-dot anxious" />担心</span><span><i className="legend-dot low" />失落</span></div>
+        <div className="calendar-days-scroll" role="region" aria-label="日期卡片，可横向滚动" tabIndex={0}>
         <div className="calendar-weekdays">{['一', '二', '三', '四', '五', '六', '日'].map(value => <span key={value}>{value}</span>)}</div>
         <div className="calendar-cards-grid" aria-label="本月日期">{Array.from({ length: firstWeekday + dayCount }, (_, index) => {
           if (index < firstWeekday) return <span className="calendar-day-empty" key={`empty-${index}`} aria-hidden="true" />;
@@ -158,6 +159,7 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
           const records = dayRecords.get(date) || [];
           return <FlipCard key={date} className={`calendar-day-card ${selectedDay === date ? 'is-selected' : ''} ${records.length ? 'has-record' : 'is-blank'}`} flipped={flippedDay === date} onFlip={() => chooseDay(date)} label={`${date}日历卡`} front={renderDayFront(date, records)} back={renderDayBack(date, records)} />;
         })}</div>
+        </div>
         <p className="calendar-help"><CircleHelp size={15} />{readOnly ? '点击日期卡片翻面预览；访客模式不读取或保存个人记录。' : '点击日期卡片翻面查看记录；颜色只代表你选择的描述，不是评估结果。'}</p>
       </section>
       <aside className="calendar-side-stack">
