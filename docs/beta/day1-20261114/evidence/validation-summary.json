@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-14",
+  "applicationCandidate": "d2073489a8be92c38e1f57da7562e487058c501a",
+  "environment": {
+    "os": "Windows PowerShell",
+    "node": "v22.23.1",
+    "npm": "10.9.8",
+    "pnpm": "12.18.0"
+  },
+  "checks": [
+    { "name": "prototype tests", "command": "npm test", "passed": 46, "failed": 0, "status": "passed" },
+    { "name": "prototype build", "command": "npm run build", "modules": 1599, "status": "passed" },
+    { "name": "backend full tests", "command": "corepack pnpm test", "passed": 165, "failed": 0, "status": "passed" },
+    { "name": "backend integration entry after T01", "command": "corepack pnpm run test:integration", "passed": 51, "failed": 0, "status": "passed" },
+    { "name": "server skeleton tests", "command": "npm test", "passed": 8, "failed": 0, "status": "passed" },
+    { "name": "synthetic AI samples", "command": "corepack pnpm run sample:ai", "status": "passed", "layer": "mock" },
+    { "name": "real model smoke", "command": "corepack pnpm run smoke:model", "status": "blocked", "code": "MODEL_UNAVAILABLE" },
+    { "name": "real search smoke", "command": "corepack pnpm run smoke:search", "status": "blocked", "code": "SEARCH_NOT_CONFIGURED" },
+    { "name": "release readiness", "command": "corepack pnpm run check:release", "status": "blocked", "reasons": ["DATABASE_URL is required", "PROFILE_ENCRYPTION_KEY is required"] }
+  ],
+  "notExecuted": ["real PostgreSQL", "browser end-to-end", "visible Electron window", "HTTPS deployment"]
+}
