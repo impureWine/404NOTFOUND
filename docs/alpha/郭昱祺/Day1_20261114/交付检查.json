@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-14",
+  "member": "郭昱祺",
+  "role": "UX／产品设计",
+  "status": "design-baseline-ready-for-walkthrough",
+  "deliverables": [
+    "五条核心用户路径",
+    "状态与文案清单",
+    "24项走查验收基线",
+    "交接与后续动作"
+  ],
+  "path_count": 5,
+  "walkthrough_check_count": 24,
+  "state_groups": [
+    "正常/成功",
+    "等待/加载",
+    "空",
+    "失败",
+    "阻断",
+    "暂停",
+    "完成",
+    "结束/取消",
+    "保存未确认"
+  ],
+  "actual_browser_walkthrough_completed": false,
+  "actual_user_test_completed": false,
+  "production_acceptance_claimed": false,
+  "boundary": "本文是设计与走查基线；固定数据、模拟回复、本机内存和静态状态页不等于真实服务结果。",
+  "source_file": "UX_郭昱祺_Day1_核心路径与状态走查基线_20261114.md"
+}
