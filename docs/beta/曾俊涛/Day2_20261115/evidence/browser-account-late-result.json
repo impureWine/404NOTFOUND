@@ -1,12 +1,12 @@
 {
   "date": "2026-11-15 Asia/Shanghai",
-  "candidate": "30290a5ba849a806edfd7734cd9b47529f0078c6",
+  "candidate": "1d382df522c6993e496c2a93b39dda7788572836",
   "layer": "real React page + isolated PGlite + synthetic deferred model",
   "steps": [
     {
       "name": "A starts pending task in real page",
       "acceptedStatus": 202,
-      "requestId": "cc5927b5-e4ed-48dd-bf64-2def5662cd74"
+      "requestId": "4ffecb89-250a-4ef7-893f-48f65d8d6f75"
     },
     {
       "name": "B login after A logout; delayed result rejected",
@@ -20,6 +20,16 @@
       "taskStatus": "cancelled",
       "hasResult": false,
       "lateReplyVisible": 0
+    },
+    {
+      "name": "Private API stale read observed",
+      "staleReadStatus": 401,
+      "authRequiredEvents": 1
+    },
+    {
+      "name": "Private API 401 clears stale page identity",
+      "serverLogout": 204,
+      "reloginVisible": true
     }
   ],
   "initialBody": "NOTFOUND\n情绪自助与陪伴\n首页\n陪伴交流\n情绪日历\n查询记录\n文字备忘与全部历史\n陪伴记录\n烦恼寄存所\n我的排练表达\n担忧桌宠\n对话排练\n减压小游戏\n事情整理\n情绪命名卡\n信息查询\n账户与设置\n个人主页\n会话与隐私设置\n\n访客可浏览全部功能；登录后读取和保存本人内容。\n\n登录\n注册\n首页\n\n2026/11/15 · 今天也慢慢来\n\n访客预览 · 功能开放\n访客浏览\n访客体验已开放；登录后可读取和保存个人内容。\n先和自己待一会儿，再决定下一步。\n\n所有功能页面都可以直接浏览。对话和查询会调用真实服务；记录与账户内容登录后读取和保存。\n\n开始体验打开情绪日历\n今天想做什么\n\n按当下的状态，挑一个入口开始\n\n陪伴交流\n\n把心里的话说给一个不会催你的窗口听。\n\n情绪日历\n\n用颜色和一句话记下每天的心情。\n\n担忧桌宠\n\n把抽象的担心放进房间，变成看得见的小物件。\n\n对话排练\n\n先在安全的沙盘里练习那句难开口的话。\n\n减压小游戏\n\n弹珠轨道与呼吸节奏，两分钟把注意力还给身体。\n\n信息查询\n\n查询情绪相关概念，附来源与不确定性提示。\n\n事情整理\n\n暂停整理思绪，或把任务拆成小步骤。\n\n情绪命名卡\n\n由你选择词语，描述此刻的感受。\n\n我的内容\n文字备忘与全部历史陪伴记录情绪日历烦恼物件化烦恼寄存所我的排练表达查询记录个人主页与隐私设置\n\n账号身份与私密数据由服务端校验。AI 输出可能出错，"
