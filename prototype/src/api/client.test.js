@@ -166,3 +166,27 @@ test('API errors preserve the contract code and request id without retaining raw
     return true;
   });
 });
+
+test('private API 401 clears CSRF state and notifies the identity owner', async () => {
+  let authRequired = 0;
+  let calls = 0;
+  const client = createApiClient({
+    mode: 'real',
+    csrfHeaderName: 'X-Test-CSRF',
+    onAuthRequired: error => {
+      authRequired += 1;
+      assert.equal(error.code, 'AUTH_REQUIRED');
+    },
+    fetchImpl: async url => {
+      calls += 1;
+      if (url === '/api/auth/context') return jsonResponse(200, { data: { authenticated: true, csrfToken: 'stale-token' } });
+      return jsonResponse(401, { error: { code: 'AUTH_REQUIRED', message: '需要登录' } });
+    },
+  });
+
+  await client.getAuthContext();
+  await assert.rejects(client.listRecords(), { code: 'AUTH_REQUIRED', status: 401 });
+  assert.equal(authRequired, 1);
+  await assert.rejects(client.createRecord({}), { code: 'CSRF_CONFIG_MISSING' });
+  assert.equal(calls, 2, 'cleared CSRF state must block the next write before fetch');
+});

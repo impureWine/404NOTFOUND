@@ -43,6 +43,17 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
+    if (apiMode !== 'real' || typeof globalThis.addEventListener !== 'function') return undefined;
+    const handleAuthRequired = () => {
+      clearLocalIdentity();
+      setLogoutPending(false);
+      setPageNotice('登录状态已失效，本机私密界面已清理。请重新登录后继续。');
+    };
+    globalThis.addEventListener('404:auth-required', handleAuthRequired);
+    return () => globalThis.removeEventListener('404:auth-required', handleAuthRequired);
+  }, [clearLocalIdentity]);
+
+  useEffect(() => {
     if (apiMode !== 'real') return undefined;
     const controller = new AbortController();
     refreshIdentity(controller.signal).then(currentProfile => {
