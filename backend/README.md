@@ -16,6 +16,10 @@
 `glm-4.7-flash`，不自动切换其他模型。将 `.env.example` 复制为本地 `.env` 后，
 只在 `.env` 中填写 `ZHIPU_API_KEY`；不得把密钥写入源码、文档或提交记录。
 
+注册重试使用 `REGISTRATION_IDEMPOTENCY_KEY` 对规范化注册载荷生成服务端 HMAC 摘要。
+该值必须是独立的 32 字节 Base64 密钥，不得与资料加密密钥共用，也不得提交真实值。
+同一 `requestId` 与相同注册载荷会返回原账号；复用 `requestId` 提交不同载荷返回 409。
+
 模型内部入口为 `POST /internal/v1/model/generate`，请求和响应遵循契约 `1.1`。
 该入口只接受 `Authorization: Bearer <INTERNAL_MODEL_TOKEN>`；未配置或未匹配时在调用
 适配器前返回 403。令牌只从环境变量读取，不得提交真实值。入口统一返回
@@ -73,6 +77,7 @@ npm run smoke:model
 - 命名卡路由：按用户明确选择将 `LISTEN`/`ORGANIZE` 路由到陪伴，或将
   `SEARCH` 路由到查询澄清，不自动调用模型、检索或保存。
 - 认证与资料：Argon2id 密码摘要、仅存摘要的会话 Cookie、Origin + CSRF 校验、资料乐观锁和 AES-256-GCM 字段加密；HTTPS 使用 `__Host-session`，本机 HTTP 开发使用 `session`。
+- 注册幂等：HTTP 注册接入 `IdentityRepository.createAccount`；服务端 HMAC 绑定 `requestId` 与规范化载荷，相同重试返回原账号，不同载荷冲突。
 - 应用任务：会话状态、查询任务状态/取消、代次校验，以及结束后拒绝迟到结果回填。
 - 用途许可：按账号/匿名会话、用途、操作、五分钟有效期和稳定载荷摘要绑定；支持撤销。
 - 记录 HTTP API：主动保存、列表、详情和两步清除；HTTP 已开放 CONVERSATION、EMOTION、WORRY_OBJECT、REHEARSAL_DRAFT、DEPOSIT；QUERY 通过受控查询保存接口写入。
@@ -94,7 +99,6 @@ npm run smoke:model
 
 - `/api/agent/tasks`、AI_PROCESS、查询和记录等已连接当前 React 界面；真实外部模型与目标数据库仍需实测。
 - 正式密钥托管、密钥轮换、限流、审计日志和多实例共享任务队列。
-- 认证应用服务尚未接入 `IdentityRepository.createAccount` 的注册 `requestId` 幂等与服务端HMAC载荷摘要；当前仓储测试只使用合成摘要。
 - 注册幂等元数据的过期清理任务；迁移只记录24小时 `expires_at`，部署前仍需配置清理作业。
 - 正式 PostgreSQL 服务、角色权限、网络与性能验收；自动化测试使用 PGlite。
 - 云端部署、真实外部服务完整验收和生产级运维监控。

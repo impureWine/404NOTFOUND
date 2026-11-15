@@ -4,7 +4,7 @@ import { createApp } from './app.js';
 import { LangChainModelAdapter } from './ai/langchain-model-adapter.js';
 import { createPoolFromConfig } from './db/database.js';
 import { runMigrations } from './db/migration-runner.js';
-import { parseProfileKey } from './security/crypto.js';
+import { parseProfileKey, parseRegistrationIdempotencyKey } from './security/crypto.js';
 import { AuthService } from './services/auth-service.js';
 import { TaskService } from './services/task-service.js';
 import { TrainingService } from './services/training-service.js';
@@ -33,6 +33,7 @@ if (config.migrateOnStart) {
 const modelAdapter = new LangChainModelAdapter();
 const authService = new AuthService(database, {
   profileKey: parseProfileKey(process.env.PROFILE_ENCRYPTION_KEY),
+  registrationIdempotencyKey: parseRegistrationIdempotencyKey(config.registrationIdempotencyKey),
   entryCode: process.env.APP_ENTRY_POINT || 'WEB',
 });
 const consentService = new ConsentService();

@@ -6,6 +6,7 @@ import { getRuntimeConfig, inspectReleaseReadiness } from '../../src/runtime-con
 const base = {
   DATABASE_URL: 'postgresql://app@127.0.0.1/app',
   PROFILE_ENCRYPTION_KEY: 'AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQE=',
+  REGISTRATION_IDEMPOTENCY_KEY: 'AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI=',
   APP_ORIGIN: 'http://127.0.0.1:5173',
   SESSION_COOKIE_SECURE: 'false',
 };
@@ -54,6 +55,22 @@ test('release readiness blocks placeholders and unsafe production settings', () 
   assert.match(production.issues.join('\n'), /secure session cookies/);
   assert.match(production.issues.join('\n'), /https/);
   assert.match(production.issues.join('\n'), /explicit release step/);
+});
+
+test('release readiness requires a distinct registration idempotency key', () => {
+  const missing = inspectReleaseReadiness({
+    ...base,
+    REGISTRATION_IDEMPOTENCY_KEY: '',
+  });
+  assert.equal(missing.ready, false);
+  assert.match(missing.issues.join('\n'), /REGISTRATION_IDEMPOTENCY_KEY is required/);
+
+  const placeholder = inspectReleaseReadiness({
+    ...base,
+    REGISTRATION_IDEMPOTENCY_KEY: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
+  });
+  assert.equal(placeholder.ready, false);
+  assert.match(placeholder.issues.join('\n'), /documented placeholder/);
 });
 
 test('release readiness accepts a bounded production configuration', () => {

@@ -46,6 +46,7 @@ export function getRuntimeConfig(env = process.env) {
     port: integer(env.PORT, { name: 'PORT', fallback: 3000, min: 1, max: 65_535 }),
     appOrigin: origin,
     secureCookies,
+    registrationIdempotencyKey: env.REGISTRATION_IDEMPOTENCY_KEY,
     migrateOnStart: boolean(env.MIGRATE_ON_START, { name: 'MIGRATE_ON_START' }),
     database: Object.freeze({
       url: env.DATABASE_URL,
@@ -87,6 +88,12 @@ export function inspectReleaseReadiness(env = process.env) {
   }
   if (!env.PROFILE_ENCRYPTION_KEY) {
     issues.push('PROFILE_ENCRYPTION_KEY is required');
+  }
+  if (!env.REGISTRATION_IDEMPOTENCY_KEY) {
+    issues.push('REGISTRATION_IDEMPOTENCY_KEY is required');
+  }
+  if (env.REGISTRATION_IDEMPOTENCY_KEY === 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=') {
+    issues.push('REGISTRATION_IDEMPOTENCY_KEY still uses the documented placeholder');
   }
   if (env.NODE_ENV === 'production') {
     if (!config?.secureCookies) issues.push('production requires secure session cookies');

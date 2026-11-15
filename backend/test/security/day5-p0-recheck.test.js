@@ -286,7 +286,7 @@ test('D5-02 同账号跨入口：DESKTOP 不能读取或取消 WEB 的 AI 任务
   });
 });
 
-test('D5-10 失效会话写请求：请求被拒绝但返回 403 而非 401（沿用 Day 4 观察）', async () => {
+test('D5-10 失效会话写请求：统一返回 401 AUTH_REQUIRED', async () => {
   await withApi(async ({ baseUrl }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_day5_revoked');
     const logout = await send(baseUrl, '/api/auth/logout', user, {});
@@ -297,7 +297,6 @@ test('D5-10 失效会话写请求：请求被拒绝但返回 403 而非 401（�
     });
     const observation = { staleWriteStatus: stale.status };
     console.log('[D5-10]', JSON.stringify(observation));
-    // 缺陷签名：应 401 AUTH_REQUIRED，当前 CSRF 先于认证 → 403。
-    assert.equal(stale.status, 403, '失效会话写请求当前返回 403（缺陷 D5-10）');
+    assert.equal(stale.status, 401, '失效会话写请求应返回 401 AUTH_REQUIRED');
   });
 });
