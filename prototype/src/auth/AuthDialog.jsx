@@ -12,13 +12,14 @@ export function AuthDialog({ mode, status, profile, busy, error, notice, onModeC
 
   const handleSubmit = event => {
     event.preventDefault();
+    if (busy) return;
     onSubmit(mode, form);
   };
   const accountName = profile?.nickname || profile?.loginName || '已登录用户';
 
-  return <div className="auth-dialog-backdrop" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>
+  return <div className="auth-dialog-backdrop" onMouseDown={event => { if (!busy && event.target === event.currentTarget) onClose(); }}>
     <section className="auth-dialog" role="dialog" aria-modal="true" aria-labelledby="auth-dialog-title">
-      <button type="button" className="auth-dialog-close" aria-label="关闭" onClick={onClose}><X size={19} /></button>
+      <button type="button" className="auth-dialog-close" aria-label="关闭" onClick={onClose} disabled={busy}><X size={19} /></button>
       {mode === 'account' ? <>
         <span className="auth-dialog-mark"><UserCircle size={21} /></span>
         <h2 id="auth-dialog-title">账户信息</h2>
@@ -33,13 +34,13 @@ export function AuthDialog({ mode, status, profile, busy, error, notice, onModeC
         <p className={`auth-api-status ${apiMode === 'real' ? 'is-real' : ''}`} role="status">{apiStatusLabel}</p>
         {notice && <p className="auth-notice" role="status">{notice}</p>}
         <form className="auth-dialog-form" onSubmit={handleSubmit}>
-          <label>登录名<input name="loginName" autoComplete="username" value={form.loginName} onChange={event => update('loginName', event.target.value)} maxLength={32} required /></label>
-          <label>密码<input name="password" type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} value={form.password} onChange={event => update('password', event.target.value)} maxLength={128} required /></label>
-          {mode === 'register' && <label>确认密码<input name="confirmPassword" type="password" autoComplete="new-password" value={form.confirmPassword} onChange={event => update('confirmPassword', event.target.value)} maxLength={128} required /></label>}
+          <label>登录名<input name="loginName" autoComplete="username" value={form.loginName} onChange={event => update('loginName', event.target.value)} maxLength={32} required disabled={busy} /></label>
+          <label>密码<input name="password" type="password" autoComplete={mode === 'register' ? 'new-password' : 'current-password'} value={form.password} onChange={event => update('password', event.target.value)} maxLength={128} required disabled={busy} /></label>
+          {mode === 'register' && <label>确认密码<input name="confirmPassword" type="password" autoComplete="new-password" value={form.confirmPassword} onChange={event => update('confirmPassword', event.target.value)} maxLength={128} required disabled={busy} /></label>}
           {error && <p className="auth-form-error" role="alert">{error}</p>}
           <button type="submit" className="button button-primary" disabled={busy || status === 'checking'}>{busy ? '正在提交…' : mode === 'register' ? '创建账户' : '登录'}</button>
         </form>
-        <button type="button" className="auth-mode-switch" onClick={() => onModeChange(mode === 'register' ? 'login' : 'register')}>
+        <button type="button" className="auth-mode-switch" onClick={() => onModeChange(mode === 'register' ? 'login' : 'register')} disabled={busy}>
           {mode === 'register' ? '已有账户？登录' : '还没有账户？创建账户'}
         </button>
       </>}

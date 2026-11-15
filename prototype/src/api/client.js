@@ -18,6 +18,7 @@ export function createApiClient({
   fetchImpl = globalThis.fetch,
 } = {}) {
   let csrfToken = null;
+  let authGeneration = 0;
 
   const request = async (method, path, { body, signal } = {}) => {
     const verb = method.toUpperCase();
@@ -85,32 +86,46 @@ export function createApiClient({
     mode,
     clearAuthContext() {
       csrfToken = null;
+      authGeneration += 1;
     },
     async getAuthContext(options) {
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       const context = await get('/api/auth/context', options);
-      csrfToken = context?.csrfToken || null;
+      if (requestGeneration === authGeneration && !options?.signal?.aborted) {
+        csrfToken = context?.csrfToken || null;
+      }
       return context;
     },
     register: (payload, options) => post('/api/auth/register', payload, options),
     login: async (payload, options) => {
+      const response = post('/api/auth/login', payload, options);
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       try {
-        return await post('/api/auth/login', payload, options);
+        return await response;
       } finally {
-        csrfToken = null;
+        if (requestGeneration === authGeneration) csrfToken = null;
       }
     },
     logout: async (options) => {
+      const response = post('/api/auth/logout', undefined, options);
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       try {
-        return await post('/api/auth/logout', undefined, options);
+        return await response;
       } finally {
-        csrfToken = null;
+        if (requestGeneration === authGeneration) csrfToken = null;
       }
     },
     changePassword: async (payload, options) => {
+      const response = post('/api/auth/change-password', payload, options);
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       try {
-        return await post('/api/auth/change-password', payload, options);
+        return await response;
       } finally {
-        csrfToken = null;
+        if (requestGeneration === authGeneration) csrfToken = null;
       }
     },
     getProfile: options => get('/api/profile', options),

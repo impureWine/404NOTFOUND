@@ -101,6 +101,47 @@ test('identity changes discard the in-memory CSRF token even when the response i
   await assert.rejects(client.createRecord({ requestId: 'req-after-logout' }), error => error.code === 'CSRF_CONFIG_MISSING');
 });
 
+test('a late auth context response cannot restore a token after identity invalidation', async () => {
+  let resolveContext;
+  const client = createApiClient({
+    mode: 'real',
+    csrfHeaderName: 'X-Test-CSRF',
+    fetchImpl: () => new Promise(resolve => { resolveContext = resolve; }),
+  });
+
+  const pendingContext = client.getAuthContext();
+  client.clearAuthContext();
+  resolveContext(jsonResponse(200, { data: { authenticated: true, csrfToken: 'stale-token' } }));
+  await pendingContext;
+
+  await assert.rejects(client.createRecord({ requestId: 'req-after-stale-context' }), error => error.code === 'CSRF_CONFIG_MISSING');
+});
+
+test('a late login response does not clear a newer auth context token', async () => {
+  const calls = [];
+  let resolveLogin;
+  const client = createApiClient({
+    mode: 'real',
+    csrfHeaderName: 'X-Test-CSRF',
+    fetchImpl: async (url, options) => {
+      calls.push({ url, options });
+      if (url === '/api/auth/context') return jsonResponse(200, { data: { authenticated: true, csrfToken: 'new-token' } });
+      if (url === '/api/auth/login') return new Promise(resolve => { resolveLogin = resolve; });
+      return jsonResponse(201, { data: { sessionId: 'session-1' } });
+    },
+  });
+
+  await client.getAuthContext();
+  const pendingLogin = client.login({ loginName: 'demo', password: 'secret', target: 'HOME' });
+  assert.equal(calls.at(-1).options.headers.get('X-Test-CSRF'), 'new-token');
+  await client.getAuthContext();
+  resolveLogin(jsonResponse(200, { data: { profile: { nickname: 'stale' } } }));
+  await pendingLogin;
+  await client.createSession({ requestId: 'req-1', mode: 'LISTEN' });
+
+  assert.equal(calls.at(-1).options.headers.get('X-Test-CSRF'), 'new-token');
+});
+
 test('record vault uses the shared consent, list, detail, and two-step clear endpoints', async () => {
   const calls = [];
   const recordId = 'eb42bd50-4f63-4cfb-8515-b45c30de2c52';
