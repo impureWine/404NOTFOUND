@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-15",
+  "baseline": "30290a5ba849a806edfd7734cd9b47529f0078c6",
+  "browser": {
+    "cases": 10,
+    "pass": 4,
+    "fail": 6,
+    "api": "synthetic intercepted only",
+    "screenshots": 10
+  },
+  "focusedTests": {
+    "passed": 19,
+    "failed": 0,
+    "scope": [
+      "business-task-errors",
+      "training-controller"
+    ]
+  },
+  "copyRows": 25,
+  "productionCodeChanged": false,
+  "collaboratorApproval": "pending",
+  "independentVerification": "not executed",
+  "realSupplierAndDatabase": "not executed"
+}
