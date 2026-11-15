@@ -300,6 +300,28 @@ test('D2-15 缺少/错误 CSRF 与外部 Origin 的写入被拒绝', async () =>
   assert.deepEqual(statuses, [403, 403, 403]);
 });
 
+test('D2-15a 失效会话的同源写请求统一返回 401，匿名写请求仍要求 CSRF', async () => {
+  const stale = { cookie: alice.cookie, csrf: alice.csrf };
+  await send('/api/auth/logout', stale, {});
+  const response = await send('/api/auth/change-password', stale, {
+    currentPassword: PASSWORD,
+    newPassword: 'synthetic:day2-next-password',
+    confirmPassword: 'synthetic:day2-next-password',
+  });
+  const body = await response.json();
+  observe('D2-15a', { stale_write_status: response.status, error_code: body.error.code, data_changed: false });
+  assert.equal(response.status, 401);
+  assert.equal(body.error.code, 'AUTH_REQUIRED');
+
+  const anonymous = await context();
+  const anonymousWrite = await send('/api/auth/change-password', anonymous, {
+    currentPassword: PASSWORD,
+    newPassword: 'synthetic:day2-next-password',
+    confirmPassword: 'synthetic:day2-next-password',
+  });
+  assert.equal(anonymousWrite.status, 401);
+});
+
 test('D2-16 HTTP Cookie 包含 HttpOnly/SameSite/Path，安全配置生成 Host Cookie', async () => {
   const state = await context();
   assert.match(state.setCookie, /HttpOnly/);

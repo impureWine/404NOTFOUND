@@ -1,7 +1,7 @@
 import { loadEnvFile } from 'node:process';
 
 import { inspectReleaseReadiness } from '../src/runtime-config.js';
-import { parseProfileKey } from '../src/security/crypto.js';
+import { parseProfileKey, parseRegistrationIdempotencyKey } from '../src/security/crypto.js';
 
 try {
   loadEnvFile();
@@ -14,6 +14,7 @@ const issues = [...result.issues];
 if (result.ready) {
   try {
     parseProfileKey(process.env.PROFILE_ENCRYPTION_KEY);
+    parseRegistrationIdempotencyKey(process.env.REGISTRATION_IDEMPOTENCY_KEY);
   } catch (error) {
     issues.push(error.message);
   }
