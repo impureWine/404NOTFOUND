@@ -81,3 +81,62 @@ export const clearRecordRequestSchema = z.strictObject({
 });
 
 export const saveQueryRequestSchema = z.strictObject({ requestId: requestIdSchema, consentId: uuidSchema, searchRequestId: uuidSchema });
+
+const publicRecordBaseSchema = z.strictObject({
+  id: uuidSchema,
+  kind: recordKindSchema,
+  title: z.string().max(80),
+  version: positiveVersionSchema,
+  createdAt: z.iso.datetime({ offset: true }),
+  updatedAt: z.iso.datetime({ offset: true }),
+  idempotent: z.boolean(),
+  calendarDate: recordDateSchema.optional(),
+});
+
+export const recordSummaryResponseSchema = publicRecordBaseSchema;
+
+const conversationResponseSchema = z.strictObject({
+  messages: z.array(z.strictObject({
+    role: z.enum(['USER', 'ASSISTANT']),
+    content: textByCodePoints({ min: 1, max: 4000, label: '消息' }),
+  })).min(1).max(20),
+});
+const emotionResponseSchema = emotionContentSchema.omit({ title: true });
+const worryResponseSchema = worryContentSchema.omit({ title: true });
+const rehearsalResponseSchema = rehearsalContentSchema.omit({ title: true });
+const queryResponseSchema = z.strictObject({
+  question: textByCodePoints({ min: 1, max: 4000, label: '问题' }),
+  claims: z.array(z.strictObject({
+    id: uuidSchema,
+    text: z.string(),
+    status: z.string(),
+    evidence: z.array(z.unknown()),
+  })),
+});
+
+export const recordDetailResponseSchema = publicRecordBaseSchema.extend({
+  content: z.union([
+    conversationResponseSchema,
+    emotionResponseSchema,
+    worryResponseSchema,
+    rehearsalResponseSchema,
+    queryResponseSchema,
+  ]),
+});
+
+export const clearConfirmationResponseSchema = z.strictObject({
+  confirmationId: uuidSchema,
+  expiresAt: z.iso.datetime({ offset: true }),
+  recordId: uuidSchema,
+  version: positiveVersionSchema,
+  kind: recordKindSchema,
+  idempotent: z.boolean(),
+});
+
+export const clearRecordResponseSchema = z.strictObject({
+  cleared: z.literal(true),
+  recordId: uuidSchema,
+  version: positiveVersionSchema,
+  deletionJobId: uuidSchema.optional(),
+  idempotent: z.boolean(),
+});
