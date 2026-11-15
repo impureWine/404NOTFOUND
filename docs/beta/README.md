@@ -5,3 +5,4 @@
 | 日期 | 成员 | 材料 |
 | --- | --- | --- |
 | 2026-11-14 Day1 | 曾俊涛 | [测试基线、命令修正、回归清单与证据](曾俊涛/Day1_20261114/01_测试基线与回归清单.md)；关联 [Issue #112](https://github.com/impureWine/404NOTFOUND/issues/112) |
+| 2026-11-15 Day2 | 曾俊涛 | [授权与异步回归报告、浏览器换号与迟到结果证据](曾俊涛/Day2_20261115/01_授权与异步回归报告.md)；关联 [Issue #104](https://github.com/impureWine/404NOTFOUND/issues/104) |
