@@ -47,6 +47,7 @@
 - Adds registration idempotency with a separate server-side HMAC key.
 - Clears frontend identity/CSRF and offers re-login after private API 401 responses.
 - Keeps the Windows integration command explicit and serial to avoid PGlite OOM.
+- Integrates the UX interaction specification and its earlier synthetic walkthrough, closing the expired-session gap while carrying five unverified differences forward explicitly.
 
 ### Verification
 
@@ -57,9 +58,10 @@
 - Vite build: passed, 1599 modules
 - API skeleton: 8/8
 - Edge page flow: account switch, manual cancel, delayed replies and expired-session recovery passed
+- Earlier UX synthetic walkthrough: 10 cases, 4 passed and 6 differences; expired-session recovery was subsequently fixed and rechecked, while 5 differences remain open
 
 ### Boundaries
 
-The browser run uses an isolated PGlite database and a deferred synthetic model. Real PostgreSQL, Electron entry switching, HTTPS deployment and real-provider cancellation remain follow-up verification items.
+The integrated browser runs use either an isolated PGlite database with a deferred synthetic model or fully intercepted synthetic API responses. Real PostgreSQL, Electron entry switching, HTTPS deployment, real-provider cancellation and the five carried UX differences remain follow-up verification items.
 
 Closes #123. Refs #104, #124.
