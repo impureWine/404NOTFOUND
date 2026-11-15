@@ -1,0 +1,27 @@
+✔ search TIMEOUT reports the search source, never the AI model (3.9452ms)
+✔ search SERVICE_UNAVAILABLE reports the search source, never the AI model (0.1522ms)
+✔ search PROVIDER_UNAVAILABLE reports the search source, never the AI model (0.1728ms)
+✔ search SEARCH_NOT_CONFIGURED reports the search source, never the AI model (0.1478ms)
+✔ search SEARCH_AUTH_FAILED reports the search source, never the AI model (0.1161ms)
+✔ search SEARCH_RATE_LIMITED reports the search source, never the AI model (0.0937ms)
+✔ model timeout retains its AI message and uses the agent task route (0.175ms)
+✔ search cancelled with no code keeps a search-specific fallback (0.139ms)
+✔ search expired with no code keeps a search-specific fallback (0.1641ms)
+✔ search failed with UNKNOWN keeps a search-specific fallback (0.2752ms)
+✔ ready training never starts a timer or advances before explicit start (1.3039ms)
+✔ breathing follows phase boundaries, skips zero hold and supports an optional hold (0.1646ms)
+✔ pause freezes phase, progress and elapsed time; resume only adds active time (0.3069ms)
+✔ completion clamps the clock and cancels timers, including delayed background callbacks (0.1551ms)
+✔ stale callbacks cannot publish events after pause, reset/restart, exit or dispose (0.1956ms)
+✔ guided steps only move on explicit actions, preserve pause and allow revisiting before completion (0.1544ms)
+✔ pause-organize and worksheet complete only explicitly, not when timers elapse (0.1215ms)
+✔ invalid content and breathing settings fail before allocating a timer (0.3872ms)
+✔ page hide pauses without auto-resume; page exit and unmount cancel all owned work (0.2736ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 80.6195
