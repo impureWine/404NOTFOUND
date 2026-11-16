@@ -1,0 +1,41 @@
+✔ record API binds SAVE consent, isolates owners, encrypts content and clears in two steps (1823.596ms)
+✔ Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope (1169.6288ms)
+✔ real records preserve dialogue roles, decrypt only owner reads, and support optional calendar fields and versioned edits (1430.7294ms)
+✔ all persisted business kinds, deposit controls, preferences and real search-save wiring work through HTTP (1631.5144ms)
+✔ records are isolated by both account and entry point (1419.6496ms)
+✔ same idempotency key returns the original record and rejects changed payload (631.6511ms)
+✔ record update enforces scope, version, editable kind, and idempotency (675.3317ms)
+✔ concurrent updates with the same expected version allow one winner only (859.2213ms)
+✔ clear enforces version and scope, hides the record, and creates deletion outbox state (909.3181ms)
+✔ record cursors are opaque and bound to account, entry, and kind (823.09ms)
+✔ clear confirmation expires after its two-minute window (778.2621ms)
+✔ record type details are written in the same transaction (657.1117ms)
+✔ failed record creation rolls back both the record and its idempotency claim (717.5143ms)
+✔ failed clear rolls back payload deletion, confirmation use, and outbox state (645.0024ms)
+✔ explicit context selection enforces ownership, clearing, calendar, and deposit boundaries (629.3429ms)
+[B2-P0-03] {"saveConsentForAiTask":403,"aiConsentForRecord":403,"consentPayloadMismatch":403,"aiTaskAccepted":202,"recordSaved":201}
+✔ P0-03 用途许可不可互换：三条反例 + 两条正例 (1679.7643ms)
+[B2-E-04] {"borrowedConsentStatus":403}
+✔ E-04 跨账号借用 consentId 应被拒绝 (824.3354ms)
+[B2-T-03] {"completedStatus":200,"completedTaskStatus":"completed","hasResultBeforeEnd":true,"endActionStatus":200,"afterEndReadStatus":200,"hasResultAfterEnd":true}
+✔ T-03 结束后读取已完成任务、重来（RESTART）后的旧结果 (976.5204ms)
+[B2-REVOKE] {"reuseAfterRevoke":403,"rereadAfterRevoke":200,"hasResultAfterRevoke":true}
+✔ B2-R 撤回许可：撤销后不可再用，已完成结果是否失效以实测记录 (986.2765ms)
+[B2-RESTART] {"restartStatus":200,"afterRestartReadStatus":200,"hasResultAfterRestart":true}
+✔ B2-RESTART 重来后读取上一轮任务结果 (980.4629ms)
+[B2-RATE] {"statuses":[202,202,202,202,202,202,202,202,202,202,202,202],"limited":0}
+✔ B2-RATE 连续创建任务的限流表现（未实现则如实记录） (1153.0561ms)
+[B2-ERR] {"malformedStatus":400,"malformedCode":"INVALID_INPUT","malformedLeaksStack":false,"unknownStatus":404,"anonymousStatus":403}
+✔ B2-ERR 错误脱敏与鉴权边界回归 (866.3914ms)
+✔ D4-01 文字销毁在后端不存在任何通路口（结构级） (1658.5552ms)
+✔ D4-02 清除后记录不再可读：详情、列表与正文子表均无残留 (846.9079ms)
+✔ D4-03 不同入口不能清除本入口记录，原入口记录不受影响 (1007.0378ms)
+✔ D4-04 失效会话不能执行清除，重新登录后记录仍在 (1126.012ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8954.0395
