@@ -101,3 +101,7 @@ npm run smoke:model
 - Bing 经 SerpAPI 检索，必须配置 `SERPAPI_API_KEY`；未配置不会发起请求。自动化使用合成响应，不表示账户实网验收通过。
 
 这些项目不得因本目录可运行而描述为已经完成。
+
+## Beta Day3 数据交接
+
+来源快照迁移 `006_saved_query_source_snapshots.sql`、查询详情新增字段、事务与幂等验证见 [庄剀涵 Day3 交接](evidence/daily/Day3_Beta_庄剀涵_20261116.md)。新代码需先执行迁移；旧记录来源标记 `LEGACY_BACKFILL`，不可描述为原始保存时快照。当前结论仅为本地数据层与 HTTP 自动化自查通过。

@@ -24,6 +24,7 @@ test('Day 6 isolated restore preserves scoped records and revokes restored sessi
       '004_auth_http_support.sql',
       '004_identity_repository_support.sql',
       '005_optional_emotion_fields.sql',
+      '006_saved_query_source_snapshots.sql',
     ];
     assert.deepEqual(await runMigrations(source), expectedMigrations);
     assert.deepEqual(await runMigrations(source), []);

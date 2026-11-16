@@ -395,6 +395,11 @@ test('all persisted business kinds, deposit controls, preferences and real searc
     assert.equal(detail.content.question,'受控测试问题');
     assert.equal(detail.content.claims[0].text,'测试来源摘录');
     assert.equal(detail.content.claims[0].status,'UNKNOWN');
+    assert.equal(detail.content.snapshotOrigin, 'SAVED');
+    assert.equal(detail.content.sources[0].title, '受控测试来源');
+    assert.equal(detail.content.sources[0].url, detail.content.claims[0].evidence[0].source.url);
+    assert.equal(detail.content.status, 'PARTIAL_SUCCESS');
+    assert.match(detail.content.uncertaintyNote, /未经独立事实核验/);
     assert.equal(JSON.stringify(detail).includes('Ciphertext'),false);
     const forbidden = await mutate(baseUrl,'/api/saved-queries',bob,{ requestId:nextId(),searchRequestId:searchId,consentId:await grant(queryPayload) });
     assert.equal(forbidden.status,403);

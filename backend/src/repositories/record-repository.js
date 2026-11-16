@@ -476,22 +476,27 @@ export class RecordRepository {
 
   async get(input) {
     const value = parse(recordIdentitySchema, input);
-    const result = await this.database.query(
-      `
-        SELECT id, record_kind, title_ciphertext, title_key_version,
-               version_no, created_at, updated_at
-        FROM saved_records
-        WHERE id = $1
-          AND account_id = $2
-          AND entry_point_id = $3
-          AND deleted_at IS NULL
-      `,
-      [value.recordId, value.accountId, value.entryPointId],
-    );
-    if (result.rows.length === 0) throw new NotFoundError();
-    const row = result.rows[0];
-    const details = await getRecordDetails(this.database, row.id, row.record_kind);
-    return { ...mapRecord(row), details };
+    return withTransaction(this.database, async (transaction) => {
+      // Hold the parent row while reading payload so update/clear cannot split
+      // the metadata and body across two committed versions.
+      const result = await transaction.query(
+        `
+          SELECT id, record_kind, title_ciphertext, title_key_version,
+                 version_no, created_at, updated_at
+          FROM saved_records
+          WHERE id = $1
+            AND account_id = $2
+            AND entry_point_id = $3
+            AND deleted_at IS NULL
+          FOR SHARE
+        `,
+        [value.recordId, value.accountId, value.entryPointId],
+      );
+      if (result.rows.length === 0) throw new NotFoundError();
+      const row = result.rows[0];
+      const details = await getRecordDetails(transaction, row.id, row.record_kind);
+      return { ...mapRecord(row), details };
+    });
   }
 
   async resolveExplicitContextSelection(input) {
@@ -628,6 +633,17 @@ export class RecordRepository {
   async issueClearConfirmation(input) {
     const value = parse(recordClearConfirmationSchema, input);
     return withTransaction(this.database, async (transaction) => {
+      // Serialize confirmation creation with edits/clears and duplicate requests.
+      const record = await transaction.query(
+        `SELECT version_no, record_kind FROM saved_records
+         WHERE id = $1 AND account_id = $2 AND entry_point_id = $3
+           AND deleted_at IS NULL FOR UPDATE`,
+        [value.recordId, value.accountId, value.entryPointId],
+      );
+      if (record.rows.length === 0) throw new NotFoundError();
+      if (record.rows[0].version_no !== value.expectedVersion) {
+        throw new ConflictError('expectedVersion does not match the current record version');
+      }
       const existing = await transaction.query(
         `
           SELECT
@@ -635,6 +651,7 @@ export class RecordRepository {
             c.record_id,
             c.record_version,
             c.expires_at,
+            (c.expires_at > now() AND c.consumed_at IS NULL) AS usable,
             r.record_kind
           FROM record_clear_confirmations c
           JOIN saved_records r
@@ -652,6 +669,9 @@ export class RecordRepository {
         if (row.record_id !== value.recordId || row.record_version !== value.expectedVersion) {
           throw new ConflictError('requestId was already used for another clear confirmation');
         }
+        if (!row.usable) {
+          throw new ConflictError('Clear confirmation is expired or consumed; use a new requestId');
+        }
         return {
           confirmationId: row.id,
           expiresAt: new Date(row.expires_at).toISOString(),
@@ -660,23 +680,6 @@ export class RecordRepository {
           kind: row.record_kind,
           idempotent: true,
         };
-      }
-
-      const record = await transaction.query(
-        `
-          SELECT version_no, record_kind
-          FROM saved_records
-          WHERE id = $1
-            AND account_id = $2
-            AND entry_point_id = $3
-            AND deleted_at IS NULL
-          FOR UPDATE
-        `,
-        [value.recordId, value.accountId, value.entryPointId],
-      );
-      if (record.rows.length === 0) throw new NotFoundError();
-      if (record.rows[0].version_no !== value.expectedVersion) {
-        throw new ConflictError('expectedVersion does not match the current record version');
       }
 
       const confirmation = await transaction.query(
@@ -689,6 +692,7 @@ export class RecordRepository {
             request_id
           )
           VALUES ($1, $2, $3, $4, $5)
+          ON CONFLICT (account_id, entry_point_id, request_id) DO NOTHING
           RETURNING id, expires_at
         `,
         [
@@ -699,6 +703,9 @@ export class RecordRepository {
           value.requestId,
         ],
       );
+      if (confirmation.rows.length === 0) {
+        throw new ConflictError('requestId was already used for another clear confirmation');
+      }
       return {
         confirmationId: confirmation.rows[0].id,
         expiresAt: new Date(confirmation.rows[0].expires_at).toISOString(),

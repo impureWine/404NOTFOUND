@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-11-16T08:48:44.660Z",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/zkh-beta-day3-record-lifecycle",
+  "baseCommit": "b78a0e264bbf75b52239f4026aa6d92756a089a6",
+  "day2OriginalCommit": "b59a5d65ecf5cb28f34d64883869abc9ba64a655",
+  "day2AppliedCommit": "a51ce883f341b541e0788472c7626a12a33c2c7b",
+  "runtime": "v24.22.1",
+  "database": "PGlite 0.3.16; synthetic fixtures; no PostgreSQL multi-connection validation",
+  "finalResult": {
+    "tests": 187,
+    "pass": 187,
+    "fail": 0,
+    "skipped": 0,
+    "durationMs": 45685.9289
+  },
+  "sourceSha256": {
+    "backend/migrations/006_saved_query_source_snapshots.sql": "c0393af0f2f6519fc3d406ca496c53a8025d11fc4a0f05c975a7ef92b6de95f1",
+    "backend/src/repositories/record-repository.js": "9a25fd86d49e593889150063c7b3c5711166b2620c068983345232da9a2e7743",
+    "backend/src/repositories/saved-query-repository.js": "8416aa8e91a02941674f2177442beece5e3ca593f663de96902164d22dc0ecc2",
+    "backend/src/services/consent-service.js": "dea0b18b25c825cbd9fec711e059281aec43e461cd712a0f55153a617e3672f0",
+    "backend/src/services/record-service.js": "5847305fb0b02d5fd77c5bf9d4000ff2424452edf00ff75b9d7b2bcb1929c3cd",
+    "backend/src/services/saved-query-service.js": "6eb121e73f3988e2fe1ceaec8ecc66e74b79bd2f607a8b2f2397c1b0a685bc2b",
+    "backend/src/services/task-service.js": "6bb9a189e0354dc96c81fb2a22d83a57ca828d8c018105187e51cb84a554e5fc",
+    "backend/test/integration/beta-day2-data-access.test.js": "f91e7d981b8c7159c6f4f83a4d7aa7b4e928abe91fd89a540a252c169ab6af26",
+    "backend/test/integration/beta-day3-record-lifecycle.test.js": "b068fbb5ffcc991e30e64a750142edc09970f92eff52de86b70392f0fb94e357",
+    "backend/test/integration/day6-demo-restore.test.js": "91c770605fbec3b6d30c453f9943b672d099c5b082e6defe5edad7d8dc1c9088",
+    "backend/test/integration/emotion-date.test.js": "7c649b5c4dcb228c8346029b86dc18f7442cffc922403d3176c15c5004e0f721",
+    "backend/test/integration/migration.test.js": "b5317961ea83cacb8edbec0b92314dd0f54922484b206c0a578780d5f317b25a",
+    "backend/test/integration/record-api.test.js": "e726df890d731d5ac00c93b2827c3b90452e3b2e0ac7c99cd8ffb3b38b4a87dd"
+  },
+  "finalLogSha256": "d12755d2e2a296bbc009148cb862dc690fd973991a50f45e3ca1aa51af1da777",
+  "hashEncoding": "UTF-8 content; CRLF normalized to LF"
+}
