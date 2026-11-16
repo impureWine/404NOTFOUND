@@ -226,7 +226,7 @@ dialog.auth-dialog::backdrop { background: #27353270; }
 .record-history-meta { min-width: 0; display: grid; gap: 3px; }
 .record-history-meta strong { color: #33403f; font-size: 12px; }
 .record-history-meta span, .record-history-meta small { overflow-wrap: anywhere; color: #6b7875; font-size: 10.5px; line-height: 1.5; }
-.record-history-item > .button { min-height: 31px; padding: 6px 10px; font-size: 11px; }
+.record-history-item > :is(.button, .btn) { min-height: 31px; padding: 6px 10px; font-size: 11px; white-space: nowrap; }
 .record-clear-confirm { grid-column: 2 / -1; display: grid; gap: 8px; padding: 10px; border: 1px solid #ebcbd8; border-radius: 8px; background: #fffbfc; }
 .record-clear-confirm p { margin: 0; color: #795e61; font-size: 11px; line-height: 1.55; }
 .record-detail { display: grid; gap: 8px; margin-top: 14px; padding: 13px; border: 1px solid #e7edeb; border-radius: 8px; background: #f8faf9; }
@@ -254,7 +254,7 @@ dialog.auth-dialog::backdrop { background: #27353270; }
   .record-vault-heading { flex-direction: column; }
   .record-vault-heading > .button { align-self: flex-start; }
   .record-history-item { grid-template-columns: 30px minmax(0, 1fr) auto; }
-  .record-history-item > .button:last-of-type { grid-column: 3; }
+  .record-history-item > :is(.button, .btn):last-of-type { grid-column: 3; }
   .record-clear-confirm { grid-column: 1 / -1; }
   .record-history-icon { width: 28px; height: 28px; }
   .text-destruction-tool { grid-template-columns: minmax(0, 1fr); padding: 16px; }

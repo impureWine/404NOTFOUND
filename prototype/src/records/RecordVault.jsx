@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FileClock, RefreshCw, ShieldCheck, Trash2 } from 'lucide-react';
 import { apiMode } from '../api/client.js';
 import { Button, DemoNote, EmptyState, Panel, Tag } from '../ui.jsx';
@@ -16,8 +16,37 @@ export function RecordVault({ authenticated, accountKey }) {
   const [saveConsent, setSaveConsent] = useState(false);
   const [formError, setFormError] = useState('');
 
+  const reviewHeading = useRef(null), saveTrigger = useRef(null), historyHeading = useRef(null);
+  const clearGroup = useRef(null), clearTrigger = useRef(null), detailTrigger = useRef(null);
+  const previousReview = useRef(false), previousDetail = useRef(false), focusedClear = useRef(null);
+
+  useEffect(() => {
+    if (review) reviewHeading.current?.focus();
+    else if (previousReview.current) saveTrigger.current?.focus();
+    previousReview.current = Boolean(review);
+  }, [review]);
+
+  useEffect(() => {
+    if (!vault.detail && previousDetail.current) {
+      (detailTrigger.current?.isConnected ? detailTrigger.current : historyHeading.current)?.focus();
+    }
+    previousDetail.current = Boolean(vault.detail);
+  }, [vault.detail]);
+
+  useEffect(() => {
+    if (vault.busy) return;
+    if (vault.pendingClearId && vault.clearConfirmationReady && focusedClear.current !== vault.pendingClearId) {
+      clearGroup.current?.querySelector('[data-clear-cancel]')?.focus();
+      focusedClear.current = vault.pendingClearId;
+    } else if (!vault.pendingClearId && focusedClear.current) {
+      (clearTrigger.current?.isConnected ? clearTrigger.current.querySelector('[data-clear-trigger]') : historyHeading.current)?.focus();
+      focusedClear.current = null;
+    }
+  }, [vault.pendingClearId, vault.clearConfirmationReady, vault.busy]);
+
   const beginSave = event => {
     event.preventDefault();
+    saveTrigger.current = event.nativeEvent.submitter || event.currentTarget.querySelector('button[type="submit"]');
     const normalizedTitle = title.trim() || '主动保存的记录';
     if (!body.trim()) {
       setFormError('请填写要主动保存的正文。');
@@ -55,7 +84,7 @@ export function RecordVault({ authenticated, accountKey }) {
         {!authenticated && <p className="record-gate" role="status">页面已开放浏览；登录后才能读取或保存本人私密记录，访客不会请求记录列表。</p>}
         {apiMode !== 'real' && authenticated && <p className="record-gate" role="status">当前是 API 模拟模式；不会模拟保存成功或展示虚构账户历史。</p>}
         {review && <div className="record-consent" role="group" aria-label="保存前确认">
-          <h4>保存前确认</h4><strong>{review.title}</strong><p className="preserve-lines">{review.body}</p>
+          <h4 ref={reviewHeading} tabIndex={-1}>保存前确认</h4><strong>{review.title}</strong><p className="preserve-lines">{review.body}</p>
           <label className="record-consent-choice"><input type="checkbox" checked={saveConsent} onChange={event => setSaveConsent(event.target.checked)} disabled={vault.busy} /><span>我明确选择将以上内容保存为本人当前入口的记录。此许可仅用于 SAVE，不代表允许 AI 处理。</span></label>
           {vault.saveResultUnknown && <p className="record-gate" role="status">服务端保存结果未知。请保持这个快照并用同一请求重试核实；不能取消后改成新内容。</p>}
           <div className="button-row"><Button disabled={!authenticated || !saveConsent || vault.busy} onClick={confirmSave}>{vault.busy ? '正在保存…' : vault.saveResultUnknown ? '用同一请求重试核实' : vault.hasPendingSave ? '用同一请求重试保存' : '确认保存'}</Button><Button variant="neutral" disabled={vault.busy || vault.saveResultUnknown} onClick={() => { if (vault.cancelSave()) { setReview(null); setSaveConsent(false); setFormError(''); } }}>取消</Button></div>
@@ -63,7 +92,7 @@ export function RecordVault({ authenticated, accountKey }) {
       </Panel>
 
       <Panel className="record-history-panel">
-        <div className="record-history-heading"><div><h3>我的记录</h3><span>当前入口 · 最多显示 20 条元数据</span></div><Tag>{vault.loadState === 'loading' ? '读取中' : vault.loadState === 'ready' ? `${vault.items.length} 条` : '未确认'}</Tag></div>
+        <div className="record-history-heading"><div><h3 ref={historyHeading} tabIndex={-1}>我的记录</h3><span>当前入口 · 最多显示 20 条元数据</span></div><Tag>{vault.loadState === 'loading' ? '读取中' : vault.loadState === 'ready' ? `${vault.items.length} 条` : '未确认'}</Tag></div>
         {vault.loadState === 'loading' && <p role="status">正在从记录服务读取本人当前入口的列表…</p>}
         {vault.loadState === 'error' && <div className="record-error" role="alert">{vault.loadError}<Button variant="neutral" disabled={vault.busy} onClick={() => vault.refresh()}>重新读取</Button></div>}
         {vault.loadState === 'unavailable' && <p className="record-gate" role="status">{vault.loadError}</p>}
@@ -71,10 +100,10 @@ export function RecordVault({ authenticated, accountKey }) {
         {vault.loadState === 'ready' && vault.items.length > 0 && <div className="record-history-list">{vault.items.map(record => <article className="record-history-item" key={record.id}>
           <span className="record-history-icon"><FileClock size={17} /></span>
           <div className="record-history-meta"><strong>{kindLabel(record.kind)}</strong><span>{new Date(record.updatedAt || record.createdAt).toLocaleString('zh-CN')} · v{record.version}</span><small>列表只显示类型与时间；详情由服务端核验归属后解密。</small></div>
-          <Button variant="neutral" disabled={vault.busy} onClick={() => vault.openDetail(record.id)}>详情</Button>
+          <Button variant="neutral" disabled={vault.busy} onClick={event => { detailTrigger.current = event.currentTarget; vault.openDetail(record.id); }}>详情</Button>
           {vault.pendingClearId === record.id
-            ? <div className="record-clear-confirm"><p role="status">{vault.clearResultUnknown ? '上次清除请求结果未知；请用同一请求标识重试核实。' : vault.clearConfirmationReady ? `一次性确认约于 ${new Date(vault.clearExpiresAt).toLocaleTimeString('zh-CN')} 过期。确认前可取消。` : vault.clearConfirmationResultUnknown ? '清除确认结果待核实；重试会沿用同一请求标识，尚未提交清除请求。' : '尚未收到服务端确认凭证；可重试申请，当前没有提交清除请求。'}</p><div className="button-row"><Button variant="danger" icon={Trash2} disabled={vault.busy} onClick={() => vault.clearResultUnknown || vault.clearConfirmationReady ? vault.confirmClear(record) : vault.requestClear(record)}>{vault.busy ? '处理中…' : vault.clearResultUnknown ? '用同一请求重试核实' : vault.clearConfirmationReady ? '确认清除' : '重试申请确认'}</Button><Button variant="neutral" disabled={vault.busy || vault.clearResultUnknown} onClick={vault.cancelClear}>取消确认</Button></div></div>
-            : <Button variant="neutral" disabled={vault.busy} onClick={() => vault.requestClear(record)}>清除</Button>}
+            ? <div ref={clearGroup} className="record-clear-confirm" role="group" aria-label="清除记录确认"><p>仅清除本人当前入口的这条记录及正文，其他记录不受影响。服务端确认后不会自动恢复。</p><p role="status">{vault.clearResultUnknown ? '上次清除请求结果未知；请用同一请求标识重试核实。' : vault.clearConfirmationReady ? `一次性确认约于 ${new Date(vault.clearExpiresAt).toLocaleTimeString('zh-CN')} 过期。确认前可取消。` : vault.clearConfirmationResultUnknown ? '清除确认结果待核实；重试会沿用同一请求标识，尚未提交清除请求。' : '尚未收到服务端确认凭证；可重试申请，当前没有提交清除请求。'}</p><div className="button-row"><Button variant="danger" icon={Trash2} disabled={vault.busy} onClick={() => vault.clearResultUnknown || vault.clearConfirmationReady ? vault.confirmClear(record) : vault.requestClear(record)}>{vault.busy ? '处理中…' : vault.clearResultUnknown ? '用同一请求重试核实' : vault.clearConfirmationReady ? '确认清除' : '重试申请确认'}</Button><Button variant="neutral" data-clear-cancel disabled={vault.busy || vault.clearResultUnknown} onClick={vault.cancelClear}>取消确认</Button></div></div>
+            : <Button variant="neutral" data-clear-trigger disabled={vault.busy} onClick={event => { clearTrigger.current = event.currentTarget.closest('.record-history-item'); vault.requestClear(record); }}>清除</Button>}
         </article>)}</div>}
         {vault.detail && <RecordDetail record={vault.detail} onClose={vault.closeDetail} />}
       </Panel>
