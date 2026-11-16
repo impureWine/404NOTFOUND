@@ -252,12 +252,13 @@ test('T-03 结束后读取已完成任务、重来（RESTART）后的旧结果',
     assert.equal(observation.completedStatus, 200);
     assert.equal(observation.hasResultBeforeEnd, true);
     assert.equal(observation.endActionStatus, 200);
-    // 记录观察值，判定写入 Day2 报告：结束后是否仍可读，以实测为准
-    assert.ok([200, 404, 403].includes(observation.afterEndReadStatus));
+    assert.equal(observation.afterEndReadStatus, 200);
+    assert.equal(afterEndBody?.status, 'cancelled');
+    assert.equal(observation.hasResultAfterEnd, false, '结束会话后必须清除已完成结果');
   });
 });
 
-test('B2-R 撤回许可：撤销后不可再用，已完成结果是否失效以实测记录', async () => {
+test('B2-R 撤回许可：撤销后不可再用，已完成结果同步失效', async () => {
   await withApi(async ({ baseUrl }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_beta2_revoke');
     const session = await createSession(baseUrl, user);
@@ -292,7 +293,9 @@ test('B2-R 撤回许可：撤销后不可再用，已完成结果是否失效以
     console.log('[B2-REVOKE]', JSON.stringify(observation));
 
     assert.equal(observation.reuseAfterRevoke, 403, '已撤销许可不得继续使用');
-    assert.ok([200, 404].includes(observation.rereadAfterRevoke));
+    assert.equal(observation.rereadAfterRevoke, 200);
+    assert.equal(rereadBody?.status, 'cancelled');
+    assert.equal(observation.hasResultAfterRevoke, false, '撤回许可后必须清除由该许可产生的结果');
   });
 });
 
@@ -324,7 +327,9 @@ test('B2-RESTART 重来后读取上一轮任务结果', async () => {
     };
     console.log('[B2-RESTART]', JSON.stringify(observation));
     assert.equal(observation.restartStatus, 200);
-    assert.ok([200, 404].includes(observation.afterRestartReadStatus));
+    assert.equal(observation.afterRestartReadStatus, 200);
+    assert.equal(body?.status, 'cancelled');
+    assert.equal(observation.hasResultAfterRestart, false, '重来后必须清除上一活动的结果');
   });
 });
 

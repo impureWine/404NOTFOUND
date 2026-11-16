@@ -206,6 +206,45 @@ test('account switch also clears a completed reply that was not consumed', async
   assert.equal(invalidated.result, undefined);
 });
 
+test('ending a session clears an already completed reply', async () => {
+  const service = createService({
+    async respond() {
+      return successResponse('结束前已经完成但尚未读取的回复');
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(service.getAgentTask(context, ids.taskRequest).status, 'completed');
+
+  service.action(context, session.sessionId, {
+    requestId: ids.actionRequest,
+    action: 'END',
+    expectedSessionGeneration: 0,
+    expectedActivityGeneration: 0,
+  });
+
+  const invalidated = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(invalidated.status, 'cancelled');
+  assert.equal(invalidated.result, undefined);
+});
+
+test('revoking consent clears completed tasks created with that consent', async () => {
+  const service = createService({
+    async respond() {
+      return successResponse('撤回许可前已经完成的回复');
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.deepEqual(service.invalidateConsent(ids.consent), { tasksInvalidated: 1 });
+  const invalidated = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(invalidated.status, 'cancelled');
+  assert.equal(invalidated.result, undefined);
+});
+
 test('ending a session also rejects an in-flight late model reply', async () => {
   let finish;
   const service = createService({
