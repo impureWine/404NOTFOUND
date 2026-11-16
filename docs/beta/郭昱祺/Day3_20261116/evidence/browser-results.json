@@ -1,0 +1,686 @@
+{
+  "date": "2026-11-16",
+  "baseline": "b78a0e264bbf75b52239f4026aa6d92756a089a6",
+  "environment": "Edge headless + current Vite React app; intercepted synthetic API only; no real authentication, database, model or search",
+  "sourceHashes": {
+    "prototype/src/records/RecordVault.jsx": "84afc684a8b0ea4da43c6db2a53e30aa7d0d1b6c32055083ca1480211a810a66",
+    "prototype/src/records/RecordDetail.jsx": "db9ffa535c2b9697cf4b8d49b4e5629561060a70d4c0c7384bce6142df9ec6b2",
+    "prototype/src/live/Library.jsx": "7d55e01da864bdd4f363e7154f5b9243dcfeb3f023d75b727ee159cab7a762ce",
+    "prototype/src/current-home.css": "29a92a97a68c0b640dd45281f7f3fdc9a355d58a72edd579aeac03a73fef5c8e"
+  },
+  "viewport": "1440x1000 except H20 390x1000",
+  "total": 20,
+  "passed": 20,
+  "failed": 0,
+  "results": [
+    {
+      "id": "H01",
+      "title": "访客不读取私密列表",
+      "expected": "访客不请求记录，保存禁用",
+      "observed": "列表请求=0；保存禁用=true",
+      "status": "PASS",
+      "screenshot": "evidence/H01.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "H02",
+      "title": "列表等待与空状态分离",
+      "expected": "读取未完成只展示等待，不显示空",
+      "observed": "等待可见=true；空状态=0",
+      "status": "PASS",
+      "screenshot": "evidence/H02.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H03",
+      "title": "列表失败恢复",
+      "expected": "错误与空状态分离，重新读取按钮可用",
+      "observed": "空状态=0；重新读取=true",
+      "status": "PASS",
+      "screenshot": "evidence/H03.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H04",
+      "title": "键盘进入保存确认与许可门槛",
+      "expected": "正文Tab到检查按钮，Space展开；未勾选不能确认",
+      "observed": "确认区展开；未勾选时确认禁用=true",
+      "status": "PASS",
+      "screenshot": "evidence/H04.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H05",
+      "title": "保存确认初始焦点",
+      "expected": "确认展开后焦点进入确认组，使用户继续阅读并勾选",
+      "observed": "{\"tag\":\"H4\",\"text\":\"保存前确认\",\"withinReview\":true,\"withinDetail\":false}",
+      "status": "PASS",
+      "screenshot": "evidence/H05.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H06",
+      "title": "键盘确认保存",
+      "expected": "Space勾选、Tab到确认、Enter提交，仅创建1次",
+      "observed": "创建次数=1；确认区已关闭；焦点={\"tag\":\"BUTTON\",\"text\":\"检查并选择保存\",\"withinReview\":false,\"withinDetail\":false}",
+      "status": "PASS",
+      "screenshot": "evidence/H06.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents",
+          "body": {
+            "requestId": "85203716-0932-436f-97cc-392874e77f7b",
+            "purpose": "SAVE",
+            "operation": "RECORD_CREATE",
+            "payload": {
+              "kind": "CONVERSATION",
+              "content": {
+                "title": "主动保存的记录",
+                "body": "合成主动保存内容"
+              }
+            }
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records",
+          "body": {
+            "requestId": "08ea916f-4d79-4e42-882c-fb7ddfb03b90",
+            "consentId": "00000000-0000-4000-8000-000000000012",
+            "kind": "CONVERSATION",
+            "content": {
+              "title": "主动保存的记录",
+              "body": "合成主动保存内容"
+            }
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H07",
+      "title": "保存结果未知保留快照",
+      "expected": "未知时禁止换载荷／取消，保留核实入口",
+      "observed": "取消禁用=true；正文锁定=true",
+      "status": "PASS",
+      "screenshot": "evidence/H07.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents",
+          "body": {
+            "requestId": "05016f0f-2d6d-41e2-8ecb-c01d69017647",
+            "purpose": "SAVE",
+            "operation": "RECORD_CREATE",
+            "payload": {
+              "kind": "CONVERSATION",
+              "content": {
+                "title": "主动保存的记录",
+                "body": "合成主动保存内容"
+              }
+            }
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records",
+          "body": {
+            "requestId": "6857f013-4237-470d-8418-52eda37ce0ef",
+            "consentId": "00000000-0000-4000-8000-000000000012",
+            "kind": "CONVERSATION",
+            "content": {
+              "title": "主动保存的记录",
+              "body": "合成主动保存内容"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "H08",
+      "title": "保存未知后的相同请求核实",
+      "expected": "重试复用requestId和内容快照",
+      "observed": "两次保存载荷与requestId一致=true",
+      "status": "PASS",
+      "screenshot": "evidence/H08.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents",
+          "body": {
+            "requestId": "05016f0f-2d6d-41e2-8ecb-c01d69017647",
+            "purpose": "SAVE",
+            "operation": "RECORD_CREATE",
+            "payload": {
+              "kind": "CONVERSATION",
+              "content": {
+                "title": "主动保存的记录",
+                "body": "合成主动保存内容"
+              }
+            }
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records",
+          "body": {
+            "requestId": "6857f013-4237-470d-8418-52eda37ce0ef",
+            "consentId": "00000000-0000-4000-8000-000000000012",
+            "kind": "CONVERSATION",
+            "content": {
+              "title": "主动保存的记录",
+              "body": "合成主动保存内容"
+            }
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents",
+          "body": {
+            "requestId": "05016f0f-2d6d-41e2-8ecb-c01d69017647",
+            "purpose": "SAVE",
+            "operation": "RECORD_CREATE",
+            "payload": {
+              "kind": "CONVERSATION",
+              "content": {
+                "title": "主动保存的记录",
+                "body": "合成主动保存内容"
+              }
+            }
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records",
+          "body": {
+            "requestId": "6857f013-4237-470d-8418-52eda37ce0ef",
+            "consentId": "00000000-0000-4000-8000-000000000012",
+            "kind": "CONVERSATION",
+            "content": {
+              "title": "主动保存的记录",
+              "body": "合成主动保存内容"
+            }
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H09",
+      "title": "详情展开焦点",
+      "expected": "键盘展开详情后焦点进入详情标题或关闭按钮",
+      "observed": "{\"tag\":\"H4\",\"text\":\"会话记录详情\",\"withinReview\":false,\"withinDetail\":true}",
+      "status": "PASS",
+      "screenshot": "evidence/H09.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011"
+        }
+      ]
+    },
+    {
+      "id": "H10",
+      "title": "关闭详情焦点恢复",
+      "expected": "关闭后焦点回本条记录的详情按钮",
+      "observed": "{\"tag\":\"BUTTON\",\"text\":\"详情\",\"withinReview\":false,\"withinDetail\":false}",
+      "status": "PASS",
+      "screenshot": "evidence/H10.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011"
+        }
+      ]
+    },
+    {
+      "id": "H11",
+      "title": "详情404不显示旧正文",
+      "expected": "失败提示可见，不显示正文，保留详情重试",
+      "observed": "详情区数=0；详情按钮可用=true",
+      "status": "PASS",
+      "screenshot": "evidence/H11.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011"
+        }
+      ]
+    },
+    {
+      "id": "H12",
+      "title": "清除第一步不提交删除",
+      "expected": "申请凭证后显示确认和取消，尚未发clear请求",
+      "observed": "clear请求数=0；取消确认可用=true",
+      "status": "PASS",
+      "screenshot": "evidence/H12.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear-confirmations",
+          "body": {
+            "requestId": "1caabb52-287e-4e5b-8856-b553ef2f15a2",
+            "expectedVersion": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "H13",
+      "title": "清除确认焦点与影响说明",
+      "expected": "第一步后焦点落在非破坏操作或可聚焦说明，并说明仅清除此条",
+      "observed": "{\"tag\":\"BUTTON\",\"text\":\"取消确认\",\"withinReview\":false,\"withinDetail\":false}",
+      "status": "PASS",
+      "screenshot": "evidence/H13.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear-confirmations",
+          "body": {
+            "requestId": "1caabb52-287e-4e5b-8856-b553ef2f15a2",
+            "expectedVersion": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "H14",
+      "title": "取消确认保留记录",
+      "expected": "键盘取消不触发clear，记录仍可选择详情",
+      "observed": "clear请求数=0；焦点={\"tag\":\"BUTTON\",\"text\":\"清除\",\"withinReview\":false,\"withinDetail\":false}",
+      "status": "PASS",
+      "screenshot": "evidence/H14.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear-confirmations",
+          "body": {
+            "requestId": "1caabb52-287e-4e5b-8856-b553ef2f15a2",
+            "expectedVersion": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "H15",
+      "title": "清除结果未知",
+      "expected": "未知结果不显示成功，取消禁用，提供同请求核实",
+      "observed": "取消确认禁用=true",
+      "status": "PASS",
+      "screenshot": "evidence/H15.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear-confirmations",
+          "body": {
+            "requestId": "18d23f28-68ad-4887-994c-f01f4e74aa6c",
+            "expectedVersion": 1
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear",
+          "body": {
+            "requestId": "0642c5d7-15e2-4433-a124-405abaeac66a",
+            "expectedVersion": 1,
+            "confirmationId": "00000000-0000-4000-8000-000000000013"
+          }
+        }
+      ]
+    },
+    {
+      "id": "H16",
+      "title": "清除核实与列表更新",
+      "expected": "相同清除请求核实后服务端确认，列表更新为空",
+      "observed": "请求体一致=true；列表更新为空",
+      "status": "PASS",
+      "screenshot": "evidence/H16.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear-confirmations",
+          "body": {
+            "requestId": "18d23f28-68ad-4887-994c-f01f4e74aa6c",
+            "expectedVersion": 1
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear",
+          "body": {
+            "requestId": "0642c5d7-15e2-4433-a124-405abaeac66a",
+            "expectedVersion": 1,
+            "confirmationId": "00000000-0000-4000-8000-000000000013"
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear",
+          "body": {
+            "requestId": "0642c5d7-15e2-4433-a124-405abaeac66a",
+            "expectedVersion": 1,
+            "confirmationId": "00000000-0000-4000-8000-000000000013"
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H17",
+      "title": "清除版本冲突恢复",
+      "expected": "409不宣称删除，刷新后重新申请确认",
+      "observed": "记录仍在=true；旧确认按钮数=0",
+      "status": "PASS",
+      "screenshot": "evidence/H17.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear-confirmations",
+          "body": {
+            "requestId": "78b5785f-acf2-474d-a801-8647ddf11bf1",
+            "expectedVersion": 1
+          }
+        },
+        {
+          "method": "POST",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011/clear",
+          "body": {
+            "requestId": "a7189b8d-6fa9-402c-b1f0-3cac736e2ec0",
+            "expectedVersion": 1,
+            "confirmationId": "00000000-0000-4000-8000-000000000013"
+          }
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H18",
+      "title": "查询详情快照与逐条不确定性",
+      "expected": "展示原查询、来源、获取时间和未核验提示，不自动重新检索",
+      "observed": "快照及不确定性文案齐全=true；搜索任务调用=0",
+      "status": "PASS",
+      "screenshot": "evidence/H18.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011"
+        }
+      ]
+    },
+    {
+      "id": "H19",
+      "title": "查询记录入口失败与空态分离",
+      "expected": "读取失败只显示错误恢复，不显示暂无记录",
+      "observed": "错误与暂无记录同时显示=false",
+      "status": "PASS",
+      "screenshot": "evidence/H19.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "H20",
+      "title": "390像素历史详情布局",
+      "expected": "正文换行，无横向溢出，清除按钮文字不纵向折行",
+      "observed": "{\"width\":390,\"scroll\":390,\"clearWidth\":46,\"clearHeight\":31}",
+      "status": "PASS",
+      "screenshot": "evidence/H20.jpg",
+      "calls": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records/00000000-0000-4000-8000-000000000011"
+        }
+      ]
+    }
+  ],
+  "verifiedSourceCommit": "eab0123d8dbe1715fe8c66fde8d67770c816586b"
+}

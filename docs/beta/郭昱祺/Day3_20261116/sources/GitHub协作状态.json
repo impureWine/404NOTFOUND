@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-16",
+  "note": "Source reports only; no collaborator approval inferred",
+  "assignmentRef": "c1483f0164eb41adb8118c081ff4bcef10db5d2f",
+  "issues": [
+    {
+      "number": 105,
+      "title": "[Beta][B02][P1][程杰] 真实页面完成保存—列表—正文—两步清除",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/105",
+      "state": "open",
+      "body": "负责人：程杰\r\n协作者：李泉毅、庄剀涵、郭昱祺\r\n独立复核：曾俊涛、关欣\r\n优先级：P1；目标：Day3\r\n\r\n输入依赖：B01；保存许可与公开记录DTO\r\n\r\n候选：d2073489a8be92c38e1f57da7562e487058c501a\r\n现状：候选存在实现入口（prototype/src/records/RecordDetail.jsx；backend/src/services/record-service.js），尚需本轮集成/页面验收。\r\n\r\n验收条件：真实页面完成保存—列表—正文—两步清除；重复保存、刷新、换号与失败重试可复现\r\n\r\nPM初估：8人时，含修订、评审与验证，待负责人确认；个人容量尚未回报。\r\n状态：待开始（现状盘点已完成）。\r\n交接：提供相同SHA下的命令、结果、截图、实际耗时及剩余量。\r\n"
+    },
+    {
+      "number": 139,
+      "title": "[Beta冲刺 Day3][AI][程群] 修复 END、RESTART 与许可撤回后的旧结果失效",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/139",
+      "state": "open",
+      "body": "## 负责人\n\n程群（AI），2026-11-16 Beta Day3。\n\n## 背景\n\n承接 #137 的 T-03 生命周期缺口及 #132 的 B01 验收要求。\n\n当前已完成的 AI 任务在以下操作后仍可能返回旧结果：\n\n- 会话 `END`\n- 活动 `RESTART`\n- 撤回 `AI_PROCESS` 许可\n\n三种触发面属于同一类任务生命周期问题，统一按一项缺陷处理。\n\n## 目标\n\n- [x] `END` 后已完成但尚未消费的 AI 结果失效\n- [x] `RESTART` 后上一活动的结果失效\n- [x] 撤回许可后，由该许可产生的任务结果失效\n- [x] 在途任务取消后，供应商迟到回复不能回填\n- [x] 内部 `consentId` 不进入公开任务 DTO\n- [x] 增加确定性自动化断言和当日交付记录\n\n## 验收口径\n\n失效任务采用以下兼容响应：\n\n- HTTP 状态为 200\n- 任务状态为 `cancelled`\n- 不包含 `result`\n- 不包含旧来源或失败细节\n- 撤回后的许可复用返回 403\n\n## 完成结果\n\n- `END`、`RESTART` 会清理包括已完成任务在内的会话任务。\n- AI／查询任务在服务端内部关联创建时使用的许可。\n- 撤回许可时同步使对应任务失效。\n- 会话结束、重来和许可撤回复用统一任务清理逻辑。\n- 已补充 Beta Day3 程群交付材料。\n\n## 验证\n\n定向测试：\n\n```powershell\ncd backend\nnode --test test/unit/companion-task.test.js test/unit/task-service.test.js test/security/beta-day2-authz-matrix.test.js"
+    },
+    {
+      "number": 141,
+      "title": "[Beta][Day3][PM][张王昊] B02验收组织、字段协调与B01结转",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/141",
+      "state": "open",
+      "body": "负责人：张王昊；B02牵头：程杰；接口：李泉毅；数据：庄剀涵；AI保存资格：程群；交互：郭昱祺；独立复核：关欣、曾俊涛。\r\n\r\n日期2026-11-16。关联 #105、#104、#123、#124、#139。今日PM交付：16项B02矩阵、字段规则协调、B01结转和Day3日志。\r\n\r\n共同候选b78a0e2；测试报告受测455a17c，已有八组检查与26项后端输出；未跨SHA签认整版通过。PR #127/#128/#133/#140尚待审，T-03按一个根因结转。成员工时与站会照片待回收。\r\n\r\n验收：相关负责人确认公开DTO/清除/保存资格；同一整合候选补矩阵缺项并独立复核；PM稿与实际结果一致。PM产物暂估2人时，实际未计时。Issue保持开放等待非作者复核，不以文档上传代替B02功能关闭。\r\n"
+    },
+    {
+      "number": 143,
+      "title": "[Beta][Day3][后端] 李泉毅记录接口与公开 DTO 交付",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/143",
+      "state": "open",
+      "body": "## 负责人\n\n李泉毅\n\n## Day3 任务\n\n对齐保存许可、公开正文 DTO 和清除 API；检查重放、冲突和错误响应。\n\n## 已完成\n\n- 明确记录列表与详情的公开响应 Schema，阻止密文及密钥版本进入客户端 DTO。\n- 明确两步清除响应：限时确认与最终清除结果。\n- 保留保存幂等语义：相同 `requestId` + 相同载荷返回原记录，不同载荷返回 `409 CONFLICT`。\n- 保持账号、入口和换号后的记录隔离。\n- 增加公开 DTO 与清除响应契约测试。\n\n## 提交与关联\n\n- Commit: `31b9fb5`\n- Branch: `codex/beta-day2-authz`\n- PR: #128\n- 交付记录：`backend/evidence/李泉毅_BetaDay3_记录接口与公开DTO_20261116.md`\n\n## 验证\n\n- `node --test test/unit/public-record-contracts.test.js test/integration/record-api.test.js`\n- 结果：6/6 通过\n\n## 未覆盖边界\n\n自动化使用隔离 PGlite；尚未替代正式 PostgreSQL、浏览器页面及部署环境验收。\n"
+    },
+    {
+      "number": 144,
+      "title": "[Beta][Day3][数据][庄剀涵] 记录保存回看清除、事务幂等与查询来源快照",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/144",
+      "state": "open",
+      "body": "## 负责人及任务范围\n\n我是庄剀涵，负责 2026 年 11 月 16 日 Beta Day3 的数据层交付：完善记录保存、读取和清除，核对事务、幂等与归属，检查查询快照可读性。\n\n协作：李泉毅（公开 DTO、接口与事务对齐）、程杰（详情页面联调）；独立复核待关欣、曾俊涛安排；张王昊汇总当日进展。\n\n关联：B02 #105、Day3 协调 #141、后端 DTO #143；承接我的 Day2 Issue #126 / PR #127，查询来源后续工作关联 #107。\n\n## 发现的问题及修订\n\n1. 查询历史从共享 sources 表读取来源，同一网址后续更新会改变旧记录展示。新增迁移 006 和按查询保存的来源快照，旧记录回看不再随其他账号的新保存而变化。\n2. 无摘要来源未形成 claim/evidence 时，原详情可能丢失来源。独立保存全部来源，并在公开正文中增加 sources、status、uncertaintyNote、snapshotOrigin。\n3. 元数据和正文分开读取可能跨越更新或清除提交。详情读取改为事务并锁定所属记录，保持同一版本。\n4. 清除确认重复提交可能发生唯一约束冲突，过期确认仍可能返回成功。调整确认生成与重试逻辑，已过期/消费返回冲突，已清除返回未找到。\n\n## 已完成的本地验证\n\n- [x] 保存—列表—详情—两步清除及清除后旧引用验证。\n- [x] 账号与入口隔离；Day2 用途许可及查询生命周期回归。\n- [x] 重复保存、重复确认、重复清除只产生一份业务结果。\n- [x] 保存/清除中途注入失败后全事务回滚，原请求可重试。\n- [x] 无摘要来源可读，公开 DTO 不暴露密文与密钥版本。\n- [x] 新库迁移、旧数据回填、重复迁移、恢复与日期回归。\n- [x] 新增专项 7 项、迁移专项 2 项，定向 9/9 通过；完整后端 187/187 通过，0 失败、0 跳过。\n\n环境：Windows、Node.js v24.22.1、PGlite 0.3.16、合成账号/正文/来源/密钥。本次没有真实网络检索或模型调用。命令：在 backend 目录执行 node --test。首轮 183/187 的迁移清单/测试驱动适配问题及最终全量日志均保留。\n\n## 交付候选及证据\n\n- 基线：main@b78a0e2。\n- 分支：codex/zkh-beta-day3-record-lifecycle。\n- Day3 实现：1a4da24；Day2 原提交 b59a5d6 以 a51ce88 承接，PR #127 尚未进入主线。\n- 交接报告：backend/evidence/daily/Day3_Beta_庄剀涵_20261116.md。\n- 日志、实际保存回看清除样例、代码哈希：backend/evidence/daily/beta-day3-20261116/。\n\n## 合并前验收与剩余工作\n\n- [ ] 非作者在同一整合候选上复核事务、归属、清除和旧引用。\n- [ ] 与 #143 对齐新增公开字段，确认后端响应 Schema 保留来源快照信息。\n- [ ] 前端按 content.sources 展示无摘要来源，并呈现不确定性和历史补录提示；补浏览器换号与清除残留验证。\n- [ ] 在约定 PostgreSQL 环境验证旧库迁移、多连接重复请求和读取/清除竞争。\n\n迁移先于新代码部署。旧数据仅能从当前共享目录补录，标记 LEGACY_BACKFILL，不冒充原始保存时快照；新保存为 SAVED。PGlite 并发调用不等于 PostgreSQL 多连接锁竞争验证。清除 outbox 为 PENDING 不表示备份或外部副本已销毁。\n\n完整测试中的既有安全探针可能用于记录遗留缺陷签名，187 项通过不代表 B01 全部问题已关闭。本 Issue 保持开放，直到完成所需非作者复核；本地实现与自查不代表生产系统或整版验收已完成。\n\nAI 辅助说明：本次借助 Codex 检查代码、修订实现、生成测试和整理材料，并实际运行自动化验证；人工评审及团队独立复核仍待完成，未代填个人实际工时或站会材料。\n\n## 已提交团队仓库\n\n关联 PR：[Day3 数据交付 #145](https://github.com/impureWine/404NOTFOUND/pull/145)。分支已推送，提交为 [cd7cc72](https://github.com/impureWine/404NOTFOUND/commit/cd7cc72f2adb39ec507186b324931d82d5cace81)，当前待团队评审，尚未合并。\n"
+    },
+    {
+      "number": 146,
+      "title": "[Beta][Day3][安全][关欣] 记录隔离与清除专项：寄存正文时序、两段式清除台账与旧引用复核",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/146",
+      "state": "open",
+      "body": "## 负责人及任务范围\n\n我是关欣，负责 2026 年 11 月 16 日 Beta Day3 的安全交付：验证其他账号与其他入口不能访问记录与寄存，检查清除后的详情、旧引用与删除台账，并复测 Day2 结转项（撤回在途任务、并发竞态、P0-02、T-03 组）。\n\n协作：庄剀涵（记录清除与事务，PR #145）、程群（AI 任务生命周期，PR #140）、李泉毅（失效会话错误码，PR #128）、曾俊涛（B02 页面级回归）；非作者复核待安排。\n\n关联：B02 #105、Day3 协调 #141；承接我的 Day2 Issue #137。\n\n## 发现的问题及结论\n\n本次只新增探针与文档，未修改业务代码、未改数据库结构、未改依赖锁文件。\n\n1. 寄存（`DEPOSIT`）时序成立：未到期时详情与寄存接口都不返回正文，提前取回返回 409；到期转 `AVAILABLE` 后仍不给正文，只有显式取回（`RETRIEVED`）才解密，取回后详情也不会顺带回显正文。\n2. 账号与入口隔离成立：他人读记录 / 读寄存 / 取回寄存均 404；同账号异入口（DESKTOP）三项同样 404；他人列表为空。\n3. 两段式清除与台账成立：跳过确认 400 且记录仍在，伪造确认号 409；正常两步 201→200，`deletion_jobs` 为 `PENDING`、`deletion_targets` 指向被清除记录、`deletion_outbox` 载荷携带 `recordId`/`recordKind`，正文子表 0 行；同一 `requestId` 重放返回 `idempotent: true` 且不产生第二条台账。\n4. 清除后旧引用成立：被 AI 任务引用过的记录清除后，该任务转 `cancelled` 且 `result` 被删除（`taskService.invalidateRecord`）。\n5. 并发清除只成功一次（200 + 404），台账仍为 1 条。\n6. **新缺口（B3-INFLIGHT）**：许可撤回不追溯在途任务——任务处于 `running` 时撤回许可，任务仍跑完并保留 `result`。与 T-03 组「会话生命周期结束后旧结果未失效」同源，建议并入 #140 的修复口径，不另立缺陷。\n7. **契约小缺口**：记录清除后仍可用其 `recordId` 作为 `selectedContextIds` 提交任务，接口返回 202，任务随后 `failed`（`PROVIDER_UNAVAILABLE`）；未泄露正文，但缺少 400/404 前置拒绝，属 P2。\n8. Day2 结转项现状（本日复跑，未修）：P0-02 主线仍 403（#128 未合并）；T-03 组 END / RESTART / 撤回许可后读旧任务仍 200 且带 `result`（#140 冲突未合并）。\n\n## 已完成的本地验证\n\n- [x] 寄存正文时序与提前取回拒绝（C-02）。\n- [x] 记录与寄存的账号 / 入口隔离（C-03）。\n- [x] 两段式清除、删除台账三件套、幂等重放（C-04）。\n- [x] 清除后旧引用与 AI 任务失效（B3-REF）。\n- [x] 并发清除唯一成功与台账不重复（B3-CONC）。\n- [x] Day2 结转项复跑：撤回在途任务（B3-INFLIGHT）、P0-02、T-03 组。\n- [x] 新增专项 6 项、后端全量 178/178 通过，0 失败、0 跳过。\n\n环境：macOS、Node.js v25.9.0、pnpm 10.34.9、PGlite、合成账号 / 正文 / 模型适配器。本次没有连接正式 PostgreSQL，没有调用真实模型。命令：在 `backend` 目录执行 `node --test`。\n\n## 交付候选及证据\n\n- 基线：main@b78a0e2（本日复跑时主线未变）。\n- 分支：guanxin/beta-day3-record-isolation。\n- 探针：backend/test/security/beta-day3-record-isolation.test.js（6 条）。\n- 专项报告：docs/beta/关欣/Beta_Day3_记录隔离与清除专项结果_20261116.md。\n- 随笔素材：docs/beta/关欣/Beta_Day3_冲刺随笔素材_20261116.md。\n\n## 合并前验收与剩余工作\n\n- [ ] 非作者在同一整合候选上复核寄存、清除台账与旧引用结论。\n- [ ] #145、#140 合并后按新 SHA 复跑本专项 6 条与 `day5-p0-recheck`，把「待合并」改判。\n- [ ] 前端页面级「清除后残留」由曾俊涛 Day3 页面回归覆盖，本岗不重复，也不代替其结论。\n- [ ] 正式 PostgreSQL 16、多连接并发与真实模型仍未验证；`deletion_outbox` 为 PENDING 不等于备份或外部副本已销毁。\n\n本次为测试与文档交付，不代表 B02 已由全组验收，也不代表清除已经从所有副本消失。正文全部为 `synthetic:` 合成数据。\n\nAI 辅助说明：本次借助 AI 设计探针、执行实测、整理报告与随笔素材；结论以实际运行输出为准，人工复核仍待团队完成。\n"
+    }
+  ]
+}

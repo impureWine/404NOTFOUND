@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-16",
+  "baseline": "b78a0e264bbf75b52239f4026aa6d92756a089a6",
+  "verifiedSourceCommit": "eab0123d8dbe1715fe8c66fde8d67770c816586b",
+  "sourceHashes": {
+    "prototype/src/records/RecordVault.jsx": "84afc684a8b0ea4da43c6db2a53e30aa7d0d1b6c32055083ca1480211a810a66",
+    "prototype/src/records/RecordDetail.jsx": "db9ffa535c2b9697cf4b8d49b4e5629561060a70d4c0c7384bce6142df9ec6b2",
+    "prototype/src/live/Library.jsx": "7d55e01da864bdd4f363e7154f5b9243dcfeb3f023d75b727ee159cab7a762ce",
+    "prototype/src/current-home.css": "29a92a97a68c0b640dd45281f7f3fdc9a355d58a72edd579aeac03a73fef5c8e"
+  },
+  "initialBrowser": {
+    "total": 20,
+    "passed": 15,
+    "failed": 5
+  },
+  "finalBrowser": {
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "api": "all synthetic intercepted",
+    "acceptanceStrengthened": [
+      "H06",
+      "H13",
+      "H14",
+      "H20"
+    ]
+  },
+  "frontendTests": {
+    "passed": 46,
+    "failed": 0
+  },
+  "build": "PASS",
+  "copyRows": 19,
+  "sourceFilesChanged": 4,
+  "uiFixes": 6,
+  "collaboratorApproval": "pending",
+  "independentRecheck": "pending",
+  "realBackendAndDatabase": "not executed by UX"
+}
