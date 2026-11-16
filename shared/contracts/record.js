@@ -84,16 +84,16 @@ export const saveQueryRequestSchema = z.strictObject({ requestId: requestIdSchem
 
 const publicRecordBaseSchema = z.strictObject({
   id: uuidSchema,
-  kind: recordKindSchema,
   title: z.string().max(80),
   version: positiveVersionSchema,
   createdAt: z.iso.datetime({ offset: true }),
   updatedAt: z.iso.datetime({ offset: true }),
   idempotent: z.boolean(),
-  calendarDate: recordDateSchema.optional(),
 });
 
-export const recordSummaryResponseSchema = publicRecordBaseSchema;
+export const recordSummaryResponseSchema = publicRecordBaseSchema.extend({
+  kind: recordKindSchema,
+});
 
 const conversationResponseSchema = z.strictObject({
   messages: z.array(z.strictObject({
@@ -114,15 +114,31 @@ const queryResponseSchema = z.strictObject({
   })),
 });
 
-export const recordDetailResponseSchema = publicRecordBaseSchema.extend({
-  content: z.union([
-    conversationResponseSchema,
-    emotionResponseSchema,
-    worryResponseSchema,
-    rehearsalResponseSchema,
-    queryResponseSchema,
-  ]),
-});
+export const recordDetailResponseSchema = z.discriminatedUnion('kind', [
+  publicRecordBaseSchema.extend({
+    kind: z.literal('CONVERSATION'),
+    content: conversationResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('EMOTION'),
+    content: emotionResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('WORRY_OBJECT'),
+    content: worryResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('REHEARSAL_DRAFT'),
+    content: rehearsalResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('QUERY'),
+    content: queryResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('DEPOSIT'),
+  }),
+]);
 
 export const clearConfirmationResponseSchema = z.strictObject({
   confirmationId: uuidSchema,

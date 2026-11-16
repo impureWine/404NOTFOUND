@@ -35,6 +35,23 @@ test('public record DTOs accept plaintext views and reject storage fields', () =
   }).success, false);
 });
 
+test('detail DTO is kind-specific and covers deposits without exposing stored body', () => {
+  assert.equal(recordDetailResponseSchema.safeParse({
+    ...base,
+    kind: 'DEPOSIT',
+  }).success, true);
+  assert.equal(recordDetailResponseSchema.safeParse({
+    ...base,
+    kind: 'DEPOSIT',
+    content: { body: '寄存正文不得经通用详情返回' },
+  }).success, false);
+  assert.equal(recordDetailResponseSchema.safeParse({
+    ...base,
+    kind: 'EMOTION',
+    content: { messages: [{ role: 'USER', content: '类型不匹配' }] },
+  }).success, false);
+});
+
 test('clear response DTOs distinguish confirmation from completed clearing', () => {
   assert.equal(clearConfirmationResponseSchema.safeParse({
     confirmationId: id,
