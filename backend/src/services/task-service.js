@@ -161,7 +161,10 @@ export class TaskService {
       } catch (error) {
         if (task.status !== 'cancelled') {
           task.status = 'failed';
-          task.failureReason = error.code ?? 'SERVICE_UNAVAILABLE';
+          // Only documented codes can reach the public DTO, never upstream text.
+          const allowed = ['SEARCH_NOT_CONFIGURED', 'SEARCH_AUTH_FAILED',
+            'SEARCH_RATE_LIMITED', 'TIMEOUT', 'SERVICE_UNAVAILABLE', 'PROVIDER_UNAVAILABLE'];
+          task.failureReason = allowed.includes(error?.code) ? error.code : 'SERVICE_UNAVAILABLE';
         }
       }
     });
@@ -391,13 +394,13 @@ export class TaskService {
   getSearchTask(context, requestId) {
     const task = this.searchTasks.get(requestId);
     if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) throw new NotFoundError();
-    if (task.status === 'completed') this.getCompletedSearchForSave(context, requestId);
+    if (task.status === 'completed') this.getCompletedSearch(context, requestId);
     return this.publicTask(task);
   }
 
   // Internal persistence boundary: never resolve a save directly from the task Map.
   // Existing saved snapshots are replayed by the repository without reusing a task.
-  getCompletedSearchForSave(context, requestId) {
+  getCompletedSearch(context, requestId) {
     const task = this.searchTasks.get(requestId);
     if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) {
       throw new NotFoundError();
@@ -405,8 +408,6 @@ export class TaskService {
     const session = this.getSession(context, task.sessionId);
     if (
       task.status !== 'completed'
-      || task.searchState !== 'SUCCESS'
-      || !task.sources?.length
       || session.state === 'ended'
       || session.activityId !== task.activityId
       || session.sessionGeneration !== task.sessionGeneration
@@ -424,6 +425,15 @@ export class TaskService {
     return task;
   }
 
+  getCompletedSearchForSave(context, requestId) {
+    const task = this.getCompletedSearch(context, requestId);
+    // EMPTY is a readable completed response, but never a saved query snapshot.
+    if (task.searchState !== 'SUCCESS' || !task.sources?.length) {
+      throw new ConflictError('没有可保存的查询来源');
+    }
+    return task;
+  }
+
   cancelSearchTask(context, requestId) {
     const task = this.searchTasks.get(requestId);
     if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) throw new NotFoundError();
@@ -433,6 +443,9 @@ export class TaskService {
     delete task.sources;
     delete task.claims;
     delete task.searchState;
+    delete task.partial;
+    delete task.hasConflict;
+    delete task.uncertaintyNote;
     delete task.failureReason;
     return this.publicTask(task);
   }
@@ -462,6 +475,9 @@ export class TaskService {
         delete task.sources;
         delete task.claims;
         delete task.searchState;
+        delete task.partial;
+        delete task.hasConflict;
+        delete task.uncertaintyNote;
         delete task.failureReason;
       }
     }

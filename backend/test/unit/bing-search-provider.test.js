@@ -93,3 +93,42 @@ test('Bing rejects invalid settings and search payloads before calling the servi
   assert.throws(() => new BingSearchProvider({ timeoutMs: 30001 }), InvalidInputError);
   await assert.rejects(provider(async () => { throw new Error('must not call'); }).search({ question: '' }), InvalidInputError);
 });
+
+test('Beta D4: deadline and caller cancellation cancel the response body reader', async () => {
+  for (const callerCancels of [false, true]) {
+    let cancelled = false;
+    let opened;
+    const bodyOpened = new Promise(resolve => { opened = resolve; });
+    const p = new BingSearchProvider({ apiKey: KEY, timeoutMs: callerCancels ? 1000 : 10,
+      fetchImplementation: async () => {
+        opened();
+        return new Response(new ReadableStream({
+          start() {}, cancel() { cancelled = true; },
+        }), { headers: { 'content-type': 'application/json' } });
+      } });
+    const controller = new AbortController();
+    const pending = p.search({ question: 'synthetic stream' }, { signal: controller.signal });
+    await bodyOpened;
+    if (callerCancels) controller.abort(new DOMException('cancelled', 'AbortError'));
+    await assert.rejects(pending, error => callerCancels ? error.name === 'AbortError' : error.code === 'TIMEOUT');
+    assert.equal(cancelled, true);
+  }
+});
+
+test('Beta D4: Unicode snippets preserve whole code points through the persistence limit', async () => {
+  const result = await provider(async () => json(payload([{ ...item(), snippet: '😀'.repeat(4001) }])))
+    .search({ question: 'synthetic Unicode' });
+  assert.equal(Array.from(result.sources[0].snippet).length, 4000);
+  assert.equal(result.sources[0].snippet, '😀'.repeat(4000));
+});
+
+test('Beta D4: source text that echoes the configured key is filtered from public output', async () => {
+  for (const field of ['title', 'snippet']) {
+    const result = await provider(async () => json(payload([
+      { ...item('https://example.org/echo'), [field]: `echo ${KEY}` }, item(),
+    ]))).search({ question: 'synthetic' });
+    assert.equal(result.sources.length, 1);
+    assert.equal(result.partial, true);
+    assert.equal(JSON.stringify(result).includes(KEY), false);
+  }
+});

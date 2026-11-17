@@ -24,23 +24,31 @@ function sourceUrl(value) {
   } catch { return null; }
 }
 
-async function readJson(response) {
+async function readJson(response, signal) {
   if (!(response.headers.get('content-type') || '').toLowerCase().includes('application/json')) throw unavailable();
   const declared = Number(response.headers.get('content-length'));
   if (Number.isFinite(declared) && declared > MAX_BYTES) throw unavailable();
   const reader = response.body?.getReader();
   if (!reader) throw unavailable();
+  // A deadline must release the body reader as well as stop awaiting the fetch.
+  const abort = () => { reader.cancel().catch(() => {}); };
+  signal.addEventListener('abort', abort, { once: true });
+  if (signal.aborted) abort();
   const chunks = []; let length = 0;
   try {
     while (true) {
       const { done, value } = await reader.read();
+      signal.throwIfAborted();
       if (done) break;
       length += value.byteLength;
       if (length > MAX_BYTES) { await reader.cancel(); throw unavailable(); }
       chunks.push(value);
     }
     return JSON.parse(Buffer.concat(chunks).toString('utf8'));
-  } finally { reader.releaseLock(); }
+  } finally {
+    signal.removeEventListener('abort', abort);
+    reader.releaseLock();
+  }
 }
 
 /** Bing results via SerpAPI, not the retired Microsoft Bing Search API. */
@@ -72,7 +80,7 @@ export class BingSearchProvider {
           if ([401, 403].includes(response.status)) throw new UpstreamError('SEARCH_AUTH_FAILED', 'Bing search credentials were rejected');
           if ([402, 429].includes(response.status)) throw new UpstreamError('SEARCH_RATE_LIMITED', 'Bing search quota or rate limit reached');
           if (!response.ok) throw unavailable();
-          return readJson(response);
+          return readJson(response, signal);
         })(),
         new Promise((_, reject) => {
           abort = () => reject(signal.reason);
@@ -85,7 +93,8 @@ export class BingSearchProvider {
       if (!Array.isArray(items)) {
         // SerpAPI can omit organic_results for a completed, fully empty query.
         if (payload.search_information?.organic_results_state !== 'Fully empty') throw unavailable();
-        return { searchState: 'EMPTY', partial: false, hasConflict: false, sources: [], claims: [] };
+        return { searchState: 'EMPTY', partial: false, hasConflict: false, sources: [], claims: [],
+          uncertaintyNote: '未找到可用来源，请调整关键词后重试。' };
       }
       const retrievedAt = this.clock().toISOString(), sources = [], seen = new Set(); let partial = false;
       for (const item of items) {
@@ -94,7 +103,12 @@ export class BingSearchProvider {
         const normalized = link.toString();
         if (normalized.includes(this.apiKey) || seen.has(normalized)) { partial = true; continue; }
         seen.add(normalized);
-        const snippet = typeof item.snippet === 'string' ? item.snippet.trim().slice(0, 4000) : '';
+        const snippet = typeof item.snippet === 'string'
+          ? Array.from(item.snippet.trim()).slice(0, 4000).join('') : '';
+        if (title.includes(this.apiKey) || snippet.includes(this.apiKey)) {
+          partial = true;
+          continue;
+        }
         sources.push({ id: sourceId(normalized), title: Array.from(title).slice(0,512).join(''), url: normalized, snippet,
           publisher: link.hostname.slice(0,256), sourceTier: 'SX', quality: 'UNKNOWN', publishedAt: null, retrievedAt,
           verificationState: 'PARTIAL' });
@@ -102,7 +116,13 @@ export class BingSearchProvider {
         if (sources.length === parsed.data.limit) break;
       }
       if (items.length && !sources.length) throw unavailable();
-      return { searchState: sources.length ? 'SUCCESS' : 'EMPTY', partial, hasConflict: false, sources, claims: [] };
+      const notes = sources.length
+        ? ['来源摘录仅作检索线索，未经独立事实核验。']
+        : ['未找到可用来源，请调整关键词后重试。'];
+      if (sources.length === 1) notes.push('仅有一个可用来源，缺少交叉核对依据。');
+      if (partial) notes.push('部分来源缺少摘录或已被过滤，信息可能不完整。');
+      return { searchState: sources.length ? 'SUCCESS' : 'EMPTY', partial, hasConflict: false,
+        sources, claims: [], uncertaintyNote: notes.join('') };
     } catch (error) {
       if (callerSignal?.aborted) throw callerSignal.reason;
       if (timeout.signal.aborted || error?.name === 'TimeoutError') throw new UpstreamError('TIMEOUT', 'Bing search timed out');

@@ -87,3 +87,16 @@ test('account invalidation ends all its entry-point sessions while preserving ot
   assert.equal(service.getSession(desktop, sessions[1].sessionId).state, 'ended');
   assert.equal(service.getSession(other, sessions[2].sessionId).state, 'ready');
 });
+
+test('Beta D4: unknown thrown failure codes cannot be exposed as public search reasons', async () => {
+  const service = new TaskService({ consentService: { assert() {} }, searchProvider: {
+    search: async () => { throw { code: 'private-provider-token', message: 'private upstream text' }; },
+  } });
+  const session = service.createSession(context, { requestId, mode: 'SEARCH' });
+  service.createSearchTask(context, { requestId, consentId, sessionId: session.sessionId,
+    activityId: session.activityId, sessionGeneration: 0, activityGeneration: 0, question: 'synthetic' });
+  await new Promise(resolve => setImmediate(resolve));
+  const failed = service.getSearchTask(context, requestId);
+  assert.equal(failed.failureReason, 'SERVICE_UNAVAILABLE');
+  assert.equal(JSON.stringify(failed).includes('private'), false);
+});

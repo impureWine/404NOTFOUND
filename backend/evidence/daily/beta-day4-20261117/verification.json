@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-11-17T03:56:43.637Z",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/zkh-beta-day4-search",
+  "dependencyCommit": "cd7cc72f2adb39ec507186b324931d82d5cace81",
+  "localMainBase": "b78a0e264bbf75b52239f4026aa6d92756a089a6",
+  "observedRemoteMain": "091cf70cbe374cd3224e3873a2486f2f3f039997",
+  "remoteComparison": "GitHub API: only UX documents and frontend record files changed since b78a0e2; Git fetch timed out",
+  "runtime": "v24.22.1",
+  "database": "PGlite 0.3.16; synthetic provider responses",
+  "tests": {
+    "focused": {
+      "pass": 27,
+      "fail": 0
+    },
+    "full": {
+      "pass": 196,
+      "fail": 0,
+      "skipped": 0,
+      "durationMs": 31554.1198
+    }
+  },
+  "realSearch": {
+    "status": "blocked",
+    "code": "SEARCH_NOT_CONFIGURED",
+    "exitCode": 2,
+    "networkAttempted": false,
+    "reason": "User confirmed provider is not configured"
+  },
+  "hashEncoding": "UTF-8 content; CRLF normalized to LF",
+  "sourceSha256": {
+    "backend/scripts/verify-search-snapshot.js": "fa236bc5b66582dedb16fb1f7372608b4f2feaef2b1a71f5aa930a90ac1107e0",
+    "backend/src/search/bing-search-provider.js": "07659873c989cbe27fef4135dd8b9cdbf5a2e424e9d1a5a48e0aa255880f7fa1",
+    "backend/src/services/saved-query-service.js": "f7baf5329548e6d144794ed2b38515fb6622ffa621bfc77577327f48e9cc0530",
+    "backend/src/services/task-service.js": "1773122418ffd6630409c9d9c181c01ec939dce03751fb3b398068316d5ca881",
+    "backend/test/integration/beta-day4-search.test.js": "df50cc9adee6f8fb64d930866c782cb827645bdf93aad0ca00055e0aefd0c8d0",
+    "backend/test/unit/bing-search-provider.test.js": "8a002010d45d5ecb1644a74c6f93da18b39e0670b88cc3c6525ff1d163527487",
+    "backend/test/unit/task-service.test.js": "3449da490f17fe7af03826ee0d9d48fd878ad12c34b6d4b13143583170336ddc",
+    "shared/contracts/search-task.js": "ce52fb1531b1a57952d81657bfa95a7891b393ba79d55b58f87c3bdfe6ef54e3"
+  },
+  "evidenceSha256": {
+    "search-focused.tap": "968c93aba8579b0977073ff68d71bb88bd8186dae1fdf8abaf98030552db6dd6",
+    "backend-full.tap": "e35c433ee287d9b5ff916cbbe9cfcfbaac88163de6d85f9f2d4fe24bba3892cf",
+    "real-search-check.json": "3ccc53ba2cf26dec21917257b3e465955ca44cdc14421e3f146ccbee61f4c7fc",
+    "query-snapshot-sample.json": "c7f61dc687070f71cfc504f0395b2db66780a9716831eadc6e9b530697176b76",
+    "failure-observations.json": "d7c59e8bab13f4c6c796741702c7397c02b4c4c681ed6cffe54c51bd16c283ac"
+  }
+}

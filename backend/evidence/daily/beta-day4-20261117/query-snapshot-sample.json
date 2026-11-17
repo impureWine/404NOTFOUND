@@ -1,0 +1,82 @@
+{
+  "environment": "HTTP + PGlite + synthetic SerpAPI response; no real search",
+  "task": {
+    "requestId": "982b2d3e-1472-4544-bc3d-a45c59be32a0",
+    "status": "completed",
+    "sessionId": "417654c3-b60f-4044-8120-bf7c7f2edbe2",
+    "activityId": "8468f185-cefb-4e3b-a370-f2122f42cabc",
+    "sessionGeneration": 0,
+    "activityGeneration": 0,
+    "answer": "找到 1 条来源",
+    "searchState": "SUCCESS",
+    "sources": [
+      {
+        "id": "6fa326af-7c79-5159-90d3-fcdd9fee6561",
+        "title": "合成来源",
+        "url": "https://example.org/day4",
+        "snippet": "合成摘录，不代表真实检索。",
+        "publisher": "example.org",
+        "sourceTier": "SX",
+        "quality": "UNKNOWN",
+        "publishedAt": null,
+        "retrievedAt": "2026-11-17T02:00:00.000Z",
+        "verificationState": "PARTIAL"
+      }
+    ],
+    "claims": [],
+    "partial": false,
+    "hasConflict": false,
+    "uncertaintyNote": "来源摘录仅作检索线索，未经独立事实核验。仅有一个可用来源，缺少交叉核对依据。"
+  },
+  "savedDetail": {
+    "id": "1f18f4af-f29a-410a-8757-cca9fd7a8217",
+    "kind": "QUERY",
+    "version": 1,
+    "createdAt": "2026-11-17T03:54:07.372Z",
+    "updatedAt": "2026-11-17T03:54:07.372Z",
+    "idempotent": false,
+    "title": "已保存查询",
+    "content": {
+      "question": "合成问题一",
+      "status": "PARTIAL_SUCCESS",
+      "uncertaintyNote": "来源摘录仅作检索线索，未经独立事实核验。仅有一个可用来源，缺少交叉核对依据。",
+      "snapshotOrigin": "SAVED",
+      "sources": [
+        {
+          "id": "2902b50c-33bb-4924-8912-64a1c24acd0e",
+          "url": "https://example.org/day4",
+          "title": "合成来源",
+          "publisher": "example.org",
+          "sourceTier": "SX",
+          "quality": "UNKNOWN",
+          "publishedAt": null,
+          "retrievedAt": "2026-11-17T02:00:00.000Z",
+          "verificationState": "PARTIAL"
+        }
+      ],
+      "claims": [
+        {
+          "id": "f8dc4a6b-d879-4108-84e5-4bfeae36be49",
+          "text": "合成摘录，不代表真实检索。",
+          "status": "UNKNOWN",
+          "evidence": [
+            {
+              "relation": "CONTEXT",
+              "source": {
+                "id": "2902b50c-33bb-4924-8912-64a1c24acd0e",
+                "url": "https://example.org/day4",
+                "title": "合成来源",
+                "publisher": "example.org",
+                "quality": "UNKNOWN",
+                "publishedAt": null,
+                "retrievedAt": "2026-11-17T02:00:00.000Z",
+                "verificationState": "PARTIAL"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "originalSnapshotUnchanged": true
+}

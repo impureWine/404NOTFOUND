@@ -105,3 +105,7 @@ npm run smoke:model
 ## Beta Day3 数据交接
 
 来源快照迁移 `006_saved_query_source_snapshots.sql`、查询详情新增字段、事务与幂等验证见 [庄剀涵 Day3 交接](evidence/daily/Day3_Beta_庄剀涵_20261116.md)。新代码需先执行迁移；旧记录来源标记 `LEGACY_BACKFILL`，不可描述为原始保存时快照。当前结论仅为本地数据层与 HTTP 自动化自查通过。
+
+## Beta Day4 检索交接
+
+空结果读取、检索失败原因、来源字段与保存说明见 [庄剀涵 Day4 交接](evidence/daily/Day4_Beta_庄剀涵_20261117.md)。`node scripts/verify-search-snapshot.js` 会在配置就绪后执行一次 Bing/SerpAPI 检索并验证隔离快照；缺少密钥时以退出码 2 返回 `SEARCH_NOT_CONFIGURED`，不发起供应商请求。本轮真实检索尚未通过，当前自动化使用合成响应。

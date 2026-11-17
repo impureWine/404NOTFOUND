@@ -1,0 +1,172 @@
+TAP version 13
+# Subtest: Beta D4: EMPTY is readable over HTTP, never saved, and still checks query permission
+ok 1 - Beta D4: EMPTY is readable over HTTP, never saved, and still checks query permission
+  ---
+  duration_ms: 1474.8385
+  type: 'test'
+  ...
+# Subtest: Beta D4: source fields and warnings survive save/read; different queries keep separate snapshots
+ok 2 - Beta D4: source fields and warnings survive save/read; different queries keep separate snapshots
+  ---
+  duration_ms: 1101.7209
+  type: 'test'
+  ...
+# Subtest: Beta D4: absent excerpts and filtered unsafe sources are partial, readable and saveable
+ok 3 - Beta D4: absent excerpts and filtered unsafe sources are partial, readable and saveable
+  ---
+  duration_ms: 1486.865
+  type: 'test'
+  ...
+# Subtest: Beta D4: failures poll as sanitized failed states, cannot save, and allow a new-request retry
+ok 4 - Beta D4: failures poll as sanitized failed states, cannot save, and allow a new-request retry
+  ---
+  duration_ms: 1711.5049
+  type: 'test'
+  ...
+# Subtest: Beta D4: ended queries discard warning metadata along with sources and answer
+ok 5 - Beta D4: ended queries discard warning metadata along with sources and answer
+  ---
+  duration_ms: 1345.9011
+  type: 'test'
+  ...
+# Subtest: Bing uses the fixed SerpAPI engine and returns only normalized organic sources
+ok 6 - Bing uses the fixed SerpAPI engine and returns only normalized organic sources
+  ---
+  duration_ms: 31.2868
+  type: 'test'
+  ...
+# Subtest: missing credentials fail clearly without making a network call
+ok 7 - missing credentials fail clearly without making a network call
+  ---
+  duration_ms: 0.8547
+  type: 'test'
+  ...
+# Subtest: empty search results are distinct from malformed or failed responses
+ok 8 - empty search results are distinct from malformed or failed responses
+  ---
+  duration_ms: 2.9927
+  type: 'test'
+  ...
+# Subtest: sources reject unsafe URLs, de-duplicate links, cap results and never trust a snippet as verified
+ok 9 - sources reject unsafe URLs, de-duplicate links, cap results and never trust a snippet as verified
+  ---
+  duration_ms: 1.8281
+  type: 'test'
+  ...
+# Subtest: source IDs are stable across queries and source metadata stays bounded
+ok 10 - source IDs are stable across queries and source metadata stays bounded
+  ---
+  duration_ms: 3.1055
+  type: 'test'
+  ...
+# Subtest: Bing HTTP 401 maps to SEARCH_AUTH_FAILED without leaking upstream credentials
+ok 11 - Bing HTTP 401 maps to SEARCH_AUTH_FAILED without leaking upstream credentials
+  ---
+  duration_ms: 0.473
+  type: 'test'
+  ...
+# Subtest: Bing HTTP 403 maps to SEARCH_AUTH_FAILED without leaking upstream credentials
+ok 12 - Bing HTTP 403 maps to SEARCH_AUTH_FAILED without leaking upstream credentials
+  ---
+  duration_ms: 0.269
+  type: 'test'
+  ...
+# Subtest: Bing HTTP 402 maps to SEARCH_RATE_LIMITED without leaking upstream credentials
+ok 13 - Bing HTTP 402 maps to SEARCH_RATE_LIMITED without leaking upstream credentials
+  ---
+  duration_ms: 0.1968
+  type: 'test'
+  ...
+# Subtest: Bing HTTP 429 maps to SEARCH_RATE_LIMITED without leaking upstream credentials
+ok 14 - Bing HTTP 429 maps to SEARCH_RATE_LIMITED without leaking upstream credentials
+  ---
+  duration_ms: 0.4252
+  type: 'test'
+  ...
+# Subtest: Bing HTTP 500 maps to SERVICE_UNAVAILABLE without leaking upstream credentials
+ok 15 - Bing HTTP 500 maps to SERVICE_UNAVAILABLE without leaking upstream credentials
+  ---
+  duration_ms: 0.407
+  type: 'test'
+  ...
+# Subtest: network errors, HTML, invalid JSON and oversized bodies return sanitized errors
+ok 16 - network errors, HTML, invalid JSON and oversized bodies return sanitized errors
+  ---
+  duration_ms: 4.4858
+  type: 'test'
+  ...
+# Subtest: Bing deadline covers both connecting and reading the response body
+ok 17 - Bing deadline covers both connecting and reading the response body
+  ---
+  duration_ms: 24.3953
+  type: 'test'
+  ...
+# Subtest: caller cancellation remains cancellation, including a pre-cancelled request
+ok 18 - caller cancellation remains cancellation, including a pre-cancelled request
+  ---
+  duration_ms: 0.9156
+  type: 'test'
+  ...
+# Subtest: Bing rejects invalid settings and search payloads before calling the service
+ok 19 - Bing rejects invalid settings and search payloads before calling the service
+  ---
+  duration_ms: 0.5105
+  type: 'test'
+  ...
+# Subtest: Beta D4: deadline and caller cancellation cancel the response body reader
+ok 20 - Beta D4: deadline and caller cancellation cancel the response body reader
+  ---
+  duration_ms: 11.8659
+  type: 'test'
+  ...
+# Subtest: Beta D4: Unicode snippets preserve whole code points through the persistence limit
+ok 21 - Beta D4: Unicode snippets preserve whole code points through the persistence limit
+  ---
+  duration_ms: 1.2238
+  type: 'test'
+  ...
+# Subtest: Beta D4: source text that echoes the configured key is filtered from public output
+ok 22 - Beta D4: source text that echoes the configured key is filtered from public output
+  ---
+  duration_ms: 0.6736
+  type: 'test'
+  ...
+# Subtest: search task returns sources and remains scoped to its owner
+ok 23 - search task returns sources and remains scoped to its owner
+  ---
+  duration_ms: 8.311
+  type: 'test'
+  ...
+# Subtest: ending a session cancels an in-flight search and prevents late refill
+ok 24 - ending a session cancels an in-flight search and prevents late refill
+  ---
+  duration_ms: 1.936
+  type: 'test'
+  ...
+# Subtest: same account task and session ownership is isolated by entry point
+ok 25 - same account task and session ownership is isolated by entry point
+  ---
+  duration_ms: 0.4328
+  type: 'test'
+  ...
+# Subtest: account invalidation ends all its entry-point sessions while preserving other accounts
+ok 26 - account invalidation ends all its entry-point sessions while preserving other accounts
+  ---
+  duration_ms: 0.4487
+  type: 'test'
+  ...
+# Subtest: Beta D4: unknown thrown failure codes cannot be exposed as public search reasons
+ok 27 - Beta D4: unknown thrown failure codes cannot be exposed as public search reasons
+  ---
+  duration_ms: 1.4475
+  type: 'test'
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8079.4928
