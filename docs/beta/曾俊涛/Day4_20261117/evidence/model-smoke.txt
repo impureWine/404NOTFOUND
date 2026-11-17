@@ -1,0 +1,19 @@
+{
+  "request_id": "req-live-smoke-1794888795998",
+  "status": "error",
+  "content": null,
+  "error": {
+    "code": "MODEL_UNAVAILABLE",
+    "user_message": "模型服务暂时不可用。"
+  },
+  "model_info": {
+    "provider": "zhipu",
+    "model": "glm-4.5-flash",
+    "mock": false
+  },
+  "usage": null,
+  "timing": {
+    "latency_ms": 0,
+    "attempts": 1
+  }
+}
