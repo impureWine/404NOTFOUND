@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button } from '../ui.jsx';
 import './record-detail.css';
 
@@ -22,6 +22,8 @@ function Source({ source = {}, id }) {
 }
 
 export function RecordDetail({ record, onClose }) {
+  const heading = useRef(null);
+  useEffect(() => { heading.current?.focus(); }, [record.id]);
   const content = record.content || {};
   const hasContent = record.content && typeof record.content === 'object';
   const savedSources = Array.isArray(content.sources) ? content.sources : [];
@@ -32,7 +34,7 @@ export function RecordDetail({ record, onClose }) {
   const sourceId = (source, index) => `record-query-source-${source.id || index}`;
   const matchingSource = source => querySources.findIndex(item => (source?.id && item.id === source.id) || (source?.url && item.url === source.url));
   return <section className="record-detail" role="region" aria-label="记录详情">
-    <div className="record-history-heading"><h4>{names[record.kind] || '记录'}详情</h4><Button variant="neutral" onClick={onClose}>关闭详情</Button></div>
+    <div className="record-history-heading"><h4 ref={heading} tabIndex={-1}>{names[record.kind] || '记录'}详情</h4><Button variant="neutral" onClick={onClose}>关闭详情</Button></div>
     <p>记录版本 v{record.version} · 更新时间：{readableTime(record.updatedAt || record.createdAt)}</p>
     <h3>{record.title || names[record.kind] || '已保存记录'}</h3>
     <div className="record-detail-body">

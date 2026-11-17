@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-17",
+  "baseline": "5422597bb211d999900aa127f42363853482d2bc",
+  "verifiedSourceCommit": "c8cad98c91b8f8cdb88d5c079a55a27590058542",
+  "sourceHashes": {
+    "prototype/src/live/Dialogue.jsx": "6fd2a994d4d2bb642bdeeca3250b7bb36fabde62be2edc44c874d020698de3d1",
+    "prototype/src/live/Search.jsx": "0338361d887e6f47a10dab54a7c24124cfde7d9d75f1a3332b362ee3c460068c",
+    "prototype/src/live/Training.jsx": "062a6f9ba7f26c00ea468a377633c8b883bdaaf62b1a764d4052bbbf34217d67"
+  },
+  "initialBrowser": {
+    "total": 18,
+    "passed": 8,
+    "failed": 10
+  },
+  "finalBrowser": {
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "api": "all synthetic intercepted"
+  },
+  "frontendTests": {
+    "passed": 46,
+    "failed": 0
+  },
+  "build": "PASS",
+  "changedSourceFiles": [
+    "prototype/src/live/Dialogue.jsx",
+    "prototype/src/live/Search.jsx"
+  ],
+  "copyRows": 20,
+  "trialTasks": 6,
+  "realParticipants": 0,
+  "independentRecheck": "pending",
+  "realSupplierAndDatabase": "not executed by UX"
+}

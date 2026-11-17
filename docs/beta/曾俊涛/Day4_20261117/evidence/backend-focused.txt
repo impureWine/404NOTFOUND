@@ -1,0 +1,43 @@
+✔ synthetic normal set completes through the companion model route (9.6698ms)
+✔ synthetic failure set keeps stable non-sensitive error contracts (3.8575ms)
+✔ synthetic explicit-harm set uses a fixed safety route without model dispatch (2.0091ms)
+✔ Bing results flow through consent-bound tasks and persist as uncertain evidence scoped to the owner (1214.0778ms)
+✔ HTTP flow routes naming card, completes companion reply, and controls one training (121.9717ms)
+✔ session and search HTTP flow binds consent, reports status, isolates owners and cancels on END (1271.5255ms)
+✔ Bing uses the fixed SerpAPI engine and returns only normalized organic sources (40.9399ms)
+✔ missing credentials fail clearly without making a network call (1.2716ms)
+✔ empty search results are distinct from malformed or failed responses (2.8051ms)
+✔ sources reject unsafe URLs, de-duplicate links, cap results and never trust a snippet as verified (1.493ms)
+✔ source IDs are stable across queries and source metadata stays bounded (0.8608ms)
+✔ Bing HTTP 401 maps to SEARCH_AUTH_FAILED without leaking upstream credentials (0.307ms)
+✔ Bing HTTP 403 maps to SEARCH_AUTH_FAILED without leaking upstream credentials (0.2756ms)
+✔ Bing HTTP 402 maps to SEARCH_RATE_LIMITED without leaking upstream credentials (0.3786ms)
+✔ Bing HTTP 429 maps to SEARCH_RATE_LIMITED without leaking upstream credentials (0.2356ms)
+✔ Bing HTTP 500 maps to SERVICE_UNAVAILABLE without leaking upstream credentials (0.2019ms)
+✔ network errors, HTML, invalid JSON and oversized bodies return sanitized errors (3.7056ms)
+✔ Bing deadline covers both connecting and reading the response body (22.1835ms)
+✔ caller cancellation remains cancellation, including a pre-cancelled request (1.0959ms)
+✔ Bing rejects invalid settings and search payloads before calling the service (0.3967ms)
+✔ model input contains only the approved payload fields (7.8327ms)
+✔ model input rejects memories without explicit authorization (3.1186ms)
+✔ adapter maps a valid provider response to the unified contract (4.3586ms)
+✔ adapter accepts a JSON object wrapped in a Markdown fence (1.2117ms)
+✔ adapter rejects an action outside the request allowlist (1.3095ms)
+✔ adapter rejects a model intent that tries to leave the active route (1.0707ms)
+✔ adapter rejects explicit treatment guarantees instead of displaying them (0.76ms)
+✔ failure substitute returns stable errors without calling a provider (0.7318ms)
+✔ adapter returns an unavailable message when the API key is missing (0.6808ms)
+✔ adapter enforces its timeout even if the provider does not settle (1001.9407ms)
+✔ adapter preserves caller cancellation and does not invoke a pre-cancelled request (0.6379ms)
+✔ adapter distinguishes an in-flight caller cancellation from timeout (0.761ms)
+✔ five-senses training pauses without advancing and resumes at the same step (5.5853ms)
+✔ five-senses training advances deterministically and exits in one action (0.6935ms)
+✔ training sessions are isolated by owner and reject stale actions (0.2948ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1992.2584

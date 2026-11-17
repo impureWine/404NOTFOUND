@@ -1,0 +1,581 @@
+{
+  "date": "2026-11-17",
+  "baseline": "5422597bb211d999900aa127f42363853482d2bc",
+  "phase": "after",
+  "environment": "Edge headless + Vite React source; all API responses intercepted synthetic; no supplier/database validation",
+  "sourceHashes": {
+    "prototype/src/live/Dialogue.jsx": "6fd2a994d4d2bb642bdeeca3250b7bb36fabde62be2edc44c874d020698de3d1",
+    "prototype/src/live/Search.jsx": "0338361d887e6f47a10dab54a7c24124cfde7d9d75f1a3332b362ee3c460068c",
+    "prototype/src/live/Training.jsx": "062a6f9ba7f26c00ea468a377633c8b883bdaaf62b1a764d4052bbbf34217d67"
+  },
+  "total": 18,
+  "passed": 18,
+  "failed": 0,
+  "results": [
+    {
+      "id": "C01",
+      "title": "陪伴起始空态",
+      "expected": "未输入时发送禁用，提供开始提示",
+      "observed": "发送禁用=true；起始提示=true",
+      "status": "PASS",
+      "screenshot": "evidence/C01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "C02",
+      "title": "陪伴等待与防重复",
+      "expected": "等待状态可感知，发送禁用，停止入口可用",
+      "observed": "等待节点=1；任务创建=1",
+      "status": "PASS",
+      "screenshot": "evidence/C02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/be076699-35d0-42d1-909d-f2127ae4fd90"
+        }
+      ]
+    },
+    {
+      "id": "C03",
+      "title": "陪伴失败保留输入并手动重试",
+      "expected": "首次失败不清空，用户再次发送后显示回复",
+      "observed": "保留输入=true；任务创建=2",
+      "status": "PASS",
+      "screenshot": "evidence/C03.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/2179f7da-2e3b-4bcc-8604-bb29e088e1e6"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks/2179f7da-2e3b-4bcc-8604-bb29e088e1e6/cancel"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/d60f7347-3f37-4421-9bec-8ed36e31b4e1"
+        }
+      ]
+    },
+    {
+      "id": "C04",
+      "title": "空白模型回复",
+      "expected": "空白结果提示未获得可用回复，保留输入",
+      "observed": "提示=[\"没有获得可用回复。本次输入已保留，请检查后重新发送。\"]；保留输入=true",
+      "status": "PASS",
+      "screenshot": "evidence/C04.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/6caa092a-d50a-4d42-bbdb-425f5673ab62"
+        }
+      ]
+    },
+    {
+      "id": "C05",
+      "title": "陪伴保存忙碌语义",
+      "expected": "保存中独立播报，不提供模型停止按钮",
+      "observed": "停止按钮=0；保存播报=1",
+      "status": "PASS",
+      "screenshot": "evidence/C05.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/68951cff-4a5e-4a1a-bcc4-fc0ed56754f7"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "S01",
+      "title": "查询起始与空输入",
+      "expected": "未输入时查询禁用，并有开始提示",
+      "observed": "查询禁用=true；起始提示=true",
+      "status": "PASS",
+      "screenshot": "evidence/S01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "title": "查询等待",
+      "expected": "显示来源检索等待状态，可停止等待",
+      "observed": "等待节点=1",
+      "status": "PASS",
+      "screenshot": "evidence/S02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/ee7fb29b-fa0c-45f4-b6ea-3a4960433396"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks/ee7fb29b-fa0c-45f4-b6ea-3a4960433396/cancel"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "title": "取消接口503提示",
+      "expected": "只说明本机停止等待及服务器状态待确认",
+      "observed": "本机已停止等待；服务器取消状态待确认。",
+      "status": "PASS",
+      "screenshot": "evidence/S03.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/ee7fb29b-fa0c-45f4-b6ea-3a4960433396"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks/ee7fb29b-fa0c-45f4-b6ea-3a4960433396/cancel"
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "title": "查询成功但无来源",
+      "expected": "空结果与失败分离，保留问题可调整",
+      "observed": "问题保留=true；保存入口=0",
+      "status": "PASS",
+      "screenshot": "evidence/S04.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/6af4e812-a656-4323-a62e-2d9c879c8aa4"
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "title": "查询失败手动重试",
+      "expected": "失败指向检索服务，编辑后可重新查询",
+      "observed": "错误=Bing 搜索服务暂不可用，请检查网络连接或稍后重试。；重试任务数=2",
+      "status": "PASS",
+      "screenshot": "evidence/S05.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/1cf02c85-8109-4d6f-9c33-c669da9200bf"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks/1cf02c85-8109-4d6f-9c33-c669da9200bf/cancel"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions/synthetic-session/actions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/2dbeed6f-851c-4cd4-91e5-3721d3df1fd1"
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "title": "逐条来源与不确定性",
+      "expected": "来源条目中文状态、获取时间、摘录和不独立核验说明；冲突有提示",
+      "observed": "合成来源标题\n\n合成来源摘录，未进行事实核验。\n\n来源：example.org · 检索引擎：Bing\n\n获取时间（北京时间）：2026/11/17 10:00:00 · 尚未完整核验\n\n以上是来源摘录，不能据此确认事实；获取时间不等于网页发布时间。",
+      "status": "PASS",
+      "screenshot": "evidence/S06.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/fa1c8f76-5299-4d3f-ae23-a12c3c050a94"
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "title": "不可用来源链接",
+      "expected": "无效非HTTP地址不能变成可执行链接",
+      "observed": "javascript链接=0",
+      "status": "PASS",
+      "screenshot": "evidence/S07.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/749aebf8-4b35-4ef7-847e-827dc9b844db"
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "title": "查询保存成功反馈",
+      "expected": "成功使用status而非alert，SAVE与检索许可分离",
+      "observed": "status=1；alert=0",
+      "status": "PASS",
+      "screenshot": "evidence/S08.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/dc7d2044-4dfc-4d83-9a0f-908114e9a74e"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/saved-queries"
+        }
+      ]
+    },
+    {
+      "id": "T01",
+      "title": "五感暂停与继续",
+      "expected": "暂停冻结填写；继续保留填写",
+      "observed": "暂停禁用=true；保留内容=合成观察内容",
+      "status": "PASS",
+      "screenshot": "evidence/T01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "T02",
+      "title": "训练退出可取消",
+      "expected": "拒绝确认保留草稿，接受后返回练习入口",
+      "observed": "取消后保留=true；确认次数=2",
+      "status": "PASS",
+      "screenshot": "evidence/T02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "T03",
+      "title": "暂停整理完成与修改",
+      "expected": "显式完成后不自动保存，返回修改先暂停",
+      "observed": "暂停可见=true；records写入=0",
+      "status": "PASS",
+      "screenshot": "evidence/T03.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "T04",
+      "title": "任务拆分校验与恢复",
+      "expected": "空内容报错，补充后手动完成，临时内容不外发",
+      "observed": "模型/记录调用=0",
+      "status": "PASS",
+      "screenshot": "evidence/T04.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "T05",
+      "title": "呼吸暂停冻结与继续",
+      "expected": "暂停进度不变；继续后重新推进",
+      "observed": "暂停前后=277/277；继续=481.5999999977648",
+      "status": "PASS",
+      "screenshot": "evidence/T05.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    }
+  ],
+  "verifiedSourceCommit": "c8cad98c91b8f8cdb88d5c079a55a27590058542"
+}

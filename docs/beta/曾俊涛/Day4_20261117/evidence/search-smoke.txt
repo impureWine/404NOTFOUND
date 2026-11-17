@@ -1,0 +1,6 @@
+{
+  "status": "failed",
+  "provider": "bing",
+  "elapsedMs": 1,
+  "code": "SEARCH_NOT_CONFIGURED"
+}

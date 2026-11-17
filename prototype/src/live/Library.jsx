@@ -4,13 +4,14 @@ import { clearOwned, id, saveContent, updateContent } from './business.js';
 const defaults = kind => kind === 'WORRY_OBJECT' ? { title: '', shapeCode: 'TANGLE', body: '' } : kind === 'DEPOSIT' ? { title: '', body: '', reopenAt: '' } : { title: '', scene: '', expressions: [''] };
 const names = { QUERY: '查询记录', WORRY_OBJECT: '烦恼物件', DEPOSIT: '烦恼寄存所', REHEARSAL_DRAFT: '排练表达' };
 export function Library({ kind, authenticated = false, onOrganize }) {
+  const [loadState, setLoadState] = useState('idle');
   const [items, setItems] = useState([]), [cursor, setCursor] = useState(null), [revision, setRevision] = useState(0);
   const [content, setContent] = useState(() => defaults(kind)), [editing, setEditing] = useState(null), [detail, setDetail] = useState(null), [deposit, setDeposit] = useState(null);
   const [error, setError] = useState(''), [notice, setNotice] = useState(''), [busy, setBusy] = useState(false), [reopen, setReopen] = useState('');
   const alive = useRef(true), locked = useRef(false), request = useRef(null);
-  useEffect(() => { alive.current = true; const controller = new AbortController(); setItems([]); setDetail(null); setDeposit(null);
+  useEffect(() => { alive.current = true; const controller = new AbortController(); setItems([]); setDetail(null); setDeposit(null); setLoadState(authenticated ? 'loading' : 'idle'); setError('');
     if (!authenticated) { setCursor(null); setError(''); return () => { alive.current = false; controller.abort(); }; }
-    apiClient.listRecords({ kind, limit: 20 }, { signal: controller.signal }).then(result => { if (!controller.signal.aborted) { setItems(result.items); setCursor(result.nextCursor); } }).catch(value => { if (!controller.signal.aborted) setError(value.message); });
+    apiClient.listRecords({ kind, limit: 20 }, { signal: controller.signal }).then(result => { if (!controller.signal.aborted) { setItems(result.items); setCursor(result.nextCursor); setLoadState('ready'); } }).catch(value => { if (!controller.signal.aborted) { setError(value.message); setLoadState('error'); } });
     return () => { alive.current = false; controller.abort(); }; }, [authenticated, kind, revision]);
   const action = async callback => {
     if (locked.current) return; locked.current = true; setBusy(true); setError(''); setNotice('');
@@ -32,7 +33,8 @@ export function Library({ kind, authenticated = false, onOrganize }) {
   return <section className="live-records recent-card"><h2>{names[kind]}</h2><p>{authenticated ? '只显示本人在当前入口主动保存的内容。' : '访客可浏览页面和填写表单；本人记录在登录并连接服务后读取。'}</p>
     {error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {authenticated && <button disabled={busy} onClick={() => setRevision(value => value + 1)}>重新读取</button>}
-    {!items.length && <p>{authenticated ? '暂无记录。读取失败时请检查上方错误提示。' : '登录后可读取本人已保存的内容。'}</p>}
+    {authenticated && loadState === 'loading' && <p role="status">正在读取本人当前入口的记录…</p>}
+    {(!authenticated || (loadState === 'ready' && !items.length)) && <p>{authenticated ? '当前入口暂无已保存记录。' : '登录后可读取本人已保存的内容。'}</p>}
     <ul>{items.map(item => <li key={item.id}><button disabled={busy} onClick={() => show(item)}>{item.title}</button><button disabled={busy} onClick={() => action(async () => { if (await clearOwned(item)) { setDetail(null); setDeposit(null); setRevision(value => value + 1); } })}>清除此条</button></li>)}</ul>
     {cursor && <button disabled={busy} onClick={() => action(async () => { const result = await apiClient.listRecords({ kind, limit: 20, cursor }); if (alive.current) { setItems(current => [...current, ...result.items]); setCursor(result.nextCursor); } })}>加载更多</button>}
     {detail && <section><h3>{detail.title}</h3>{kind === 'DEPOSIT' ? deposit && <>
