@@ -30,6 +30,17 @@ test('model timeout retains its AI message and uses the agent task route', async
   assert.equal(h.calls[0].args[0].purpose, 'AI_PROCESS');
 });
 
+for (const [failureReason, expected, retryText] of [
+  ['PROVIDER_UNAVAILABLE', '模型服务暂不可用', '重试'],
+  ['OUTPUT_INVALID', '模型返回内容无法使用', '重新尝试'],
+]) {
+  test(`model ${failureReason} keeps an actionable retry message`, async () => {
+    const h = fixture({ status: 'failed', failureReason }, false);
+    await assert.rejects(h.execute(), error => error.message.includes(expected) && error.message.includes(retryText));
+    assert.deepEqual(h.calls.map(call => call.name), ['createConsent', 'createAgentTask', 'getAgentTask', 'cancelAgentTask']);
+  });
+}
+
 for (const [status, failureReason, expected] of [['cancelled', undefined, '查询已取消'], ['expired', undefined, '查询已过期'], ['failed', 'UNKNOWN', '查询未完成']]) {
   test(`search ${status} with ${failureReason || 'no code'} keeps a search-specific fallback`, async () => {
     const h = fixture({ status, failureReason }, true);
