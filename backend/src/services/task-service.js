@@ -158,7 +158,7 @@ export class TaskService {
       } catch (error) {
         if (task.status !== 'cancelled') {
           task.status = 'failed';
-          task.failureReason = error.code ?? 'SERVICE_UNAVAILABLE';
+          task.failureReason = this.searchFailureReason(error.code);
         }
       }
     });
@@ -369,9 +369,16 @@ export class TaskService {
 
   modelFailureReason(code) {
     if (code === 'MODEL_TIMEOUT') return 'TIMEOUT';
+    if (code === 'MODEL_RATE_LIMITED') return 'RATE_LIMITED';
     if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST', 'CONTENT_REJECTED'].includes(code)) {
       return 'OUTPUT_INVALID';
     }
+    return 'PROVIDER_UNAVAILABLE';
+  }
+
+  searchFailureReason(code) {
+    if (code === 'TIMEOUT' || code === 'SEARCH_TIMEOUT') return 'TIMEOUT';
+    if (code === 'SEARCH_RATE_LIMITED') return 'RATE_LIMITED';
     return 'PROVIDER_UNAVAILABLE';
   }
 
@@ -398,6 +405,7 @@ export class TaskService {
     task.controller.abort();
     delete task.answer;
     delete task.sources;
+    delete task.failureReason;
     return this.publicTask(task);
   }
 

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { agentTaskStateSchema } from '@404notfound/contracts';
 import { TaskService } from '../../src/services/task-service.js';
 
 const context = { sessionId: 'context-a', accountId: null };
@@ -55,6 +56,7 @@ test('companion task calls the constrained model request and exposes a completed
   await new Promise((resolve) => setImmediate(resolve));
 
   const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(agentTaskStateSchema.safeParse(task).success, true);
   assert.equal(task.status, 'completed');
   assert.match(task.result.text, /承担了很多事情/);
   assert.equal(received.mode, 'COMPANION');
@@ -75,9 +77,25 @@ test('model timeout becomes a stable task failure reason', async () => {
   await new Promise((resolve) => setImmediate(resolve));
 
   const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(agentTaskStateSchema.safeParse(task).success, true);
   assert.equal(task.status, 'failed');
   assert.equal(task.failureReason, 'TIMEOUT');
   assert.equal(task.result, undefined);
+});
+
+test('model rate limiting stays distinct from provider unavailability', async () => {
+  const service = createService({
+    async respond() {
+      return { status: 'error', error: { code: 'MODEL_RATE_LIMITED' } };
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(task.status, 'failed');
+  assert.equal(task.failureReason, 'RATE_LIMITED');
 });
 
 test('pause cancels an in-flight model task and a late reply cannot refill it after resume', async () => {

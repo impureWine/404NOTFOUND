@@ -5,7 +5,7 @@ import {
   textByCodePoints,
   uuidSchema,
 } from './common.js';
-import { taskStatusSchema } from './agent-task.js';
+import { taskFailureReasonSchema, taskStatusSchema } from './agent-task.js';
 
 export const createSearchTaskRequestSchema = z.strictObject({
   requestId: requestIdSchema,
@@ -31,4 +31,5 @@ export const searchTaskStateSchema = z.strictObject({
   activityGeneration: generationSchema,
   answer: textByCodePoints({ min: 1, max: 4000, label: '查询结果' }).optional(),
   sources: z.array(searchSourceSchema).optional(),
+  failureReason: taskFailureReasonSchema.optional(),
 });
