@@ -77,6 +77,29 @@ test('pause-organize and worksheet complete only explicitly, not when timers ela
   }
 });
 
+test('all four training definitions release timers after pause, resume and exit', () => {
+  for (const id of ['BREATHING', 'FIVE_SENSES', 'PAUSE_ORGANIZE', 'TASK_SPLIT']) {
+    const h = harness(id);
+    h.controller.start();
+    h.advance(1_000);
+    h.controller.pause();
+    assert.equal(h.controller.snapshot().state, 'paused', id);
+    assert.equal(h.timers.size, 0, id);
+
+    h.controller.resume();
+    assert.equal(h.controller.snapshot().state, 'running', id);
+    assert.equal(h.timers.size, 1, id);
+
+    const stale = [...h.timers.values()][0];
+    h.controller.stop();
+    assert.equal(h.controller.snapshot().state, 'exited', id);
+    assert.equal(h.timers.size, 0, id);
+    const eventCount = h.events.length;
+    stale();
+    assert.equal(h.events.length, eventCount, id);
+  }
+});
+
 test('invalid content and breathing settings fail before allocating a timer', () => {
   assert.throws(() => new TrainingController('UNKNOWN'), /不可用/);
   for (const options of [{ durationSeconds: 0 }, { durationSeconds: 60, rhythm: { inhale: 0, hold: 0, exhale: 6 } }, { rhythm: { inhale: 4, hold: -1, exhale: 6 } }]) {
