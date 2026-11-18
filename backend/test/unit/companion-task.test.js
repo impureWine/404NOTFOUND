@@ -245,6 +245,26 @@ test('revoking consent clears completed tasks created with that consent', async 
   assert.equal(invalidated.result, undefined);
 });
 
+test('revoking consent aborts an in-flight task and rejects its late reply', async () => {
+  let finish;
+  const service = createService({
+    respond() {
+      return new Promise((resolve) => { finish = resolve; });
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.deepEqual(service.invalidateConsent(ids.consent), { tasksInvalidated: 1 });
+  finish(successResponse('许可撤回后的迟到回复'));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const invalidated = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(invalidated.status, 'cancelled');
+  assert.equal(invalidated.result, undefined);
+});
+
 test('ending a session also rejects an in-flight late model reply', async () => {
   let finish;
   const service = createService({

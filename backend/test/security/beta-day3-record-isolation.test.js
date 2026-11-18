@@ -529,7 +529,7 @@ test('B3-CONC 并发清除：同一记录两份确认只能成功一次', async 
   });
 });
 
-test('B3-INFLIGHT 撤回在途任务：许可撤回后任务是否继续跑完（Day2 结转项复测）', async () => {
+test('B3-INFLIGHT 撤回在途任务：任务立即取消且迟到结果不可读', async () => {
   await withApi(async ({ baseUrl }) => {
     const user = await registerAndLogin(baseUrl, 'synthetic_beta3_inflight');
     const session = await createSession(baseUrl, user);
@@ -578,7 +578,9 @@ test('B3-INFLIGHT 撤回在途任务：许可撤回后任务是否继续跑完�
     assert.equal(observation.taskAccepted, 202);
     assert.equal(observation.revokeStatus, 200);
     assert.ok(observation.statusInFlight !== 'completed', '夹具应让任务在撤回时仍处于在途');
-    // 是否应在撤回后失效写入 Day3 报告；此处只锁定读取通道可用，不把缺口写成通过
-    assert.ok([200, 404].includes(observation.taskReadAfterRevoke));
+    assert.equal(observation.statusInFlight, 'cancelled');
+    assert.equal(observation.taskReadAfterRevoke, 200);
+    assert.equal(observation.statusAfterRevoke, 'cancelled');
+    assert.equal(observation.hasResultAfterRevoke, false, '许可撤回后的迟到结果不得回填');
   }, { responseDelayMs: 60 });
 });

@@ -120,3 +120,39 @@ test('page hide pauses without auto-resume; page exit and unmount cancel all own
   unbind(); const count = h.events.length; stale(); assert.equal(h.events.length, count);
   assert.equal(documentListeners.size, 0); assert.equal(windowListeners.size, 0);
 });
+
+test('all four trainings pause on window hide and discard stale work on page exit', () => {
+  for (const id of ['BREATHING', 'FIVE_SENSES', 'PAUSE_ORGANIZE', 'TASK_SPLIT']) {
+    const h = harness(id), documentListeners = new Map(), windowListeners = new Map();
+    const documentTarget = { hidden: false, addEventListener: (name, fn) => documentListeners.set(name, fn), removeEventListener: name => documentListeners.delete(name) };
+    const windowTarget = { addEventListener: (name, fn) => windowListeners.set(name, fn), removeEventListener: name => windowListeners.delete(name) };
+    const unbind = bindTrainingLifecycle(h.controller, { documentTarget, windowTarget });
+
+    h.controller.start();
+    h.advance(1_000);
+    const staleBeforeHide = [...h.timers.values()][0];
+    documentTarget.hidden = true;
+    documentListeners.get('visibilitychange')();
+    assert.equal(h.controller.snapshot().state, 'paused', id);
+    assert.equal(h.timers.size, 0, id);
+    const hiddenEventCount = h.events.length;
+    staleBeforeHide();
+    assert.equal(h.events.length, hiddenEventCount, id);
+
+    documentTarget.hidden = false;
+    documentListeners.get('visibilitychange')();
+    assert.equal(h.controller.snapshot().state, 'paused', id);
+    h.controller.resume();
+    const staleBeforeExit = [...h.timers.values()][0];
+    windowListeners.get('pagehide')();
+    assert.equal(h.controller.snapshot().state, 'exited', id);
+    assert.equal(h.timers.size, 0, id);
+    const exitedEventCount = h.events.length;
+    staleBeforeExit();
+    assert.equal(h.events.length, exitedEventCount, id);
+
+    unbind();
+    assert.equal(documentListeners.size, 0, id);
+    assert.equal(windowListeners.size, 0, id);
+  }
+});
