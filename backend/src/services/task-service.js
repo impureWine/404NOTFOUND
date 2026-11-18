@@ -136,6 +136,7 @@ export class TaskService {
       sessionGeneration: session.sessionGeneration,
       activityGeneration: session.activityGeneration,
       status: 'pending',
+      consentId: value.consentId,
       controller,
     };
     if (this.searchTasks.has(task.requestId)) throw new ConflictError('requestId 已用于另一个查询任务');
@@ -207,6 +208,7 @@ export class TaskService {
       sessionGeneration: session.sessionGeneration,
       activityGeneration: session.activityGeneration,
       status: 'pending',
+      consentId: value.consentId,
       controller,
     };
     task.selectedContextIds = value.selectedContextIds;
@@ -301,6 +303,29 @@ export class TaskService {
     return this.invalidateSessions((session) => session.ownerKey === this.ownerKey({ accountId, entryPointId: session.entryPointId }));
   }
 
+  invalidateConsent(context, consentId) {
+    const ownerKey = this.ownerKey(context);
+    let tasksInvalidated = 0;
+    for (const tasks of [this.agentTasks, this.searchTasks]) {
+      for (const task of tasks.values()) {
+        if (
+          task.consentId !== consentId
+          || task.ownerKey !== ownerKey
+          || task.entryPointId !== context.entryPointId
+          || ['cancelled', 'expired'].includes(task.status)
+        ) continue;
+        task.status = 'cancelled';
+        task.controller.abort();
+        delete task.result;
+        delete task.answer;
+        delete task.sources;
+        delete task.failureReason;
+        tasksInvalidated += 1;
+      }
+    }
+    return { tasksInvalidated };
+  }
+
   invalidateSessions(matches) {
     let sessionsInvalidated = 0;
     for (const session of this.sessions.values()) {
@@ -383,7 +408,7 @@ export class TaskService {
   }
 
   publicTask(task) {
-    const { ownerKey: _ownerKey, entryPointId: _entryPointId, question: _question, selectedContextIds: _selectedContextIds, safetyReason: _safetyReason, controller: _controller, ...result } = task;
+    const { ownerKey: _ownerKey, entryPointId: _entryPointId, consentId: _consentId, question: _question, selectedContextIds: _selectedContextIds, safetyReason: _safetyReason, controller: _controller, ...result } = task;
     return result;
   }
 

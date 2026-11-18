@@ -156,6 +156,27 @@ test('explicit cancellation rejects a late model reply', async () => {
   assert.equal(task.result, undefined);
 });
 
+test('revoking consent cancels its in-flight task and rejects a late reply', async () => {
+  let finish;
+  const service = createService({
+    respond() {
+      return new Promise((resolve) => { finish = resolve; });
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.deepEqual(service.invalidateConsent(context, ids.consent), { tasksInvalidated: 1 });
+  finish(successResponse('撤回后的迟到回复'));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(task.status, 'cancelled');
+  assert.equal(task.result, undefined);
+  assert.equal(task.consentId, undefined);
+});
+
 test('restart changes the activity generation and rejects the previous activity reply', async () => {
   let finish;
   const service = createService({

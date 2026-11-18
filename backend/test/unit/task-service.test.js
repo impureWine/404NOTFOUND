@@ -90,6 +90,32 @@ test('explicit search cancellation clears a previous public failure reason', asy
   assert.equal(cancelled.failureReason, undefined);
 });
 
+test('revoking consent clears a completed search result and its private consent binding', async () => {
+  const service = new TaskService({
+    consentService: { assert() {} },
+    searchProvider: { search: async () => ({ searchState: 'SUCCESS', sources: [{ title: '来源' }] }) },
+  });
+  const session = service.createSession(context, { requestId, mode: 'SEARCH' });
+  service.createSearchTask(context, {
+    requestId,
+    sessionId: session.sessionId,
+    activityId: session.activityId,
+    sessionGeneration: 0,
+    activityGeneration: 0,
+    question: '测试查询',
+    consentId,
+  });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(service.getSearchTask(context, requestId).status, 'completed');
+
+  assert.deepEqual(service.invalidateConsent(context, consentId), { tasksInvalidated: 1 });
+  const task = service.getSearchTask(context, requestId);
+  assert.equal(task.status, 'cancelled');
+  assert.equal(task.sources, undefined);
+  assert.equal(task.answer, undefined);
+  assert.equal(task.consentId, undefined);
+});
+
 for (const [upstreamCode, failureReason] of [
   ['TIMEOUT', 'TIMEOUT'],
   ['SEARCH_RATE_LIMITED', 'RATE_LIMITED'],
