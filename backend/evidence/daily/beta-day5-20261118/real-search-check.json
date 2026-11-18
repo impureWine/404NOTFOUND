@@ -1,0 +1,13 @@
+{
+  "startedAt": "2026-11-18T08:08:07.901Z",
+  "provider": "bing",
+  "via": "SerpAPI",
+  "question": "PostgreSQL documentation",
+  "database": "isolated in-memory PGlite",
+  "networkAttempted": false,
+  "productionDatabaseTouched": false,
+  "status": "blocked",
+  "code": "SEARCH_NOT_CONFIGURED",
+  "nextStep": "Configure SERPAPI_API_KEY in a backend-only local env file, then rerun.",
+  "elapsedMs": 5
+}

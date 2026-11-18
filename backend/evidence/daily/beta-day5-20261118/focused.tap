@@ -1,0 +1,172 @@
+TAP version 13
+# Subtest: Beta D4: EMPTY is readable over HTTP, never saved, and still checks query permission
+ok 1 - Beta D4: EMPTY is readable over HTTP, never saved, and still checks query permission
+  ---
+  duration_ms: 2276.581
+  type: 'test'
+  ...
+# Subtest: Beta D4: source fields and warnings survive save/read; different queries keep separate snapshots
+ok 2 - Beta D4: source fields and warnings survive save/read; different queries keep separate snapshots
+  ---
+  duration_ms: 1498.3158
+  type: 'test'
+  ...
+# Subtest: Beta D4: absent excerpts and filtered unsafe sources are partial, readable and saveable
+ok 3 - Beta D4: absent excerpts and filtered unsafe sources are partial, readable and saveable
+  ---
+  duration_ms: 1372.5564
+  type: 'test'
+  ...
+# Subtest: Beta D4: failures poll as sanitized failed states, cannot save, and allow a new-request retry
+ok 4 - Beta D4: failures poll as sanitized failed states, cannot save, and allow a new-request retry
+  ---
+  duration_ms: 1120.1732
+  type: 'test'
+  ...
+# Subtest: Beta D4: ended queries discard warning metadata along with sources and answer
+ok 5 - Beta D4: ended queries discard warning metadata along with sources and answer
+  ---
+  duration_ms: 1032.9135
+  type: 'test'
+  ...
+# Subtest: Beta D5: shared and repository dates agree on leap years, invalid dates and four-digit years
+ok 6 - Beta D5: shared and repository dates agree on leap years, invalid dates and four-digit years
+  ---
+  duration_ms: 3.0289
+  type: 'test'
+  ...
+# Subtest: Beta D5: repository rejects incomplete, reversed and non-emotion date ranges before querying
+ok 7 - Beta D5: repository rejects incomplete, reversed and non-emotion date ranges before querying
+  ---
+  duration_ms: 7.2044
+  type: 'test'
+  ...
+# Subtest: Beta D5: calendar follows the chosen date across zones; ownership, edits and clearing preserve associations
+ok 8 - Beta D5: calendar follows the chosen date across zones; ownership, edits and clearing preserve associations
+  ---
+  duration_ms: 2057.5011
+  type: 'test'
+  ...
+# Subtest: Beta D5: calendar pagination retains PostgreSQL microseconds and binds cursor to owner, entry and dates
+ok 9 - Beta D5: calendar pagination retains PostgreSQL microseconds and binds cursor to owner, entry and dates
+  ---
+  duration_ms: 990.4673
+  type: 'test'
+  ...
+# Subtest: emotion save/read/edit keeps the selected day in Asia/Hong_Kong
+ok 10 - emotion save/read/edit keeps the selected day in Asia/Hong_Kong
+  ---
+  duration_ms: 2481.6927
+  type: 'test'
+  ...
+# Subtest: emotion save/read/edit keeps the selected day in UTC
+ok 11 - emotion save/read/edit keeps the selected day in UTC
+  ---
+  duration_ms: 2218.6308
+  type: 'test'
+  ...
+# Subtest: emotion save/read/edit keeps the selected day in America/Los_Angeles
+ok 12 - emotion save/read/edit keeps the selected day in America/Los_Angeles
+  ---
+  duration_ms: 1874.2481
+  type: 'test'
+  ...
+# Subtest: emotion save/read/edit keeps the selected day in Pacific/Kiritimati
+ok 13 - emotion save/read/edit keeps the selected day in Pacific/Kiritimati
+  ---
+  duration_ms: 1792.0101
+  type: 'test'
+  ...
+# Subtest: Beta D5: authenticated calendar date queries, month moves and clearing respect account and entry scope
+ok 14 - Beta D5: authenticated calendar date queries, month moves and clearing respect account and entry scope
+  ---
+  duration_ms: 2584.2919
+  type: 'test'
+  ...
+# Subtest: record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+ok 15 - record API binds SAVE consent, isolates owners, encrypts content and clears in two steps
+  ---
+  duration_ms: 1606.9613
+  type: 'test'
+  ...
+# Subtest: Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope
+ok 16 - Day 4 record HTTP flow validates queries, versions, idempotency, revoked sessions and entry scope
+  ---
+  duration_ms: 1415.235
+  type: 'test'
+  ...
+# Subtest: real records preserve dialogue roles, decrypt only owner reads, and support optional calendar fields and versioned edits
+ok 17 - real records preserve dialogue roles, decrypt only owner reads, and support optional calendar fields and versioned edits
+  ---
+  duration_ms: 1225.9022
+  type: 'test'
+  ...
+# Subtest: all persisted business kinds, deposit controls, preferences and real search-save wiring work through HTTP
+ok 18 - all persisted business kinds, deposit controls, preferences and real search-save wiring work through HTTP
+  ---
+  duration_ms: 1247.7165
+  type: 'test'
+  ...
+# Subtest: Beta D5: clearing one query preserves another owner snapshot for the same canonical source
+ok 19 - Beta D5: clearing one query preserves another owner snapshot for the same canonical source
+  ---
+  duration_ms: 1962.5013
+  type: 'test'
+  ...
+# Subtest: Beta D5: canonical duplicate sources reject atomically and permit a corrected retry
+ok 20 - Beta D5: canonical duplicate sources reject atomically and permit a corrected retry
+  ---
+  duration_ms: 1002.0811
+  type: 'test'
+  ...
+# Subtest: saved query copies server-owned completed search evidence and enforces isolation
+ok 21 - saved query copies server-owned completed search evidence and enforces isolation
+  ---
+  duration_ms: 1361.306
+  type: 'test'
+  ...
+# Subtest: saved query rejects client supplied evidence and invalid server evidence
+ok 22 - saved query rejects client supplied evidence and invalid server evidence
+  ---
+  duration_ms: 1279.6354
+  type: 'test'
+  ...
+# Subtest: empty or unfinished searches cannot be persisted as query history
+ok 23 - empty or unfinished searches cannot be persisted as query history
+  ---
+  duration_ms: 1169.0346
+  type: 'test'
+  ...
+# Subtest: saved query replay remains idempotent after the completed search expires
+ok 24 - saved query replay remains idempotent after the completed search expires
+  ---
+  duration_ms: 1277.1544
+  type: 'test'
+  ...
+# Subtest: unreliable sources downgrade supported claims and query certainty
+ok 25 - unreliable sources downgrade supported claims and query certainty
+  ---
+  duration_ms: 862.463
+  type: 'test'
+  ...
+# Subtest: older source snapshots cannot overwrite newer source verification metadata
+ok 26 - older source snapshots cannot overwrite newer source verification metadata
+  ---
+  duration_ms: 841.9982
+  type: 'test'
+  ...
+# Subtest: persistent query status follows conflict, partial, stale, success priority
+ok 27 - persistent query status follows conflict, partial, stale, success priority
+  ---
+  duration_ms: 0.3969
+  type: 'test'
+  ...
+1..27
+# tests 27
+# suites 0
+# pass 27
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11568.6433

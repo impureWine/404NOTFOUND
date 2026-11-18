@@ -1,0 +1,100 @@
+{
+  "date": "2026-11-18",
+  "timezone": "Asia/Shanghai",
+  "author": "庄剀涵",
+  "branch": "codex/zkh-beta-day5-calendar",
+  "integrationBase": "aee29d0defc517d717dfea06af0ee574d0d52c33",
+  "fetchedMain": "97c3168",
+  "normalization": "UTF-8 text with CRLF normalized to LF",
+  "focused": {
+    "passed": 27,
+    "failed": 0
+  },
+  "backend": {
+    "passed": 210,
+    "failed": 0,
+    "skipped": 0
+  },
+  "frontend": {
+    "build": "passed",
+    "passed": 46,
+    "failed": 0
+  },
+  "provider": {
+    "status": "blocked",
+    "networkAttempted": false,
+    "code": "SEARCH_NOT_CONFIGURED"
+  },
+  "independentReview": "pending",
+  "files": [
+    {
+      "path": "backend/src/contracts/primitives.js",
+      "sha256": "0ccb1a0ca59cf0a07f4bbe7c18089ab156403aeb5f57023a6456de2a2f29a97d"
+    },
+    {
+      "path": "backend/src/contracts/records.js",
+      "sha256": "118958e04765356d3d4786f3e5ea31de742d9c44d68168c58b459e6ccdf49833"
+    },
+    {
+      "path": "backend/src/repositories/record-repository.js",
+      "sha256": "74dd886cdea7331574f5f092414d70ea5e4cc05cbb35c960cd490a1ec115dd84"
+    },
+    {
+      "path": "shared/contracts/record.js",
+      "sha256": "f650df9f6328dc53afd40e0aa4f95dd6e7623d77de78b5edfbe0572ab3d1b8dc"
+    },
+    {
+      "path": "backend/test/integration/beta-day5-calendar.test.js",
+      "sha256": "565b620f15d99f151b23dffcb84e7a0705546c255ff10bdc71833f964dfb4244"
+    },
+    {
+      "path": "backend/test/integration/emotion-date.test.js",
+      "sha256": "c344b418a5a8a5468b32617af21ef062da34f5f9d0eac0ffc82201743c3feeeb"
+    },
+    {
+      "path": "backend/test/integration/record-api.test.js",
+      "sha256": "e7f4ab6078815ce56475e0c3958364f2a3499a940b98479b5097271d4aafc8e4"
+    },
+    {
+      "path": "backend/test/integration/saved-query-repository.test.js",
+      "sha256": "f77bccd80eb22fd6519fd91885179f7b21555acb54c9aedce40870698d3dedf8"
+    },
+    {
+      "path": "backend/evidence/daily/Day5_Beta_庄剀涵_20261118.md",
+      "sha256": "ef8f4cfc1c4ba8d65c96e239da0d09c7db9abe08b67fb0d0214cb3497858655f"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/backend-full.tap",
+      "sha256": "0b2aa02cb683cf88396fa6338ddbd8f479cee4628f60120ad75146514ff73cbd"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/calendar-before.tap",
+      "sha256": "d85c4aba954803226cba6f00e78952ad4528a585c0d516a77f9d8a6d74000f86"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/focused.tap",
+      "sha256": "fe5422cddb429a8cb0e72803d70a9e2477b4a0db16f3783e98f3ac3f2670599e"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/frontend-build.txt",
+      "sha256": "4c61eb52de80e06b9004173a7455e2324082e7a3bf05fff576d27b329b42aa88"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/frontend-install.txt",
+      "sha256": "9498693487bdcda4cbcba76d108cb27c8d4975ad3c1b5f05b8c79e74d04056e9"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/frontend-tests-after.tap",
+      "sha256": "bf32d675e4e6204dcb8be8285f15b852f5803ea47e1590f487bdff972cfa50d5"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/frontend-tests.tap",
+      "sha256": "22a1c0b87b3604c7a5a504f3ee6e68a05e865146a9843441d70327bd3b450932"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day5-20261118/real-search-check.json",
+      "sha256": "8109404cf3efcdab062414c9c2c35fe3fdc90aeedd96ec9b263bc935cb1bebd4"
+    }
+  ],
+  "evidenceFormatting": "Trailing whitespace removed from calendar-before.tap; assertions and results unchanged."
+}

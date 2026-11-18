@@ -427,7 +427,8 @@ export class RecordRepository {
     const result = await this.database.query(
       `
         SELECT id, record_kind, title_ciphertext, title_key_version,
-               version_no, created_at, updated_at
+               version_no, created_at, updated_at,
+               to_char(created_at AT TIME ZONE 'UTC', 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"') AS cursor_created_at
         FROM saved_records
         WHERE account_id = $1
           AND entry_point_id = $2
@@ -468,7 +469,9 @@ export class RecordRepository {
         kind: value.kind ?? null,
         from: value.from ?? null,
         to: value.to ?? null,
-        createdAt: new Date(last.created_at).toISOString(),
+        // Keep database microseconds in the opaque cursor to avoid skipping
+        // records that share a millisecond. Public metadata remains ISO millis.
+        createdAt: last.cursor_created_at,
         id: last.id,
       }) : null,
     };

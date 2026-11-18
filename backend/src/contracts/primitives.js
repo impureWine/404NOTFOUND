@@ -23,11 +23,11 @@ export function codePointString({ min = 0, max, trim = false, name = 'text' }) {
 }
 
 export const isoDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((value) => {
-  const [year, month, day] = value.split('-').map(Number);
-  const date = new Date(Date.UTC(year, month - 1, day));
-  return date.getUTCFullYear() === year
-    && date.getUTCMonth() === month - 1
-    && date.getUTCDate() === day;
+  // ISO parsing preserves years 0001–0099; Date.UTC treats them as 1901–1999.
+  // PostgreSQL has no year zero.
+  const date = new Date(`${value}T00:00:00Z`);
+  return !value.startsWith('0000-') && !Number.isNaN(date.getTime())
+    && date.toISOString().slice(0, 10) === value;
 }, 'date must be a real calendar date');
 
 export const instantSchema = z.string().datetime({ offset: true });

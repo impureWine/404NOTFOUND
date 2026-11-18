@@ -29,7 +29,7 @@ try {
   const driver = wrapDriver(database);
   assert.ok((await driver.query("SELECT DATE '2026-10-29' AS day")).rows[0].day instanceof Date);
   const writer = new RecordRepository(database), reader = new RecordRepository(driver);
-  for (const date of ['2026-10-29','2026-11-01','2027-01-01','2028-02-29']) {
+  for (const date of ['0001-01-01','0099-12-31','2026-10-29','2026-11-01','2027-01-01','2028-02-29']) {
     const created = await writer.create({ ...scope, requestId: randomUUID(), kind: 'EMOTION', details: {
       recordDate: date, emotionCodes: [], intensity: null, timezoneName: 'Asia/Hong_Kong',
     } });
@@ -40,7 +40,7 @@ try {
   }
 } finally { await database.close(); }
 `;
-for (const timezone of ['Asia/Hong_Kong', 'UTC', 'America/Los_Angeles']) {
+for (const timezone of ['Asia/Hong_Kong', 'UTC', 'America/Los_Angeles', 'Pacific/Kiritimati']) {
   test(`emotion save/read/edit keeps the selected day in ${timezone}`, async () => {
     await run(process.execPath, ['--input-type=module', '-e', scenario], {
       cwd: new URL('../../', import.meta.url), env: { ...process.env, TZ: timezone }, timeout: 30000,

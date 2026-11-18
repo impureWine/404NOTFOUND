@@ -20,6 +20,67 @@ const PASSWORD = 'correct-horse-battery';
 let sequence = 0;
 const nextId = () => `2f74a372-2e54-4fe7-945a-${String(++sequence).padStart(12, '0')}`;
 
+test('Beta D5: authenticated calendar date queries, month moves and clearing respect account and entry scope', async () => {
+  await withApi(async ({ baseUrl, database, authService }) => {
+    const alice = await registerAndLogin(baseUrl, 'calendar_day5_a');
+    const bob = await registerAndLogin(baseUrl, 'calendar_day5_b');
+    const accountId = (await database.query('SELECT id FROM user_accounts WHERE login_identifier_normalized = $1', ['calendar_day5_a'])).rows[0].id;
+    const entryId = (await database.query("INSERT INTO entry_points (code) VALUES ('DESKTOP_DAY5') RETURNING id")).rows[0].id;
+    const desktop = await authService.createContext(accountId, entryId);
+    const otherEntry = { cookie: sessionCookie(desktop.sessionToken).split(';')[0] };
+    const read = (path, state = alice) => fetch(baseUrl + path, { headers: { Cookie: state.cookie } });
+    const grant = async (operation, payload) => {
+      const response = await mutate(baseUrl, '/api/consents', alice, { requestId: nextId(), purpose: 'SAVE', operation, payload });
+      assert.equal(response.status, 201);
+      return (await response.json()).data.consentId;
+    };
+    const content = { title: '合成闰日记录', recordDate: '2028-02-29', timezoneName: 'America/Los_Angeles', emotionCodes: [], intensity: null, note: '仅用于隔离测试' };
+    const payload = { kind: 'EMOTION', content };
+    const body = { ...payload, requestId: nextId(), consentId: await grant('RECORD_CREATE', payload) };
+    const response = await mutate(baseUrl, '/api/records', alice, body);
+    assert.equal(response.status, 201);
+    const created = (await response.json()).data;
+    assert.equal((await (await mutate(baseUrl, '/api/records', alice, body)).json()).data.id, created.id);
+    const feb = '/api/records?kind=EMOTION&from=2028-02-01&to=2028-02-29';
+    const march = '/api/records?kind=EMOTION&from=2028-03-01&to=2028-03-31';
+    const list = async (path, state = alice) => {
+      const response = await read(path, state);
+      assert.equal(response.status, 200);
+      return (await response.json()).data;
+    };
+    assert.deepEqual((await list(feb)).items.map(x => x.id), [created.id]);
+    assert.equal((await list(march)).items.length, 0);
+    for (const state of [bob, otherEntry]) {
+      assert.equal((await list(feb, state)).items.length, 0);
+      assert.equal((await read(`/api/records/${created.id}`, state)).status, 404);
+    }
+    for (const query of [
+      'kind=EMOTION&from=2028-02-01', 'kind=EMOTION&to=2028-02-29',
+      'kind=EMOTION&from=2028-03-01&to=2028-02-29',
+      'kind=QUERY&from=2028-02-01&to=2028-02-29',
+      'kind=EMOTION&from=2026-02-29&to=2026-03-01',
+      'kind=EMOTION&from=0000-01-01&to=0000-12-31',
+    ]) assert.equal((await read('/api/records?' + query)).status, 400, query);
+    const changed = { ...content, recordDate: '2028-03-01', timezoneName: 'Pacific/Kiritimati' };
+    const edit = { recordId: created.id, expectedVersion: 1, content: changed };
+    const updated = await fetch(`${baseUrl}/api/records/${created.id}`, {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json', Cookie: alice.cookie, Origin: ORIGIN, 'X-CSRF-Token': alice.csrf },
+      body: JSON.stringify({ requestId: nextId(), expectedVersion: 1, content: changed, consentId: await grant('RECORD_UPDATE', edit) }),
+    });
+    assert.equal(updated.status, 200);
+    assert.equal((await list(feb)).items.length, 0);
+    assert.deepEqual((await list(march)).items.map(x => x.id), [created.id]);
+    const detail = (await (await read(`/api/records/${created.id}`)).json()).data;
+    assert.equal(detail.content.recordDate, changed.recordDate);
+    assert.equal(detail.content.timezoneName, changed.timezoneName);
+    const confirmation = await mutate(baseUrl, `/api/records/${created.id}/clear-confirmations`, alice, { requestId: nextId(), expectedVersion: 2 });
+    assert.equal(confirmation.status, 201);
+    assert.equal((await mutate(baseUrl, `/api/records/${created.id}/clear`, alice, { requestId: nextId(), expectedVersion: 2, confirmationId: (await confirmation.json()).data.confirmationId })).status, 200);
+    assert.equal((await list(march)).items.length, 0);
+    assert.equal((await read(`/api/records/${created.id}`)).status, 404);
+  });
+});
+
 async function withApi(callback) {
   const database = await createTestDatabase();
   const authService = new AuthService(database, { profileKey: KEY });

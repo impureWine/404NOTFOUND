@@ -1,0 +1,267 @@
+TAP version 13
+# Subtest: mock mode never calls fetch or claims an API success
+ok 1 - mock mode never calls fetch or claims an API success
+  ---
+  duration_ms: 1.7509
+  type: 'test'
+  ...
+# Subtest: real mode uses same-origin no-store requests and the configured CSRF header
+ok 2 - real mode uses same-origin no-store requests and the configured CSRF header
+  ---
+  duration_ms: 42.3608
+  type: 'test'
+  ...
+# Subtest: real mode refuses writes before context has configured CSRF state
+ok 3 - real mode refuses writes before context has configured CSRF state
+  ---
+  duration_ms: 0.8287
+  type: 'test'
+  ...
+# Subtest: authentication methods preserve the shared request names and credential policy
+ok 4 - authentication methods preserve the shared request names and credential policy
+  ---
+  duration_ms: 2.8937
+  type: 'test'
+  ...
+# Subtest: identity changes discard the in-memory CSRF token even when the response is lost
+ok 5 - identity changes discard the in-memory CSRF token even when the response is lost
+  ---
+  duration_ms: 0.731
+  type: 'test'
+  ...
+# Subtest: record vault uses the shared consent, list, detail, and two-step clear endpoints
+ok 6 - record vault uses the shared consent, list, detail, and two-step clear endpoints
+  ---
+  duration_ms: 3.0424
+  type: 'test'
+  ...
+# Subtest: API errors preserve the contract code and request id without retaining raw bodies
+ok 7 - API errors preserve the contract code and request id without retaining raw bodies
+  ---
+  duration_ms: 0.4273
+  type: 'test'
+  ...
+# Subtest: search TIMEOUT reports the search source, never the AI model
+ok 8 - search TIMEOUT reports the search source, never the AI model
+  ---
+  duration_ms: 8.0078
+  type: 'test'
+  ...
+# Subtest: search SERVICE_UNAVAILABLE reports the search source, never the AI model
+ok 9 - search SERVICE_UNAVAILABLE reports the search source, never the AI model
+  ---
+  duration_ms: 0.301
+  type: 'test'
+  ...
+# Subtest: search PROVIDER_UNAVAILABLE reports the search source, never the AI model
+ok 10 - search PROVIDER_UNAVAILABLE reports the search source, never the AI model
+  ---
+  duration_ms: 1.1071
+  type: 'test'
+  ...
+# Subtest: search SEARCH_NOT_CONFIGURED reports the search source, never the AI model
+ok 11 - search SEARCH_NOT_CONFIGURED reports the search source, never the AI model
+  ---
+  duration_ms: 0.3811
+  type: 'test'
+  ...
+# Subtest: search SEARCH_AUTH_FAILED reports the search source, never the AI model
+ok 12 - search SEARCH_AUTH_FAILED reports the search source, never the AI model
+  ---
+  duration_ms: 0.4323
+  type: 'test'
+  ...
+# Subtest: search SEARCH_RATE_LIMITED reports the search source, never the AI model
+ok 13 - search SEARCH_RATE_LIMITED reports the search source, never the AI model
+  ---
+  duration_ms: 0.1864
+  type: 'test'
+  ...
+# Subtest: model timeout retains its AI message and uses the agent task route
+ok 14 - model timeout retains its AI message and uses the agent task route
+  ---
+  duration_ms: 0.3609
+  type: 'test'
+  ...
+# Subtest: search cancelled with no code keeps a search-specific fallback
+ok 15 - search cancelled with no code keeps a search-specific fallback
+  ---
+  duration_ms: 0.2358
+  type: 'test'
+  ...
+# Subtest: search expired with no code keeps a search-specific fallback
+ok 16 - search expired with no code keeps a search-specific fallback
+  ---
+  duration_ms: 0.4553
+  type: 'test'
+  ...
+# Subtest: search failed with UNKNOWN keeps a search-specific fallback
+ok 17 - search failed with UNKNOWN keeps a search-specific fallback
+  ---
+  duration_ms: 0.6685
+  type: 'test'
+  ...
+# Subtest: desktop breathing never advances before start and follows 4/6-second phases
+ok 18 - desktop breathing never advances before start and follows 4/6-second phases
+  ---
+  duration_ms: 2.0661
+  type: 'test'
+  ...
+# Subtest: desktop breathing pauses without counting hidden time and resumes at the same phase
+ok 19 - desktop breathing pauses without counting hidden time and resumes at the same phase
+  ---
+  duration_ms: 1.0013
+  type: 'test'
+  ...
+# Subtest: collapse/reset and dispose prevent old timer callbacks from publishing into the next exercise
+ok 20 - collapse/reset and dispose prevent old timer callbacks from publishing into the next exercise
+  ---
+  duration_ms: 0.9545
+  type: 'test'
+  ...
+# Subtest: desktop breathing completes once and cancels its timer even after a delayed tick
+ok 21 - desktop breathing completes once and cancels its timer even after a delayed tick
+  ---
+  duration_ms: 0.8612
+  type: 'test'
+  ...
+# Subtest: desktop starts as one compact pet without opening a workspace window
+ok 22 - desktop starts as one compact pet without opening a workspace window
+  ---
+  duration_ms: 2.6024
+  type: 'test'
+  ...
+# Subtest: expansion preserves the bottom-right anchor and clamps to the display work area
+ok 23 - expansion preserves the bottom-right anchor and clamps to the display work area
+  ---
+  duration_ms: 1.4626
+  type: 'test'
+  ...
+# Subtest: only the actual pet may open allowlisted workspace routes
+ok 24 - only the actual pet may open allowlisted workspace routes
+  ---
+  duration_ms: 1.2073
+  type: 'test'
+  ...
+# Subtest: recovery shortcut restores a hidden pet and disables click-through
+ok 25 - recovery shortcut restores a hidden pet and disables click-through
+  ---
+  duration_ms: 1.0873
+  type: 'test'
+  ...
+# Subtest: preload exposes only fixed routes and event subscriptions can be removed
+ok 26 - preload exposes only fixed routes and event subscriptions can be removed
+  ---
+  duration_ms: 3.3161
+  type: 'test'
+  ...
+# Subtest: switching away disposes the owned animation loop and all lifecycle listeners
+ok 27 - switching away disposes the owned animation loop and all lifecycle listeners
+  ---
+  duration_ms: 1.4787
+  type: 'test'
+  ...
+# Subtest: hiding the page pauses motion and never auto-resumes when visible again
+ok 28 - hiding the page pauses motion and never auto-resumes when visible again
+  ---
+  duration_ms: 0.2014
+  type: 'test'
+  ...
+# Subtest: pagehide cancels outstanding animation callbacks before they can draw again
+ok 29 - pagehide cancels outstanding animation callbacks before they can draw again
+  ---
+  duration_ms: 1.3949
+  type: 'test'
+  ...
+# node:internal/modules/package_json_reader:331
+#   throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+#         ^
+# Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'react' imported from C:\\Users\\qwe18\\.codex\\worktrees\\zkh-beta-day3\\New project\\prototype\\test\\record-detail.test.js
+#     at Object.getPackageJSONURL (node:internal/modules/package_json_reader:331:9)
+#     at packageResolve (node:internal/modules/esm/resolve:784:25)
+#     at moduleResolve (node:internal/modules/esm/resolve:873:18)
+#     at defaultResolve (node:internal/modules/esm/resolve:1006:11)
+#     at \#cachedDefaultResolve (node:internal/modules/esm/loader:705:20)
+#     at \#resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:725:38)
+#     at ModuleLoader.resolveSync (node:internal/modules/esm/loader:763:56)
+#     at \#resolve (node:internal/modules/esm/loader:687:17)
+#     at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:607:35)
+#     at ModuleJob.syncLink (node:internal/modules/esm/module_job:276:33) {
+#   code: 'ERR_MODULE_NOT_FOUND'
+# }
+# Node.js v24.22.1
+# Subtest: test\\record-detail.test.js
+not ok 5 - test\\record-detail.test.js
+  ---
+  duration_ms: 119.4523
+  type: 'test'
+  location: 'C:\\Users\\qwe18\\.codex\\worktrees\\zkh-beta-day3\\New project\\prototype\\test\\record-detail.test.js:1:1'
+  failureType: 'testCodeFailure'
+  exitCode: 1
+  signal: ~
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: ready training never starts a timer or advances before explicit start
+ok 31 - ready training never starts a timer or advances before explicit start
+  ---
+  duration_ms: 2.0996
+  type: 'test'
+  ...
+# Subtest: breathing follows phase boundaries, skips zero hold and supports an optional hold
+ok 32 - breathing follows phase boundaries, skips zero hold and supports an optional hold
+  ---
+  duration_ms: 0.2537
+  type: 'test'
+  ...
+# Subtest: pause freezes phase, progress and elapsed time; resume only adds active time
+ok 33 - pause freezes phase, progress and elapsed time; resume only adds active time
+  ---
+  duration_ms: 0.5157
+  type: 'test'
+  ...
+# Subtest: completion clamps the clock and cancels timers, including delayed background callbacks
+ok 34 - completion clamps the clock and cancels timers, including delayed background callbacks
+  ---
+  duration_ms: 0.2437
+  type: 'test'
+  ...
+# Subtest: stale callbacks cannot publish events after pause, reset/restart, exit or dispose
+ok 35 - stale callbacks cannot publish events after pause, reset/restart, exit or dispose
+  ---
+  duration_ms: 0.3141
+  type: 'test'
+  ...
+# Subtest: guided steps only move on explicit actions, preserve pause and allow revisiting before completion
+ok 36 - guided steps only move on explicit actions, preserve pause and allow revisiting before completion
+  ---
+  duration_ms: 0.2666
+  type: 'test'
+  ...
+# Subtest: pause-organize and worksheet complete only explicitly, not when timers elapse
+ok 37 - pause-organize and worksheet complete only explicitly, not when timers elapse
+  ---
+  duration_ms: 0.203
+  type: 'test'
+  ...
+# Subtest: invalid content and breathing settings fail before allocating a timer
+ok 38 - invalid content and breathing settings fail before allocating a timer
+  ---
+  duration_ms: 1.2075
+  type: 'test'
+  ...
+# Subtest: page hide pauses without auto-resume; page exit and unmount cancel all owned work
+ok 39 - page hide pauses without auto-resume; page exit and unmount cancel all owned work
+  ---
+  duration_ms: 0.4923
+  type: 'test'
+  ...
+1..39
+# tests 39
+# suites 0
+# pass 38
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 216.4393

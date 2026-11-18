@@ -1,0 +1,99 @@
+TAP version 13
+# Subtest: Beta D5: shared and repository dates agree on leap years, invalid dates and four-digit years
+not ok 1 - Beta D5: shared and repository dates agree on leap years, invalid dates and four-digit years
+  ---
+  duration_ms: 2.9277
+  type: 'test'
+  location: 'C:\\Users\\qwe18\\.codex\\worktrees\\zkh-beta-day3\\New project\\backend\\test\\integration\\beta-day5-calendar.test.js:27:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    repository 0001-01-01
+
+    false !== true
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/qwe18/.codex/worktrees/zkh-beta-day3/New%20project/backend/test/integration/beta-day5-calendar.test.js:30:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.start (node:internal/test_runner/test:1262:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+  ...
+# Subtest: Beta D5: repository rejects incomplete, reversed and non-emotion date ranges before querying
+not ok 2 - Beta D5: repository rejects incomplete, reversed and non-emotion date ranges before querying
+  ---
+  duration_ms: 3.2096
+  type: 'test'
+  location: 'C:\\Users\\qwe18\\.codex\\worktrees\\zkh-beta-day3\\New project\\backend\\test\\integration\\beta-day5-calendar.test.js:38:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    true !== false
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/qwe18/.codex/worktrees/zkh-beta-day3/New%20project/backend/test/integration/beta-day5-calendar.test.js:47:12)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+  ...
+# Subtest: Beta D5: calendar follows the chosen date across zones; ownership, edits and clearing preserve associations
+ok 3 - Beta D5: calendar follows the chosen date across zones; ownership, edits and clearing preserve associations
+  ---
+  duration_ms: 1458.3047
+  type: 'test'
+  ...
+# Subtest: Beta D5: calendar pagination retains PostgreSQL microseconds and binds cursor to owner, entry and dates
+not ok 4 - Beta D5: calendar pagination retains PostgreSQL microseconds and binds cursor to owner, entry and dates
+  ---
+  duration_ms: 886.3617
+  type: 'test'
+  location: 'C:\\Users\\qwe18\\.codex\\worktrees\\zkh-beta-day3\\New project\\backend\\test\\integration\\beta-day5-calendar.test.js:97:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    no skipped or duplicated records in the same millisecond
+    + actual - expected
+
+      [
+        'ea66e543-977e-463f-bd75-f6f9e4456732',
+    -   'd3869b92-7f9f-4135-aeb1-2fae5576d3ff',
+    -   'f55dd693-fc74-49c1-80a7-280f99f2bd55',
+    -   '0b9b2002-cb24-4c3c-bcc3-1875b9d78b27'
+      ]
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: 'ea66e543-977e-463f-bd75-f6f9e4456732'
+    1: 'd3869b92-7f9f-4135-aeb1-2fae5576d3ff'
+    2: 'f55dd693-fc74-49c1-80a7-280f99f2bd55'
+    3: '0b9b2002-cb24-4c3c-bcc3-1875b9d78b27'
+  actual:
+    0: 'ea66e543-977e-463f-bd75-f6f9e4456732'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///C:/Users/qwe18/.codex/worktrees/zkh-beta-day3/New%20project/backend/test/integration/beta-day5-calendar.test.js:122:10)
+    async Test.run (node:internal/test_runner/test:1409:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 1
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2735.9315

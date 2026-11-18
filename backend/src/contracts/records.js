@@ -131,7 +131,9 @@ export const recordListSchema = scopeSchema.extend({
   from: isoDateSchema.optional(),
   to: isoDateSchema.optional(),
   cursor: z.string().min(1).max(2048).optional(),
-});
+}).refine(value => (!value.from && !value.to)
+  || (value.kind === 'EMOTION' && value.from && value.to && value.from <= value.to),
+'Date ranges require EMOTION records and both endpoints in ascending order');
 
 export const recordIdentitySchema = scopeSchema.extend({
   recordId: nonZeroUuidSchema,

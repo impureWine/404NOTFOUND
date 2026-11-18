@@ -1,0 +1,14 @@
+[WARN] Request took 29021ms: https://registry.npmjs.org/npm
+[WARN] Request took 40911ms: https://registry.npmjs.org/npm
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +1
++
+Progress: resolved 1, reused 0, downloaded 1, added 0
+Progress: resolved 1, reused 0, downloaded 1, added 1, done
+
+added 33 packages in 14s
+npm notice
+npm notice New major version of npm available! 11.21.2 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice

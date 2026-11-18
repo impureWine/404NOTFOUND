@@ -8,8 +8,74 @@ import {
   persistentStatus,
 } from '../../src/repositories/saved-query-repository.js';
 import { createTestDatabase, seedScope } from '../helpers/database.js';
+import { RecordRepository } from '../../src/repositories/record-repository.js';
 
 const cipher = (value) => Buffer.from(`synthetic:${value}`, 'utf8');
+
+test('Beta D5: clearing one query preserves another owner snapshot for the same canonical source', async t => {
+  const database = await createTestDatabase();
+  t.after(() => database.close());
+  const owner = await seedScope(database, 'd5_snapshot_a');
+  const other = await seedScope(database, 'd5_snapshot_b');
+  const results = new Map();
+  const repository = repositoryWithResults(database, results);
+  const records = new RecordRepository(database);
+  const firstSearch = randomUUID(), secondSearch = randomUUID();
+  const first = completedResult(owner, firstSearch);
+  first.sources[0].url = 'https://EXAMPLE.org:443/facts#first';
+  first.sources[0].retrievedAt = '2026-12-31T23:59:59-08:00';
+  const second = completedResult(other, secondSearch, { claims: [], uncertaintyNote: '合成无摘要来源' });
+  second.sources[0].title = '第二位用户保存时的来源标题';
+  second.sources[0].retrievedAt = '2027-01-01T08:00:01Z';
+  results.set(firstSearch, first); results.set(secondSearch, second);
+  const firstRequest = { ...owner, requestId: randomUUID(), searchRequestId: firstSearch };
+  const savedA = await repository.save(firstRequest);
+  const snapshotA = await repository.get({ ...owner, recordId: savedA.id });
+  const savedB = await repository.save({ ...other, requestId: randomUUID(), searchRequestId: secondSearch });
+  const snapshotB = await repository.get({ ...other, recordId: savedB.id });
+  assert.deepEqual(await repository.get({ ...owner, recordId: savedA.id }), snapshotA);
+  assert.equal(snapshotA.sources[0].url, 'https://example.org/facts');
+  assert.equal(snapshotA.sources[0].retrievedAt, '2027-01-01T07:59:59.000Z');
+  assert.equal(snapshotA.sources[0].publishedAt, null);
+  assert.equal(snapshotB.sources.length, 1);
+  assert.deepEqual(snapshotB.claims, []);
+  assert.equal(snapshotB.uncertaintyNote, second.uncertaintyNote);
+  assert.equal(snapshotA.sources[0].id, snapshotB.sources[0].id, 'catalog identity can be shared, snapshot content cannot');
+  await assert.rejects(repository.get({ ...other, recordId: savedA.id }), NotFoundError);
+  await assert.rejects(repository.get({ ...owner, entryPointId: other.entryPointId, recordId: savedA.id }), NotFoundError);
+  results.clear();
+  assert.equal((await repository.save(firstRequest)).idempotent, true, 'saved retry survives expired transient task');
+  const clear = { ...owner, recordId: savedA.id, expectedVersion: 1, requestId: randomUUID() };
+  const confirmation = await records.issueClearConfirmation(clear);
+  await records.clear({ ...clear, requestId: randomUUID(), confirmationId: confirmation.confirmationId, confirmed: true });
+  await assert.rejects(repository.get({ ...owner, recordId: savedA.id }), NotFoundError);
+  await assert.rejects(repository.save(firstRequest), NotFoundError);
+  assert.deepEqual(await repository.get({ ...other, recordId: savedB.id }), snapshotB);
+  for (const table of ['saved_queries', 'saved_query_sources']) {
+    const key = table === 'saved_queries' ? 'saved_record_id' : 'saved_query_id';
+    assert.equal((await database.query(`SELECT count(*)::int AS n FROM ${table} WHERE ${key} = $1`, [savedA.id])).rows[0].n, 0);
+  }
+  assert.equal((await database.query('SELECT count(*)::int AS n FROM sources')).rows[0].n, 1);
+});
+
+test('Beta D5: canonical duplicate sources reject atomically and permit a corrected retry', async t => {
+  const database = await createTestDatabase();
+  t.after(() => database.close());
+  const scope = await seedScope(database, 'd5_snapshot_retry');
+  const searchRequestId = randomUUID();
+  const result = completedResult(scope, searchRequestId);
+  result.sources.push({ ...result.sources[0], url: 'https://EXAMPLE.org:443/facts#duplicate' });
+  const repository = repositoryWithResults(database, new Map([[searchRequestId, result]]));
+  const request = { ...scope, searchRequestId, requestId: randomUUID() };
+  await assert.rejects(repository.save(request), InvalidInputError);
+  for (const table of ['saved_records', 'saved_queries', 'saved_query_sources', 'sources', 'idempotency_keys']) {
+    assert.equal((await database.query(`SELECT count(*)::int AS n FROM ${table}`)).rows[0].n, 0, table);
+  }
+  result.sources.pop();
+  const saved = await repository.save(request);
+  assert.equal(saved.sourceCount, 1);
+  assert.equal((await repository.save(request)).idempotent, true);
+});
 
 function completedResult(scope, searchRequestId, overrides = {}) {
   return {
