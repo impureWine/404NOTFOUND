@@ -1,0 +1,29 @@
+{
+  "candidate": "c44de238b94d5896538a86744cc222bc562a7aba",
+  "date": "2026-11-18 Asia/Shanghai",
+  "layer": "real React page + local training + synthetic private text",
+  "cases": [
+    {
+      "name": "private text destroy/reload",
+      "inputCleared": true,
+      "newApiRequestsDuringAction": 0,
+      "markerInAnyApiRequest": false,
+      "markerInStorage": false,
+      "markerInConsole": false
+    },
+    {
+      "name": "training hides, pauses, and requires manual resume",
+      "pausedOnHide": true,
+      "draftPreserved": true,
+      "autoResume": false
+    },
+    {
+      "name": "leaving training resets local state",
+      "readyOnReentry": true
+    },
+    {
+      "name": "Day4 merged companion/search empty states",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "candidate": "091cf70cbe374cd3224e3873a2486f2f3f039997",
+  "date": "2026-11-17 Asia/Shanghai",
+  "layer": "React + local HTTP/PGlite + synthetic model/search",
+  "cases": [
+    {
+      "name": "companion reply",
+      "passed": true,
+      "provider": "synthetic model"
+    },
+    {
+      "name": "query source display",
+      "passed": true,
+      "provider": "synthetic search"
+    },
+    {
+      "name": "five-senses start/pause/resume",
+      "passed": true,
+      "provider": "local controller"
+    },
+    {
+      "name": "Day3 UX save review focus on merged candidate",
+      "passed": true,
+      "focus": "保存前确认"
+    }
+  ]
+}

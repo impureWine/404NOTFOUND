@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-17",
+  "note": "Public source reports, not approvals or UX-executed results",
+  "relevant": [
+    {
+      "number": 106,
+      "title": "[Beta][B03][P1][程群] 陪伴和命名覆盖成功、等待、空、超时、失败及重试",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/106",
+      "body": "负责人：程群\r\n协作者：程杰、郭昱祺、李泉毅\r\n独立复核：曾俊涛\r\n优先级：P1；目标：Day4\r\n\r\n输入依赖：B01；模型配置及页面错误契约\r\n\r\n候选：d2073489a8be92c38e1f57da7562e487058c501a\r\n现状：候选存在实现入口（backend/src/ai/langchain-model-adapter.js；prototype/src/live/Dialogue.jsx），尚需本轮集成/页面验收。\r\n\r\n验收条件：陪伴和命名覆盖成功、等待、空、超时、失败及重试；真实调用与合成结果分列\r\n\r\nPM初估：6人时，含修订、评审与验证，待负责人确认；个人容量尚未回报。\r\n状态：待开始（现状盘点已完成）。\r\n交接：提供相同SHA下的命令、结果、截图、实际耗时及剩余量。\r\n"
+    },
+    {
+      "number": 107,
+      "title": "[Beta][B04][P1][庄剀涵] 来源对应当次查询",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/107",
+      "body": "负责人：庄剀涵\r\n协作者：李泉毅、程杰、程群\r\n独立复核：曾俊涛、关欣\r\n优先级：P1；目标：Day4\r\n\r\n输入依赖：B01/B02；隔离数据库与检索配置\r\n\r\n候选：d2073489a8be92c38e1f57da7562e487058c501a\r\n现状：候选存在实现入口（backend/src/search/bing-search-provider.js；backend/src/services/saved-query-service.js），尚需本轮集成/页面验收。\r\n\r\n验收条件：来源对应当次查询；保存后快照稳定；来源不足、超时及失败反馈可理解\r\n\r\nPM初估：6人时，含修订、评审与验证，待负责人确认；个人容量尚未回报。\r\n状态：待开始（现状盘点已完成）。\r\n交接：提供相同SHA下的命令、结果、截图、实际耗时及剩余量。\r\n"
+    },
+    {
+      "number": 108,
+      "title": "[Beta][B05][P1][程群] 呼吸、五感、暂停整理、任务拆分覆盖开始/暂停/继续/退出",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/108",
+      "body": "负责人：程群\r\n协作者：程杰、郭昱祺\r\n独立复核：曾俊涛\r\n优先级：P1；目标：Day4\r\n\r\n输入依赖：训练状态契约与同一候选\r\n\r\n候选：d2073489a8be92c38e1f57da7562e487058c501a\r\n现状：候选存在实现入口（backend/src/services/training-service.js；prototype/src/live/training-controller.js），尚需本轮集成/页面验收。\r\n\r\n验收条件：呼吸、五感、暂停整理、任务拆分覆盖开始/暂停/继续/退出；离页后计时资源释放\r\n\r\nPM初估：5人时，含修订、评审与验证，待负责人确认；个人容量尚未回报。\r\n状态：待开始（现状盘点已完成）。\r\n交接：提供相同SHA下的命令、结果、截图、实际耗时及剩余量。\r\n"
+    },
+    {
+      "number": 130,
+      "title": "[Beta冲刺 Day2][UX/产品设计][郭昱祺] 异步状态交互说明、文案与走查结果",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/130",
+      "body": "## 今日交付\n\n负责人：郭昱祺（UX／产品设计）\n日期：2026-11-15（Beta Day2）\n协作：程杰、程群；后端契约协作李泉毅；独立复核待关欣／曾俊涛执行。\n代码候选：`30290a5ba849a806edfd7734cd9b47529f0078c6`\n交付提交：`7a6d4f9135e1ba5fd3b485ce3193bbcc0c370d20`\n\n### 已完成的 UX 产物\n\n- [x] 等待、取消、会话失效、结束与许可撤回的状态机、接口及恢复规则。\n- [x] 25 条状态文案和按钮约束，含CSV。\n- [x] 当前React应用10项合成API浏览器走查、10张截图和可复现脚本。\n- [x] 问题清单、协作验收表及个人进展／AI贡献素材。\n- [x] 现有任务错误、训练控制器定向测试19/19通过；28个本地链接与24个证据／文档文件的Git暂存内容哈希核验通过。\n\n### 走查发现\n\n浏览器走查4项符合预期、6项存在差异：等待状态播报不足；取消503后误报已取消；401后旧身份和发送入口仍保留；结束直接清空、无确认；保存中的停止按钮无效；许可撤回缺少前端入口。其中结束确认和撤回入口的具体规则需团队确认，未擅自改动生产页面。\n\n### 待协作与验收\n\n- [ ] 程杰／程群确认规则与修复计划（未代替成员签字）。\n- [ ] 对应开发修复后，关欣／曾俊涛在新候选独立复核。\n\n失效会话关联 #123，后端修复 PR #128 尚未合并（查询时状态），作者报告不计入本次19项测试。文字销毁范围关联 #122；本次未执行REQ14隐私专项。Day1另见 #115／PR #116，本交付不夹带其未合并文件。\n\n### 材料\n\n- [交付索引](https://github.com/impureWine/404NOTFOUND/blob/7a6d4f9135e1ba5fd3b485ce3193bbcc0c370d20/docs/beta/郭昱祺/Day2_20261115/README.md)\n- [异步状态交互说明](https://github.com/impureWine/404NOTFOUND/blob/7a6d4f9135e1ba5fd3b485ce3193bbcc0c370d20/docs/beta/郭昱祺/Day2_20261115/01_异步状态交互说明.md)\n- [文案与按钮表](https://github.com/impureWine/404NOTFOUND/blob/7a6d4f9135e1ba5fd3b485ce3193bbcc0c370d20/docs/beta/郭昱祺/Day2_20261115/02_状态文案与按钮表.md)\n- [走查结果、问题与截图](https://github.com/impureWine/404NOTFOUND/blob/7a6d4f9135e1ba5fd3b485ce3193bbcc0c370d20/docs/beta/郭昱祺/Day2_20261115/03_走查结果与问题清单.md)\n- [协作交接与验收](https://github.com/impureWine/404NOTFOUND/blob/7a6d4f9135e1ba5fd3b485ce3193bbcc0c370d20/docs/beta/郭昱祺/Day2_20261115/04_协作交接与验收.md)\n- [个人进展与AI贡献](https://github.com/impureWine/404NOTFOUND/blob/7a6d4f9135e1ba5fd3b485ce3193bbcc0c370d20/docs/beta/郭昱祺/Day2_20261115/05_个人进展与AI贡献.md)\n\n### 验证范围\n\nEdge无头浏览器实际执行UI，所有API响应、账号、内容均为合成拦截，没有真实认证／模型／搜索／数据库联调。4/10是这组UX预期的符合项数；19/19是既有定向单测结果，不是全量回归。6项差异未修复，不将截图标成生产验收成功。未虚构站会、工时或成员确认。\n"
+    },
+    {
+      "number": 147,
+      "title": "[Beta冲刺 Day3][UX/产品设计][郭昱祺] 历史与清除交互修订、文案及键盘走查",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/147",
+      "body": "## 今日任务与交付\n\n日期：2026-11-16。负责人：郭昱祺（UX／产品设计）。关联B02 #105。\n分工已核实：完善保存确认、历史详情、空列表及两步清除交互；检查焦点与键盘操作。\n基线：`b78a0e264bbf75b52239f4026aa6d92756a089a6`。\n实现提交：`eab0123d8dbe1715fe8c66fde8d67770c816586b`。\n文档／证据提交：`a76b04fe23348999debfaaf64281f2678651012e`。\n\n### 已完成\n\n- [x] 保存确认自动聚焦标题，完成／取消后回原检查按钮。\n- [x] 详情展开聚焦详情标题，关闭回原详情按钮。\n- [x] 清除确认默认聚焦“取消确认”，取消后回原清除按钮；补充只清除此条及正文的范围说明。\n- [x] Library共用列表分开loading、ready空列表与error，失败时不再显示暂无记录。\n- [x] 修复390px窄屏清除按钮纵向折行（样式匹配实际btn类）。\n- [x] 历史与清除走查表、19条状态文案、查询快照说明、协作交接与AI贡献素材。\n- [x] 20项最终浏览器UX走查通过；前端既有46/46测试通过；Vite构建通过。\n- [x] 保留修订前后40张截图、原始JSON及复现脚本；核验81个文档链接、59个包内文件的暂存哈希及4个受测源码哈希。\n\n### 材料\n\n- [交付索引](https://github.com/impureWine/404NOTFOUND/blob/a76b04fe23348999debfaaf64281f2678651012e/docs/beta/郭昱祺/Day3_20261116/README.md)\n- [历史与清除交互修订](https://github.com/impureWine/404NOTFOUND/blob/a76b04fe23348999debfaaf64281f2678651012e/docs/beta/郭昱祺/Day3_20261116/01_历史与清除交互修订.md)\n- [状态文案与快照说明](https://github.com/impureWine/404NOTFOUND/blob/a76b04fe23348999debfaaf64281f2678651012e/docs/beta/郭昱祺/Day3_20261116/02_状态文案与快照说明.md)\n- [走查表与修订前后截图](https://github.com/impureWine/404NOTFOUND/blob/a76b04fe23348999debfaaf64281f2678651012e/docs/beta/郭昱祺/Day3_20261116/03_历史与清除走查表.md)\n- [协作交接与个人进展](https://github.com/impureWine/404NOTFOUND/blob/a76b04fe23348999debfaaf64281f2678651012e/docs/beta/郭昱祺/Day3_20261116/04_协作交接与个人进展.md)\n\n### 验证边界与待复核\n\n本包是Edge执行当前React界面，全部API响应合成拦截；不代表真实登录、数据库持久化、服务器清除或生产验收完成。初始20项为15通过／5差异，人工看图另发现窄屏折行；最终强化了部分焦点和按钮尺寸判据，不能视作完全不变指标的提升率。\n\n测试岗已有隔离PGlite链路报告属于其独立结果，未计入本次20项或46项。Day2取消、401、撤回等问题不随本交付关闭。\n\n- [ ] 程杰评审并整合局部组件修订。\n- [ ] 庄剀涵／李泉毅确认快照与清除文案含义。\n- [ ] 曾俊涛／关欣在包含实现提交的新候选复核真实记录链与受影响场景。\n\n以上确认尚未收到，不替成员签字。未虚构站会时间、照片或工时。\n"
+    }
+  ],
+  "recent": [
+    {
+      "number": 150,
+      "title": "[Beta][Day4][数据与检索][庄剀涵] 来源字段、查询快照与异常响应核验",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/150",
+      "state": "open"
+    },
+    {
+      "number": 147,
+      "title": "[Beta冲刺 Day3][UX/产品设计][郭昱祺] 历史与清除交互修订、文案及键盘走查",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/147",
+      "state": "open"
+    },
+    {
+      "number": 130,
+      "title": "[Beta冲刺 Day2][UX/产品设计][郭昱祺] 异步状态交互说明、文案与走查结果",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/130",
+      "state": "open"
+    },
+    {
+      "number": 115,
+      "title": "[Beta冲刺 Day1][UX/产品设计][郭昱祺] 核心路径与状态走查基线",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/115",
+      "state": "open"
+    },
+    {
+      "number": 85,
+      "title": "[Alpha冲刺 Day7][UX/产品设计][郭昱祺] 最终答辩PPTX、PDF及素材来源",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/85",
+      "state": "closed"
+    },
+    {
+      "number": 76,
+      "title": "[Alpha冲刺 Day 6][UX/产品设计][郭昱祺] PPT可编辑稿及演示素材交付",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/76",
+      "state": "open"
+    },
+    {
+      "number": 51,
+      "title": "[Alpha冲刺 Day 4][UX/产品设计][郭昱祺] 完成保存与历史页面、走查问题清单",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/51",
+      "state": "closed"
+    }
+  ]
+}
