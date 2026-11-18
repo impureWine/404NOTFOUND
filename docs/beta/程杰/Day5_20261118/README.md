@@ -33,4 +33,6 @@ node docs/beta/程杰/Day5_20261118/tests/private-text-lifecycle.mjs
 
 ## 交接
 
-本交付为前端协作修订，不代替 Issue 负责人关欣的独立安全验收。提交 SHA、远端分支与 Issue 评论将在推送完成后补记；不预先标记该 Issue 已验收或关闭。
+实现提交：`a546e41`（`fix(beta): clear private text runtime on exit`）。已推送分支：[`chengjie/beta-day5-frontend-privacy`](https://github.com/impureWine/404NOTFOUND/tree/chengjie/beta-day5-frontend-privacy)。
+
+本交付为前端协作修订，不代替 Issue 负责人关欣的独立安全验收；Issue #109 保持 open，等待负责人及独立复核人按原验收条件确认，不在本交付中预先关闭。
