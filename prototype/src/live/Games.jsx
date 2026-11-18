@@ -1,29 +1,52 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createGameLoop } from './game-loop.js';
 import { useTextDestructionState } from '../req14/useTextDestructionState.js';
+import { clearPrivateTextRuntime } from '../req14/private-text-runtime.js';
 
 export function PrivateText() {
-  const { text, setBuffer: setText, inputRef, destroy: destroyBuffer, clear: clearBuffer } = useTextDestructionState();
-  const [effect, setEffect] = useState('burn'), [active, setActive] = useState(false);
+  const { text, setBuffer: setText, inputRef, destroy: destroyBuffer, clear: clearBuffer, dispose: disposeBuffer } = useTextDestructionState();
+  const [effect, setEffect] = useState('burn'), [active, setActive] = useState(false), [notice, setNotice] = useState('');
   const canvas = useRef(null), frame = useRef(0), particles = useRef([]), privateText = useRef('');
-  const clear = () => { privateText.current = ''; particles.current = []; clearBuffer(); setActive(false); cancelAnimationFrame(frame.current); canvas.current?.getContext('2d').clearRect(0, 0, 800, 420); };
-  useEffect(() => { const erase = () => { privateText.current = ''; particles.current = []; cancelAnimationFrame(frame.current); setText(''); setActive(false); };
-    window.addEventListener('pagehide', erase); return () => { window.removeEventListener('pagehide', erase); privateText.current = ''; particles.current = []; cancelAnimationFrame(frame.current); }; }, []);
+  const resetRuntime = (surface = canvas.current) => clearPrivateTextRuntime({ textRef: privateText, particlesRef: particles, frameRef: frame, canvas: surface, cancelFrame: cancelAnimationFrame });
+  const clear = () => { resetRuntime(); clearBuffer(); setActive(false); setNotice(''); };
+  useEffect(() => {
+    const surface = canvas.current;
+    const erase = () => { resetRuntime(); disposeBuffer(); setActive(false); };
+    window.addEventListener('pagehide', erase);
+    window.addEventListener('beforeunload', erase);
+    return () => { window.removeEventListener('pagehide', erase); window.removeEventListener('beforeunload', erase); resetRuntime(surface); };
+  }, []);
   const destroy = () => {
     const letters = Array.from(text); if (!letters.length) return;
+    try {
+      if (!canvas.current?.getContext('2d')) throw new Error('Canvas context unavailable');
+    } catch {
+      resetRuntime(); destroyBuffer(); setActive(false); setNotice('动画不可用，输入内容已清空。'); return;
+    }
     particles.current = letters.map((letter, index) => ({ letter, x: 50 + index % 35 * 19, y: 80 + Math.floor(index / 35) * 28, vx: (Math.random() - .5) * 5, vy: -Math.random() * 4 }));
-    privateText.current = ''; destroyBuffer(); setActive(true); const start = performance.now();
+    privateText.current = ''; destroyBuffer(); setNotice(''); setActive(true); const start = performance.now();
+    const queueFrame = () => {
+      try { frame.current = requestAnimationFrame(render); }
+      catch { resetRuntime(); setActive(false); setNotice('动画未能启动，输入内容已清空。'); }
+    };
     const render = now => {
-      const ctx = canvas.current?.getContext('2d'); if (!ctx) return;
-      ctx.clearRect(0, 0, 800, 420); ctx.font = '18px sans-serif'; const progress = (now - start) / 1800;
-      if (progress >= 1) { particles.current = []; setActive(false); return; }
-      ctx.globalAlpha = 1 - progress;
-      for (const particle of particles.current) { if (effect === 'blackhole') { particle.x += (400 - particle.x) * .055; particle.y += (210 - particle.y) * .055; } else { particle.x += particle.vx; particle.y += effect === 'burn' ? particle.vy - .6 : (particle.vy += .15); }
-        ctx.fillStyle = effect === 'burn' ? '#bb6549' : '#47645a'; ctx.fillText(particle.letter, particle.x, particle.y); }
-      ctx.globalAlpha = 1; frame.current = requestAnimationFrame(render);
-    }; frame.current = requestAnimationFrame(render);
+      frame.current = 0;
+      try {
+        const ctx = canvas.current?.getContext('2d');
+        if (!ctx) { resetRuntime(); setActive(false); setNotice('动画已中断，输入内容已清空。'); return; }
+        ctx.clearRect(0, 0, 800, 420); ctx.font = '18px sans-serif'; const progress = (now - start) / 1800;
+        if (progress >= 1) { particles.current = []; setActive(false); return; }
+        ctx.globalAlpha = 1 - progress;
+        for (const particle of particles.current) { if (effect === 'blackhole') { particle.x += (400 - particle.x) * .055; particle.y += (210 - particle.y) * .055; } else { particle.x += particle.vx; particle.y += effect === 'burn' ? particle.vy - .6 : (particle.vy += .15); }
+          ctx.fillStyle = effect === 'burn' ? '#bb6549' : '#47645a'; ctx.fillText(particle.letter, particle.x, particle.y); }
+        ctx.globalAlpha = 1; queueFrame();
+      } catch {
+        resetRuntime(); setActive(false); setNotice('动画已中断，输入内容已清空。');
+      }
+    };
+    queueFrame();
   };
-  return <section className="live-records recent-card"><h2>文字焚化与重力黑洞</h2><p>文字只在本页私有内存中短暂停留，不调用 API、不写浏览器存储。销毁或离开页面时清理。</p><label>想放下的话<textarea ref={inputRef} maxLength={300} autoComplete="off" spellCheck={false} disabled={active} value={text} onChange={event => { privateText.current = event.target.value; setText(event.target.value); }} /></label><label>方式<select disabled={active} value={effect} onChange={event => setEffect(event.target.value)}><option value="burn">焚化</option><option value="shred">粉碎</option><option value="blackhole">黑洞</option></select></label><button disabled={!text || active} onClick={destroy}>销毁本页文字</button><button onClick={clear}>立即清空</button><canvas width="800" height="420" ref={canvas} aria-label="文字消散动画" /></section>;
+  return <section className="live-records recent-card"><h2>文字焚化与重力黑洞</h2><p>文字只在本页私有内存中短暂停留，不调用 API、不写浏览器存储。销毁或离开页面时清理。</p><label>想放下的话<textarea ref={inputRef} maxLength={300} autoComplete="off" spellCheck={false} disabled={active} value={text} onChange={event => { privateText.current = event.target.value; setText(event.target.value); }} /></label><label>方式<select disabled={active} value={effect} onChange={event => setEffect(event.target.value)}><option value="burn">焚化</option><option value="shred">粉碎</option><option value="blackhole">黑洞</option></select></label><button disabled={!text || active} onClick={destroy}>销毁本页文字</button><button disabled={!text && !active} onClick={clear}>立即清空</button>{notice && <p role="status">{notice}</p>}<canvas width="800" height="420" ref={canvas} aria-label="文字消散动画" /></section>;
 }
 
 export function PhysicsGame({ mode = 'marbles' }) {

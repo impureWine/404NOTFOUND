@@ -1,0 +1,39 @@
+{
+  "date": "2026-11-19 Asia/Shanghai",
+  "route": "#private-text",
+  "input": "synthetic only",
+  "cases": [
+    {
+      "name": "keyboard-triggered destroy works; pagehide clears input, pixels, and pending frame",
+      "passed": true
+    },
+    {
+      "name": "beforeunload clears input and animation pixels",
+      "passed": true
+    },
+    {
+      "name": "missing 2D context clears input and returns to an idle state",
+      "passed": true
+    },
+    {
+      "name": "drawing exception clears input and returns to an idle state",
+      "passed": true
+    },
+    {
+      "name": "SPA navigation unmount clears the old canvas and reentry stays empty",
+      "passed": true
+    },
+    {
+      "name": "320px viewport has no horizontal overflow",
+      "passed": true
+    }
+  ],
+  "checks": {
+    "markerInNetworkRequests": false,
+    "markerInLocalOrSessionStorage": false,
+    "markerInIndexedDBWriteArguments": false,
+    "markerInConsole": false,
+    "networkRequestsDuringInputActions": 0,
+    "exitEventsWereDispatchedByTest": true
+  }
+}
