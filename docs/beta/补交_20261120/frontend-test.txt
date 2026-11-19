@@ -1,0 +1,58 @@
+
+> 404notfound-prototype@1.0.0 test
+> node --test
+
+✔ mock mode never calls fetch or claims an API success (2.6449ms)
+✔ real mode uses same-origin no-store requests and the configured CSRF header (57.1335ms)
+✔ real mode refuses writes before context has configured CSRF state (0.454ms)
+✔ authentication methods preserve the shared request names and credential policy (2.9341ms)
+✔ identity changes discard the in-memory CSRF token even when the response is lost (0.9195ms)
+✔ record vault uses the shared consent, list, detail, and two-step clear endpoints (3.4758ms)
+✔ API errors preserve the contract code and request id without retaining raw bodies (0.4339ms)
+✔ search TIMEOUT reports the search source, never the AI model (10.1586ms)
+✔ search SERVICE_UNAVAILABLE reports the search source, never the AI model (1.4768ms)
+✔ search PROVIDER_UNAVAILABLE reports the search source, never the AI model (0.5021ms)
+✔ search SEARCH_NOT_CONFIGURED reports the search source, never the AI model (0.397ms)
+✔ search SEARCH_AUTH_FAILED reports the search source, never the AI model (0.3864ms)
+✔ search SEARCH_RATE_LIMITED reports the search source, never the AI model (0.3039ms)
+✔ model timeout retains its AI message and uses the agent task route (0.3899ms)
+✔ search cancelled with no code keeps a search-specific fallback (0.2742ms)
+✔ search expired with no code keeps a search-specific fallback (0.3034ms)
+✔ search failed with UNKNOWN keeps a search-specific fallback (0.4606ms)
+✔ desktop breathing never advances before start and follows 4/6-second phases (3.837ms)
+✔ desktop breathing pauses without counting hidden time and resumes at the same phase (1.8377ms)
+✔ collapse/reset and dispose prevent old timer callbacks from publishing into the next exercise (1.3752ms)
+✔ desktop breathing completes once and cancels its timer even after a delayed tick (1.032ms)
+✔ desktop starts as one compact pet without opening a workspace window (3.2802ms)
+✔ expansion preserves the bottom-right anchor and clamps to the display work area (1.3683ms)
+✔ only the actual pet may open allowlisted workspace routes (1.0991ms)
+✔ recovery shortcut restores a hidden pet and disables click-through (1.0064ms)
+✔ preload exposes only fixed routes and event subscriptions can be removed (2.9934ms)
+✔ switching away disposes the owned animation loop and all lifecycle listeners (1.3258ms)
+✔ hiding the page pauses motion and never auto-resumes when visible again (0.2721ms)
+✔ pagehide cancels outstanding animation callbacks before they can draw again (1.1732ms)
+✔ history detail renders the actual title and CONVERSATION body (7.1363ms)
+✔ history detail renders the actual title and EMOTION body (0.4667ms)
+✔ history detail renders the actual title and WORRY_OBJECT body (0.2723ms)
+✔ history detail renders the actual title and REHEARSAL_DRAFT body (0.3348ms)
+✔ query history shows the saved question, excerpt, uncertainty and original source (0.9354ms)
+✔ deposit detail never reveals a body before active retrieval (0.6111ms)
+✔ history escapes saved markup and refuses executable source links (0.5878ms)
+✔ missing detail content reports an explicit problem rather than a blank success panel (0.3295ms)
+✔ ready training never starts a timer or advances before explicit start (2.1765ms)
+✔ breathing follows phase boundaries, skips zero hold and supports an optional hold (0.2412ms)
+✔ pause freezes phase, progress and elapsed time; resume only adds active time (0.4712ms)
+✔ completion clamps the clock and cancels timers, including delayed background callbacks (0.3985ms)
+✔ stale callbacks cannot publish events after pause, reset/restart, exit or dispose (0.3141ms)
+✔ guided steps only move on explicit actions, preserve pause and allow revisiting before completion (0.2763ms)
+✔ pause-organize and worksheet complete only explicitly, not when timers elapse (0.2218ms)
+✔ invalid content and breathing settings fail before allocating a timer (0.5558ms)
+✔ page hide pauses without auto-resume; page exit and unmount cancel all owned work (0.4608ms)
+ℹ tests 46
+ℹ suites 0
+ℹ pass 46
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6290.2126
