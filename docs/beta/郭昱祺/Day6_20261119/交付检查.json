@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-19",
+  "candidate": "8aa020ffb3a3afbdaed42baae0277f783b8e11a4",
+  "frontendTests": {"passed": 46, "failed": 0},
+  "frontendBuild": "PASS",
+  "desktopPetTests": {"passed": 9, "failed": 0, "kind": "window substitute"},
+  "browserSpecial": {"passed": 4, "failed": 0, "api": "synthetic private text; real React page and local training"},
+  "deliverables": ["01_最终核心场景验收.md", "02_发布前UX检查清单.md", "03_桌宠与入口文案交接.md", "04_个人进展与AI贡献.md"],
+  "blocking": ["R02 invalid-session write contract", "R03 revoke in-flight task", "R07 native desktop full operation", "R08 formal environment", "R09 non-author sign-off"],
+  "realParticipants": 0,
+  "productionRelease": false
+}
