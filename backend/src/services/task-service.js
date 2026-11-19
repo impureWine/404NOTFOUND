@@ -88,8 +88,11 @@ export class TaskService {
       session.activityGeneration += 1;
       session.state = 'ready';
     }
-    if (['PAUSE', 'RESTART', 'FINISH_REHEARSAL', 'END'].includes(value.action)) {
+    if (['PAUSE', 'FINISH_REHEARSAL'].includes(value.action)) {
       this.cancelSessionTasks(session.sessionId);
+    }
+    if (['RESTART', 'END'].includes(value.action)) {
+      this.cancelSessionTasks(session.sessionId, { includeCompleted: true });
     }
     return this.publicSession(session);
   }
@@ -135,6 +138,7 @@ export class TaskService {
       activityId: session.activityId,
       sessionGeneration: session.sessionGeneration,
       activityGeneration: session.activityGeneration,
+      consentId: value.consentId,
       status: 'pending',
       controller,
     };
@@ -206,6 +210,7 @@ export class TaskService {
       activityId: session.activityId,
       sessionGeneration: session.sessionGeneration,
       activityGeneration: session.activityGeneration,
+      consentId: value.consentId,
       status: 'pending',
       controller,
     };
@@ -289,6 +294,16 @@ export class TaskService {
         task.status = 'cancelled'; task.controller.abort(); delete task.result;
       }
     }
+  }
+
+  invalidateConsent(consentId) {
+    let tasksInvalidated = 0;
+    for (const task of [...this.agentTasks.values(), ...this.searchTasks.values()]) {
+      if (task.consentId !== consentId || ['cancelled', 'expired'].includes(task.status)) continue;
+      this.cancelTask(task);
+      tasksInvalidated += 1;
+    }
+    return { tasksInvalidated };
   }
 
   invalidateContext(context) {
@@ -376,7 +391,7 @@ export class TaskService {
   }
 
   publicTask(task) {
-    const { ownerKey: _ownerKey, entryPointId: _entryPointId, question: _question, selectedContextIds: _selectedContextIds, safetyReason: _safetyReason, controller: _controller, ...result } = task;
+    const { ownerKey: _ownerKey, entryPointId: _entryPointId, consentId: _consentId, question: _question, selectedContextIds: _selectedContextIds, safetyReason: _safetyReason, controller: _controller, ...result } = task;
     return result;
   }
 
@@ -408,10 +423,7 @@ export class TaskService {
         && (includeCompleted || ['pending', 'running'].includes(task.status))
         && !['cancelled', 'expired'].includes(task.status)
       ) {
-        task.status = 'cancelled';
-        task.controller.abort();
-        delete task.result;
-        delete task.failureReason;
+        this.cancelTask(task);
       }
     }
     for (const task of this.searchTasks.values()) {
@@ -420,12 +432,18 @@ export class TaskService {
         && (includeCompleted || ['pending', 'running'].includes(task.status))
         && !['cancelled', 'expired'].includes(task.status)
       ) {
-        task.status = 'cancelled';
-        task.controller.abort();
-        delete task.answer;
-        delete task.sources;
-        delete task.failureReason;
+        this.cancelTask(task);
       }
     }
+  }
+
+  cancelTask(task) {
+    task.status = 'cancelled';
+    task.controller.abort();
+    delete task.result;
+    delete task.answer;
+    delete task.sources;
+    delete task.claims;
+    delete task.failureReason;
   }
 }

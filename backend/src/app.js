@@ -161,6 +161,7 @@ export function createApp({
       app.post('/api/consents/:id/revoke', (request, response, next) => {
         try {
           const data = consentService.revoke(request.accessContext, request.params.id);
+          taskService?.invalidateConsent?.(request.params.id);
           response.json({ data, meta: { requestId: request.requestId } });
         } catch (error) {
           next(error);
