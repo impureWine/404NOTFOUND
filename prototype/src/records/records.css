@@ -47,6 +47,7 @@
 .calendar-weekdays { margin-top: 19px; color: #9aa7a3; font-size: 10.5px; text-align: center; }
 .calendar-cards-grid { margin-top: 7px; }
 .calendar-day-empty { min-height: 94px; }
+.live-records .calendar-day-card { padding: 0; }
 .calendar-day-card { height: 94px; margin: 0 !important; border: 1px solid #e4ece9 !important; border-radius: 13px !important; background: #fbfdfc !important; color: #33403f !important; text-align: left !important; transition: border-color .2s, box-shadow .2s, transform .2s; }
 .calendar-day-card:hover { border-color: #ebcbd8 !important; box-shadow: 0 8px 18px #c86b8c18; transform: translateY(-2px); }
 .calendar-day-card.is-selected { border-color: #c86b8c !important; box-shadow: 0 0 0 3px #f9eaf0, 0 8px 18px #c86b8c14; }
@@ -98,6 +99,10 @@
   .calendar-day-card .flip-card-face { padding: 7px; }
   .calendar-day-caption { font-size: 9px; }
   .calendar-day-mood { width: 22px; height: 22px; font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .calendar-day-card .flip-card-front { padding: 7px 1px; align-items: center; }
+  .calendar-day-number { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .calendar-day-card { transition: none; }

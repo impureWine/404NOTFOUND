@@ -35,9 +35,11 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
   const [editing, setEditing] = useState(null), [detail, setDetail] = useState(null);
   const [busy, setBusy] = useState(false), [loading, setLoading] = useState(false);
   const [error, setError] = useState(''), [notice, setNotice] = useState('');
+  const [loadError, setLoadError] = useState('');
   const [revision, setRevision] = useState(0);
   const epoch = useRef(0), pending = useRef(null), locked = useRef(false);
   const emotion = kind === 'EMOTION';
+  const recordsUnknown = loading || Boolean(loadError);
   const patch = value => setContent(current => ({ ...current, ...value }));
   const query = () => {
     const value = { kind, limit: 20 };
@@ -50,29 +52,29 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
   };
   useEffect(() => {
     if (readOnly) {
-      setItems([]); setCursor(null); setDetail(null); setError(''); setLoading(false);
+      setItems([]); setCursor(null); setDetail(null); setError(''); setLoadError(''); setLoading(false);
       return undefined;
     }
     const controller = new AbortController();
     const generation = ++epoch.current;
-    setItems([]); setCursor(null); setDetail(null); setError(''); setLoading(true);
+    setItems([]); setCursor(null); setDetail(null); setError(''); setLoadError(''); setLoading(true);
     apiClient.listRecords(query(), { signal: controller.signal }).then(async result => {
       const records = emotion ? await Promise.all(result.items.map(item => apiClient.getRecord(item.id, { signal: controller.signal }))) : result.items;
       if (generation === epoch.current && !controller.signal.aborted) { setItems(records); setCursor(result.nextCursor); }
-    }).catch(value => { if (!controller.signal.aborted) setError(value.message); })
+    }).catch(value => { if (!controller.signal.aborted) { setError(value.message); setLoadError(value.message); } })
       .finally(() => { if (!controller.signal.aborted) setLoading(false); });
     return () => { controller.abort(); ++epoch.current; };
   }, [kind, month, revision, readOnly]);
 
   const more = async () => {
     const generation = epoch.current;
-    setLoading(true); setError('');
+    setLoading(true); setError(''); setLoadError('');
     try {
       const result = await apiClient.listRecords({ ...query(), cursor });
       const records = emotion ? await Promise.all(result.items.map(item => apiClient.getRecord(item.id))) : result.items;
       if (generation !== epoch.current) return;
       setItems(current => [...current, ...records]); setCursor(result.nextCursor);
-    } catch (value) { if (generation === epoch.current) setError(value.message); }
+    } catch (value) { if (generation === epoch.current) { setError(value.message); setLoadError(value.message); } }
     finally { if (generation === epoch.current) setLoading(false); }
   };
   const view = async item => {
@@ -129,12 +131,12 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
   const renderDayFront = (date, records) => {
     const record = records[0];
     const meta = emotionMeta(record);
-    return <><span className="calendar-day-number">{Number(date.slice(-2))}</span><span className={`calendar-day-mood ${meta.tone}`}>{records.length ? meta.emoji : <CalendarDays size={15} aria-hidden="true" />}</span><span className="calendar-day-caption">{records.length ? meta.label : readOnly ? '预览' : '记录心情'}</span></>;
+    return <><span className="calendar-day-number">{Number(date.slice(-2))}</span><span className={`calendar-day-mood ${meta.tone}`}>{records.length ? meta.emoji : <CalendarDays size={15} aria-hidden="true" />}</span><span className="calendar-day-caption">{records.length ? meta.label : readOnly ? '预览' : recordsUnknown ? loading ? '读取中' : '未确认' : '记录心情'}</span></>;
   };
   const renderDayBack = (date, records) => {
     const record = records[0];
     const meta = emotionMeta(record);
-    return <><span className="calendar-day-back-date">{localDateLabel(date)}</span>{records.length ? <><strong>{meta.emoji} {meta.label}</strong><span>{record.content.intensity ? `强度 ${record.content.intensity} / 5` : '强度未填写'}</span><small>{record.content.note || '没有补充备注'}</small></> : <><strong>{readOnly ? '访客预览' : '还没有记录'}</strong><span>{readOnly ? '无法读取本人记录' : '点击可将日期带入下方表单'}</span></>}</>;
+    return <><span className="calendar-day-back-date">{localDateLabel(date)}</span>{records.length ? <><strong>{meta.emoji} {meta.label}</strong><span>{record.content.intensity ? `强度 ${record.content.intensity} / 5` : '强度未填写'}</span><small>{record.content.note || '没有补充备注'}</small></> : <><strong>{readOnly ? '访客预览' : recordsUnknown ? loading ? '正在读取记录' : '记录状态未确认' : '还没有记录'}</strong><span>{readOnly ? '无法读取本人记录' : recordsUnknown ? '尚不能确认这一天有无记录' : '点击可将日期带入下方表单'}</span></>}</>;
   };
   return <section className="live-records recent-card">
     <div className="section-heading"><h3>{emotion ? '情绪日历' : '陪伴记录'}</h3><span>{readOnly ? '访客预览 · 不读取个人记录' : '本人账户 · 真实服务'}</span></div>
@@ -161,8 +163,8 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
         <p className="calendar-help"><CircleHelp size={15} />{readOnly ? '点击日期卡片翻面预览；访客模式不读取或保存个人记录。' : '点击日期卡片翻面查看记录；颜色只代表你选择的描述，不是评估结果。'}</p>
       </section>
       <aside className="calendar-side-stack">
-        <section className="calendar-summary-card"><div className="calendar-summary-icon"><Sparkles size={17} /></div><div><span className="calendar-eyebrow">本月概览</span><strong>{readOnly || error ? '—' : `${recordedDays} / ${dayCount} 天`}</strong><p>{readOnly ? '连接服务并登录后显示' : error ? '读取失败不代表没有记录' : recordedDays ? '已加载本人主动记录' : '这个月还可以从今天开始'}</p></div></section>
-        <section className="calendar-selected-card"><div className="calendar-card-heading"><div><span className="calendar-eyebrow">选中的一天</span><h4>{selectedDay ? localDateLabel(selectedDay) : '点击一张日历卡'}</h4></div><Heart size={19} /></div>{selectedRecords.length ? <p>{selectedRecords[0].content.note || '这一天没有补充备注。'}</p> : <p>{readOnly ? '这是只读空状态预览。登录并连接服务后，才会读取这一天的本人记录。' : '选择日期后，可以在下方表单记录心情。空白日子也值得被保留。'}</p>}<button type="button" className="calendar-link-button" onClick={() => { setSelectedDay(''); setEditing(null); setFlippedDay(null); }}>查看整月</button></section>
+        <section className="calendar-summary-card"><div className="calendar-summary-icon"><Sparkles size={17} /></div><div><span className="calendar-eyebrow">本月概览</span><strong>{readOnly || recordsUnknown ? '—' : `${recordedDays} / ${dayCount} 天`}</strong><p>{readOnly ? '连接服务并登录后显示' : loading ? '正在读取本月记录，请稍候' : loadError ? '读取失败不代表没有记录' : recordedDays ? '已加载本人主动记录' : '这个月还可以从今天开始'}</p></div></section>
+        <section className="calendar-selected-card"><div className="calendar-card-heading"><div><span className="calendar-eyebrow">选中的一天</span><h4>{selectedDay ? localDateLabel(selectedDay) : '点击一张日历卡'}</h4></div><Heart size={19} /></div>{selectedRecords.length ? <p>{selectedRecords[0].content.note || '这一天没有补充备注。'}</p> : <p>{readOnly ? '这是只读空状态预览。登录并连接服务后，才会读取这一天的本人记录。' : recordsUnknown ? '记录尚未确认。请等待读取完成，失败时可点击重新读取。' : '选择日期后，可以在下方表单记录心情。空白日子也值得被保留。'}</p>}<button type="button" className="calendar-link-button" onClick={() => { setSelectedDay(''); setEditing(null); setFlippedDay(null); }}>查看整月</button></section>
       </aside>
     </div>}
     {!readOnly && <ul className="live-record-list">{visibleItems.map(item => <li key={item.id}>
