@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { RecordRepository } from './repositories/record-repository.js';
 import { RecordService } from './services/record-service.js';
 import { ConsentService } from './services/consent-service.js';
-import { getRuntimeConfig } from './runtime-config.js';
+import { assertReleaseReadiness, getRuntimeConfig } from './runtime-config.js';
 
 try {
   loadEnvFile();
@@ -24,7 +24,9 @@ try {
   }
 }
 
-const config = getRuntimeConfig();
+const config = process.env.NODE_ENV === 'production'
+  ? assertReleaseReadiness()
+  : getRuntimeConfig();
 const database = createPoolFromConfig(config.database);
 if (config.migrateOnStart) {
   await runMigrations(database);

@@ -103,6 +103,17 @@ export function inspectReleaseReadiness(env = process.env) {
     if (env.MIGRATE_ON_START === 'true') {
       issues.push('production migrations must be an explicit release step');
     }
+    if (!config?.database.ssl) issues.push('production database connections require TLS');
+    if (!env.ZHIPU_API_KEY) issues.push('ZHIPU_API_KEY is required in production');
+    if (!env.SERPAPI_API_KEY) issues.push('SERPAPI_API_KEY is required in production');
   }
   return Object.freeze({ ready: issues.length === 0, issues: Object.freeze(issues), config });
+}
+
+export function assertReleaseReadiness(env = process.env) {
+  const result = inspectReleaseReadiness(env);
+  if (!result.ready) {
+    throw new Error(`Release configuration is not ready:\n- ${result.issues.join('\n- ')}`);
+  }
+  return result.config;
 }
