@@ -1,0 +1,41 @@
+{
+  "candidate": "bb7f2fc",
+  "date": "2026-11-19 Asia/Shanghai",
+  "page": "#private-text",
+  "cases": [
+    {
+      "name": "pagehide-mid-destroy",
+      "inputCleared": true,
+      "markerInApi": false,
+      "markerInStorage": false,
+      "markerInConsole": false,
+      "pageErrors": [],
+      "newApiRequests": 1,
+      "apiPaths": [
+        "/api/auth/context"
+      ]
+    },
+    {
+      "name": "route-away-mid-destroy",
+      "inputCleared": true,
+      "markerInApi": false,
+      "markerInStorage": false,
+      "pageErrors": []
+    },
+    {
+      "name": "empty-and-repeat-click",
+      "emptyInputDisablesButton": true,
+      "inputCleared": true,
+      "pageErrors": [],
+      "markerInApi": false
+    },
+    {
+      "name": "canvas-context-missing",
+      "inputCleared": true,
+      "pageErrors": [],
+      "markerInApi": false,
+      "markerInStorage": false
+    }
+  ],
+  "verdict": "pass"
+}
