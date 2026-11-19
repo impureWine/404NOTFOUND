@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-19",
+  "timezone": "Asia/Shanghai",
+  "author": "庄剀涵",
+  "branch": "codex/zkh-beta-day6-restore",
+  "integrationBase": "2a7152f094e7468d2cec32a939d5f965f80755ee",
+  "fetchedMain": "a7be2de",
+  "normalization": "UTF-8 text, CRLF normalized to LF; TAP trailing whitespace removed without changing results",
+  "focused": {
+    "passed": 25,
+    "failed": 0
+  },
+  "backend": {
+    "passed": 222,
+    "skipped": 0,
+    "failed": 0
+  },
+  "targetPostgres": "blocked: user confirmed no test database",
+  "realSearch": "blocked: SEARCH_NOT_CONFIGURED",
+  "independentDeletionLogReplay": "not executed",
+  "independentReview": "pending",
+  "files": [
+    {
+      "path": "backend/src/db/restore-safety.js",
+      "sha256": "4a7d41fa8c0b8692eb55690adc724ea6d6dd6e744c4b400771925f361de75399"
+    },
+    {
+      "path": "backend/scripts/inspect-data-environment.js",
+      "sha256": "d5e301c8f669a74a46ebd0bc27fe9548282fbe7e070d7b525105d17a26c11006"
+    },
+    {
+      "path": "backend/test/integration/beta-day6-recovery.test.js",
+      "sha256": "2cbefde120a1980337fd00c003670fdbb028fa817616eacaaf7029d77638968d"
+    },
+    {
+      "path": "backend/test/unit/data-environment.test.js",
+      "sha256": "67c1fe3d22ea7b890d7f48cd47c2c6ec5885e73a82bef0a8504f3bf23bd966dc"
+    },
+    {
+      "path": "backend/evidence/daily/Day6_Beta_庄剀涵_20261119.md",
+      "sha256": "1901f59298d4d8d0894cfe598e39f87bbb2865aa1b56e560ba5126bcf6d110fa"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/backend-full.tap",
+      "sha256": "ae7761c0453b9d2a69466dadecac4263d0440408a5968c95aa3f6e0b33f89572"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/check-exit-codes.json",
+      "sha256": "0e65489c3bea1c980427aed714fc55de0ee9f56258625255421d2b16014f4055"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/environment-check.json",
+      "sha256": "b6bb57eac625cfbe691a75034f60bb94aadd992d10c32c630811ff0c7ab562ea"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/focused.tap",
+      "sha256": "7ef337822e92c590c9a8f524ebb8f53fe4c237b4a3e2df7b905debfcc16d8914"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/guard-before.tap",
+      "sha256": "aba958dedb23edda61a9fdae8f4b5eeb1dd5a288b1aaa35d7b3ac576ffa470d0"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/real-search-check.json",
+      "sha256": "2d7bd73d294b6af91ebab9d4e4dd868154f32abeedb9245ac520a7424599b1b8"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/recovery-first-run.tap",
+      "sha256": "a6bb83937929a4a4856eb6fa94cd54da484cd371103158186c94f0e4102c0a1e"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/recovery-observations.json",
+      "sha256": "9bba2f07d27392d6ed3f55c6e67d37d0dd212a8a982bfe1fed408ec5f1e25ca5"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/release-check.txt",
+      "sha256": "138940517d334b3d698694df1ae5b1379ff62afc4dbaabb1788cf05a2ddccec1"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day6-20261119/target-recovery-runbook.md",
+      "sha256": "9553f3f36718fb601e16fd043dece979d9c2517cce7092f0eb80c54c25f3dac4"
+    }
+  ]
+}

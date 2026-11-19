@@ -1,0 +1,160 @@
+TAP version 13
+# Subtest: Beta D5: shared and repository dates agree on leap years, invalid dates and four-digit years
+ok 1 - Beta D5: shared and repository dates agree on leap years, invalid dates and four-digit years
+  ---
+  duration_ms: 3.0338
+  type: 'test'
+  ...
+# Subtest: Beta D5: repository rejects incomplete, reversed and non-emotion date ranges before querying
+ok 2 - Beta D5: repository rejects incomplete, reversed and non-emotion date ranges before querying
+  ---
+  duration_ms: 5.714
+  type: 'test'
+  ...
+# Subtest: Beta D5: calendar follows the chosen date across zones; ownership, edits and clearing preserve associations
+ok 3 - Beta D5: calendar follows the chosen date across zones; ownership, edits and clearing preserve associations
+  ---
+  duration_ms: 2445.6866
+  type: 'test'
+  ...
+# Subtest: Beta D5: calendar pagination retains PostgreSQL microseconds and binds cursor to owner, entry and dates
+ok 4 - Beta D5: calendar pagination retains PostgreSQL microseconds and binds cursor to owner, entry and dates
+  ---
+  duration_ms: 1026.3125
+  type: 'test'
+  ...
+# Subtest: Beta D6: restore confirmation requires literal true and rejects truthy strings before accessing data
+ok 5 - Beta D6: restore confirmation requires literal true and rejects truthy strings before accessing data
+  ---
+  duration_ms: 1.6389
+  type: 'test'
+  ...
+# Subtest: Beta D6: recovered encrypted calendar and query snapshots stay isolated; cleared data and old sessions stay unavailable
+ok 6 - Beta D6: recovered encrypted calendar and query snapshots stay isolated; cleared data and old sessions stay unavailable
+  ---
+  duration_ms: 3730.7677
+  type: 'test'
+  ...
+# Subtest: Beta D6: restore safety transaction rolls back session revocation if outbox inspection fails
+ok 7 - Beta D6: restore safety transaction rolls back session revocation if outbox inspection fails
+  ---
+  duration_ms: 718.0068
+  type: 'test'
+  ...
+# Subtest: Beta D6: migration checksum mismatch on a restored candidate is rejected without changing business data
+ok 8 - Beta D6: migration checksum mismatch on a restored candidate is rejected without changing business data
+  ---
+  duration_ms: 708.1521
+  type: 'test'
+  ...
+# Subtest: Day 6 isolated restore preserves scoped records and revokes restored sessions
+ok 9 - Day 6 isolated restore preserves scoped records and revokes restored sessions
+  ---
+  duration_ms: 3481.9867
+  type: 'test'
+  ...
+# Subtest: deposit becomes available by database time and reveals body only after active retrieval
+ok 10 - deposit becomes available by database time and reveals body only after active retrieval
+  ---
+  duration_ms: 2272.5623
+  type: 'test'
+  ...
+# Subtest: isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+ok 11 - isolated backup restore preserves data and blocks opening until deletion replay is confirmed
+  ---
+  duration_ms: 2030.7909
+  type: 'test'
+  ...
+# Subtest: baseline and support migrations execute once on a clean database
+ok 12 - baseline and support migrations execute once on a clean database
+  ---
+  duration_ms: 2171.4739
+  type: 'test'
+  ...
+# Subtest: database constraints reject duplicate normalized login identifiers
+ok 13 - database constraints reject duplicate normalized login identifiers
+  ---
+  duration_ms: 1012.741
+  type: 'test'
+  ...
+# Subtest: Beta D5: clearing one query preserves another owner snapshot for the same canonical source
+ok 14 - Beta D5: clearing one query preserves another owner snapshot for the same canonical source
+  ---
+  duration_ms: 2479.6807
+  type: 'test'
+  ...
+# Subtest: Beta D5: canonical duplicate sources reject atomically and permit a corrected retry
+ok 15 - Beta D5: canonical duplicate sources reject atomically and permit a corrected retry
+  ---
+  duration_ms: 1023.9197
+  type: 'test'
+  ...
+# Subtest: saved query copies server-owned completed search evidence and enforces isolation
+ok 16 - saved query copies server-owned completed search evidence and enforces isolation
+  ---
+  duration_ms: 741.0095
+  type: 'test'
+  ...
+# Subtest: saved query rejects client supplied evidence and invalid server evidence
+ok 17 - saved query rejects client supplied evidence and invalid server evidence
+  ---
+  duration_ms: 703.5018
+  type: 'test'
+  ...
+# Subtest: empty or unfinished searches cannot be persisted as query history
+ok 18 - empty or unfinished searches cannot be persisted as query history
+  ---
+  duration_ms: 711.4395
+  type: 'test'
+  ...
+# Subtest: saved query replay remains idempotent after the completed search expires
+ok 19 - saved query replay remains idempotent after the completed search expires
+  ---
+  duration_ms: 748.5394
+  type: 'test'
+  ...
+# Subtest: unreliable sources downgrade supported claims and query certainty
+ok 20 - unreliable sources downgrade supported claims and query certainty
+  ---
+  duration_ms: 726.9153
+  type: 'test'
+  ...
+# Subtest: older source snapshots cannot overwrite newer source verification metadata
+ok 21 - older source snapshots cannot overwrite newer source verification metadata
+  ---
+  duration_ms: 724.2194
+  type: 'test'
+  ...
+# Subtest: persistent query status follows conflict, partial, stale, success priority
+ok 22 - persistent query status follows conflict, partial, stale, success priority
+  ---
+  duration_ms: 0.3677
+  type: 'test'
+  ...
+# Subtest: Beta D6: data environment preflight blocks missing configuration without a network call
+ok 23 - Beta D6: data environment preflight blocks missing configuration without a network call
+  ---
+  duration_ms: 147.9945
+  type: 'test'
+  ...
+# Subtest: Beta D6: configuration preflight never prints credentials or mistakes presence for target verification
+ok 24 - Beta D6: configuration preflight never prints credentials or mistakes presence for target verification
+  ---
+  duration_ms: 127.1569
+  type: 'test'
+  ...
+# Subtest: Beta D6: unreadable configuration reports a fixed code without exposing its path
+ok 25 - Beta D6: unreadable configuration reports a fixed code without exposing its path
+  ---
+  duration_ms: 136.3315
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 8488.626

@@ -5,7 +5,8 @@ export async function secureRestoredDatabase(
   database,
   { deletionLogReplayCompleted = false } = {},
 ) {
-  if (!deletionLogReplayCompleted) {
+  // A string such as "false" from a config file is not an operator confirmation.
+  if (deletionLogReplayCompleted !== true) {
     throw new ConflictError(
       'Restored data cannot be opened before the independent deletion log is replayed',
     );

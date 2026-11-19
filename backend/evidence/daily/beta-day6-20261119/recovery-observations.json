@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-19",
+  "environment": "isolated in-memory PGlite; synthetic data; random in-memory encryption key",
+  "snapshotFormat": "PGlite dumpDataDir",
+  "backupBytes": 4271384,
+  "counts": {
+    "migrations": 7,
+    "active_records": 5,
+    "calendar_payloads": 3,
+    "query_payloads": 2,
+    "source_snapshots": 2,
+    "pending_outbox": 2
+  },
+  "revokedSessionCount": 3,
+  "pendingDeletionOutboxCount": 2,
+  "encryptedReadbackVerified": true,
+  "wrongKeyRejected": true,
+  "accountAndEntryIsolationVerified": true,
+  "clearedBeforeBackupRemainsUnavailable": true,
+  "clearedSaveReplayRejected": true,
+  "independentDeletionLogReplayed": false,
+  "postBackupDeletionReplayVerified": false,
+  "productionDatabaseTouched": false,
+  "productionReleaseReady": false
+}

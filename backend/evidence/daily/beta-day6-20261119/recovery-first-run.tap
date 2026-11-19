@@ -1,0 +1,67 @@
+TAP version 13
+# Subtest: Beta D6: restore confirmation requires literal true and rejects truthy strings before accessing data
+ok 1 - Beta D6: restore confirmation requires literal true and rejects truthy strings before accessing data
+  ---
+  duration_ms: 1.0931
+  type: 'test'
+  ...
+# Subtest: Beta D6: recovered encrypted calendar and query snapshots stay isolated; cleared data and old sessions stay unavailable
+ok 2 - Beta D6: recovered encrypted calendar and query snapshots stay isolated; cleared data and old sessions stay unavailable
+  ---
+  duration_ms: 1739.0535
+  type: 'test'
+  ...
+# Subtest: Beta D6: restore safety transaction rolls back session revocation if outbox inspection fails
+ok 3 - Beta D6: restore safety transaction rolls back session revocation if outbox inspection fails
+  ---
+  duration_ms: 605.2325
+  type: 'test'
+  ...
+# Subtest: Beta D6: migration checksum mismatch on a restored candidate is rejected without changing business data
+ok 4 - Beta D6: migration checksum mismatch on a restored candidate is rejected without changing business data
+  ---
+  duration_ms: 649.4635
+  type: 'test'
+  ...
+# Subtest: Beta D6: data environment preflight blocks missing configuration without a network call
+ok 5 - Beta D6: data environment preflight blocks missing configuration without a network call
+  ---
+  duration_ms: 90.8407
+  type: 'test'
+  ...
+# Subtest: Beta D6: configuration preflight never prints credentials or mistakes presence for target verification
+ok 6 - Beta D6: configuration preflight never prints credentials or mistakes presence for target verification
+  ---
+  duration_ms: 78.2178
+  type: 'test'
+  ...
+# Subtest: Beta D6: unreadable configuration reports a fixed code without exposing its path
+not ok 7 - Beta D6: unreadable configuration reports a fixed code without exposing its path
+  ---
+  duration_ms: 33.0556
+  type: 'test'
+  location: 'C:\\Users\\qwe18\\.codex\\worktrees\\zkh-beta-day3\\New project\\backend\\test\\unit\\data-environment.test.js:40:1'
+  failureType: 'testCodeFailure'
+  error: 'Unexpected end of JSON input'
+  code: 'ERR_TEST_FAILURE'
+  name: 'SyntaxError'
+  stack: |-
+    JSON.parse (<anonymous>)
+    run (file:///C:/Users/qwe18/.codex/worktrees/zkh-beta-day3/New%20project/backend/test/unit/data-environment.test.js:19:36)
+    TestContext.<anonymous> (file:///C:/Users/qwe18/.codex/worktrees/zkh-beta-day3/New%20project/backend/test/unit/data-environment.test.js:41:18)
+    Test.runInAsyncScope (node:async_hooks:227:14)
+    Test.run (node:internal/test_runner/test:1402:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+    Test.postRun (node:internal/test_runner/test:1542:19)
+    Test.run (node:internal/test_runner/test:1467:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:974:7)
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 6
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3372.1211

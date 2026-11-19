@@ -106,6 +106,10 @@ npm run smoke:model
 
 来源快照迁移 `006_saved_query_source_snapshots.sql`、查询详情新增字段、事务与幂等验证见 [庄剀涵 Day3 交接](evidence/daily/Day3_Beta_庄剀涵_20261116.md)。新代码需先执行迁移；旧记录来源标记 `LEGACY_BACKFILL`，不可描述为原始保存时快照。当前结论仅为本地数据层与 HTTP 自动化自查通过。
 
+## Beta Day6 迁移与恢复交接
+
+Day6 迁移、恢复、隔离与配置记录见 [庄剀涵 Day6 交接](evidence/daily/Day6_Beta_庄剀涵_20261119.md)。`node scripts/inspect-data-environment.js` 只读检查配置/工具存在性（可用 `--config-file` 指定本机配置），不连接目标库，也不证明正式迁移/恢复通过。恢复辅助函数仅接受布尔 `true` 作为日志重放确认；日志重放本身仍需独立执行和留证。
+
 ## Beta Day5 日期与快照交接
 
 Day5 日期范围、微秒分页和快照边界修订见 [庄剀涵 Day5 交接](evidence/daily/Day5_Beta_庄剀涵_20261118.md)。无新迁移，后端自查通过；目标 PostgreSQL、真实检索和独立复核尚待完成。

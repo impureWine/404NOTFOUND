@@ -1,0 +1,42 @@
+{
+  "startedAt": "2026-11-19T03:47:34.279Z",
+  "mode": "configuration-only",
+  "networkAttempted": false,
+  "databaseTouched": false,
+  "targetMigrationVerified": false,
+  "targetBackupRestoreVerified": false,
+  "independentDeletionLogVerified": false,
+  "productionReleaseReady": false,
+  "blockers": [
+    "DATABASE_CONFIG_MISSING_OR_INVALID",
+    "PROFILE_KEY_MISSING_INVALID_OR_PLACEHOLDER",
+    "SEARCH_NOT_CONFIGURED",
+    "RUNTIME_CONFIG_INVALID",
+    "PSQL_UNAVAILABLE",
+    "PG_DUMP_UNAVAILABLE",
+    "PG_RESTORE_UNAVAILABLE"
+  ],
+  "configuration": {
+    "databaseUrlPresent": false,
+    "databaseUrlValid": false,
+    "profileKeyPresent": false,
+    "profileKeyValid": false,
+    "serpApiKeyPresent": false,
+    "runtimeConfigValid": false
+  },
+  "clients": {
+    "psql": {
+      "available": false,
+      "version": null
+    },
+    "pg_dump": {
+      "available": false,
+      "version": null
+    },
+    "pg_restore": {
+      "available": false,
+      "version": null
+    }
+  },
+  "status": "blocked"
+}
