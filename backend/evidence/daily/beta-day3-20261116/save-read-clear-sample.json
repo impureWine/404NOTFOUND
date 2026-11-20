@@ -1,0 +1,61 @@
+{
+  "environment": "PGlite; synthetic input; no live search",
+  "beforeClear": {
+    "id": "b04bd46e-12c8-4241-9386-6056981e6831",
+    "kind": "QUERY",
+    "version": 1,
+    "createdAt": "2026-11-16T08:45:22.949Z",
+    "updatedAt": "2026-11-16T08:45:22.949Z",
+    "idempotent": false,
+    "title": "已保存查询",
+    "content": {
+      "question": "合成问题：怎样准备课堂表达？",
+      "status": "PARTIAL_SUCCESS",
+      "uncertaintyNote": "合成来源，仅用于验证保存回看，不代表事实核验。",
+      "snapshotOrigin": "SAVED",
+      "sources": [
+        {
+          "id": "807f151c-76fa-4c2f-bb3c-190ccc0a6241",
+          "url": "https://example.org/beta-day3",
+          "title": "保存时的合成来源",
+          "publisher": "Example",
+          "sourceTier": "SX",
+          "quality": "UNKNOWN",
+          "publishedAt": null,
+          "retrievedAt": "2026-11-16T01:00:00.000Z",
+          "verificationState": "PARTIAL"
+        }
+      ],
+      "claims": [
+        {
+          "id": "c0d5640e-8533-4fcb-9694-a24b3075a2d2",
+          "text": "先列出一个要点，再尝试表达。",
+          "status": "UNKNOWN",
+          "evidence": [
+            {
+              "relation": "CONTEXT",
+              "source": {
+                "id": "807f151c-76fa-4c2f-bb3c-190ccc0a6241",
+                "url": "https://example.org/beta-day3",
+                "title": "保存时的合成来源",
+                "publisher": "Example",
+                "quality": "UNKNOWN",
+                "publishedAt": null,
+                "retrievedAt": "2026-11-16T01:00:00.000Z",
+                "verificationState": "PARTIAL"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "afterClear": {
+    "list": [],
+    "detail": "NOT_FOUND",
+    "selectedContext": "NOT_FOUND",
+    "replaySave": "NOT_FOUND",
+    "payloadRows": 0,
+    "deletionOutbox": "PENDING; backup purge not executed"
+  }
+}

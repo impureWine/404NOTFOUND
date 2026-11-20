@@ -96,7 +96,12 @@ export const taskStatusSchema = z.enum([
   'failed',
   'expired',
 ]);
-export const taskFailureReasonSchema = z.enum(['TIMEOUT', 'PROVIDER_UNAVAILABLE', 'OUTPUT_INVALID']);
+export const taskFailureReasonSchema = z.enum([
+  'TIMEOUT',
+  'RATE_LIMITED',
+  'PROVIDER_UNAVAILABLE',
+  'OUTPUT_INVALID',
+]);
 
 export const agentTaskAcceptedSchema = z.strictObject({
   requestId: requestIdSchema,
@@ -105,6 +110,25 @@ export const agentTaskAcceptedSchema = z.strictObject({
   activityId: uuidSchema,
   sessionGeneration: generationSchema,
   activityGeneration: generationSchema,
+});
+
+export const agentTaskResultSchema = z.strictObject({
+  text: bodySchema,
+  safety: z.boolean().optional(),
+  userMessageId: uuidSchema,
+  replyMessageId: uuidSchema,
+});
+
+export const agentTaskStateSchema = z.strictObject({
+  requestId: requestIdSchema,
+  sessionId: uuidSchema,
+  activityId: uuidSchema,
+  sessionGeneration: generationSchema,
+  activityGeneration: generationSchema,
+  status: taskStatusSchema,
+  route: z.enum(['CRISIS', 'HIGH_RISK', 'NORMAL']).optional(),
+  result: agentTaskResultSchema.optional(),
+  failureReason: taskFailureReasonSchema.optional(),
 });
 
 export const cancelTaskRequestSchema = z.strictObject({ requestId: requestIdSchema });

@@ -81,3 +81,98 @@ export const clearRecordRequestSchema = z.strictObject({
 });
 
 export const saveQueryRequestSchema = z.strictObject({ requestId: requestIdSchema, consentId: uuidSchema, searchRequestId: uuidSchema });
+
+const publicRecordBaseSchema = z.strictObject({
+  id: uuidSchema,
+  title: z.string().max(80),
+  version: positiveVersionSchema,
+  createdAt: z.iso.datetime({ offset: true }),
+  updatedAt: z.iso.datetime({ offset: true }),
+  idempotent: z.boolean(),
+});
+
+export const recordSummaryResponseSchema = publicRecordBaseSchema.extend({
+  kind: recordKindSchema,
+});
+
+const conversationResponseSchema = z.strictObject({
+  messages: z.array(z.strictObject({
+    role: z.enum(['USER', 'ASSISTANT']),
+    content: textByCodePoints({ min: 1, max: 4000, label: '消息' }),
+  })).min(1).max(20),
+});
+const emotionResponseSchema = emotionContentSchema.omit({ title: true });
+const worryResponseSchema = worryContentSchema.omit({ title: true });
+const rehearsalResponseSchema = rehearsalContentSchema.omit({ title: true });
+const querySourceResponseSchema = z.strictObject({
+  id: uuidSchema,
+  url: z.url(),
+  title: z.string(),
+  publisher: z.string().nullable(),
+  quality: z.enum(['CURRENT', 'STALE', 'UNKNOWN']),
+  publishedAt: z.iso.datetime({ offset: true }).nullable(),
+  retrievedAt: z.iso.datetime({ offset: true }),
+  verificationState: z.enum(['VERIFIED', 'PARTIAL', 'UNAVAILABLE']),
+});
+
+const queryResponseSchema = z.strictObject({
+  status: z.enum(['SUCCESS', 'PARTIAL_SUCCESS', 'STALE_SOURCE', 'CONFLICTED']),
+  uncertaintyNote: z.string().nullable(),
+  snapshotOrigin: z.enum(['SAVED', 'LEGACY_BACKFILL']),
+  sources: z.array(querySourceResponseSchema.extend({
+    sourceTier: z.enum(['S1', 'S2', 'S3', 'S4', 'SX']),
+  })),
+  question: textByCodePoints({ min: 1, max: 4000, label: '问题' }),
+  claims: z.array(z.strictObject({
+    id: uuidSchema,
+    text: z.string(),
+    status: z.enum(['SUPPORTED', 'CONFLICTED', 'UNKNOWN']),
+    evidence: z.array(z.strictObject({
+      relation: z.enum(['SUPPORTS', 'CONFLICTS', 'CONTEXT']),
+      source: querySourceResponseSchema,
+    })),
+  })),
+});
+
+export const recordDetailResponseSchema = z.discriminatedUnion('kind', [
+  publicRecordBaseSchema.extend({
+    kind: z.literal('CONVERSATION'),
+    content: conversationResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('EMOTION'),
+    content: emotionResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('WORRY_OBJECT'),
+    content: worryResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('REHEARSAL_DRAFT'),
+    content: rehearsalResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('QUERY'),
+    content: queryResponseSchema,
+  }),
+  publicRecordBaseSchema.extend({
+    kind: z.literal('DEPOSIT'),
+  }),
+]);
+
+export const clearConfirmationResponseSchema = z.strictObject({
+  confirmationId: uuidSchema,
+  expiresAt: z.iso.datetime({ offset: true }),
+  recordId: uuidSchema,
+  version: positiveVersionSchema,
+  kind: recordKindSchema,
+  idempotent: z.boolean(),
+});
+
+export const clearRecordResponseSchema = z.strictObject({
+  cleared: z.literal(true),
+  recordId: uuidSchema,
+  version: positiveVersionSchema,
+  deletionJobId: uuidSchema.optional(),
+  idempotent: z.boolean(),
+});

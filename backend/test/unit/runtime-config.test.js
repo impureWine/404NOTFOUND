@@ -1,11 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { getRuntimeConfig, inspectReleaseReadiness } from '../../src/runtime-config.js';
+import { assertReleaseReadiness, getRuntimeConfig, inspectReleaseReadiness } from '../../src/runtime-config.js';
 
 const base = {
   DATABASE_URL: 'postgresql://app@127.0.0.1/app',
   PROFILE_ENCRYPTION_KEY: 'AQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQE=',
+  REGISTRATION_IDEMPOTENCY_KEY: 'AgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgI=',
   APP_ORIGIN: 'http://127.0.0.1:5173',
   SESSION_COOKIE_SECURE: 'false',
 };
@@ -54,6 +55,41 @@ test('release readiness blocks placeholders and unsafe production settings', () 
   assert.match(production.issues.join('\n'), /secure session cookies/);
   assert.match(production.issues.join('\n'), /https/);
   assert.match(production.issues.join('\n'), /explicit release step/);
+  assert.match(production.issues.join('\n'), /database connections require TLS/);
+  assert.match(production.issues.join('\n'), /ZHIPU_API_KEY/);
+  assert.match(production.issues.join('\n'), /SERPAPI_API_KEY/);
+});
+
+test('release readiness requires a distinct registration idempotency key', () => {
+  const missing = inspectReleaseReadiness({
+    ...base,
+    REGISTRATION_IDEMPOTENCY_KEY: '',
+  });
+  assert.equal(missing.ready, false);
+  assert.match(missing.issues.join('\n'), /REGISTRATION_IDEMPOTENCY_KEY is required/);
+
+  const placeholder = inspectReleaseReadiness({
+    ...base,
+    REGISTRATION_IDEMPOTENCY_KEY: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
+  });
+  assert.equal(placeholder.ready, false);
+  assert.match(placeholder.issues.join('\n'), /documented placeholder/);
+});
+
+test('release readiness requires a distinct registration idempotency key', () => {
+  const missing = inspectReleaseReadiness({
+    ...base,
+    REGISTRATION_IDEMPOTENCY_KEY: '',
+  });
+  assert.equal(missing.ready, false);
+  assert.match(missing.issues.join('\n'), /REGISTRATION_IDEMPOTENCY_KEY is required/);
+
+  const placeholder = inspectReleaseReadiness({
+    ...base,
+    REGISTRATION_IDEMPOTENCY_KEY: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
+  });
+  assert.equal(placeholder.ready, false);
+  assert.match(placeholder.issues.join('\n'), /documented placeholder/);
 });
 
 test('release readiness accepts a bounded production configuration', () => {
@@ -64,9 +100,43 @@ test('release readiness accepts a bounded production configuration', () => {
     SESSION_COOKIE_SECURE: 'true',
     MIGRATE_ON_START: 'false',
     DATABASE_SSL: 'true',
+    ZHIPU_API_KEY: 'test-model-key',
+    SERPAPI_API_KEY: 'test-search-key',
   });
   assert.equal(result.ready, true);
   assert.deepEqual(result.issues, []);
+  assert.equal(assertReleaseReadiness({
+    ...base,
+    NODE_ENV: 'production',
+    APP_ORIGIN: 'https://app.example.test',
+    SESSION_COOKIE_SECURE: 'true',
+    MIGRATE_ON_START: 'false',
+    DATABASE_SSL: 'true',
+    ZHIPU_API_KEY: 'test-model-key',
+    SERPAPI_API_KEY: 'test-search-key',
+  }).appOrigin, 'https://app.example.test');
+});
+
+test('production startup gate rejects incomplete configuration without echoing secrets', () => {
+  const secret = 'super-secret-database-password';
+  assert.throws(
+    () => assertReleaseReadiness({
+      ...base,
+      NODE_ENV: 'production',
+      DATABASE_URL: `postgresql://app:${secret}@db/app`,
+      APP_ORIGIN: 'https://app.example.test',
+      SESSION_COOKIE_SECURE: 'true',
+      DATABASE_SSL: 'false',
+      MIGRATE_ON_START: 'false',
+    }),
+    (error) => {
+      assert.match(error.message, /database connections require TLS/);
+      assert.match(error.message, /ZHIPU_API_KEY/);
+      assert.match(error.message, /SERPAPI_API_KEY/);
+      assert.equal(error.message.includes(secret), false);
+      return true;
+    },
+  );
 });
 
 

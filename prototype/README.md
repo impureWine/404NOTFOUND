@@ -28,17 +28,17 @@ npm run dev -- --host 127.0.0.1 --port 5173
 
 ## API 适配骨架
 
-入口：`src/api/client.js`。当前默认 `VITE_API_MODE=mock`（未设置时也是模拟模式），所有 API 方法会明确报 `API_NOT_CONNECTED`，不会伪造成功或发出请求。
+入口：`src/api/client.js`。业务应用固定使用真实 API 模式；`VITE_API_MODE` 不受支持，设置它不会切换到 mock。mock 客户端仅用于单元测试，不作为运行时回退。
 
-适配器已按接口表提供上下文、能力、认证、资料、会话、陪伴任务、查询任务和记录方法。真实模式使用同源 `/api`、JSON、`credentials: include` 和 `no-store`；写请求需要内存中的当前 CSRF token，以及由共享契约配置的 `VITE_CSRF_HEADER_NAME`。代码不猜 CSRF 头名。认证上下文失效或身份操作结束时清除内存 token。
+适配器已按接口表提供上下文、能力、认证、资料、会话、陪伴任务、查询任务和记录方法。请求使用同源 `/api`、JSON、`credentials: include` 和 `no-store`；写请求需要内存中的当前 CSRF token，以及 `VITE_CSRF_HEADER_NAME` 指定的契约头名（未设置时使用 `X-CSRF-Token`）。认证上下文失效或身份操作结束时清除内存 token。
 
-本地真实模式可复制 `.env.example`，Vite 会将 `/api` 代理到 `API_PROXY_TARGET`（默认 `http://127.0.0.1:3000`）。登录目标使用共享契约枚举 `HOME`。代理和契约测试通过只表示联调条件已准备，不代表浏览器人工流程或正式环境验收已经完成。
+本地开发可复制 `.env.example`；Vite 开发服务器将 `/api` 代理到 `API_PROXY_TARGET`（默认 `http://127.0.0.1:3000`）。该代理设置只用于 Vite 开发服务器，不会写入生产构建；生产环境需由同源后端提供 `/api`，或按部署架构配置反向代理。登录目标使用共享契约枚举 `HOME`。代理和契约测试通过只表示联调条件已准备，不代表浏览器人工流程或正式环境验收已经完成。
 
-当前没有后端联调；设置真实模式只会启用适配调用，不表示后端可用或接口验收通过。
+配置真实 API 地址不代表后端可用或接口验收通过；必须在目标环境单独验证服务连通、身份、CSRF 与接口行为。
 
 ## Day 2 认证与 Electron 样机
 
-首页已接入真实模式下的 `/api/auth/context`、`/api/auth/register`、`/api/auth/login`、`/api/profile` 和 `/api/auth/logout` 适配。默认仍为 mock；未连接时会明确显示 `API_NOT_CONNECTED`，不会伪造登录成功。退出先清理本机私密界面，网络失败时保留“服务器状态待确认”。认证联调的实际执行范围见 `../docs/第三次作业_程杰/07_第二天认证联调记录与Electron样机_20261024.md`。
+首页已接入 `/api/auth/context`、`/api/auth/register`、`/api/auth/login`、`/api/profile` 和 `/api/auth/logout` 适配。未连接时会显示真实请求错误，不会伪造登录成功。退出先清理本机私密界面，网络失败时保留“服务器状态待确认”。认证联调的实际执行范围见 `../docs/第三次作业_程杰/07_第二天认证联调记录与Electron样机_20261024.md`。
 
 `electron/` 提供本地透明置顶桌面窗口样机和受限 preload。启动需要已安装 Electron 二进制：
 

@@ -12,11 +12,13 @@ import {
   decryptProfileText,
   encryptProfileText,
   hashPassword,
+  hmacSha256,
   randomToken,
   sha256,
   verifyPassword,
 } from '../security/crypto.js';
 import { ConflictError, InvalidInputError, NotFoundError } from '../domain/errors.js';
+import { stableHash } from '../domain/stable-hash.js';
 
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -27,12 +29,18 @@ function parse(schema, value) {
 }
 
 export class AuthService {
-  constructor(database, { profileKey, now = () => new Date(), entryCode = 'WEB' }) {
+  constructor(database, {
+    profileKey,
+    registrationIdempotencyKey = profileKey,
+    now = () => new Date(),
+    entryCode = 'WEB',
+  }) {
     if (!['WEB', 'DESKTOP', 'WECHAT'].includes(entryCode)) throw new Error('入口配置无效');
     this.entryCode = entryCode;
     this.identityRepository = new IdentityRepository(database);
     this.database = database;
     this.profileKey = profileKey;
+    this.registrationIdempotencyKey = registrationIdempotencyKey;
     this.now = now;
   }
 
@@ -106,42 +114,29 @@ export class AuthService {
   async register(body) {
     const value = parse(registerRequestSchema, body);
     const passwordDigest = await hashPassword(value.password);
-    const normalized = normalizeLoginIdentifier(value.loginName);
+    const registrationPayloadHash = hmacSha256(stableHash({
+      loginName: value.loginName,
+      password: value.password,
+    }), this.registrationIdempotencyKey);
+    let result;
     try {
-      const result = await withTransaction(this.database, async (transaction) => {
-        const account = await transaction.query(
-          `
-            INSERT INTO user_accounts (login_identifier, login_identifier_normalized)
-            VALUES ($1, $2)
-            RETURNING id
-          `,
-          [value.loginName, normalized],
-        );
-        const accountId = account.rows[0].id;
-        await transaction.query(
-          `
-            INSERT INTO password_credentials (account_id, password_digest, parameters)
-            VALUES ($1, $2, $3::jsonb)
-          `,
-          [accountId, passwordDigest, JSON.stringify({ memoryKiB: 19 * 1024, timeCost: 2, parallelism: 1 })],
-        );
-        await transaction.query(
-          `
-            INSERT INTO user_profiles (account_id, nickname, avatar_key)
-            VALUES ($1, $2, 'DEFAULT')
-          `,
-          [accountId, value.loginName],
-        );
-        await transaction.query('INSERT INTO account_preferences (account_id) VALUES ($1)', [accountId]);
-        return accountId;
+      result = await this.identityRepository.createAccount({
+        requestId: value.requestId,
+        registrationPayloadHash,
+        loginIdentifier: value.loginName,
+        passwordDigest,
+        passwordParameters: { memoryKiB: 19 * 1024, timeCost: 2, parallelism: 1 },
+        nickname: value.loginName,
+        avatarKey: 'DEFAULT',
+        timezoneName: 'Asia/Shanghai',
       });
-      return { accountId: result };
     } catch (error) {
-      if (error?.code === '23505' || /unique|duplicate/i.test(error?.message ?? '')) {
+      if (error instanceof ConflictError && error.message === 'loginIdentifier is already registered') {
         throw new ConflictError('无法完成注册');
       }
       throw error;
     }
+    return { accountId: result.accountId };
   }
 
   async login(body, previousContext) {

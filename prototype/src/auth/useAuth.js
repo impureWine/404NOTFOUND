@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { apiClient, apiMode } from '../api/client.js';
+import { getApiErrorMessage } from '../api/error-message.js';
+import { createOperationScope } from '../api/operation-scope.js';
 
 const initialStatus = apiMode === 'real' ? 'checking' : 'anonymous';
 
@@ -10,10 +12,7 @@ function makeRequestId() {
   return globalThis.crypto.randomUUID();
 }
 function messageFor(error) {
-  if (error?.code === 'API_NOT_CONNECTED') return '认证 API 未连接，当前不会模拟成功。';
-  if (error?.code === 'NETWORK_ERROR') return '网络请求失败；本地状态已停止，服务器状态需要重新核实。';
-  if (error?.code === 'CSRF_CONFIG_MISSING') return '认证上下文未提供可用的 CSRF 状态，写请求未发送。';
-  return error?.message || '认证请求未完成，请检查服务状态后重试。';
+  return getApiErrorMessage(error, '认证请求未完成，请检查服务状态后重试。');
 }
 export function useAuth() {
   const [status, setStatus] = useState(initialStatus);
@@ -25,16 +24,29 @@ export function useAuth() {
   const [notice, setNotice] = useState('');
   const [pageNotice, setPageNotice] = useState(apiMode === 'mock' ? '访客可浏览和使用本地练习；账户服务未连接。' : '');
   const [logoutPending, setLogoutPending] = useState(false);
+  const authScope = useRef(null);
+  if (!authScope.current) authScope.current = createOperationScope();
+
+  const beginAuthOperation = useCallback(() => {
+    return authScope.current.begin();
+  }, []);
+
+  const invalidateAuthOperations = useCallback(() => {
+    const generation = authScope.current.invalidate();
+    apiClient.clearAuthContext();
+    return generation;
+  }, []);
 
   const clearLocalIdentity = useCallback(() => {
-    apiClient.clearAuthContext();
+    invalidateAuthOperations();
     setProfile(null);
     setIdentityKey(value => value + 1);
     setStatus('anonymous');
     setAuthView(null);
+    setBusy(false);
     setError('');
     setNotice('');
-  }, []);
+  }, [invalidateAuthOperations]);
 
   const refreshIdentity = useCallback(async signal => {
     const context = await apiClient.getAuthContext({ signal });
@@ -43,23 +55,37 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
+    if (apiMode !== 'real' || typeof globalThis.addEventListener !== 'function') return undefined;
+    const handleAuthRequired = () => {
+      clearLocalIdentity();
+      setLogoutPending(false);
+      setPageNotice('登录状态已失效，本机私密界面已清理。请重新登录后继续。');
+    };
+    globalThis.addEventListener('404:auth-required', handleAuthRequired);
+    return () => globalThis.removeEventListener('404:auth-required', handleAuthRequired);
+  }, [clearLocalIdentity]);
+
+  useEffect(() => {
     if (apiMode !== 'real') return undefined;
-    const controller = new AbortController();
-    refreshIdentity(controller.signal).then(currentProfile => {
-      if (controller.signal.aborted) return;
+    const operation = beginAuthOperation();
+    refreshIdentity(operation.signal).then(currentProfile => {
+      if (!operation.isCurrent()) return;
       setProfile(currentProfile);
       if (currentProfile) setIdentityKey(value => value + 1);
       setStatus(currentProfile ? 'authenticated' : 'anonymous');
       setPageNotice(currentProfile ? '' : '访客体验已开放；登录后可读取和保存个人内容。');
     }).catch(errorValue => {
-      if (controller.signal.aborted) return;
+      if (!operation.isCurrent()) return;
       apiClient.clearAuthContext();
       setProfile(null);
       setStatus('unavailable');
       setPageNotice(`账户服务暂不可用，访客体验仍可继续。${messageFor(errorValue)}`);
-    });
-    return () => controller.abort();
-  }, [refreshIdentity]);
+    }).finally(operation.finish);
+    return () => {
+      authScope.current.invalidate();
+      apiClient.clearAuthContext();
+    };
+  }, [beginAuthOperation, refreshIdentity]);
 
   const openAuth = useCallback(view => {
     setError('');
@@ -74,11 +100,15 @@ export function useAuth() {
   }, []);
 
   const submit = useCallback(async (mode, form) => {
+    invalidateAuthOperations();
+    const operation = beginAuthOperation();
+    setLogoutPending(false);
     setBusy(true);
     setError('');
     setNotice('');
     try {
-      const context = await apiClient.getAuthContext();
+      const context = await apiClient.getAuthContext({ signal: operation.signal });
+      if (!operation.isCurrent()) return;
       if (mode === 'register') {
         if (context?.authenticated) throw new Error('请先退出当前账户，再注册另一个账户。');
         const result = await apiClient.register({
@@ -86,13 +116,15 @@ export function useAuth() {
           loginName: form.loginName.trim(),
           password: form.password,
           confirmPassword: form.confirmPassword,
-        });
+        }, { signal: operation.signal });
+        if (!operation.isCurrent()) return;
         setNotice(`注册请求已成功，账号标识：${result?.accountId || '已创建'}。请使用新账户登录。`);
         setAuthView('login');
         return;
       }
       if (context?.authenticated) {
-        const currentProfile = await apiClient.getProfile();
+        const currentProfile = await apiClient.getProfile({ signal: operation.signal });
+        if (!operation.isCurrent()) return;
         setProfile(currentProfile);
         setIdentityKey(value => value + 1);
         setStatus('authenticated');
@@ -100,8 +132,10 @@ export function useAuth() {
         closeAuth();
         return;
       }
-      await apiClient.login({ loginName: form.loginName.trim(), password: form.password, target: 'HOME' });
-      const currentProfile = await refreshIdentity();
+      await apiClient.login({ loginName: form.loginName.trim(), password: form.password, target: 'HOME' }, { signal: operation.signal });
+      if (!operation.isCurrent()) return;
+      const currentProfile = await refreshIdentity(operation.signal);
+      if (!operation.isCurrent()) return;
       if (!currentProfile) throw new Error('登录请求已完成，但服务端身份上下文未确认；私密界面保持锁定。');
       setProfile(currentProfile);
       setIdentityKey(value => value + 1);
@@ -109,14 +143,16 @@ export function useAuth() {
       setPageNotice('登录成功，身份与个人资料已从认证服务读取。');
       closeAuth();
     } catch (errorValue) {
+      if (!operation.isCurrent()) return;
       if (errorValue?.code === 'NETWORK_ERROR' || errorValue?.code === 'API_NOT_CONNECTED' || errorValue?.code === 'CSRF_CONFIG_MISSING') {
         setStatus(apiMode === 'real' ? 'unavailable' : 'anonymous');
       }
       setError(messageFor(errorValue));
     } finally {
-      setBusy(false);
+      operation.finish();
+      if (operation.isCurrent()) setBusy(false);
     }
-  }, [closeAuth, refreshIdentity]);
+  }, [beginAuthOperation, closeAuth, invalidateAuthOperations, refreshIdentity]);
 
   const logout = useCallback(async () => {
     clearLocalIdentity();
@@ -126,32 +162,45 @@ export function useAuth() {
       setPageNotice('本机私密界面已清理；认证 API 未连接，因此没有可确认的服务器退出结果。');
       return;
     }
+    const operation = beginAuthOperation();
     try {
-      const context = await apiClient.getAuthContext();
-      if (context?.authenticated) await apiClient.logout();
+      const context = await apiClient.getAuthContext({ signal: operation.signal });
+      if (!operation.isCurrent()) return;
+      if (context?.authenticated) await apiClient.logout({ signal: operation.signal });
       else apiClient.clearAuthContext();
+      if (!operation.isCurrent()) return;
       setPageNotice('本机私密界面已清理，服务器已确认当前会话无效。');
     } catch (errorValue) {
+      if (!operation.isCurrent()) return;
       apiClient.clearAuthContext();
       setLogoutPending(true);
       setPageNotice(`本机已退出；服务器撤销状态待确认：${messageFor(errorValue)}`);
+    } finally {
+      operation.finish();
     }
-  }, [clearLocalIdentity]);
+  }, [beginAuthOperation, clearLocalIdentity]);
 
   const retryLogout = useCallback(async () => {
+    invalidateAuthOperations();
+    const operation = beginAuthOperation();
     setPageNotice('正在重新核实服务器退出状态。');
     try {
-      const context = await apiClient.getAuthContext();
-      if (context?.authenticated) await apiClient.logout();
+      const context = await apiClient.getAuthContext({ signal: operation.signal });
+      if (!operation.isCurrent()) return;
+      if (context?.authenticated) await apiClient.logout({ signal: operation.signal });
       else apiClient.clearAuthContext();
+      if (!operation.isCurrent()) return;
       setLogoutPending(false);
       setPageNotice('服务器已确认当前会话无效。');
     } catch (errorValue) {
+      if (!operation.isCurrent()) return;
       apiClient.clearAuthContext();
       setLogoutPending(true);
       setPageNotice(`服务器撤销状态仍待确认：${messageFor(errorValue)}`);
+    } finally {
+      operation.finish();
     }
-  }, []);
+  }, [beginAuthOperation, invalidateAuthOperations]);
 
   return {
     status,

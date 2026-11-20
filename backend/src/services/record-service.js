@@ -98,6 +98,8 @@ export class RecordService {
     if (record.kind === 'QUERY' && this.savedQueries) {
       const query = await this.savedQueries.get({ ...this.scope(context), recordId });
       return { ...this.present(record), content: { question: decryptProfileText(query.rawQueryCiphertext, this.encryptionKey),
+        status: query.status, uncertaintyNote: query.uncertaintyNote,
+        snapshotOrigin: query.snapshotOrigin, sources: query.sources,
         claims: query.claims.map(claim => ({ id: claim.id, text: decryptProfileText(claim.claimTextCiphertext, this.encryptionKey), status: claim.status, evidence: claim.evidence })) } };
     }
     return this.present(record);

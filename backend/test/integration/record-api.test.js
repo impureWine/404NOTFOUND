@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { listenForHttp } from '../helpers/http.js';
+import {
+  clearConfirmationResponseSchema,
+  clearRecordResponseSchema,
+  recordDetailResponseSchema,
+  recordSummaryResponseSchema,
+} from '@404notfound/contracts';
 
 import { createApp } from '../../src/app.js';
 import { sessionCookie } from '../../src/http/request.js';
@@ -92,6 +98,7 @@ test('record API binds SAVE consent, isolates owners, encrypts content and clear
     const createdResponse = await mutate(baseUrl, '/api/records', alice, createBody);
     assert.equal(createdResponse.status, 201);
     const created = (await createdResponse.json()).data;
+    assert.equal(recordSummaryResponseSchema.safeParse(created).success, true);
     assert.equal(created.title, '私密标题');
     assert.equal('titleCiphertext' in created, false);
     assert.equal('titleKeyVersion' in created, false);
@@ -106,11 +113,13 @@ test('record API binds SAVE consent, isolates owners, encrypts content and clear
     const aliceList = await fetch(`${baseUrl}/api/records`, { headers: { Cookie: alice.cookie } });
     const listed = (await aliceList.json()).data.items;
     assert.equal(listed.length, 1);
+    assert.equal(recordSummaryResponseSchema.safeParse(listed[0]).success, true);
     assert.equal(listed[0].title, '私密标题');
     assert.equal('titleCiphertext' in listed[0], false);
     const aliceDetailResponse = await fetch(`${baseUrl}/api/records/${created.id}`, { headers: { Cookie: alice.cookie } });
     assert.equal(aliceDetailResponse.status, 200);
     const aliceDetail = (await aliceDetailResponse.json()).data;
+    assert.equal(recordDetailResponseSchema.safeParse(aliceDetail).success, true);
     assert.equal(aliceDetail.title, '私密标题');
     assert.equal(aliceDetail.content.messages[0].content, '私密正文');
     assert.equal('contentCiphertext' in aliceDetail.content.messages[0], false);
@@ -122,11 +131,14 @@ test('record API binds SAVE consent, isolates owners, encrypts content and clear
       requestId: nextId(), expectedVersion: created.version,
     });
     assert.equal(confirmation.status, 201);
-    const confirmationId = (await confirmation.json()).data.confirmationId;
+    const confirmationData = (await confirmation.json()).data;
+    const confirmationId = confirmationData.confirmationId;
+    assert.equal(clearConfirmationResponseSchema.safeParse(confirmationData).success, true);
     const cleared = await mutate(baseUrl, `/api/records/${created.id}/clear`, alice, {
       requestId: nextId(), expectedVersion: created.version, confirmationId,
     });
     assert.equal(cleared.status, 200);
+    assert.equal(clearRecordResponseSchema.safeParse((await cleared.json()).data).success, true);
     assert.equal((await fetch(`${baseUrl}/api/records/${created.id}`, { headers: { Cookie: alice.cookie } })).status, 404);
   });
 });
@@ -353,13 +365,19 @@ test('all persisted business kinds, deposit controls, preferences and real searc
     for (let attempt=0; attempt<20; attempt++) { if (taskService.getAgentTask(aliceContext, aiId).status === 'completed') break; await new Promise(resolve => setTimeout(resolve, 5)); }
     assert.equal(modelInput.context.summary.selected_records[0].content.messages[0].content, '本人选择的历史内容');
     const worry = await create('WORRY_OBJECT', { title: '一件事', shapeCode: 'STONE', body: '需要整理的烦恼' });
-    assert.equal((await (await read(`/api/records/${worry.id}`)).json()).data.content.body, '需要整理的烦恼');
+    const worryDetail = (await (await read(`/api/records/${worry.id}`)).json()).data;
+    assert.equal(recordDetailResponseSchema.safeParse(worryDetail).success, true);
+    assert.equal(worryDetail.content.body, '需要整理的烦恼');
     const draft = await create('REHEARSAL_DRAFT', { title: '认可的表达', scene: '与同学交流', expressions: ['我需要一点准备时间'] });
-    assert.deepEqual((await (await read(`/api/records/${draft.id}`)).json()).data.content.expressions, ['我需要一点准备时间']);
+    const draftDetail = (await (await read(`/api/records/${draft.id}`)).json()).data;
+    assert.equal(recordDetailResponseSchema.safeParse(draftDetail).success, true);
+    assert.deepEqual(draftDetail.content.expressions, ['我需要一点准备时间']);
     const deposit = await create('DEPOSIT', { title: '先放下', body: '寄存私密正文', reopenAt: new Date(Date.now()+3600000).toISOString() });
     let state = (await (await read(`/api/records/${deposit.id}/deposit`)).json()).data;
     assert.equal(state.body, null); assert.equal(state.state, 'STORED');
-    assert.equal(JSON.stringify((await (await read(`/api/records/${deposit.id}`)).json()).data).includes('寄存私密正文'), false);
+    const depositDetail = (await (await read(`/api/records/${deposit.id}`)).json()).data;
+    assert.equal(recordDetailResponseSchema.safeParse(depositDetail).success, true);
+    assert.equal(JSON.stringify(depositDetail).includes('寄存私密正文'), false);
     assert.equal((await mutate(baseUrl, `/api/records/${deposit.id}/deposit/retrieve`, alice, { requestId: nextId(), expectedVersion: state.version })).status, 409);
     assert.equal((await mutate(baseUrl, `/api/records/${deposit.id}/deposit/retrieve`, bob, { requestId: nextId(), expectedVersion: state.version })).status, 404);
     const postponed = await mutate(baseUrl, `/api/records/${deposit.id}/deposit/postpone`, alice, { requestId: nextId(), expectedVersion: state.version, reopenAt: new Date(Date.now()+7200000).toISOString() });
@@ -392,9 +410,15 @@ test('all persisted business kinds, deposit controls, preferences and real searc
     assert.equal(saved.status,201,JSON.stringify(await saved.clone().json()));
     const queryId = (await saved.json()).data.id;
     const detail = (await (await read(`/api/records/${queryId}`)).json()).data;
+    assert.equal(recordDetailResponseSchema.safeParse(detail).success, true);
     assert.equal(detail.content.question,'受控测试问题');
     assert.equal(detail.content.claims[0].text,'测试来源摘录');
     assert.equal(detail.content.claims[0].status,'UNKNOWN');
+    assert.equal(detail.content.snapshotOrigin, 'SAVED');
+    assert.equal(detail.content.sources[0].title, '受控测试来源');
+    assert.equal(detail.content.sources[0].url, detail.content.claims[0].evidence[0].source.url);
+    assert.equal(detail.content.status, 'PARTIAL_SUCCESS');
+    assert.match(detail.content.uncertaintyNote, /未经独立事实核验/);
     assert.equal(JSON.stringify(detail).includes('Ciphertext'),false);
     const forbidden = await mutate(baseUrl,'/api/saved-queries',bob,{ requestId:nextId(),searchRequestId:searchId,consentId:await grant(queryPayload) });
     assert.equal(forbidden.status,403);

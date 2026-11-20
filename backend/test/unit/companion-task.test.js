@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { agentTaskStateSchema } from '@404notfound/contracts';
 import { TaskService } from '../../src/services/task-service.js';
 
 const context = { sessionId: 'context-a', accountId: null };
@@ -55,6 +56,7 @@ test('companion task calls the constrained model request and exposes a completed
   await new Promise((resolve) => setImmediate(resolve));
 
   const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(agentTaskStateSchema.safeParse(task).success, true);
   assert.equal(task.status, 'completed');
   assert.match(task.result.text, /承担了很多事情/);
   assert.equal(received.mode, 'COMPANION');
@@ -75,9 +77,25 @@ test('model timeout becomes a stable task failure reason', async () => {
   await new Promise((resolve) => setImmediate(resolve));
 
   const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(agentTaskStateSchema.safeParse(task).success, true);
   assert.equal(task.status, 'failed');
   assert.equal(task.failureReason, 'TIMEOUT');
   assert.equal(task.result, undefined);
+});
+
+test('model rate limiting stays distinct from provider unavailability', async () => {
+  const service = createService({
+    async respond() {
+      return { status: 'error', error: { code: 'MODEL_RATE_LIMITED' } };
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(task.status, 'failed');
+  assert.equal(task.failureReason, 'RATE_LIMITED');
 });
 
 test('pause cancels an in-flight model task and a late reply cannot refill it after resume', async () => {
@@ -136,6 +154,27 @@ test('explicit cancellation rejects a late model reply', async () => {
   const task = service.getAgentTask(context, ids.taskRequest);
   assert.equal(task.status, 'cancelled');
   assert.equal(task.result, undefined);
+});
+
+test('revoking consent cancels its in-flight task and rejects a late reply', async () => {
+  let finish;
+  const service = createService({
+    respond() {
+      return new Promise((resolve) => { finish = resolve; });
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.deepEqual(service.invalidateConsent(context, ids.consent), { tasksInvalidated: 1 });
+  finish(successResponse('撤回后的迟到回复'));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const task = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(task.status, 'cancelled');
+  assert.equal(task.result, undefined);
+  assert.equal(task.consentId, undefined);
 });
 
 test('restart changes the activity generation and rejects the previous activity reply', async () => {
@@ -202,6 +241,65 @@ test('account switch also clears a completed reply that was not consumed', async
 
   service.invalidateContext(alice);
   const invalidated = service.getAgentTask(alice, ids.taskRequest);
+  assert.equal(invalidated.status, 'cancelled');
+  assert.equal(invalidated.result, undefined);
+});
+
+test('ending a session clears an already completed reply', async () => {
+  const service = createService({
+    async respond() {
+      return successResponse('结束前已经完成但尚未读取的回复');
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(service.getAgentTask(context, ids.taskRequest).status, 'completed');
+
+  service.action(context, session.sessionId, {
+    requestId: ids.actionRequest,
+    action: 'END',
+    expectedSessionGeneration: 0,
+    expectedActivityGeneration: 0,
+  });
+
+  const invalidated = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(invalidated.status, 'cancelled');
+  assert.equal(invalidated.result, undefined);
+});
+
+test('revoking consent clears completed tasks created with that consent', async () => {
+  const service = createService({
+    async respond() {
+      return successResponse('撤回许可前已经完成的回复');
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.deepEqual(service.invalidateConsent(context, ids.consent), { tasksInvalidated: 1 });
+  const invalidated = service.getAgentTask(context, ids.taskRequest);
+  assert.equal(invalidated.status, 'cancelled');
+  assert.equal(invalidated.result, undefined);
+});
+
+test('revoking consent aborts an in-flight task and rejects its late reply', async () => {
+  let finish;
+  const service = createService({
+    respond() {
+      return new Promise((resolve) => { finish = resolve; });
+    },
+  });
+  const session = service.createSession(context, { requestId: ids.sessionRequest, mode: 'LISTEN' });
+  service.createAgentTask(context, taskBody(session));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  assert.deepEqual(service.invalidateConsent(context, ids.consent), { tasksInvalidated: 1 });
+  finish(successResponse('许可撤回后的迟到回复'));
+  await new Promise((resolve) => setImmediate(resolve));
+
+  const invalidated = service.getAgentTask(context, ids.taskRequest);
   assert.equal(invalidated.status, 'cancelled');
   assert.equal(invalidated.result, undefined);
 });

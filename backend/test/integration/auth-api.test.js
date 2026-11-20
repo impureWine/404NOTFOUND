@@ -8,11 +8,13 @@ import { createTestDatabase } from '../helpers/database.js';
 
 const ORIGIN = 'http://127.0.0.1:5173';
 const requestId = '2f74a372-2e54-4fe7-945a-a7992cf4a06b';
+const REGISTRATION_KEY = Buffer.alloc(32, 7);
 
 async function withApi(callback) {
   const database = await createTestDatabase();
   const authService = new AuthService(database, {
     profileKey: parseProfileKey('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA='),
+    registrationIdempotencyKey: REGISTRATION_KEY,
   });
   const server = createApp({ database, authService, appOrigin: ORIGIN }).listen(0, '127.0.0.1');
   await new Promise((resolve) => server.once('listening', resolve));
@@ -128,6 +130,65 @@ test('register, login, profile, logout and password change form a real isolated 
     assert.match(logout.headers.get('set-cookie'), /Max-Age=0/);
     const afterLogout = await fetch(`${baseUrl}/api/profile`, { headers: { Cookie: logoutContext.cookie } });
     assert.equal(afterLogout.status, 401);
+  });
+});
+
+test('registration retries are idempotent and reject requestId payload changes', async () => {
+  await withApi(async ({ baseUrl, database }) => {
+    const anonymous = await context(baseUrl);
+    const password = 'correct-horse-battery';
+    const original = {
+      requestId,
+      loginName: 'retry_user',
+      password,
+      confirmPassword: password,
+    };
+
+    const first = await post(baseUrl, '/api/auth/register', anonymous, original);
+    const firstBody = await first.json();
+    assert.equal(first.status, 201, JSON.stringify(firstBody));
+
+    const retry = await post(baseUrl, '/api/auth/register', anonymous, original);
+    const retryBody = await retry.json();
+    assert.equal(retry.status, 201, JSON.stringify(retryBody));
+    assert.equal(retryBody.data.accountId, firstBody.data.accountId);
+
+    const changed = await post(baseUrl, '/api/auth/register', anonymous, {
+      ...original,
+      loginName: 'other_retry_user',
+    });
+    assert.equal(changed.status, 409);
+    assert.equal((await changed.json()).error.code, 'CONFLICT');
+
+    const accounts = await database.query('SELECT count(*)::int AS count FROM user_accounts');
+    const registrations = await database.query('SELECT count(*)::int AS count FROM registration_requests');
+    assert.equal(accounts.rows[0].count, 1);
+    assert.equal(registrations.rows[0].count, 1);
+  });
+});
+
+test('duplicate registration keeps the conflict response account-agnostic', async () => {
+  await withApi(async ({ baseUrl }) => {
+    const anonymous = await context(baseUrl);
+    const password = 'correct-horse-battery';
+    const registration = {
+      requestId,
+      loginName: 'private_duplicate_user',
+      password,
+      confirmPassword: password,
+    };
+
+    assert.equal((await post(baseUrl, '/api/auth/register', anonymous, registration)).status, 201);
+    const duplicate = await post(baseUrl, '/api/auth/register', anonymous, {
+      ...registration,
+      requestId: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
+    });
+    const body = await duplicate.json();
+
+    assert.equal(duplicate.status, 409);
+    assert.equal(body.error.code, 'CONFLICT');
+    assert.equal(body.error.message, '无法完成注册');
+    assert.doesNotMatch(body.error.message, /已被使用|已注册|already|exists/i);
   });
 });
 

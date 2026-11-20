@@ -128,6 +128,31 @@ try {
   assert.equal(cancelledReplyVisible, 0);
   report.steps.push({ name: 'B cancels pending task; delayed result rejected', taskStatus: cancelledTask.status, hasResult: Boolean(cancelledTask.result), lateReplyVisible: cancelledReplyVisible });
   await page.screenshot({ path: resolve(out, 'browser-after-manual-cancel.png'), fullPage: true });
+
+  const serverLogout = await page.evaluate(async () => {
+    const context = await (await fetch('/api/auth/context', { credentials: 'include' })).json();
+    return (await fetch('/api/auth/logout', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'X-CSRF-Token': context.data.csrfToken },
+    })).status;
+  });
+  assert.equal(serverLogout, 204);
+  await page.evaluate(() => {
+    window.__day2AuthRequiredEvents = 0;
+    window.addEventListener('404:auth-required', () => { window.__day2AuthRequiredEvents += 1; }, { once: true });
+  });
+  const staleRead = page.waitForResponse(response => ['/api/profile', '/api/preferences', '/api/profile/summary'].includes(new URL(response.url()).pathname) && response.request().method() === 'GET');
+  await page.evaluate(() => { location.hash = '#settings'; });
+  const staleReadStatus = (await staleRead).status();
+  const authRequiredEvents = await page.evaluate(() => window.__day2AuthRequiredEvents);
+  report.steps.push({ name: 'Private API stale read observed', staleReadStatus, authRequiredEvents });
+  assert.equal(staleReadStatus, 401);
+  assert.equal(authRequiredEvents, 1);
+  await page.getByText('登录状态已失效，本机私密界面已清理。请重新登录后继续。').waitFor();
+  await page.getByRole('button', { name: '登录', exact: true }).waitFor();
+  report.steps.push({ name: 'Private API 401 clears stale page identity', serverLogout, reloginVisible: true });
+  await page.screenshot({ path: resolve(out, 'browser-expired-session-recovery.png'), fullPage: true });
 } catch (error) {
   report.error = { name: error.name, message: error.message };
   process.exitCode = 1;

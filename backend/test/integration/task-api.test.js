@@ -99,6 +99,19 @@ test('session and search HTTP flow binds consent, reports status, isolates owner
       headers: { Cookie: stranger.cookie },
     })).status, 404);
 
+    const revokedResponse = await post(baseUrl, `/api/consents/${consentId}/revoke`, owner, {
+      requestId: nextId(),
+    });
+    assert.equal(revokedResponse.status, 200);
+    const revokedTaskResponse = await fetch(`${baseUrl}/api/search/tasks/${searchRequestId}`, {
+      headers: { Cookie: owner.cookie },
+    });
+    const revokedTask = (await revokedTaskResponse.json()).data;
+    assert.equal(revokedTask.status, 'cancelled');
+    assert.equal(revokedTask.sources, undefined);
+    assert.equal(revokedTask.answer, undefined);
+    assert.equal(revokedTask.consentId, undefined);
+
     const endedResponse = await post(baseUrl, `/api/sessions/${session.sessionId}/actions`, owner, {
       requestId: nextId(),
       action: 'END',

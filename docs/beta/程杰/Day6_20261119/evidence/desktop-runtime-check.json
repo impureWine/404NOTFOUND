@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-20 Asia/Shanghai",
+  "runtime": "Electron 45.0.0",
+  "binaryPresentBeforeAttempt": false,
+  "command": "npm run electron:dev (from prototype/)",
+  "result": "blocked",
+  "observed": [
+    "Downloading Electron binary...",
+    "TypeError: fetch failed",
+    "Electron failed to install correctly"
+  ],
+  "nativeWindowObserved": false,
+  "backendApiTarget": "http://127.0.0.1:3000",
+  "backendPort3000": "closed",
+  "backendEnvFilePresent": false,
+  "claim": "No native Electron or real backend deployment verification was completed."
+}

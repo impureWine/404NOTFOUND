@@ -32,6 +32,33 @@ test('query history shows the saved question, excerpt, uncertainty and original 
   for (const text of ['测试原始查询', '测试保存摘录', '未经独立核验', '测试原始来源', 'https://example.org/source']) assert.ok(html.includes(text));
 });
 
+test('query detail renders the complete saved snapshot, including sources without excerpts', () => {
+  const html = render('QUERY', {
+    question: '完整快照查询', status: 'PARTIAL_SUCCESS', snapshotOrigin: 'SAVED',
+    uncertaintyNote: '摘要只是检索线索。',
+    sources: [
+      { id: 'source-a', title: '有摘录来源', url: 'https://example.org/a', publisher: '示例机构', sourceTier: 'S3', quality: 'STALE', publishedAt: '2026-01-02T00:00:00.000Z', retrievedAt: '2026-02-03T00:00:00.000Z', verificationState: 'PARTIAL' },
+      { id: 'source-b', title: '无摘录来源', url: 'https://example.org/b', publisher: '另一机构', sourceTier: 'S4', quality: 'UNKNOWN', publishedAt: null, retrievedAt: '2026-02-04T00:00:00.000Z', verificationState: 'UNAVAILABLE' },
+    ],
+    claims: [{ id: 'claim-a', text: '保存的摘录', status: 'UNKNOWN', evidence: [{ source: { id: 'source-a', title: '有摘录来源', url: 'https://example.org/a' }, relation: 'CONTEXT' }] }],
+  });
+  for (const text of ['完整快照查询', '部分来源可用', '摘要只是检索线索。', '来源快照：查询保存时记录。', '本次保存的全部来源（2）', '无摘录来源', '三级来源', '四级来源', '可能已过时', '时效未知', '尚未完整核验', '来源暂不可用']) assert.ok(html.includes(text), `Missing ${text}`);
+  assert.ok(html.includes('href="#record-query-source-source-a"'));
+  assert.ok(html.includes('id="record-query-source-source-b"'));
+});
+
+test('legacy query detail marks backfilled data and falls back to unique evidence sources', () => {
+  const source = { id: 'legacy-source', title: '历史来源', url: 'https://example.org/legacy', verificationState: 'VERIFIED', quality: 'CURRENT' };
+  const html = render('QUERY', {
+    question: '旧版查询', status: 'STALE_SOURCE', snapshotOrigin: 'LEGACY_BACKFILL',
+    claims: [
+      { id: 'claim-a', text: '第一条摘录', status: 'UNKNOWN', evidence: [{ source, relation: 'CONTEXT' }] },
+      { id: 'claim-b', text: '第二条摘录', status: 'UNKNOWN', evidence: [{ source, relation: 'SUPPORTS' }] },
+    ],
+  });
+  for (const text of ['来源可能已过时', '历史补录：此来源由后续数据补入', '本次保存的全部来源（1）', '历史来源']) assert.ok(html.includes(text), `Missing ${text}`);
+});
+
 test('deposit detail never reveals a body before active retrieval', () => {
   const html = render('DEPOSIT', { body: 'MUST_NOT_DISPLAY' });
   assert.equal(html.includes('MUST_NOT_DISPLAY'), false);
