@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-20 Asia/Shanghai",
+  "candidateSha": "8aa020ffb3a3afbdaed42baae0277f783b8e11a4",
+  "api": "synthetic responses only; no backend integration",
+  "cases": [
+    {
+      "name": "built entry document mounts the React app",
+      "passed": true
+    },
+    {
+      "name": "hash route #home renders 首页",
+      "passed": true
+    },
+    {
+      "name": "hash route #companion renders 陪伴交流",
+      "passed": true
+    },
+    {
+      "name": "hash route #search renders 信息查询",
+      "passed": true
+    },
+    {
+      "name": "hash route #calendar renders 情绪日历",
+      "passed": true
+    },
+    {
+      "name": "hash route #games renders 减压练习与小游戏",
+      "passed": true
+    },
+    {
+      "name": "hash route #private-text renders 文字焚化与黑洞",
+      "passed": true
+    },
+    {
+      "name": "hash route #settings renders 个人主页与隐私设置",
+      "passed": true
+    },
+    {
+      "name": "legacy /home.html redirects to #home",
+      "passed": true
+    },
+    {
+      "name": "legacy /games.html redirects to #games",
+      "passed": true
+    },
+    {
+      "name": "legacy /info-query.html redirects to #search",
+      "passed": true
+    },
+    {
+      "name": "Vite dev /api proxy forwards to the configured API_PROXY_TARGET",
+      "passed": true
+    }
+  ],
+  "checks": {
+    "sameOriginApiPathsOnly": true,
+    "apiRequestCount": 4,
+    "apiRequests": [
+      {
+        "method": "GET",
+        "path": "/api/auth/context"
+      },
+      {
+        "method": "GET",
+        "path": "/api/auth/context"
+      },
+      {
+        "method": "GET",
+        "path": "/api/auth/context"
+      },
+      {
+        "method": "GET",
+        "path": "/api/auth/context"
+      }
+    ],
+    "appResourceCount": 19,
+    "failedAppResources": 0,
+    "pageErrors": 0,
+    "backendResponsesWereSynthetic": true,
+    "devProxyTarget": "local synthetic server on 127.0.0.1:60581",
+    "devProxyPathPreserved": true
+  }
+}
