@@ -20,6 +20,18 @@ const readRoute = () => { const value = location.hash.slice(1); return aliases[v
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false), [route, setRoute] = useState(readRoute), [selection, setSelection] = useState(null);
   const auth = useAuth();
+  const mobileToggle = useRef(null);
+  useEffect(() => {
+    if (!mobileOpen) return undefined;
+    const closeOnEscape = event => {
+      if (event.key !== 'Escape' || event.defaultPrevented || document.querySelector('dialog[open]')) return;
+      event.preventDefault();
+      setMobileOpen(false);
+      mobileToggle.current?.focus();
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [mobileOpen]);
   const identityEpoch = useRef(0), lastIdentity = useRef(`${auth.status}:${auth.identityKey}`);
   if (lastIdentity.current !== `${auth.status}:${auth.identityKey}`) { identityEpoch.current += 1; lastIdentity.current = `${auth.status}:${auth.identityKey}`; }
   useEffect(() => { const update = () => { setRoute(readRoute()); setMobileOpen(false); setSelection(null); }; window.addEventListener('hashchange', update); return () => window.removeEventListener('hashchange', update); }, []);
@@ -48,7 +60,7 @@ export default function App() {
   else if (route === 'marbles' || route === 'pressure') content = <PhysicsGame mode={route === 'pressure' ? 'pressure' : 'marbles'} />;
   else if (route === 'games') content = <section className="live-records recent-card"><h2>减压练习与小游戏</h2>{['breathing','training','pause-organize','task-splitting','pressure','private-text','marbles'].map(key => <button key={key} onClick={() => navigate(key)}>{titles[key]}</button>)}<p>固定训练与小游戏在本机执行，不需要模型服务；未开始不推进，暂停冻结，离开页面会停止。</p></section>;
   else content = <><section className="guest-hero"><div className="guest-hero-copy"><h2>先和自己待一会儿，再决定下一步。</h2><p>所有功能页面都可以直接浏览。对话和查询会调用真实服务；记录与账户内容登录后读取和保存。</p><button className="button button-primary" onClick={() => navigate('companion')}>开始体验</button><button className="button button-outline" onClick={() => navigate('calendar')}>打开情绪日历</button></div></section><ToolsSection onNavigate={navigate} /><section className="live-records recent-card"><h3>我的内容</h3>{['notes','records','calendar','worry','deposit','rehearsal-records','query-records','settings'].map(key => <button key={key} onClick={() => navigate(key)}>{titles[key]}</button>)}</section></>;
-  return <div className={`current-home ${new URLSearchParams(location.search).get('overlay') === 'pressure' ? 'desktop-overlay' : ''}`}><button className="mobile-home-bar" onClick={() => setMobileOpen(value => !value)} aria-label="切换导航">{mobileOpen ? <X /> : <Menu />}<strong>404NOTFOUND</strong></button>
+  return <div className={`current-home ${new URLSearchParams(location.search).get('overlay') === 'pressure' ? 'desktop-overlay' : ''}`}><button ref={mobileToggle} className="mobile-home-bar" onClick={() => setMobileOpen(value => !value)} aria-label="切换导航" aria-expanded={mobileOpen} aria-controls="primary-sidebar">{mobileOpen ? <X /> : <Menu />}<strong>404NOTFOUND</strong></button>
     <Sidebar mobileOpen={mobileOpen} closeMobile={() => setMobileOpen(false)} authenticated={authenticated} nickname={nickname} onLogin={auth.openAuth} onAccount={showAccount} onLogout={auth.logout} activePage={route} onNavigate={navigate} />
     <div className="home-workspace"><SiteTopbar title={titles[route]} dateLabel={new Date().toLocaleDateString('zh-CN')} authStatus={auth.status} nickname={nickname} showAccount={showAccount} activePage={route} onNavigate={navigate} /><main className="home-main"><div className="home-content">
       {auth.pageNotice && <div className="home-auth-notice" role="status">{auth.pageNotice}{auth.logoutPending && <button onClick={auth.retryLogout}>重新核实退出</button>}</div>}
