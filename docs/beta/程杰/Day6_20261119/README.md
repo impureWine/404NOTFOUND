@@ -2,6 +2,8 @@
 
 执行人：程杰。计划日期：2026-11-19；实际补充执行：2026-11-20（Asia/Shanghai）。基线候选为 `origin/main@8aa020f`。此记录只说明本地前端候选和可用运行条件，不代表整版发布验收或生产系统完成。
 
+关联 [Issue #111](https://github.com/impureWine/404NOTFOUND/issues/111)（B08，程杰协作）。实现与证据提交：`3f37765`；推送分支：`chengjie/beta-day6-frontend-deploy`。
+
 ## 处理结果
 
 - 核对 API 配置时发现 `prototype/README.md` 声称默认使用 mock，与 `src/api/client.js` 的固定真实 API 模式不一致；`.env.example` 中的 `VITE_API_MODE` 实际未被读取。已去掉无效变量并澄清：运行时使用同源 `/api`，CSRF 头名通过 `VITE_CSRF_HEADER_NAME` 配置；`API_PROXY_TARGET` 只服务 Vite 开发代理，生产同源部署由后端提供 `/api`。
