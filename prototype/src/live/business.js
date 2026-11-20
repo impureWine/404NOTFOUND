@@ -10,6 +10,37 @@ export async function updateContent(record, content, requestId = id()) {
   const consent = await apiClient.createConsent({ requestId: id(), purpose: 'SAVE', operation: 'RECORD_UPDATE', payload });
   return apiClient.updateRecord(record.id, { requestId, consentId: consent.consentId, expectedVersion: record.version, content });
 }
+export async function validateSelectedContext(client, contextIds, { signal } = {}) {
+  const selectedIds = [...new Set(contextIds || [])];
+  if (!selectedIds.length) return selectedIds;
+
+  const missingIds = [];
+  try {
+    await Promise.all(selectedIds.map(async recordId => {
+      try {
+        const record = await client.getRecord(recordId, { signal });
+        if (record?.id !== recordId) missingIds.push(recordId);
+      } catch (error) {
+        if (error?.status === 404 || error?.code === 'NOT_FOUND') missingIds.push(recordId);
+        else throw error;
+      }
+    }));
+  } catch (error) {
+    if (error?.name === 'AbortError') throw error;
+    if (error?.code === 'SELECTED_CONTEXT_UNVERIFIED') throw error;
+    throw Object.assign(new Error('无法确认所选历史内容仍可使用，因此未提交本次请求；请检查服务连接后重试。'), {
+      code: 'SELECTED_CONTEXT_UNVERIFIED',
+    });
+  }
+
+  if (missingIds.length) {
+    throw Object.assign(new Error('所选历史内容已不可用，尚未发送本次输入。已移除失效选择，请重新读取并核对后再发送。'), {
+      code: 'STALE_SELECTED_CONTEXT',
+      staleContextIds: missingIds,
+    });
+  }
+  return selectedIds;
+}
 export async function clearOwned(record) {
   if (!window.confirm(`确认清除“${record.title}”？只清除此条记录。`)) return false;
   const confirmation = await apiClient.clearConfirmation(record.id, { requestId: id(), expectedVersion: record.version });
@@ -24,6 +55,7 @@ function delay(signal) {
   });
 }
 export async function runTask(session, input, { signal, search = false, onAccepted = () => {}, client = apiClient }) {
+  await validateSelectedContext(client, input.selectedContextIds, { signal });
   const requestId = id();
   const payload = { sessionId: session.sessionId, activityId: session.activityId,
     sessionGeneration: session.sessionGeneration, activityGeneration: session.activityGeneration, ...input };
