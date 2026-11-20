@@ -1,0 +1,381 @@
+{
+  "checkedAt": "2026-11-20T02:33:32.520Z",
+  "testedBase": "d60344b79a3039d0e6caf1c5bb36113db0a7f2e1",
+  "remoteMain": "97ecb8b3a1dfdee25eb0eade6265a54fb5463b24",
+  "localIntegratedMain": "a7be2de",
+  "gitFetch": "failed: connection reset after retries",
+  "latestMainIntegrated": false,
+  "comparisonUrl": "https://github.com/impureWine/404NOTFOUND/compare/a7be2de...97ecb8b3a1dfdee25eb0eade6265a54fb5463b24",
+  "commits": [
+    "2fea2397d0571ad8c63fdb80333ba4068ae73c52",
+    "c17af4d7f650754a3949e8d4aa5345e206518141",
+    "97ecb8b3a1dfdee25eb0eade6265a54fb5463b24"
+  ],
+  "changedFiles": [
+    {
+      "path": "docs/beta/README.md",
+      "status": "modified"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/.gitattributes",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/01_交互问题与走查记录.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/02_修订设计与组件交接.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/03_日历与桌宠入口文案核对.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/04_演示结构草案.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/05_补交进展与协作交接.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/README.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/SHA256SUMS.txt",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/D01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/D02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E03-failed.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E03.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E04-failed.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E04.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E05-failed.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E05.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E06-failed.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E06.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E07.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E08.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/E09.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/K01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/K02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/K03.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/K04.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/K05.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/K06.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W03.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W04.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W05.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W06.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W07.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/W08.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/results.json",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/vite-output.txt",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/after/截图索引.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/D01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/D02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E03.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E04.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E05.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E06.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E07.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E08.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/E09.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/K01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/K02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/K03.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/K04.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/K05.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/K06.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W01.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W02.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W03.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W04.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W05.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W06.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W07.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/W08.jpg",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/results.json",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/vite-output.txt",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/before/截图索引.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/frontend-build.txt",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/evidence/frontend-tests.txt",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/sources/Day5分工摘录.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/walkthrough.cjs",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/交付检查.json",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/复现说明.md",
+      "status": "added"
+    },
+    {
+      "path": "docs/beta/郭昱祺/Day5_20261118/状态文案.csv",
+      "status": "added"
+    },
+    {
+      "path": "prototype/src/App.jsx",
+      "status": "modified"
+    },
+    {
+      "path": "prototype/src/components/SiteChrome.jsx",
+      "status": "modified"
+    },
+    {
+      "path": "prototype/src/records/RecordsPanel.jsx",
+      "status": "modified"
+    },
+    {
+      "path": "prototype/src/records/records.css",
+      "status": "modified"
+    }
+  ],
+  "issues": [
+    {
+      "number": 107,
+      "title": "[Beta][B04][P1][庄剀涵] 来源对应当次查询",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/107"
+    },
+    {
+      "number": 111,
+      "title": "[Beta][B08][P1][曾俊涛] 按说明新环境启动",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/111"
+    },
+    {
+      "number": 144,
+      "title": "[Beta][Day3][数据][庄剀涵] 记录保存回看清除、事务幂等与查询来源快照",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/144"
+    },
+    {
+      "number": 150,
+      "title": "[Beta][Day4][数据与检索][庄剀涵] 来源字段、查询快照与异常响应核验",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/150"
+    },
+    {
+      "number": 163,
+      "title": "[Beta][Day5][数据与检索][庄剀涵] 日历日期归属、分页与查询快照边界核验",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/163"
+    },
+    {
+      "number": 174,
+      "title": "[Beta][Day6][数据与检索][庄剀涵] 迁移恢复、记录隔离与检索配置核验",
+      "state": "open",
+      "url": "https://github.com/impureWine/404NOTFOUND/issues/174"
+    }
+  ],
+  "day3PR": {
+    "number": 145,
+    "state": "open",
+    "merged": false,
+    "head": "cd7cc72f2adb39ec507186b324931d82d5cace81",
+    "url": "https://github.com/impureWine/404NOTFOUND/pull/145"
+  }
+}

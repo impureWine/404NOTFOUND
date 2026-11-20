@@ -1,0 +1,286 @@
+TAP version 13
+# Subtest: mock mode never calls fetch or claims an API success
+ok 1 - mock mode never calls fetch or claims an API success
+  ---
+  duration_ms: 1.1957
+  type: 'test'
+  ...
+# Subtest: real mode uses same-origin no-store requests and the configured CSRF header
+ok 2 - real mode uses same-origin no-store requests and the configured CSRF header
+  ---
+  duration_ms: 26.8094
+  type: 'test'
+  ...
+# Subtest: real mode refuses writes before context has configured CSRF state
+ok 3 - real mode refuses writes before context has configured CSRF state
+  ---
+  duration_ms: 0.2688
+  type: 'test'
+  ...
+# Subtest: authentication methods preserve the shared request names and credential policy
+ok 4 - authentication methods preserve the shared request names and credential policy
+  ---
+  duration_ms: 1.6069
+  type: 'test'
+  ...
+# Subtest: identity changes discard the in-memory CSRF token even when the response is lost
+ok 5 - identity changes discard the in-memory CSRF token even when the response is lost
+  ---
+  duration_ms: 0.5854
+  type: 'test'
+  ...
+# Subtest: record vault uses the shared consent, list, detail, and two-step clear endpoints
+ok 6 - record vault uses the shared consent, list, detail, and two-step clear endpoints
+  ---
+  duration_ms: 2.582
+  type: 'test'
+  ...
+# Subtest: API errors preserve the contract code and request id without retaining raw bodies
+ok 7 - API errors preserve the contract code and request id without retaining raw bodies
+  ---
+  duration_ms: 0.3139
+  type: 'test'
+  ...
+# Subtest: search TIMEOUT reports the search source, never the AI model
+ok 8 - search TIMEOUT reports the search source, never the AI model
+  ---
+  duration_ms: 5.2722
+  type: 'test'
+  ...
+# Subtest: search SERVICE_UNAVAILABLE reports the search source, never the AI model
+ok 9 - search SERVICE_UNAVAILABLE reports the search source, never the AI model
+  ---
+  duration_ms: 0.2162
+  type: 'test'
+  ...
+# Subtest: search PROVIDER_UNAVAILABLE reports the search source, never the AI model
+ok 10 - search PROVIDER_UNAVAILABLE reports the search source, never the AI model
+  ---
+  duration_ms: 0.9902
+  type: 'test'
+  ...
+# Subtest: search SEARCH_NOT_CONFIGURED reports the search source, never the AI model
+ok 11 - search SEARCH_NOT_CONFIGURED reports the search source, never the AI model
+  ---
+  duration_ms: 0.1825
+  type: 'test'
+  ...
+# Subtest: search SEARCH_AUTH_FAILED reports the search source, never the AI model
+ok 12 - search SEARCH_AUTH_FAILED reports the search source, never the AI model
+  ---
+  duration_ms: 0.1919
+  type: 'test'
+  ...
+# Subtest: search SEARCH_RATE_LIMITED reports the search source, never the AI model
+ok 13 - search SEARCH_RATE_LIMITED reports the search source, never the AI model
+  ---
+  duration_ms: 0.1395
+  type: 'test'
+  ...
+# Subtest: model timeout retains its AI message and uses the agent task route
+ok 14 - model timeout retains its AI message and uses the agent task route
+  ---
+  duration_ms: 0.2202
+  type: 'test'
+  ...
+# Subtest: search cancelled with no code keeps a search-specific fallback
+ok 15 - search cancelled with no code keeps a search-specific fallback
+  ---
+  duration_ms: 0.1776
+  type: 'test'
+  ...
+# Subtest: search expired with no code keeps a search-specific fallback
+ok 16 - search expired with no code keeps a search-specific fallback
+  ---
+  duration_ms: 0.1734
+  type: 'test'
+  ...
+# Subtest: search failed with UNKNOWN keeps a search-specific fallback
+ok 17 - search failed with UNKNOWN keeps a search-specific fallback
+  ---
+  duration_ms: 0.2464
+  type: 'test'
+  ...
+# Subtest: desktop breathing never advances before start and follows 4/6-second phases
+ok 18 - desktop breathing never advances before start and follows 4/6-second phases
+  ---
+  duration_ms: 1.5992
+  type: 'test'
+  ...
+# Subtest: desktop breathing pauses without counting hidden time and resumes at the same phase
+ok 19 - desktop breathing pauses without counting hidden time and resumes at the same phase
+  ---
+  duration_ms: 0.7364
+  type: 'test'
+  ...
+# Subtest: collapse/reset and dispose prevent old timer callbacks from publishing into the next exercise
+ok 20 - collapse/reset and dispose prevent old timer callbacks from publishing into the next exercise
+  ---
+  duration_ms: 0.737
+  type: 'test'
+  ...
+# Subtest: desktop breathing completes once and cancels its timer even after a delayed tick
+ok 21 - desktop breathing completes once and cancels its timer even after a delayed tick
+  ---
+  duration_ms: 0.8673
+  type: 'test'
+  ...
+# Subtest: desktop starts as one compact pet without opening a workspace window
+ok 22 - desktop starts as one compact pet without opening a workspace window
+  ---
+  duration_ms: 1.7585
+  type: 'test'
+  ...
+# Subtest: expansion preserves the bottom-right anchor and clamps to the display work area
+ok 23 - expansion preserves the bottom-right anchor and clamps to the display work area
+  ---
+  duration_ms: 1.1145
+  type: 'test'
+  ...
+# Subtest: only the actual pet may open allowlisted workspace routes
+ok 24 - only the actual pet may open allowlisted workspace routes
+  ---
+  duration_ms: 1.3997
+  type: 'test'
+  ...
+# Subtest: recovery shortcut restores a hidden pet and disables click-through
+ok 25 - recovery shortcut restores a hidden pet and disables click-through
+  ---
+  duration_ms: 1.1738
+  type: 'test'
+  ...
+# Subtest: preload exposes only fixed routes and event subscriptions can be removed
+ok 26 - preload exposes only fixed routes and event subscriptions can be removed
+  ---
+  duration_ms: 2.8509
+  type: 'test'
+  ...
+# Subtest: switching away disposes the owned animation loop and all lifecycle listeners
+ok 27 - switching away disposes the owned animation loop and all lifecycle listeners
+  ---
+  duration_ms: 0.8749
+  type: 'test'
+  ...
+# Subtest: hiding the page pauses motion and never auto-resumes when visible again
+ok 28 - hiding the page pauses motion and never auto-resumes when visible again
+  ---
+  duration_ms: 0.1609
+  type: 'test'
+  ...
+# Subtest: pagehide cancels outstanding animation callbacks before they can draw again
+ok 29 - pagehide cancels outstanding animation callbacks before they can draw again
+  ---
+  duration_ms: 0.8047
+  type: 'test'
+  ...
+# Subtest: history detail renders the actual title and CONVERSATION body
+ok 30 - history detail renders the actual title and CONVERSATION body
+  ---
+  duration_ms: 10.2159
+  type: 'test'
+  ...
+# Subtest: history detail renders the actual title and EMOTION body
+ok 31 - history detail renders the actual title and EMOTION body
+  ---
+  duration_ms: 1.1078
+  type: 'test'
+  ...
+# Subtest: history detail renders the actual title and WORRY_OBJECT body
+ok 32 - history detail renders the actual title and WORRY_OBJECT body
+  ---
+  duration_ms: 0.6928
+  type: 'test'
+  ...
+# Subtest: history detail renders the actual title and REHEARSAL_DRAFT body
+ok 33 - history detail renders the actual title and REHEARSAL_DRAFT body
+  ---
+  duration_ms: 0.9021
+  type: 'test'
+  ...
+# Subtest: query history shows the saved question, excerpt, uncertainty and original source
+ok 34 - query history shows the saved question, excerpt, uncertainty and original source
+  ---
+  duration_ms: 1.945
+  type: 'test'
+  ...
+# Subtest: deposit detail never reveals a body before active retrieval
+ok 35 - deposit detail never reveals a body before active retrieval
+  ---
+  duration_ms: 0.9346
+  type: 'test'
+  ...
+# Subtest: history escapes saved markup and refuses executable source links
+ok 36 - history escapes saved markup and refuses executable source links
+  ---
+  duration_ms: 0.9983
+  type: 'test'
+  ...
+# Subtest: missing detail content reports an explicit problem rather than a blank success panel
+ok 37 - missing detail content reports an explicit problem rather than a blank success panel
+  ---
+  duration_ms: 0.6158
+  type: 'test'
+  ...
+# Subtest: ready training never starts a timer or advances before explicit start
+ok 38 - ready training never starts a timer or advances before explicit start
+  ---
+  duration_ms: 1.9734
+  type: 'test'
+  ...
+# Subtest: breathing follows phase boundaries, skips zero hold and supports an optional hold
+ok 39 - breathing follows phase boundaries, skips zero hold and supports an optional hold
+  ---
+  duration_ms: 0.218
+  type: 'test'
+  ...
+# Subtest: pause freezes phase, progress and elapsed time; resume only adds active time
+ok 40 - pause freezes phase, progress and elapsed time; resume only adds active time
+  ---
+  duration_ms: 0.4058
+  type: 'test'
+  ...
+# Subtest: completion clamps the clock and cancels timers, including delayed background callbacks
+ok 41 - completion clamps the clock and cancels timers, including delayed background callbacks
+  ---
+  duration_ms: 0.1891
+  type: 'test'
+  ...
+# Subtest: stale callbacks cannot publish events after pause, reset/restart, exit or dispose
+ok 42 - stale callbacks cannot publish events after pause, reset/restart, exit or dispose
+  ---
+  duration_ms: 0.2342
+  type: 'test'
+  ...
+# Subtest: guided steps only move on explicit actions, preserve pause and allow revisiting before completion
+ok 43 - guided steps only move on explicit actions, preserve pause and allow revisiting before completion
+  ---
+  duration_ms: 0.2321
+  type: 'test'
+  ...
+# Subtest: pause-organize and worksheet complete only explicitly, not when timers elapse
+ok 44 - pause-organize and worksheet complete only explicitly, not when timers elapse
+  ---
+  duration_ms: 0.2011
+  type: 'test'
+  ...
+# Subtest: invalid content and breathing settings fail before allocating a timer
+ok 45 - invalid content and breathing settings fail before allocating a timer
+  ---
+  duration_ms: 0.5059
+  type: 'test'
+  ...
+# Subtest: page hide pauses without auto-resume; page exit and unmount cancel all owned work
+ok 46 - page hide pauses without auto-resume; page exit and unmount cancel all owned work
+  ---
+  duration_ms: 0.3403
+  type: 'test'
+  ...
+1..46
+# tests 46
+# suites 0
+# pass 46
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7802.7787

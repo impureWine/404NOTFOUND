@@ -1,0 +1,264 @@
+{
+  "date": "2026-11-20",
+  "timezone": "Asia/Shanghai",
+  "author": "庄剀涵",
+  "branch": "codex/zkh-beta-day7-handoff",
+  "testedSource": "d60344b79a3039d0e6caf1c5bb36113db0a7f2e1",
+  "remoteMainObserved": "97ecb8b3a1dfdee25eb0eade6265a54fb5463b24",
+  "latestMainIntegrated": false,
+  "day7FunctionalChanges": false,
+  "normalization": "Evidence UTF-8 text, CRLF normalized to LF; TAP trailing whitespace trimmed. Build hashes use raw bytes.",
+  "backend": {
+    "skipped": 0,
+    "passed": 222,
+    "failed": 0,
+    "durationMs": 23884.0141
+  },
+  "frontend": {
+    "passed": 46,
+    "failed": 0,
+    "build": "passed on tested source, not latest main"
+  },
+  "targetPostgres": "blocked: no test database",
+  "realSearch": "blocked: SEARCH_NOT_CONFIGURED",
+  "releaseReady": false,
+  "independentReview": "pending",
+  "sourceTrees": [
+    {
+      "path": "backend/src",
+      "gitTree": "489dcc3cd6961d3ba33da106ab76167a4c87528a"
+    },
+    {
+      "path": "backend/scripts",
+      "gitTree": "91bf75342d04fff78b02f5756deab4097b5e07db"
+    },
+    {
+      "path": "backend/test",
+      "gitTree": "465bee0c495e4b5bca8db78813c8663a077843c1"
+    },
+    {
+      "path": "backend/migrations",
+      "gitTree": "66f14f1d401a28281e9e92266776df2cf8deba3c"
+    },
+    {
+      "path": "shared",
+      "gitTree": "18643f8792a2521a2b5a1de8caf3a71b5df013f9"
+    },
+    {
+      "path": "database-design/sql",
+      "gitTree": "8ebe93ade90dd0fb5bd7fe4a96ec2c3b9fdb2f44"
+    },
+    {
+      "path": "prototype/src",
+      "gitTree": "188e22e8baad9029216c2dce00b336b36a8b9234"
+    }
+  ],
+  "buildArtifacts": [
+    {
+      "path": "prototype/dist/calendar-empty.html",
+      "sha256": "929579c811b5e93315ed10081674c0320c487ccfd950cb8d35bb69408dd8ac6b"
+    },
+    {
+      "path": "prototype/dist/calendar.html",
+      "sha256": "929579c811b5e93315ed10081674c0320c487ccfd950cb8d35bb69408dd8ac6b"
+    },
+    {
+      "path": "prototype/dist/companion-empty.html",
+      "sha256": "561c6df75060d60ea409b5aa515f62b9f44aa35650552de545893f5b26ab1307"
+    },
+    {
+      "path": "prototype/dist/companion-error.html",
+      "sha256": "561c6df75060d60ea409b5aa515f62b9f44aa35650552de545893f5b26ab1307"
+    },
+    {
+      "path": "prototype/dist/companion-loading.html",
+      "sha256": "561c6df75060d60ea409b5aa515f62b9f44aa35650552de545893f5b26ab1307"
+    },
+    {
+      "path": "prototype/dist/companion.html",
+      "sha256": "561c6df75060d60ea409b5aa515f62b9f44aa35650552de545893f5b26ab1307"
+    },
+    {
+      "path": "prototype/dist/emotion-card.html",
+      "sha256": "79247f464f7c68c1c8ba7b946dcc2b2c5c5b9aa2706a502a61e87aced39b22de"
+    },
+    {
+      "path": "prototype/dist/five-senses.html",
+      "sha256": "0a331a445a6cfc847c105cd9fdf8b3402a7a804acb22e644203ee8837cd3eadf"
+    },
+    {
+      "path": "prototype/dist/games.html",
+      "sha256": "9565efd608a59fdf720f81c7fd63e243b8f347a843d7640917763d8f5b4018fa"
+    },
+    {
+      "path": "prototype/dist/home.html",
+      "sha256": "f769eb5da9d18a2606f4b9847fb20d3891e50843ed29f0ee3e01c95ae49f417b"
+    },
+    {
+      "path": "prototype/dist/index.html",
+      "sha256": "1997fa2982e449b0e4c4eebf2d8e01e765199cac463de4cc1997d74c5293514a"
+    },
+    {
+      "path": "prototype/dist/info-empty.html",
+      "sha256": "fbe606a1bb7c8af75d0bf3b5d0762dc433bf7634382875cc83e9d4f49b1d073d"
+    },
+    {
+      "path": "prototype/dist/info-query.html",
+      "sha256": "fbe606a1bb7c8af75d0bf3b5d0762dc433bf7634382875cc83e9d4f49b1d073d"
+    },
+    {
+      "path": "prototype/dist/login.html",
+      "sha256": "36acb364b361b27ca4e05e6ac04fc866c3cf65df4c3e3c84256d060878666267"
+    },
+    {
+      "path": "prototype/dist/pause-organize.html",
+      "sha256": "9ff6bd049d712dd282e260c18a45e02347cc4ec7532ec5e5594b3ace45f92173"
+    },
+    {
+      "path": "prototype/dist/practice-layout.css",
+      "sha256": "d3a30501a80e0ee22edd70fcc3cd34c6342e82f4d4daa4ff893ea579824f6272"
+    },
+    {
+      "path": "prototype/dist/practice-pages.css",
+      "sha256": "8524182166cb687f04a109c091b949b5ba7c530f3b33321f9e4f9b9305fb109e"
+    },
+    {
+      "path": "prototype/dist/practice-pages.js",
+      "sha256": "a3e7c71674837c304717605e03122c76b645a064081d7d8665f95d07806fd28f"
+    },
+    {
+      "path": "prototype/dist/pressure-toy.html",
+      "sha256": "19aa707ef19672c36ac2084556a768332100ccd6802e65a08b171aeec0e21746"
+    },
+    {
+      "path": "prototype/dist/profile.html",
+      "sha256": "d7e0c7b43bb72650fa63ed1117ab6f61d17c2aad677998257e4b54a3dedbe23b"
+    },
+    {
+      "path": "prototype/dist/prototype-guide.html",
+      "sha256": "f769eb5da9d18a2606f4b9847fb20d3891e50843ed29f0ee3e01c95ae49f417b"
+    },
+    {
+      "path": "prototype/dist/register.html",
+      "sha256": "4d56bd79b09d146a9ba379469f35968b1b5704808f55c54517ef55a1806792e1"
+    },
+    {
+      "path": "prototype/dist/rehearsal-complete.html",
+      "sha256": "6853f082ed955fbb4da9e416bd72a1429d018cae85d5031333844ac4732cda02"
+    },
+    {
+      "path": "prototype/dist/rehearsal.html",
+      "sha256": "2df1915d496e2de6c91eced22451287e465e1315b1abc6e6216af9ed02561c2d"
+    },
+    {
+      "path": "prototype/dist/settings.html",
+      "sha256": "d7e0c7b43bb72650fa63ed1117ab6f61d17c2aad677998257e4b54a3dedbe23b"
+    },
+    {
+      "path": "prototype/dist/site-nav.js",
+      "sha256": "af1b8574191d79df02f8fd4bdf04deaaf0b35b7a2d98a3e67f2a44640dda1810"
+    },
+    {
+      "path": "prototype/dist/task-splitting.html",
+      "sha256": "b2d63d0bd68b823c5561e4ed5113e3890cd3c20b7af683460a057167a06e78fe"
+    },
+    {
+      "path": "prototype/dist/theme.css",
+      "sha256": "deb0d52802c7d9bd2e596210d1590cb577b1f02b75a071a033a32e71974ef88a"
+    },
+    {
+      "path": "prototype/dist/theme.js",
+      "sha256": "3daf3a0f0883a36094862ea13103aab796ca108eb950d5c84bec15fed1fe4f37"
+    },
+    {
+      "path": "prototype/dist/things-organize.html",
+      "sha256": "00048d112cd7f92e979fe2566b1e9523823ab5dc60413edd635f23af00a1d184"
+    },
+    {
+      "path": "prototype/dist/ux-components.html",
+      "sha256": "f769eb5da9d18a2606f4b9847fb20d3891e50843ed29f0ee3e01c95ae49f417b"
+    },
+    {
+      "path": "prototype/dist/worry-room.html",
+      "sha256": "eeab6e1a834f2e7633f8d2fb573fa9548e83ef92fb9c9baecc28a1fd7537bfe7"
+    },
+    {
+      "path": "prototype/dist/assets/404-mark.svg",
+      "sha256": "33c5cd2cc4cd625414c994d9231ec90147a33398311118cf15974d65ea722b5e"
+    },
+    {
+      "path": "prototype/dist/assets/main-B8W_jpqz.js",
+      "sha256": "5002e4ae8db5f39ad8c747bf1387b72813cd78d96407b02f26219a2d091d3287"
+    },
+    {
+      "path": "prototype/dist/assets/main-Bl-jLPFR.css",
+      "sha256": "643ebe1506e5ba8d11da40b05296b94657af8b69682bcaedf9177630a3f5ad72"
+    },
+    {
+      "path": "prototype/dist/assets/worry-pet.png",
+      "sha256": "c06739e10102c09a9daa9f5d6509145284804cc729b96fed933f9b843f56073a"
+    }
+  ],
+  "evidenceFiles": [
+    {
+      "path": "backend/evidence/daily/Day7_Beta_庄剀涵_20261120.md",
+      "sha256": "d499a12bad7ba74b1fda4c1e8fedc448ccc79cf88381ddf19b379ab13f42f77a"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/acceptance-steps.md",
+      "sha256": "60fc264cc156e89378356fd62ec54e615e464e26d2e82af70832d31c684265d9"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/backend-full.tap",
+      "sha256": "c74b31d373453c139071d80fff9f18383d70914163c97bb1f62cf2c5f81df346"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/check-exit-codes.json",
+      "sha256": "0e65489c3bea1c980427aed714fc55de0ee9f56258625255421d2b16014f4055"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/data-search-handoff.md",
+      "sha256": "1d47118f14e87d83780d3afa4f96624e2b6a151a968162a7e2e58f078eaf184c"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/environment-check.json",
+      "sha256": "ee4be39f4bd7ee8c334a6c6307c209a4593989e4aafe6070a3da54e72b7d0679"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/follow-up.md",
+      "sha256": "ae9f351ed13a45ab427428a92d9371c8400ed5c2b9fe6b09b4128cb17bf53556"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/frontend-build.txt",
+      "sha256": "09999162204cdf01a2b10045fff7c984587e498780d8001b00a10e97842b848e"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/frontend-exit-codes.json",
+      "sha256": "8ccfe8a8e37e0e0934ae7b714ab5b0fcfb7f4112dc4dd25bb7a81a841ca6ea26"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/frontend-tests.tap",
+      "sha256": "a6b90ab351459052f929a18ba35082f5d1b4dde8e3fca06480144d924416e1ff"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/query-snapshot-sample.json",
+      "sha256": "94cbeabd990ecf578c7f69ce7cf102b1ea035690cd9b590b4b0c78c17753b2f3"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/real-search-check.json",
+      "sha256": "429891d01b4cf07dcd48dcb9d5b770c0f6cf5534782d456861a8fd7e6d6c765c"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/release-check.txt",
+      "sha256": "138940517d334b3d698694df1ae5b1379ff62afc4dbaabb1788cf05a2ddccec1"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/repository-status.json",
+      "sha256": "d9396323a011b2d959cbd90e88bb655cfecbedf245de2bfdc1e15c0ac8487203"
+    },
+    {
+      "path": "backend/evidence/daily/beta-day7-20261120/search-failure-observations.json",
+      "sha256": "d7c59e8bab13f4c6c796741702c7397c02b4c4c681ed6cffe54c51bd16c283ac"
+    }
+  ]
+}

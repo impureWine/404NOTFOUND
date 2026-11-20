@@ -1,0 +1,66 @@
+{
+  "environment": "synthetic HTTP failures; no real vendor failure measurement",
+  "observations": [
+    {
+      "case": "not-configured",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "SEARCH_NOT_CONFIGURED",
+      "saveStatus": 409
+    },
+    {
+      "case": "auth",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "SEARCH_AUTH_FAILED",
+      "saveStatus": 409
+    },
+    {
+      "case": "quota",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "SEARCH_RATE_LIMITED",
+      "saveStatus": 409
+    },
+    {
+      "case": "upstream",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "SERVICE_UNAVAILABLE",
+      "saveStatus": 409
+    },
+    {
+      "case": "malformed",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "SERVICE_UNAVAILABLE",
+      "saveStatus": 409
+    },
+    {
+      "case": "invalid-sources",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "SERVICE_UNAVAILABLE",
+      "saveStatus": 409
+    },
+    {
+      "case": "network",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "SERVICE_UNAVAILABLE",
+      "saveStatus": 409
+    },
+    {
+      "case": "timeout",
+      "pollingHttpStatus": 200,
+      "status": "failed",
+      "code": "TIMEOUT",
+      "saveStatus": 409
+    }
+  ],
+  "retry": {
+    "newRequest": true,
+    "status": "completed",
+    "saveStatus": 201
+  }
+}

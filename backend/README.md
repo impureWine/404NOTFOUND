@@ -104,6 +104,8 @@ npm run smoke:model
 
 ## Beta Day3 数据交接
 
+Beta 阶段最终数据交接入口：[庄剀涵 Day7 复测与交付包](evidence/daily/Day7_Beta_庄剀涵_20261120.md)。包含迁移、数据访问、检索配置、当天测试证据和后续关闭条件；目标数据库、实网检索及统一候选独立验收仍待完成。
+
 来源快照迁移 `006_saved_query_source_snapshots.sql`、查询详情新增字段、事务与幂等验证见 [庄剀涵 Day3 交接](evidence/daily/Day3_Beta_庄剀涵_20261116.md)。新代码需先执行迁移；旧记录来源标记 `LEGACY_BACKFILL`，不可描述为原始保存时快照。当前结论仅为本地数据层与 HTTP 自动化自查通过。
 
 ## Beta Day6 迁移与恢复交接
