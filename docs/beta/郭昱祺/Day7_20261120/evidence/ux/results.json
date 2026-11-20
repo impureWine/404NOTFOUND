@@ -1,0 +1,682 @@
+{
+  "plannedDate": "2026-11-20",
+  "executedDate": "2026-11-20",
+  "executor": "郭昱祺 UX / AI辅助脚本排练",
+  "sourceCommit": "47feb4dbfc436e7e14b7164ab394036e1bfd8a21",
+  "phase": "ux",
+  "environment": "Edge headless; all API responses synthetic; desktop HTML renderer only, not native Electron/IPC",
+  "sourceHashes": {
+    "prototype/src/App.jsx": "826fb7703c48d0250594f2fa186d3ef35193850e29d181c17e55471888ccbd82",
+    "prototype/src/records/records.css": "d49997a2d8b6c713a14f3f02631f12fdd0ca4115135cf096762ed98b405cbf1b",
+    "prototype/src/records/RecordsPanel.jsx": "986a4ea25437535bee9f697da30008869a05be8a0baf72cd90c0b082ee8ad970",
+    "prototype/src/live/live.css": "8ca178f892940178e05e2728503dce08a3be4bc239bf5c4e2ae1e7b85a03eaca",
+    "prototype/src/components/SiteChrome.jsx": "ec7234621e430d640bfdb6740eb83e3c136d9b7c782fc207b4ee5d09887887b2",
+    "prototype/electron/renderer.html": "991678f814ac20b7be1622b4f249a948558873146663c8e80f8bf486755d5dbe",
+    "prototype/electron/renderer.js": "5c50003605c62af8ee69d6038fcb5b7b81d19c156ab6c58bdba0ac34a47c1250"
+  },
+  "total": 25,
+  "passed": 25,
+  "failed": 0,
+  "results": [
+    {
+      "id": "W01",
+      "title": "home 390px窄屏",
+      "expected": "页面不产生水平溢出",
+      "status": "PASS",
+      "observed": {
+        "viewport": 390,
+        "document": 390,
+        "main": 390
+      },
+      "screenshot": "evidence/ux/W01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "W02",
+      "title": "companion 390px窄屏",
+      "expected": "页面不产生水平溢出",
+      "status": "PASS",
+      "observed": {
+        "viewport": 390,
+        "document": 390,
+        "main": 390
+      },
+      "screenshot": "evidence/ux/W02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "W03",
+      "title": "search 390px窄屏",
+      "expected": "页面不产生水平溢出",
+      "status": "PASS",
+      "observed": {
+        "viewport": 390,
+        "document": 390,
+        "main": 390
+      },
+      "screenshot": "evidence/ux/W03.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/810a58e8-eade-4e76-9439-c4132af4c3e1"
+        }
+      ]
+    },
+    {
+      "id": "W04",
+      "title": "calendar 390px窄屏",
+      "expected": "页面不产生水平溢出",
+      "status": "PASS",
+      "observed": {
+        "viewport": 390,
+        "document": 390,
+        "main": 390
+      },
+      "screenshot": "evidence/ux/W04.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "W05",
+      "title": "query-records 390px窄屏",
+      "expected": "页面不产生水平溢出",
+      "status": "PASS",
+      "observed": {
+        "viewport": 390,
+        "document": 390,
+        "main": 390
+      },
+      "screenshot": "evidence/ux/W05.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "W06",
+      "title": "home 320px窄屏",
+      "expected": "页面不产生水平溢出",
+      "status": "PASS",
+      "observed": {
+        "viewport": 320,
+        "document": 320,
+        "main": 320
+      },
+      "screenshot": "evidence/ux/W06.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "W07",
+      "title": "calendar 320px窄屏",
+      "expected": "页面不产生水平溢出",
+      "status": "PASS",
+      "observed": {
+        "viewport": 320,
+        "document": 320,
+        "main": 320
+      },
+      "screenshot": "evidence/ux/W07.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "W08",
+      "title": "320px日期数字未裁切",
+      "expected": "所有日期数字均位于卡片可见区域内",
+      "status": "PASS",
+      "observed": {
+        "clipped": []
+      },
+      "screenshot": "evidence/ux/W08.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "K01",
+      "title": "移动导航状态",
+      "expected": "按钮暴露展开状态，Enter开启后为true",
+      "status": "PASS",
+      "observed": {
+        "before": "false",
+        "after": "true"
+      },
+      "screenshot": "evidence/ux/K01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "K02",
+      "title": "移动导航Escape关闭",
+      "expected": "Escape关闭导航并将焦点返回开关",
+      "status": "PASS",
+      "observed": {
+        "navVisible": false,
+        "focus": "<button class=\"mobile-home-bar\" aria-label=\"切换导航\" aria-expanded=\"false\" aria-controls=\"primary-sidebar\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 "
+      },
+      "screenshot": "evidence/ux/K02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "K03",
+      "title": "登录对话框键盘",
+      "expected": "首焦点在登录名；Tab不越出；Escape回原按钮",
+      "status": "PASS",
+      "observed": {
+        "initial": true,
+        "trapped": true,
+        "returned": true
+      },
+      "screenshot": "evidence/ux/K03.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "K04",
+      "title": "日历卡键盘翻面",
+      "expected": "Enter可选择日期并更新展开状态",
+      "status": "PASS",
+      "observed": {
+        "expanded": "true",
+        "label": "2026-11-01日历卡，返回正面"
+      },
+      "screenshot": "evidence/ux/K04.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "K05",
+      "title": "查询全键盘提交",
+      "expected": "输入→Tab授权→Space→Tab→Enter能提交",
+      "status": "PASS",
+      "observed": {
+        "tasks": 1
+      },
+      "screenshot": "evidence/ux/K05.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/2f4f133b-f92a-4558-b0e2-99a121811d53"
+        }
+      ]
+    },
+    {
+      "id": "K06",
+      "title": "输入焦点可见",
+      "expected": "键盘聚焦文本框有可见outline或box-shadow",
+      "status": "PASS",
+      "observed": {
+        "style": "auto",
+        "width": "1px",
+        "shadow": "none",
+        "focusVisible": true
+      },
+      "screenshot": "evidence/ux/K06.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/2f4f133b-f92a-4558-b0e2-99a121811d53"
+        }
+      ]
+    },
+    {
+      "id": "E01",
+      "title": "陪伴空输入",
+      "expected": "提示开始输入，发送禁用",
+      "status": "PASS",
+      "observed": "空输入按钮与起始状态",
+      "screenshot": "evidence/ux/E01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "E02",
+      "title": "查询等待",
+      "expected": "有status提示且查询按钮禁用",
+      "status": "PASS",
+      "observed": "等待与防重复提交",
+      "screenshot": "evidence/ux/E02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/2c6646d9-d047-46d8-be6d-23d65d9e45e9"
+        }
+      ]
+    },
+    {
+      "id": "E03",
+      "title": "companion失败恢复",
+      "expected": "失败保留输入，手动重试成功",
+      "status": "PASS",
+      "observed": {
+        "kept": true,
+        "tasks": 2
+      },
+      "screenshot": "evidence/ux/E03.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/201d4e29-6945-4a65-af2f-632987fe5b0e"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks/201d4e29-6945-4a65-af2f-632987fe5b0e/cancel"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/58f4982a-66a5-4389-bc56-2c368122bd55"
+        }
+      ]
+    },
+    {
+      "id": "E04",
+      "title": "search失败恢复",
+      "expected": "失败保留输入，手动重试成功",
+      "status": "PASS",
+      "observed": {
+        "kept": true,
+        "tasks": 2
+      },
+      "screenshot": "evidence/ux/E04.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/4446ef8f-51a0-4f80-b5f1-f6eb78d7f0a3"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks/4446ef8f-51a0-4f80-b5f1-f6eb78d7f0a3/cancel"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions/synthetic-session/actions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/77cdc2bb-8060-4096-89ad-ff1b47fa9fcb"
+        }
+      ]
+    },
+    {
+      "id": "E05",
+      "title": "历史读取失败重试",
+      "expected": "失败不同时出现空态，重新读取后正常空态",
+      "status": "PASS",
+      "observed": {
+        "failedHadEmpty": false,
+        "lists": 2
+      },
+      "screenshot": "evidence/ux/E05.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "E06",
+      "title": "日历读取失败与空态区分",
+      "expected": "读取失败时日期不能声称没有记录，重试后才空",
+      "status": "PASS",
+      "observed": {
+        "failedCard": "1\n未确认\n11 月 01 日\n记录状态未确认\n尚不能确认这一天有无记录",
+        "summary": true
+      },
+      "screenshot": "evidence/ux/E06.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "E07",
+      "title": "日历等待概览",
+      "expected": "尚未完成读取时概览为未知，不显示0天",
+      "status": "PASS",
+      "observed": "本月概览\n—\n\n正在读取本月记录，请稍候",
+      "screenshot": "evidence/ux/E07.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "E08",
+      "title": "日历保存失败保留草稿",
+      "expected": "错误提示未确认保存成功，备注保留",
+      "status": "PASS",
+      "observed": "合成保存失败；未确认保存成功。版本冲突时请重新打开最新记录再编辑。",
+      "screenshot": "evidence/ux/E08.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "GET",
+          "path": "/api/records"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "E09",
+      "title": "查询无来源",
+      "expected": "正常无来源不显示失败，保留问题且无保存按钮",
+      "status": "PASS",
+      "observed": "无来源与服务失败分离",
+      "screenshot": "evidence/ux/E09.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/f0d5121f-0e95-416e-9bcd-b343ce19b14e"
+        }
+      ]
+    },
+    {
+      "id": "D01",
+      "title": "桌宠心情文案与收起",
+      "expected": "心情仅临时选择；Escape收起后清除并回开关",
+      "status": "PASS",
+      "observed": {
+        "temporaryCopy": true,
+        "returned": true,
+        "pressed": "false"
+      },
+      "screenshot": "evidence/ux/D01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "title": "桌宠恢复提示",
+      "expected": "设置明确显示快捷键与退出入口",
+      "status": "PASS",
+      "observed": "← 返回\n按舒服的方式陪伴\n鼠标点击穿透\n开启后按 Alt＋Shift＋P 恢复\n账号与隐私设置\n在工作台中查看\n隐藏桌宠（快捷键唤回）\n退出桌宠",
+      "screenshot": "evidence/ux/D02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        }
+      ]
+    }
+  ]
+}
