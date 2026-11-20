@@ -1,0 +1,12 @@
+[B2-T-03] {"completedStatus":200,"completedTaskStatus":"completed","hasResultBeforeEnd":true,"endActionStatus":200,"afterEndReadStatus":200,"hasResultAfterEnd":true}
+✔ T-03 结束后读取已完成任务、重来（RESTART）后的旧结果 (1844.9415ms)
+[B3-INFLIGHT] {"taskAccepted":202,"revokeStatus":200,"statusInFlight":"running","taskReadAfterRevoke":200,"statusAfterRevoke":"completed","hasResultAfterRevoke":true}
+✔ B3-INFLIGHT 撤回在途任务：许可撤回后任务是否继续跑完（Day2 结转项复测） (2039.9894ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2426.6224

@@ -1,0 +1,24 @@
+[B4-P02] {"samePayload":201,"changedBody":403,"reorderedKeys":201}
+✔ P-02 载荷摘要：内容变更即失效，键序变化不得误杀 (1871.0961ms)
+[B4-P03A] {"ttlFromResponse":299919,"beforeExpiry":201,"atExpiry":403}
+✔ P-03 过期：5 分钟 TTL 与到期边界 (713.04ms)
+[B4-P03B] {"beforeRevoke":201,"revokeStatus":200,"afterRevoke":403,"crossAccountRevoke":404}
+✔ P-03 撤销：撤销即失效，跨账号撤销返回 404 (1136.9975ms)
+[B4-P03C] {"crossEntryReuse":201}
+✔ P-03 附加：同账号异入口借用 SAVE 许可 (918.3842ms)
+[B4-P03D] {"borrowedConsentStatus":403}
+✔ P-03 附加：跨账号借用他人许可（回归） (1022.9276ms)
+[D5-01] {"anonymous":{"status":404,"callsAfter":0},"badOrigin":{"status":404,"adapterCalls":0},"noCsrf":{"status":404,"adapterCalls":0},"noConsent":{"status":404,"adapterCalls":0}}
+✔ D5-01 内部模型入口：内部入口已关闭，匿名与已登录请求均不调用模型 (1825.872ms)
+[D5-02] {"webSession":{"status":200,"taskStatus":"completed","hasResult":true},"desktopCrossRead":{"status":404,"hasResult":false,"taskStatus":null},"desktopCrossCancel":{"status":404}}
+✔ D5-02 同账号跨入口：DESKTOP 不能读取或取消 WEB 的 AI 任务 (760.2579ms)
+[D5-10] {"staleWriteStatus":403}
+✔ D5-10 失效会话写请求：请求被拒绝但返回 403 而非 401（沿用 Day 4 观察） (1002.6806ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6139.8417
