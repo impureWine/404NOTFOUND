@@ -68,6 +68,38 @@ test('ending a session cancels an in-flight search and prevents late refill', as
   assert.equal(task.sources, undefined);
 });
 
+for (const action of ['END', 'RESTART']) {
+  test(`${action} clears an already completed search result`, async () => {
+    const service = new TaskService({
+      consentService: { assert() {} },
+      searchProvider: { search: async () => ({ searchState: 'SUCCESS', sources: [{ title: '来源' }] }) },
+    });
+    const session = service.createSession(context, { requestId, mode: 'SEARCH' });
+    service.createSearchTask(context, {
+      requestId,
+      sessionId: session.sessionId,
+      activityId: session.activityId,
+      sessionGeneration: 0,
+      activityGeneration: 0,
+      question: '测试查询',
+      consentId,
+    });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(service.getSearchTask(context, requestId).status, 'completed');
+
+    service.action(context, session.sessionId, {
+      requestId: consentId,
+      action,
+      expectedSessionGeneration: 0,
+      expectedActivityGeneration: 0,
+    });
+    const invalidated = service.getSearchTask(context, requestId);
+    assert.equal(invalidated.status, 'cancelled');
+    assert.equal(invalidated.answer, undefined);
+    assert.equal(invalidated.sources, undefined);
+  });
+}
+
 test('explicit search cancellation clears a previous public failure reason', async () => {
   const service = new TaskService({
     consentService: { assert() {} },

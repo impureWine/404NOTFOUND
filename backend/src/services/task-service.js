@@ -89,7 +89,9 @@ export class TaskService {
       session.state = 'ready';
     }
     if (['PAUSE', 'RESTART', 'FINISH_REHEARSAL', 'END'].includes(value.action)) {
-      this.cancelSessionTasks(session.sessionId);
+      this.cancelSessionTasks(session.sessionId, {
+        includeCompleted: ['RESTART', 'END'].includes(value.action),
+      });
     }
     return this.publicSession(session);
   }
