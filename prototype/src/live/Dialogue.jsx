@@ -29,7 +29,17 @@ export function Dialogue({ mode = 'LISTEN', initialText = '' }) {
       const text = summarize ? '整理我已选择的表达' : draft.trim();
       setMessages(current => [...current, { id: result.result.userMessageId, role: 'USER', content: text }, { id: result.result.replyMessageId, role: 'ASSISTANT', content: result.result.text, safety: result.result.safety }]);
       if (!summarize) setDraft('');
-    } catch (value) { if (live.current) setError(value.name === 'AbortError' ? '已停止等待；不会回填迟到结果。' : value.message); }
+    } catch (value) {
+      if (live.current) {
+        if (value.code === 'STALE_SELECTED_CONTEXT') {
+          const staleIds = new Set(value.staleContextIds || []);
+          setHistoryIds(current => current.filter(recordId => !staleIds.has(recordId)));
+          setHistory(current => current.filter(record => !staleIds.has(record.id)));
+          setHistoryCursor(null);
+        }
+        setError(value.name === 'AbortError' ? '已停止等待；不会回填迟到结果。' : value.message);
+      }
+    }
     finally { lock.current = false; if (live.current) setOperation(''); }
   };
   const save = async () => {
