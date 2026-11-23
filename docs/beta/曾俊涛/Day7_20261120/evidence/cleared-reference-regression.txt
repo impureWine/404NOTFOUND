@@ -1,0 +1,10 @@
+[B3-REF] {"recordId":"cd31bf1b-fa39-4ed2-9d36-9c800988b531","consentStatus":201,"taskAccepted":202,"taskStatusBefore":"completed","taskHasResultBefore":true,"clearStatus":200,"taskReadAfterClear":200,"taskStatusAfter":"cancelled","taskHasResultAfter":false,"contextReuseStatus":202,"contextReuseLeaksBody":false,"contextReuseTaskStatus":"failed","contextReuseTaskHasResult":false,"contextReuseTaskFailureReason":"PROVIDER_UNAVAILABLE"}
+✔ B3-REF 清除后旧引用：被 AI 任务引用的记录清除后任务结果不得保留 (1061.96ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1367.6928

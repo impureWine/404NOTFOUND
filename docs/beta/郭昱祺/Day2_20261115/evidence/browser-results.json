@@ -1,0 +1,342 @@
+{
+  "date": "2026-11-15",
+  "baseline": "30290a5ba849a806edfd7734cd9b47529f0078c6",
+  "environment": "Microsoft Edge headless + Vite source app; every /api response intercepted with synthetic data; no real account, database, model or search used",
+  "total": 10,
+  "passed": 4,
+  "failed": 6,
+  "results": [
+    {
+      "id": "UI01",
+      "title": "等待中防重复提交",
+      "expected": "发送禁用；仅创建一个任务；停止入口可达",
+      "observed": "发送禁用=true；任务创建=1",
+      "status": "PASS",
+      "screenshot": "evidence/UI01.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/1241730e-a89e-4856-a234-8ecdfe91c690"
+        }
+      ]
+    },
+    {
+      "id": "UI02",
+      "title": "等待反馈与读屏状态",
+      "expected": "正文区有等待文案和可感知忙碌状态",
+      "observed": "等待状态节点=[]；只有停止按钮提示请求进行中",
+      "status": "FAIL",
+      "screenshot": "evidence/UI02.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/1241730e-a89e-4856-a234-8ecdfe91c690"
+        }
+      ]
+    },
+    {
+      "id": "UI03",
+      "title": "停止等待后的输入恢复",
+      "expected": "取消接口被调用；停止等待；保留本次输入可手动再次发送",
+      "observed": "取消请求=true；草稿=合成走查输入，不含真实个人信息。；发送可用=true",
+      "status": "PASS",
+      "screenshot": "evidence/UI03.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/16ae416e-1a65-4a03-ac9c-e9c4680debe0"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks/16ae416e-1a65-4a03-ac9c-e9c4680debe0/cancel"
+        }
+      ]
+    },
+    {
+      "id": "UI04",
+      "title": "取消接口失败的真实性",
+      "expected": "取消503后仅提示本机停止等待、服务器状态待确认",
+      "observed": "取消接口503；页面提示：查询已取消。",
+      "status": "FAIL",
+      "screenshot": "evidence/UI04.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/ba6d2ff7-6e76-4924-abe5-b6b689e8f183"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks/ba6d2ff7-6e76-4924-abe5-b6b689e8f183/cancel"
+        }
+      ]
+    },
+    {
+      "id": "UI05",
+      "title": "会话失效后的阻断与身份清理",
+      "expected": "401停止私密操作，锁定旧上下文，提供重新登录且不自动重发",
+      "observed": "401后旧账号仍显示=true；发送禁用=false；旧草稿仍在=true",
+      "status": "FAIL",
+      "screenshot": "evidence/UI05.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/a3442578-1503-4b66-9a22-565689ae6910"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks/a3442578-1503-4b66-9a22-565689ae6910/cancel"
+        }
+      ]
+    },
+    {
+      "id": "UI06",
+      "title": "结束前确认与恢复机会",
+      "expected": "清空未保存内容前说明影响，允许继续交流",
+      "observed": "确认对话框=0；点击后直接END并清空；清空后仍停留本页",
+      "status": "FAIL",
+      "screenshot": "evidence/UI06.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/9263d143-02cf-4994-9b22-25854a4dd9a1"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions/00000000-0000-4000-8000-000000000001/actions"
+        }
+      ]
+    },
+    {
+      "id": "UI07",
+      "title": "保存请求与取消按钮语义",
+      "expected": "保存中显示保存进度，不用模型控制器冒充保存取消",
+      "observed": "保存中显示停止本次请求=true；点击后保存仍忙碌=true",
+      "status": "FAIL",
+      "screenshot": "evidence/UI07.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/609c6ff1-eb07-46c1-88c5-96f2325f8882"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/records"
+        }
+      ]
+    },
+    {
+      "id": "UI08",
+      "title": "训练暂停与主动恢复",
+      "expected": "暂停禁用填写，继续后保留步骤与填写",
+      "observed": "暂停禁用=true；继续保留填写=true",
+      "status": "PASS",
+      "screenshot": "evidence/UI08.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "UI09",
+      "title": "训练退出确认",
+      "expected": "有草稿退出前二次确认并返回练习入口",
+      "observed": "确认对话框=1；已返回练习入口",
+      "status": "PASS",
+      "screenshot": "evidence/UI09.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        }
+      ]
+    },
+    {
+      "id": "UI10",
+      "title": "外发许可撤回入口",
+      "expected": "提供与取消区分的许可撤回说明与入口；结果只承诺可确认范围",
+      "observed": "等待时同意框禁用=true；撤回按钮数=0",
+      "status": "FAIL",
+      "screenshot": "evidence/UI10.jpg",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/agent/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/agent/tasks/16520995-42cc-401a-87cb-14cfdb87c53b"
+        }
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@ import test from 'node:test';
 
 import { ConsentService } from '../../src/services/consent-service.js';
 
-const context = { sessionId: 'session-a', accountId: null };
+const context = { sessionId: 'session-a', accountId: null, entryPointId: 'entry-web' };
 const requestId = '2f74a372-2e54-4fe7-945a-a7992cf4a06b';
 
 test('consent is owner, scope, expiry, revocation and payload bound', () => {
@@ -25,6 +25,14 @@ test('consent is owner, scope, expiry, revocation and payload bound', () => {
   assert.throws(
     () => service.assert({ sessionId: 'session-b', accountId: null }, consent.consentId, 'SAVE', 'RECORD_CREATE', payload),
     /范围不匹配/,
+  );
+  assert.throws(
+    () => service.assert({ ...context, entryPointId: 'entry-desktop' }, consent.consentId, 'SAVE', 'RECORD_CREATE', payload),
+    /范围不匹配/,
+  );
+  assert.throws(
+    () => service.revoke({ ...context, entryPointId: 'entry-desktop' }, consent.consentId),
+    /not found/i,
   );
 
   service.revoke(context, consent.consentId);

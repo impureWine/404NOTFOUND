@@ -1,4 +1,4 @@
-import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto';
+import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes } from 'node:crypto';
 
 import { hash, verify } from '@node-rs/argon2';
 
@@ -12,6 +12,8 @@ const ARGON2_OPTIONS = {
 export const randomToken = () => randomBytes(32).toString('base64url');
 
 export const sha256 = (value) => createHash('sha256').update(value, 'utf8').digest();
+
+export const hmacSha256 = (value, key) => createHmac('sha256', key).update(value).digest();
 
 export const hashPassword = (password) => hash(password, ARGON2_OPTIONS);
 
@@ -27,6 +29,14 @@ export function parseProfileKey(value) {
   const key = Buffer.from(value ?? '', 'base64');
   if (key.byteLength !== 32) {
     throw new Error('PROFILE_ENCRYPTION_KEY must be a base64 encoded 32-byte key');
+  }
+  return key;
+}
+
+export function parseRegistrationIdempotencyKey(value) {
+  const key = Buffer.from(value ?? '', 'base64');
+  if (key.byteLength !== 32) {
+    throw new Error('REGISTRATION_IDEMPOTENCY_KEY must be a base64 encoded 32-byte key');
   }
   return key;
 }

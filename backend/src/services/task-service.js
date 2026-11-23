@@ -88,8 +88,11 @@ export class TaskService {
       session.activityGeneration += 1;
       session.state = 'ready';
     }
-    if (['PAUSE', 'RESTART', 'FINISH_REHEARSAL', 'END'].includes(value.action)) {
+    if (['PAUSE', 'FINISH_REHEARSAL'].includes(value.action)) {
       this.cancelSessionTasks(session.sessionId);
+    }
+    if (['RESTART', 'END'].includes(value.action)) {
+      this.cancelSessionTasks(session.sessionId, { includeCompleted: true });
     }
     return this.publicSession(session);
   }
@@ -135,11 +138,13 @@ export class TaskService {
       activityId: session.activityId,
       sessionGeneration: session.sessionGeneration,
       activityGeneration: session.activityGeneration,
+      consentId: value.consentId,
       status: 'pending',
       controller,
     };
     if (this.searchTasks.has(task.requestId)) throw new ConflictError('requestId 已用于另一个查询任务');
     task.question = value.question;
+    task.consentId = value.consentId;
     this.searchTasks.set(task.requestId, task);
     queueMicrotask(async () => {
       if (task.status === 'cancelled') return;
@@ -158,7 +163,7 @@ export class TaskService {
       } catch (error) {
         if (task.status !== 'cancelled') {
           task.status = 'failed';
-          task.failureReason = error.code ?? 'SERVICE_UNAVAILABLE';
+          task.failureReason = this.searchFailureReason(error.code);
         }
       }
     });
@@ -206,6 +211,7 @@ export class TaskService {
       activityId: session.activityId,
       sessionGeneration: session.sessionGeneration,
       activityGeneration: session.activityGeneration,
+      consentId: value.consentId,
       status: 'pending',
       controller,
     };
@@ -301,6 +307,24 @@ export class TaskService {
     return this.invalidateSessions((session) => session.ownerKey === this.ownerKey({ accountId, entryPointId: session.entryPointId }));
   }
 
+  invalidateConsent(context, consentId) {
+    const ownerKey = this.ownerKey(context);
+    let tasksInvalidated = 0;
+    for (const tasks of [this.agentTasks, this.searchTasks]) {
+      for (const task of tasks.values()) {
+        if (
+          task.consentId !== consentId
+          || task.ownerKey !== ownerKey
+          || task.entryPointId !== context.entryPointId
+          || ['cancelled', 'expired'].includes(task.status)
+        ) continue;
+        this.cancelTask(task);
+        tasksInvalidated += 1;
+      }
+    }
+    return { tasksInvalidated };
+  }
+
   invalidateSessions(matches) {
     let sessionsInvalidated = 0;
     for (const session of this.sessions.values()) {
@@ -369,14 +393,21 @@ export class TaskService {
 
   modelFailureReason(code) {
     if (code === 'MODEL_TIMEOUT') return 'TIMEOUT';
+    if (code === 'MODEL_RATE_LIMITED') return 'RATE_LIMITED';
     if (['INVALID_MODEL_OUTPUT', 'EMPTY_MODEL_OUTPUT', 'INVALID_REQUEST', 'CONTENT_REJECTED'].includes(code)) {
       return 'OUTPUT_INVALID';
     }
     return 'PROVIDER_UNAVAILABLE';
   }
 
+  searchFailureReason(code) {
+    if (code === 'TIMEOUT' || code === 'SEARCH_TIMEOUT') return 'TIMEOUT';
+    if (code === 'SEARCH_RATE_LIMITED') return 'RATE_LIMITED';
+    return 'PROVIDER_UNAVAILABLE';
+  }
+
   publicTask(task) {
-    const { ownerKey: _ownerKey, entryPointId: _entryPointId, question: _question, selectedContextIds: _selectedContextIds, safetyReason: _safetyReason, controller: _controller, ...result } = task;
+    const { ownerKey: _ownerKey, entryPointId: _entryPointId, question: _question, consentId: _consentId, selectedContextIds: _selectedContextIds, safetyReason: _safetyReason, controller: _controller, ...result } = task;
     return result;
   }
 
@@ -388,7 +419,37 @@ export class TaskService {
   getSearchTask(context, requestId) {
     const task = this.searchTasks.get(requestId);
     if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) throw new NotFoundError();
+    if (task.status === 'completed') this.getCompletedSearchForSave(context, requestId);
     return this.publicTask(task);
+  }
+
+  // Internal persistence boundary: never resolve a save directly from the task Map.
+  // Existing saved snapshots are replayed by the repository without reusing a task.
+  getCompletedSearchForSave(context, requestId) {
+    const task = this.searchTasks.get(requestId);
+    if (!task || task.ownerKey !== this.ownerKey(context) || task.entryPointId !== context.entryPointId) {
+      throw new NotFoundError();
+    }
+    const session = this.getSession(context, task.sessionId);
+    if (
+      task.status !== 'completed'
+      || task.searchState !== 'SUCCESS'
+      || !task.sources?.length
+      || session.state === 'ended'
+      || session.activityId !== task.activityId
+      || session.sessionGeneration !== task.sessionGeneration
+      || session.activityGeneration !== task.activityGeneration
+    ) {
+      throw new ConflictError('查询结果已失效或尚不可保存');
+    }
+    this.consentService.assert(context, task.consentId, 'SEARCH_PROCESS', 'SEARCH_TASK_CREATE', {
+      sessionId: task.sessionId,
+      activityId: task.activityId,
+      sessionGeneration: task.sessionGeneration,
+      activityGeneration: task.activityGeneration,
+      question: task.question,
+    });
+    return task;
   }
 
   cancelSearchTask(context, requestId) {
@@ -398,6 +459,9 @@ export class TaskService {
     task.controller.abort();
     delete task.answer;
     delete task.sources;
+    delete task.claims;
+    delete task.searchState;
+    delete task.failureReason;
     return this.publicTask(task);
   }
 
@@ -408,10 +472,7 @@ export class TaskService {
         && (includeCompleted || ['pending', 'running'].includes(task.status))
         && !['cancelled', 'expired'].includes(task.status)
       ) {
-        task.status = 'cancelled';
-        task.controller.abort();
-        delete task.result;
-        delete task.failureReason;
+        this.cancelTask(task);
       }
     }
     for (const task of this.searchTasks.values()) {
@@ -420,12 +481,19 @@ export class TaskService {
         && (includeCompleted || ['pending', 'running'].includes(task.status))
         && !['cancelled', 'expired'].includes(task.status)
       ) {
-        task.status = 'cancelled';
-        task.controller.abort();
-        delete task.answer;
-        delete task.sources;
-        delete task.failureReason;
+        this.cancelTask(task);
       }
     }
+  }
+
+  cancelTask(task) {
+    task.status = 'cancelled';
+    task.controller.abort();
+    delete task.result;
+    delete task.answer;
+    delete task.sources;
+    delete task.claims;
+    delete task.searchState;
+    delete task.failureReason;
   }
 }

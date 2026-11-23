@@ -1,0 +1,27 @@
+{
+  "candidate": "97ecb8b3a1dfdee25eb0eade6265a54fb5463b24",
+  "date": "2026-11-20 Asia/Shanghai",
+  "layer": "React + local HTTP/PGlite + synthetic model/search",
+  "cases": [
+    {
+      "name": "companion reply",
+      "passed": true,
+      "provider": "synthetic model"
+    },
+    {
+      "name": "query source display",
+      "passed": true,
+      "provider": "synthetic search"
+    },
+    {
+      "name": "five-senses start/pause/resume",
+      "passed": true,
+      "provider": "local controller"
+    },
+    {
+      "name": "save review focus on current candidate",
+      "passed": true,
+      "focus": "保存前确认"
+    }
+  ]
+}

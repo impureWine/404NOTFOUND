@@ -37,7 +37,7 @@ export function Link({ href, children, className = '', ...rest }) {
 }
 
 export function Sidebar({ mobileOpen, closeMobile, authenticated, nickname, onLogin, onAccount, onLogout, activePage = 'home', onNavigate, guestDescription = '访客可浏览全部功能；登录后读取和保存本人内容。' }) {
-  return <aside className={`home-sidebar ${mobileOpen ? 'is-open' : ''}`}>
+  return <aside id="primary-sidebar" className={`home-sidebar ${mobileOpen ? 'is-open' : ''}`}>
     <Link href="./" className="home-brand" onClick={closeMobile}>
       <span className="brand-mark"><img src={page('assets/404-mark.svg?v=4')} alt="404" /></span>
       <span><strong>NOTFOUND</strong><small>情绪自助与陪伴</small></span>

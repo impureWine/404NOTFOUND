@@ -1,0 +1,39 @@
+{
+  "plannedDate": "2026-11-18",
+  "executedDate": "2026-11-19",
+  "submissionType": "late backfill",
+  "baseline": "a7be2dea2f8055d92feb2d3351780a28bb3f3235",
+  "verifiedSourceCommit": "2fea2397d0571ad8c63fdb80333ba4068ae73c52",
+  "initial": {
+    "total": 25,
+    "passed": 20,
+    "failed": 5
+  },
+  "final": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0
+  },
+  "frontendTests": {
+    "passed": 46,
+    "failed": 0
+  },
+  "build": "PASS",
+  "sourceHashes": {
+    "prototype/src/App.jsx": "826fb7703c48d0250594f2fa186d3ef35193850e29d181c17e55471888ccbd82",
+    "prototype/src/records/records.css": "d49997a2d8b6c713a14f3f02631f12fdd0ca4115135cf096762ed98b405cbf1b",
+    "prototype/src/records/RecordsPanel.jsx": "986a4ea25437535bee9f697da30008869a05be8a0baf72cd90c0b082ee8ad970",
+    "prototype/src/live/live.css": "8ca178f892940178e05e2728503dce08a3be4bc239bf5c4e2ae1e7b85a03eaca",
+    "prototype/src/components/SiteChrome.jsx": "ec7234621e430d640bfdb6740eb83e3c136d9b7c782fc207b4ee5d09887887b2",
+    "prototype/electron/renderer.html": "991678f814ac20b7be1622b4f249a948558873146663c8e80f8bf486755d5dbe",
+    "prototype/electron/renderer.js": "5c50003605c62af8ee69d6038fcb5b7b81d19c156ab6c58bdba0ac34a47c1250"
+  },
+  "copyRows": 12,
+  "slideOutlinePages": 12,
+  "slideOutlineSeconds": 480,
+  "screenshots": 54,
+  "realParticipants": 0,
+  "nativeElectronValidated": false,
+  "allApiResponses": "synthetic intercepted",
+  "independentReview": "pending"
+}

@@ -56,6 +56,20 @@ function parse(schema, input, message) {
   return parsed.data;
 }
 
+function mapSource(row) {
+  return {
+    id: row.source_id,
+    url: row.canonical_url,
+    title: row.title,
+    publisher: row.publisher,
+    sourceTier: row.source_tier,
+    quality: row.quality,
+    publishedAt: row.published_at ? new Date(row.published_at).toISOString() : null,
+    retrievedAt: new Date(row.retrieved_at).toISOString(),
+    verificationState: row.verification_state,
+  };
+}
+
 export class SavedQueryRepository {
   constructor(database, { resolveCompletedSearch } = {}) {
     this.database = database;
@@ -85,7 +99,7 @@ export class SavedQueryRepository {
       idempotencyInput,
     );
     if (completedRequest) {
-      const existing = await this.#getInTransaction(this.database, {
+      const existing = await this.get({
         accountId: request.accountId,
         entryPointId: request.entryPointId,
         recordId: completedRequest.resultResourceId,
@@ -215,7 +229,7 @@ export class SavedQueryRepository {
       );
 
       const sourceIdByUrl = new Map();
-      for (const source of normalizedSources) {
+      for (const [index, source] of normalizedSources.entries()) {
         const savedSource = await transaction.query(
           `
             INSERT INTO sources (
@@ -277,6 +291,15 @@ export class SavedQueryRepository {
           ],
         );
         sourceIdByUrl.set(source.canonicalUrl, savedSource.rows[0].id);
+        await transaction.query(
+          `INSERT INTO saved_query_sources (
+             saved_query_id, source_id, sequence_no, canonical_url, title,
+             publisher, source_tier, quality, published_at, retrieved_at, verification_state
+           ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+          [row.id, savedSource.rows[0].id, index + 1, source.canonicalUrl, source.title,
+            source.publisher, source.sourceTier, source.quality, source.publishedAt,
+            source.retrievedAt, source.verificationState],
+        );
       }
 
       for (const claim of persistedClaims) {
@@ -325,7 +348,9 @@ export class SavedQueryRepository {
   }
 
   async get({ accountId, entryPointId, recordId }) {
-    return this.#getInTransaction(this.database, { accountId, entryPointId, recordId });
+    return withTransaction(this.database, (transaction) => (
+      this.#getInTransaction(transaction, { accountId, entryPointId, recordId })
+    ));
   }
 
   async #getInTransaction(database, { accountId, entryPointId, recordId }) {
@@ -339,6 +364,7 @@ export class SavedQueryRepository {
           q.raw_query_ciphertext,
           q.status,
           q.uncertainty_note,
+          q.snapshot_origin,
           q.trace_id
         FROM saved_records r
         JOIN saved_queries q ON q.saved_record_id = r.id
@@ -346,6 +372,7 @@ export class SavedQueryRepository {
           AND r.account_id = $2
           AND r.entry_point_id = $3
           AND r.deleted_at IS NULL
+        FOR SHARE OF r
       `,
       [recordId, accountId, entryPointId],
     );
@@ -359,7 +386,7 @@ export class SavedQueryRepository {
           c.cipher_key_version,
           c.status AS claim_status,
           e.relation,
-          s.id AS source_id,
+          s.source_id,
           s.canonical_url,
           s.title,
           s.publisher,
@@ -369,13 +396,20 @@ export class SavedQueryRepository {
           s.verification_state
         FROM claims c
         JOIN evidence_links e ON e.claim_id = c.id
-        JOIN sources s ON s.id = e.source_id
+        JOIN saved_query_sources s
+          ON s.source_id = e.source_id AND s.saved_query_id = c.saved_query_id
         WHERE c.saved_query_id = $1
-        ORDER BY c.id, s.id
+        ORDER BY c.id, s.sequence_no
       `,
       [recordId],
     );
 
+    const sources = await database.query(
+      `SELECT source_id, canonical_url, title, publisher, source_tier, quality,
+              published_at, retrieved_at, verification_state
+       FROM saved_query_sources WHERE saved_query_id = $1 ORDER BY sequence_no`,
+      [recordId],
+    );
     const row = query.rows[0];
     const claimsById = new Map();
     for (const item of evidence.rows) {
@@ -408,6 +442,8 @@ export class SavedQueryRepository {
       rawQueryCiphertext: row.raw_query_ciphertext,
       status: row.status,
       uncertaintyNote: row.uncertainty_note,
+      snapshotOrigin: row.snapshot_origin,
+      sources: sources.rows.map(mapSource),
       traceId: row.trace_id,
       version: row.version_no,
       createdAt: new Date(row.created_at).toISOString(),

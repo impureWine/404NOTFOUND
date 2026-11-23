@@ -49,15 +49,15 @@ export function AuthDialog({ mode, status, profile, busy, error, notice, onModeC
   const accountName = profile?.nickname || profile?.loginName || '已登录用户';
 
   return <dialog ref={dialog} className="auth-dialog" aria-labelledby="auth-dialog-title" aria-describedby="auth-dialog-description"
-    onCancel={event => { event.preventDefault(); onClose(); }} onMouseDown={event => {
-      if (event.target !== event.currentTarget) return;
+    onCancel={event => { event.preventDefault(); if (!busy) onClose(); }} onMouseDown={event => {
+      if (busy || event.target !== event.currentTarget) return;
       const bounds = event.currentTarget.getBoundingClientRect();
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) {
         event.preventDefault();
         onClose();
       }
     }}>
-      <button type="button" className="auth-dialog-close" aria-label="关闭" onClick={onClose}><X size={19} /></button>
+      <button type="button" className="auth-dialog-close" aria-label="关闭" onClick={onClose} disabled={busy}><X size={19} /></button>
       {mode === 'account' ? <>
         <span className="auth-dialog-mark"><UserCircle size={21} /></span>
         <h2 id="auth-dialog-title">账户信息</h2>

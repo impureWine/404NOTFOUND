@@ -1,0 +1,80 @@
+import assert from 'node:assert/strict';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+
+const here = dirname(fileURLToPath(import.meta.url));
+const repo = resolve(here, '../../../../..');
+const out = resolve(here, '../evidence');
+if (!process.env.PLAYWRIGHT_MODULE_PATH) throw new Error('Set PLAYWRIGHT_MODULE_PATH');
+const { chromium } = await import(pathToFileURL(resolve(process.env.PLAYWRIGHT_MODULE_PATH)).href);
+const { createServer } = await import(pathToFileURL(resolve(repo, 'prototype/node_modules/vite/dist/node/index.js')).href);
+const result = { candidate: process.env.DAY5_SOURCE_SHA, date: '2026-11-18 Asia/Shanghai', layer: 'real React page + local training + synthetic private text', cases: [] };
+let vite, browser;
+try {
+  await mkdir(out, { recursive: true });
+  vite = await createServer({ configFile: false, root: resolve(repo, 'prototype'), server: { host: '127.0.0.1', port: 5185, strictPort: true } });
+  await vite.listen();
+  browser = await chromium.launch({ executablePath: process.env.EDGE_EXECUTABLE_PATH ?? 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', headless: true });
+  const page = await browser.newPage({ viewport: { width: 1365, height: 900 } });
+  page.setDefaultTimeout(10000);
+  const apiRequests = [], consoleEcho = [];
+  page.on('request', request => { if (new URL(request.url()).pathname.startsWith('/api/')) apiRequests.push({ path: new URL(request.url()).pathname, body: request.postData() }); });
+  page.on('console', message => consoleEcho.push(message.text()));
+  await page.goto('http://127.0.0.1:5185/#private-text', { waitUntil: 'networkidle' });
+  const initialApiCount = apiRequests.length;
+  const marker = 'DAY5_SYNTHETIC_PRIVATE_DO_NOT_SAVE_7fb4';
+  await page.getByLabel('想放下的话').fill(marker);
+  await page.screenshot({ path: resolve(out, '01-private-before.png'), fullPage: true });
+  await page.getByRole('button', { name: '销毁本页文字' }).click();
+  assert.equal(await page.getByLabel('想放下的话').inputValue(), '');
+  assert.equal(apiRequests.length, initialApiCount);
+  await page.waitForTimeout(1900);
+  await page.screenshot({ path: resolve(out, '02-private-after.png'), fullPage: true });
+  await page.reload({ waitUntil: 'networkidle' });
+  assert.equal(await page.getByLabel('想放下的话').inputValue(), '');
+  const storage = await page.evaluate(() => JSON.stringify({ local: { ...localStorage }, session: { ...sessionStorage } }));
+  assert.equal(JSON.stringify(apiRequests).includes(marker), false);
+  assert.equal(storage.includes(marker), false);
+  assert.equal(consoleEcho.some(line => line.includes(marker)), false);
+  result.cases.push({ name: 'private text destroy/reload', inputCleared: true, newApiRequestsDuringAction: 0, markerInAnyApiRequest: false, markerInStorage: false, markerInConsole: false });
+
+  await page.evaluate(() => { location.hash = '#training'; });
+  await page.getByRole('button', { name: '开始练习' }).click();
+  const draft = page.getByLabel('可选填写，也可以只在心中完成');
+  await draft.fill('合成五感草稿');
+  await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => true }); document.dispatchEvent(new Event('visibilitychange')); });
+  await page.getByText('已暂停', { exact: true }).first().waitFor();
+  assert.equal(await draft.isDisabled(), true);
+  assert.equal(await draft.inputValue(), '合成五感草稿');
+  await page.screenshot({ path: resolve(out, '03-training-hidden-paused.png'), fullPage: true });
+  await page.evaluate(() => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => false }); document.dispatchEvent(new Event('visibilitychange')); });
+  assert.equal(await page.getByText('已暂停', { exact: true }).first().isVisible(), true);
+  await page.getByRole('button', { name: '继续', exact: true }).click();
+  await page.getByText('进行中', { exact: true }).first().waitFor();
+  result.cases.push({ name: 'training hides, pauses, and requires manual resume', pausedOnHide: true, draftPreserved: true, autoResume: false });
+  await page.screenshot({ path: resolve(out, '04-training-manual-resume.png'), fullPage: true });
+  await page.evaluate(() => { location.hash = '#games'; });
+  await page.getByRole('heading', { name: '减压练习与小游戏' }).first().waitFor();
+  await page.evaluate(() => { location.hash = '#training'; });
+  await page.getByRole('button', { name: '开始练习' }).waitFor();
+  assert.equal(await page.getByText('尚未开始', { exact: true }).first().isVisible(), true);
+  result.cases.push({ name: 'leaving training resets local state', readyOnReentry: true });
+  await page.screenshot({ path: resolve(out, '05-training-reentered.png'), fullPage: true });
+
+  await page.evaluate(() => { location.hash = '#companion'; });
+  await page.getByText('先写下你愿意分享的内容').waitFor();
+  assert.equal(await page.getByRole('button', { name: '发送', exact: true }).isDisabled(), true);
+  await page.evaluate(() => { location.hash = '#search'; });
+  await page.getByText('先输入一个具体问题，确认检索授权后查询。').waitFor();
+  assert.equal(await page.getByRole('button', { name: '查询', exact: true }).isDisabled(), true);
+  result.cases.push({ name: 'Day4 merged companion/search empty states', passed: true });
+  await page.screenshot({ path: resolve(out, '06-search-empty.png'), fullPage: true });
+} catch (error) {
+  result.error = { name: error.name, message: error.message };
+  process.exitCode = 1;
+} finally {
+  await writeFile(resolve(out, 'browser-privacy-training.json'), JSON.stringify(result, null, 2));
+  await browser?.close();
+  await vite?.close();
+}

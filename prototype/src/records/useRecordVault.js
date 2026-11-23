@@ -1,13 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { apiClient, apiMode } from '../api/client.js';
+import { getApiErrorMessage } from '../api/error-message.js';
 
 const recordMessage = error => {
-  if (error?.code === 'API_NOT_CONNECTED') return '记录 API 未连接；本次没有创建或清除记录。';
-  if (error?.code === 'NETWORK_ERROR') return '网络中断，服务端结果待核实；保留本次操作标识，可安全重试。';
-  if (error?.code === 'CSRF_CONFIG_MISSING') return '认证上下文已失效；请重新核验登录后再操作。';
-  if (error?.code === 'CONFLICT') return '记录版本或一次性确认已变化/过期；请刷新列表后重新确认。';
-  if (error?.code === 'AUTH_REQUIRED') return '登录会话已失效；私密记录保持隐藏。';
-  return error?.message || '记录操作未完成。';
+  return getApiErrorMessage(error, '记录操作未完成。');
 };
 
 const resultMayBeUnknown = error => [

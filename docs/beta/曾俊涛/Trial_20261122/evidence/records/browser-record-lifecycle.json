@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-22 Asia/Shanghai",
+  "executor": "曾俊涛 测试 / 合成试用排练",
+  "candidate": "8c2b632bf16ae8a96aff712051d322c9c5b3b915",
+  "layer": "real React page + isolated PGlite + synthetic accounts",
+  "steps": [
+    {
+      "name": "query explicit save and snapshot read",
+      "snapshotText": true,
+      "sourceLink": true,
+      "provider": "synthetic search"
+    },
+    {
+      "name": "query clear after confirmation",
+      "remaining": 0
+    },
+    {
+      "name": "calendar explicit save, refresh and selected date",
+      "date": "2026-11-20",
+      "noteRestored": true
+    },
+    {
+      "name": "calendar clear restores empty list",
+      "remaining": 0
+    },
+    {
+      "name": "explicit SAVE consent and record creation",
+      "status": 201,
+      "count": 1,
+      "recordId": "7b2b4dd1-8d26-44ee-aeb0-909dabdba79b"
+    },
+    {
+      "name": "duplicate requestId replay",
+      "status": 201,
+      "count": 1,
+      "sameRecord": true
+    },
+    {
+      "name": "detail decrypts owned body",
+      "bodyVisible": true
+    },
+    {
+      "name": "refresh retains record and permits detail read",
+      "count": 1
+    },
+    {
+      "name": "account B sees empty list and cannot read A detail",
+      "bRead": 404,
+      "bCount": 0
+    },
+    {
+      "name": "clear confirmation issued; record remains before final click",
+      "count": 1
+    },
+    {
+      "name": "second confirmation clears record and detail",
+      "count": 0,
+      "afterClearRead": 404
+    },
+    {
+      "name": "lost acknowledgement retries same requestId without duplicate",
+      "firstResponse": 503,
+      "retryResponse": 201,
+      "sameRecord": true,
+      "count": 1
+    }
+  ]
+}

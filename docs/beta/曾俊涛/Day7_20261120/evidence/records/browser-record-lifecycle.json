@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-20 Asia/Shanghai",
+  "candidate": "97ecb8b3a1dfdee25eb0eade6265a54fb5463b24",
+  "layer": "real React page + isolated PGlite + synthetic accounts",
+  "steps": [
+    {
+      "name": "explicit SAVE consent and record creation",
+      "status": 201,
+      "count": 1,
+      "recordId": "aa81b183-ede1-4a50-a798-e94cb4bd61f1"
+    },
+    {
+      "name": "duplicate requestId replay",
+      "status": 201,
+      "count": 1,
+      "sameRecord": true
+    },
+    {
+      "name": "detail decrypts owned body",
+      "bodyVisible": true
+    },
+    {
+      "name": "refresh retains record and permits detail read",
+      "count": 1
+    },
+    {
+      "name": "account B sees empty list and cannot read A detail",
+      "bRead": 404,
+      "bCount": 0
+    },
+    {
+      "name": "clear confirmation issued; record remains before final click",
+      "count": 1
+    },
+    {
+      "name": "second confirmation clears record and detail",
+      "count": 0,
+      "afterClearRead": 404
+    },
+    {
+      "name": "lost acknowledgement retries same requestId without duplicate",
+      "firstResponse": 503,
+      "retryResponse": 201,
+      "sameRecord": true,
+      "count": 1
+    }
+  ]
+}

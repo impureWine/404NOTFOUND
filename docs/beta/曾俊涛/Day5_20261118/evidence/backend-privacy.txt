@@ -1,0 +1,32 @@
+✔ AI reply is temporary by default and AI_PROCESS cannot replace SAVE consent (1818.2167ms)
+✔ switching accounts cancels the old login task and rejects its late reply (794.9863ms)
+[B3-C02] {"recordId":"22601668-bda2-4359-acfb-04452be888b8","reopenAt":"2026-11-18T06:46:02.144Z","storedState":"STORED","detailStatus":200,"detailLeaksBody":false,"storedBodyIsNull":true,"earlyRetrieveStatus":409,"availableState":"AVAILABLE","availableBodyIsNull":true,"retrieveStatus":200,"retrievedState":"RETRIEVED","retrievedBodyMatches":true,"detailAfterRetrieveLeaksBody":false}
+✔ C-02 寄存正文时序：未到期不可读不可取回，取回后才解密 (1743.4022ms)
+[B3-C03] {"bobRecordDetail":404,"bobDepositDetail":404,"bobDepositRetrieve":404,"desktopRecordDetail":404,"desktopDepositDetail":404,"desktopDepositRetrieve":404,"bobListCount":0}
+✔ C-03 记录与寄存的账号 / 入口隔离 (909.5573ms)
+[B3-C04] {"recordId":"d7e0de2d-5f63-41e0-bdb8-a9c797818da5","skipConfirmationStatus":400,"stillReadableAfterSkip":200,"forgedConfirmationStatus":409,"confirmationStatus":201,"confirmationExpiresAt":"2026-11-18T04:48:04.049Z","clearStatus":200,"cleared":true,"deletionJobId":"195d1d33-e63f-4d76-9525-1ced2081321c","jobStatus":"PENDING","deletionTarget":"CONVERSATION","outboxRecordId":"d7e0de2d-5f63-41e0-bdb8-a9c797818da5","outboxRecordKind":"CONVERSATION","savedMessagesAfterClear":0,"detailAfterClear":404,"listCountAfterClear":0,"replayStatus":200,"replayIdempotent":true,"outboxCountForRecord":1}
+✔ C-04 两段式清除、删除台账与重复请求幂等 (990.9641ms)
+[B3-REF] {"recordId":"b5d074c8-bc60-4962-8d09-c03bf73b3a7f","consentStatus":201,"taskAccepted":202,"taskStatusBefore":"completed","taskHasResultBefore":true,"clearStatus":200,"taskReadAfterClear":200,"taskStatusAfter":"cancelled","taskHasResultAfter":false,"contextReuseStatus":202,"contextReuseLeaksBody":false,"contextReuseTaskStatus":"failed","contextReuseTaskHasResult":false,"contextReuseTaskFailureReason":"PROVIDER_UNAVAILABLE"}
+✔ B3-REF 清除后旧引用：被 AI 任务引用的记录清除后任务结果不得保留 (897.9904ms)
+[B3-CONC] {"statuses":[200,404],"outboxCountForRecord":1,"detailAfter":404}
+✔ B3-CONC 并发清除：同一记录两份确认只能成功一次 (687.0603ms)
+[B3-INFLIGHT] {"taskAccepted":202,"revokeStatus":200,"statusInFlight":"running","taskReadAfterRevoke":200,"statusAfterRevoke":"completed","hasResultAfterRevoke":true}
+✔ B3-INFLIGHT 撤回在途任务：许可撤回后任务是否继续跑完（Day2 结转项复测） (935.9445ms)
+✔ D4-01 文字销毁在后端不存在任何通路口（结构级） (1778.4594ms)
+✔ D4-02 清除后记录不再可读：详情、列表与正文子表均无残留 (764.7208ms)
+✔ D4-03 不同入口不能清除本入口记录，原入口记录不受影响 (989.5609ms)
+✔ D4-04 失效会话不能执行清除，重新登录后记录仍在 (817.5212ms)
+[D5-01] {"anonymous":{"status":404,"callsAfter":0},"badOrigin":{"status":404,"adapterCalls":0},"noCsrf":{"status":404,"adapterCalls":0},"noConsent":{"status":404,"adapterCalls":0}}
+✔ D5-01 内部模型入口：内部入口已关闭，匿名与已登录请求均不调用模型 (1729.5421ms)
+[D5-02] {"webSession":{"status":200,"taskStatus":"completed","hasResult":true},"desktopCrossRead":{"status":404,"hasResult":false,"taskStatus":null},"desktopCrossCancel":{"status":404}}
+✔ D5-02 同账号跨入口：DESKTOP 不能读取或取消 WEB 的 AI 任务 (763.5228ms)
+[D5-10] {"staleWriteStatus":403}
+✔ D5-10 失效会话写请求：请求被拒绝但返回 403 而非 401（沿用 Day 4 观察） (838.3583ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6777.6685

@@ -1,0 +1,17 @@
+✔ desktop breathing never advances before start and follows 4/6-second phases (1.2058ms)
+✔ desktop breathing pauses without counting hidden time and resumes at the same phase (0.5176ms)
+✔ collapse/reset and dispose prevent old timer callbacks from publishing into the next exercise (0.5719ms)
+✔ desktop breathing completes once and cancels its timer even after a delayed tick (0.6172ms)
+✔ desktop starts as one compact pet without opening a workspace window (1.3153ms)
+✔ expansion preserves the bottom-right anchor and clamps to the display work area (0.7116ms)
+✔ only the actual pet may open allowlisted workspace routes (0.6234ms)
+✔ recovery shortcut restores a hidden pet and disables click-through (0.6617ms)
+✔ preload exposes only fixed routes and event subscriptions can be removed (1.7638ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 69.5877
