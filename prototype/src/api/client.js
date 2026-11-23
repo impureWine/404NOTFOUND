@@ -16,8 +16,10 @@ export function createApiClient({
   mode = 'mock',
   csrfHeaderName = '',
   fetchImpl = globalThis.fetch,
+  onAuthRequired = null,
 } = {}) {
   let csrfToken = null;
+  let authGeneration = 0;
 
   const request = async (method, path, { body, signal } = {}) => {
     const verb = method.toUpperCase();
@@ -68,12 +70,17 @@ export function createApiClient({
     }
     if (!response.ok) {
       const error = payload?.error || {};
-      throw new ApiError(error.message || 'API 请求失败。', {
+      const apiError = new ApiError(error.message || 'API 请求失败。', {
         code: error.code || 'API_ERROR',
         status: response.status,
         requestId: payload?.meta?.requestId || null,
         fields: error.fields || null,
       });
+      if (response.status === 401 && !path.startsWith('/api/auth/')) {
+        csrfToken = null;
+        try { onAuthRequired?.(apiError); } catch { /* UI notification must not replace the API error. */ }
+      }
+      throw apiError;
     }
     return Object.hasOwn(payload || {}, 'data') ? payload.data : payload;
   };
@@ -85,32 +92,46 @@ export function createApiClient({
     mode,
     clearAuthContext() {
       csrfToken = null;
+      authGeneration += 1;
     },
     async getAuthContext(options) {
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       const context = await get('/api/auth/context', options);
-      csrfToken = context?.csrfToken || null;
+      if (requestGeneration === authGeneration && !options?.signal?.aborted) {
+        csrfToken = context?.csrfToken || null;
+      }
       return context;
     },
     register: (payload, options) => post('/api/auth/register', payload, options),
     login: async (payload, options) => {
+      const response = post('/api/auth/login', payload, options);
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       try {
-        return await post('/api/auth/login', payload, options);
+        return await response;
       } finally {
-        csrfToken = null;
+        if (requestGeneration === authGeneration) csrfToken = null;
       }
     },
     logout: async (options) => {
+      const response = post('/api/auth/logout', undefined, options);
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       try {
-        return await post('/api/auth/logout', undefined, options);
+        return await response;
       } finally {
-        csrfToken = null;
+        if (requestGeneration === authGeneration) csrfToken = null;
       }
     },
     changePassword: async (payload, options) => {
+      const response = post('/api/auth/change-password', payload, options);
+      const requestGeneration = ++authGeneration;
+      csrfToken = null;
       try {
-        return await post('/api/auth/change-password', payload, options);
+        return await response;
       } finally {
-        csrfToken = null;
+        if (requestGeneration === authGeneration) csrfToken = null;
       }
     },
     getProfile: options => get('/api/profile', options),
@@ -155,6 +176,11 @@ export const apiMode = 'real';
 export const apiClient = createApiClient({
   mode: apiMode,
   csrfHeaderName: buildEnv.VITE_CSRF_HEADER_NAME || 'X-CSRF-Token',
+  onAuthRequired: () => {
+    if (typeof globalThis.dispatchEvent === 'function' && typeof globalThis.Event === 'function') {
+      globalThis.dispatchEvent(new globalThis.Event('404:auth-required'));
+    }
+  },
 });
 export const apiStatusLabel = apiMode === 'mock'
   ? 'API 模拟适配层 · 后端未接入'

@@ -1,0 +1,4 @@
+Release readiness: BLOCKED
+- DATABASE_URL is required
+- PROFILE_ENCRYPTION_KEY is required
+- REGISTRATION_IDEMPOTENCY_KEY is required

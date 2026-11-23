@@ -26,6 +26,7 @@ export class ConsentService {
     const consent = {
       consentId: randomUUID(),
       ownerKey: this.ownerKey(context),
+      entryPointId: context.entryPointId ?? null,
       purpose: result.data.purpose,
       operation: result.data.operation,
       payloadDigest: payloadDigest(result.data.payload),
@@ -41,6 +42,7 @@ export class ConsentService {
     if (
       !consent
       || consent.ownerKey !== this.ownerKey(context)
+      || consent.entryPointId !== (context.entryPointId ?? null)
       || consent.purpose !== purpose
       || consent.operation !== operation
       || consent.payloadDigest !== payloadDigest(payload)
@@ -55,7 +57,11 @@ export class ConsentService {
 
   revoke(context, consentId) {
     const consent = this.consents.get(consentId);
-    if (!consent || consent.ownerKey !== this.ownerKey(context)) throw new NotFoundError();
+    if (
+      !consent
+      || consent.ownerKey !== this.ownerKey(context)
+      || consent.entryPointId !== (context.entryPointId ?? null)
+    ) throw new NotFoundError();
     consent.revoked = true;
     return { revoked: true };
   }

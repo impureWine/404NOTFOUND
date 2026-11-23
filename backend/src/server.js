@@ -4,7 +4,7 @@ import { createApp } from './app.js';
 import { LangChainModelAdapter } from './ai/langchain-model-adapter.js';
 import { createPoolFromConfig } from './db/database.js';
 import { runMigrations } from './db/migration-runner.js';
-import { parseProfileKey } from './security/crypto.js';
+import { parseProfileKey, parseRegistrationIdempotencyKey } from './security/crypto.js';
 import { AuthService } from './services/auth-service.js';
 import { TaskService } from './services/task-service.js';
 import { TrainingService } from './services/training-service.js';
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { RecordRepository } from './repositories/record-repository.js';
 import { RecordService } from './services/record-service.js';
 import { ConsentService } from './services/consent-service.js';
-import { getRuntimeConfig } from './runtime-config.js';
+import { assertReleaseReadiness, getRuntimeConfig } from './runtime-config.js';
 
 try {
   loadEnvFile();
@@ -24,7 +24,9 @@ try {
   }
 }
 
-const config = getRuntimeConfig();
+const config = process.env.NODE_ENV === 'production'
+  ? assertReleaseReadiness()
+  : getRuntimeConfig();
 const database = createPoolFromConfig(config.database);
 if (config.migrateOnStart) {
   await runMigrations(database);
@@ -33,6 +35,7 @@ if (config.migrateOnStart) {
 const modelAdapter = new LangChainModelAdapter();
 const authService = new AuthService(database, {
   profileKey: parseProfileKey(process.env.PROFILE_ENCRYPTION_KEY),
+  registrationIdempotencyKey: parseRegistrationIdempotencyKey(config.registrationIdempotencyKey),
   entryCode: process.env.APP_ENTRY_POINT || 'WEB',
 });
 const consentService = new ConsentService();

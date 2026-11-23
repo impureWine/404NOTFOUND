@@ -12,8 +12,10 @@ import { RecordRepository } from './src/repositories/record-repository.js';
 const database = await createTestDatabase();
 try {
   const scope = await seedScope(database, 'calendar_date');
-  const driver = { query: async (...args) => {
-    const result = await database.query(...args);
+  const wrapDriver = connection => ({
+    transaction: work => connection.transaction(tx => work(wrapDriver(tx))),
+    query: async (...args) => {
+    const result = await connection.query(...args);
     return { ...result, rows: result.rows.map(row => {
       const converted = { ...row };
       for (const field of result.fields) if (field.dataTypeID === 1082 && converted[field.name] !== null) {
@@ -23,7 +25,8 @@ try {
       }
       return converted;
     }) };
-  } };
+  } });
+  const driver = wrapDriver(database);
   assert.ok((await driver.query("SELECT DATE '2026-10-29' AS day")).rows[0].day instanceof Date);
   const writer = new RecordRepository(database), reader = new RecordRepository(driver);
   for (const date of ['2026-10-29','2026-11-01','2027-01-01','2028-02-29']) {

@@ -1,0 +1,50 @@
+{
+  "candidate": "8c2b632bf16ae8a96aff712051d322c9c5b3b915",
+  "date": "2026-11-22 Asia/Shanghai",
+  "executor": "曾俊涛 测试 / 合成试用排练",
+  "layer": "React + local HTTP/PGlite + synthetic model/search",
+  "cases": [
+    {
+      "name": "guest home and primary entry",
+      "passed": true
+    },
+    {
+      "name": "isolated registration and login",
+      "passed": true,
+      "layer": "local HTTP + isolated PGlite"
+    },
+    {
+      "name": "companion reply",
+      "passed": true,
+      "provider": "synthetic model"
+    },
+    {
+      "name": "query source display",
+      "passed": true,
+      "provider": "synthetic search"
+    },
+    {
+      "name": "five-senses start/pause/resume",
+      "passed": true,
+      "provider": "local controller"
+    },
+    {
+      "name": "training exit cancellation preserves draft",
+      "passed": true,
+      "prompt": "退出会清空本次未保存的填写，确认退出？"
+    },
+    {
+      "name": "training confirmed exit returns to selection",
+      "passed": true
+    },
+    {
+      "name": "training completion and return",
+      "passed": true
+    },
+    {
+      "name": "save review focus on current candidate",
+      "passed": true,
+      "focus": "保存前确认"
+    }
+  ]
+}

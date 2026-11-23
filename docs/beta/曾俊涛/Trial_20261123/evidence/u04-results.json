@@ -1,0 +1,114 @@
+{
+  "executedDate": "2026-11-23",
+  "sourceCommit": "51a42d60e284b6d56058a4745fd07b87ef62baed",
+  "environment": "Edge headless + local Vite; all APIs are synthetic; no real participants, provider or server",
+  "total": 2,
+  "passed": 2,
+  "results": [
+    {
+      "id": "U04-empty-adjust",
+      "status": "PASS",
+      "observed": {
+        "pass": true,
+        "tasks": 2,
+        "emptyHadError": false,
+        "emptyHadSave": false,
+        "adjustedQuestion": "合成问题二：调整后的查询"
+      },
+      "screenshot": "U04-empty-adjust.png",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/266677b7-a1fb-4ccd-b38a-3c30dcb14f67"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions/synthetic-session/actions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/90ee4e63-f7c5-4687-8480-3e0335550222"
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "id": "U04-cancel-unknown",
+      "status": "PASS",
+      "observed": {
+        "pass": true,
+        "tasks": 1,
+        "cancelRequests": 1,
+        "cancelResponseStatus": 503,
+        "cancelPath": "/api/search/tasks/c4c60eea-977c-48a9-8e5e-e82b2e7530ac/cancel",
+        "alert": "本机已停止等待；服务器取消状态待确认。",
+        "lateRefill": 0,
+        "queryEnabled": true
+      },
+      "screenshot": "U04-cancel-unknown.png",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/auth/context"
+        },
+        {
+          "method": "GET",
+          "path": "/api/profile"
+        },
+        {
+          "method": "POST",
+          "path": "/api/sessions"
+        },
+        {
+          "method": "POST",
+          "path": "/api/consents"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks"
+        },
+        {
+          "method": "GET",
+          "path": "/api/search/tasks/c4c60eea-977c-48a9-8e5e-e82b2e7530ac"
+        },
+        {
+          "method": "POST",
+          "path": "/api/search/tasks/c4c60eea-977c-48a9-8e5e-e82b2e7530ac/cancel"
+        }
+      ],
+      "pageErrors": []
+    }
+  ]
+}

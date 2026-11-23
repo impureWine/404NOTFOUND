@@ -15,6 +15,7 @@ test('baseline and support migrations execute once on a clean database', async (
       '004_auth_http_support.sql',
       '004_identity_repository_support.sql',
       '005_optional_emotion_fields.sql',
+      '006_saved_query_source_snapshots.sql',
     ]);
     assert.deepEqual(await runMigrations(database), []);
 
@@ -28,6 +29,7 @@ test('baseline and support migrations execute once on a clean database', async (
       '004_auth_http_support.sql',
       '004_identity_repository_support.sql',
       '005_optional_emotion_fields.sql',
+      '006_saved_query_source_snapshots.sql',
     ]);
 
     const tables = await database.query(`
@@ -41,6 +43,7 @@ test('baseline and support migrations execute once on a clean database', async (
     assert.ok(names.has('evidence_links'));
     assert.ok(names.has('record_clear_confirmations'));
     assert.ok(names.has('registration_requests'));
+    assert.ok(names.has('saved_query_sources'));
   } finally {
     await database.close();
   }

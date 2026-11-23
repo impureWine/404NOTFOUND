@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-20",
+  "candidate": "47feb4dbfc436e7e14b7164ab394036e1bfd8a21",
+  "role": "UX / components and specifications",
+  "core": {
+    "passed": 9,
+    "total": 9,
+    "mode": "React + local HTTP + isolated PGlite + synthetic model/search"
+  },
+  "records": {
+    "passedSteps": 12,
+    "mode": "React + local HTTP + isolated PGlite; synthetic search"
+  },
+  "ux": {
+    "passed": 25,
+    "total": 25,
+    "mode": "all API responses intercepted synthetic; desktop HTML only"
+  },
+  "frontendTests": {
+    "passed": 62,
+    "failed": 0
+  },
+  "build": "PASS",
+  "releaseCheck": {
+    "status": "BLOCKED",
+    "exitCode": 1,
+    "missing": [
+      "DATABASE_URL",
+      "PROFILE_ENCRYPTION_KEY",
+      "REGISTRATION_IDEMPOTENCY_KEY"
+    ]
+  },
+  "rawScreenshots": 48,
+  "curatedImages": 16,
+  "trialTasks": 8,
+  "participants": 0,
+  "nativeElectronValidated": false,
+  "realProvidersValidated": false,
+  "independentReview": "pending",
+  "sourceFilesHashed": 118
+}

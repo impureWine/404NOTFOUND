@@ -46,8 +46,17 @@ export function createSecurityMiddleware({ authService, appOrigin }) {
   return async (request, _response, next) => {
     try {
       const cookies = parseCookies(request.get('cookie'));
-      request.accessContext = await authService.resolveContext(readSessionToken(cookies));
+      const sessionToken = readSessionToken(cookies);
+      request.accessContext = await authService.resolveContext(sessionToken);
       if (!['GET', 'HEAD', 'OPTIONS'].includes(request.method)) {
+        // A stale/revoked credential is an authentication failure. Keep the
+        // anonymous register/login flow protected by CSRF, but do not let a
+        // dead session be reported as a CSRF failure.
+        if (sessionToken && !request.accessContext) {
+          const error = new Error('需要登录');
+          error.code = 'AUTH_REQUIRED';
+          throw error;
+        }
         if (request.get('origin') !== appOrigin) {
           const error = new Error('Origin 校验失败');
           error.code = 'ACCESS_DENIED';

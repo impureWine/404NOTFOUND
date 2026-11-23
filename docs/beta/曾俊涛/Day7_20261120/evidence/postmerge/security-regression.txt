@@ -1,0 +1,60 @@
+[B2-P0-03] {"saveConsentForAiTask":403,"aiConsentForRecord":403,"consentPayloadMismatch":403,"aiTaskAccepted":202,"recordSaved":201}
+✔ P0-03 用途许可不可互换：三条反例 + 两条正例 (2307.2409ms)
+[B2-E-04] {"borrowedConsentStatus":403}
+✔ E-04 跨账号借用 consentId 应被拒绝 (1327.0719ms)
+[B2-T-03] {"completedStatus":200,"completedTaskStatus":"completed","hasResultBeforeEnd":true,"endActionStatus":200,"afterEndReadStatus":200,"hasResultAfterEnd":false}
+✔ T-03 结束后读取已完成任务、重来（RESTART）后的旧结果 (1246.5961ms)
+[B2-REVOKE] {"reuseAfterRevoke":403,"rereadAfterRevoke":200,"hasResultAfterRevoke":false}
+✔ B2-R 撤回许可：撤销后不可再用，已完成结果同步失效 (1015.9071ms)
+[B2-RESTART] {"restartStatus":200,"afterRestartReadStatus":200,"hasResultAfterRestart":false}
+✔ B2-RESTART 重来后读取上一轮任务结果 (1045.1136ms)
+[B2-RATE] {"statuses":[202,202,202,202,202,202,202,202,202,202,202,202],"limited":0}
+✔ B2-RATE 连续创建任务的限流表现（未实现则如实记录） (1255.5157ms)
+[B2-ERR] {"malformedStatus":400,"malformedCode":"INVALID_INPUT","malformedLeaksStack":false,"unknownStatus":404,"anonymousStatus":403}
+✔ B2-ERR 错误脱敏与鉴权边界回归 (932.6766ms)
+[B3-C02] {"recordId":"421b69b0-9f60-412a-b729-cf3a219cc581","reopenAt":"2026-11-21T07:03:27.504Z","storedState":"STORED","detailStatus":200,"detailLeaksBody":false,"storedBodyIsNull":true,"earlyRetrieveStatus":409,"availableState":"AVAILABLE","availableBodyIsNull":true,"retrieveStatus":200,"retrievedState":"RETRIEVED","retrievedBodyMatches":true,"detailAfterRetrieveLeaksBody":false}
+✔ C-02 寄存正文时序：未到期不可读不可取回，取回后才解密 (2309.7546ms)
+[B3-C03] {"bobRecordDetail":404,"bobDepositDetail":404,"bobDepositRetrieve":404,"desktopRecordDetail":404,"desktopDepositDetail":404,"desktopDepositRetrieve":404,"bobListCount":0}
+✔ C-03 记录与寄存的账号 / 入口隔离 (1424.0846ms)
+[B3-C04] {"recordId":"e1dad083-54b4-4bf4-94e0-daa3019f2903","skipConfirmationStatus":400,"stillReadableAfterSkip":200,"forgedConfirmationStatus":409,"confirmationStatus":201,"confirmationExpiresAt":"2026-11-21T05:05:30.310Z","clearStatus":200,"cleared":true,"deletionJobId":"a53619c6-8eea-4f9d-8a99-1266dc40892e","jobStatus":"PENDING","deletionTarget":"CONVERSATION","outboxRecordId":"e1dad083-54b4-4bf4-94e0-daa3019f2903","outboxRecordKind":"CONVERSATION","savedMessagesAfterClear":0,"detailAfterClear":404,"listCountAfterClear":0,"replayStatus":200,"replayIdempotent":true,"outboxCountForRecord":1}
+✔ C-04 两段式清除、删除台账与重复请求幂等 (1323.8549ms)
+[B3-REF] {"recordId":"25cc3a95-5d26-4d8f-9087-3d48bd33e48f","consentStatus":201,"taskAccepted":202,"taskStatusBefore":"completed","taskHasResultBefore":true,"clearStatus":200,"taskReadAfterClear":200,"taskStatusAfter":"cancelled","taskHasResultAfter":false,"contextReuseStatus":202,"contextReuseLeaksBody":false,"contextReuseTaskStatus":"failed","contextReuseTaskHasResult":false,"contextReuseTaskFailureReason":"PROVIDER_UNAVAILABLE"}
+✔ B3-REF 清除后旧引用：被 AI 任务引用的记录清除后任务结果不得保留 (1149.4384ms)
+[B3-CONC] {"statuses":[200,404],"outboxCountForRecord":1,"detailAfter":404}
+✔ B3-CONC 并发清除：同一记录两份确认只能成功一次 (1077.7977ms)
+[B3-INFLIGHT] {"taskAccepted":202,"revokeStatus":200,"statusInFlight":"cancelled","taskReadAfterRevoke":200,"statusAfterRevoke":"cancelled","hasResultAfterRevoke":false}
+✔ B3-INFLIGHT 撤回在途任务：任务立即取消且迟到结果不可读 (1179.4776ms)
+[B4-P02] {"samePayload":201,"changedBody":403,"reorderedKeys":201}
+✔ P-02 载荷摘要：内容变更即失效，键序变化不得误杀 (2263.8342ms)
+[B4-P03A] {"ttlFromResponse":299838,"beforeExpiry":201,"atExpiry":403}
+✔ P-03 过期：5 分钟 TTL 与到期边界 (1134.8445ms)
+[B4-P03B] {"beforeRevoke":201,"revokeStatus":200,"afterRevoke":403,"crossAccountRevoke":404}
+✔ P-03 撤销：撤销即失效，跨账号撤销返回 404 (1346.9789ms)
+[B4-P03C] {"crossEntryReuse":403}
+✔ P-03 附加：同账号异入口借用 SAVE 许可 (1011.4908ms)
+[B4-P03D] {"borrowedConsentStatus":403}
+✔ P-03 附加：跨账号借用他人许可（回归） (1147.5348ms)
+[B5-PAGE] {"privateTextUsesHook":true,"privateTextClearsOnPagehide":true,"appHasPrivateTextRoute":true,"routesRegistersDestroyPage":true,"routesImporters":0}
+✔ B06-PAGE 确认受测页面：PrivateText 可达，routes.jsx 的 destroy 未被引用 (45.3857ms)
+[B5-STRUCT] {"hookHits":[],"privateTextHits":[],"hookExposesDispose":true}
+✔ B06-STRUCT 销毁通道结构级检查：临时正文不进入存储、网络与日志 (2.2122ms)
+[B5-LATE-END] {"endActionStatus":200,"taskReadAfterEnd":200,"taskStatusAfterEnd":"cancelled","hasResultAfterEnd":false}
+✔ B01-LATE-END 会话结束后模型迟到回复不得回填 (2605.9063ms)
+[B5-LATE-CANCEL] {"cancelStatus":200,"taskStatusAfterCancel":"cancelled","hasResultAfterCancel":false}
+✔ B01-LATE-CANCEL 主动取消后模型迟到回复不得回填 (1555.2816ms)
+[B5-CONC] {"revokeStatus":200,"concurrentReadStatus":200,"finalStatus":"cancelled","hasResultFinally":false}
+✔ B01-CONC 撤回与读取并发：不产生 5xx，回填情况以观察值记录 (1455.7618ms)
+[D5-01] {"anonymous":{"status":404,"callsAfter":0},"badOrigin":{"status":404,"adapterCalls":0},"noCsrf":{"status":404,"adapterCalls":0},"noConsent":{"status":404,"adapterCalls":0}}
+✔ D5-01 内部模型入口：内部入口已关闭，匿名与已登录请求均不调用模型 (2297.6689ms)
+[D5-02] {"webSession":{"status":200,"taskStatus":"completed","hasResult":true},"desktopCrossRead":{"status":404,"hasResult":false,"taskStatus":null},"desktopCrossCancel":{"status":404}}
+✔ D5-02 同账号跨入口：DESKTOP 不能读取或取消 WEB 的 AI 任务 (1140.6604ms)
+[D5-10] {"staleWriteStatus":401}
+✔ D5-10 失效会话写请求：统一返回 401 AUTH_REQUIRED (1212.9224ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9614.3046

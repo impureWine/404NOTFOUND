@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-15",
+  "applicationCandidate": "1d382df522c6993e496c2a93b39dda7788572836",
+  "checks": [
+    { "name": "day2 focused backend", "passed": 43, "failed": 0 },
+    { "name": "backend full serial", "passed": 177, "failed": 0 },
+    { "name": "backend integration command", "passed": 61, "failed": 0 },
+    { "name": "frontend", "passed": 47, "failed": 0 },
+    { "name": "frontend build", "modules": 1599, "status": "passed" },
+    { "name": "api skeleton", "passed": 8, "failed": 0 },
+    { "name": "edge page flow", "status": "passed", "scenarios": 5 }
+  ],
+  "uxWalkthrough": {
+    "candidate": "30290a5ba849a806edfd7734cd9b47529f0078c6",
+    "layer": "real React page + intercepted synthetic API responses",
+    "passed": 4,
+    "differences": 6,
+    "subsequentlyFixedAndRechecked": ["expired-session identity clearing and re-login recovery"],
+    "carriedForward": [
+      "waiting-region screen-reader feedback",
+      "truthful cancel-failure feedback",
+      "end-session confirmation",
+      "save-progress semantics",
+      "consent-withdrawal entry"
+    ]
+  },
+  "browserLayer": "real React page + isolated PGlite + synthetic deferred model",
+  "notVerified": ["real Electron entry", "real PostgreSQL", "HTTPS deployment", "real model provider cancellation"]
+}

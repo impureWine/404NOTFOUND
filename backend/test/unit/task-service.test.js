@@ -68,6 +68,114 @@ test('ending a session cancels an in-flight search and prevents late refill', as
   assert.equal(task.sources, undefined);
 });
 
+for (const action of ['END', 'RESTART']) {
+  test(`${action} clears an already completed search result`, async () => {
+    const service = new TaskService({
+      consentService: { assert() {} },
+      searchProvider: { search: async () => ({ searchState: 'SUCCESS', sources: [{ title: '来源' }] }) },
+    });
+    const session = service.createSession(context, { requestId, mode: 'SEARCH' });
+    service.createSearchTask(context, {
+      requestId,
+      sessionId: session.sessionId,
+      activityId: session.activityId,
+      sessionGeneration: 0,
+      activityGeneration: 0,
+      question: '测试查询',
+      consentId,
+    });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(service.getSearchTask(context, requestId).status, 'completed');
+
+    service.action(context, session.sessionId, {
+      requestId: consentId,
+      action,
+      expectedSessionGeneration: 0,
+      expectedActivityGeneration: 0,
+    });
+    const invalidated = service.getSearchTask(context, requestId);
+    assert.equal(invalidated.status, 'cancelled');
+    assert.equal(invalidated.answer, undefined);
+    assert.equal(invalidated.sources, undefined);
+  });
+}
+
+test('explicit search cancellation clears a previous public failure reason', async () => {
+  const service = new TaskService({
+    consentService: { assert() {} },
+    searchProvider: { search: async () => { const error = new Error('quota detail'); error.code = 'SEARCH_RATE_LIMITED'; throw error; } },
+  });
+  const session = service.createSession(context, { requestId, mode: 'SEARCH' });
+  service.createSearchTask(context, {
+    requestId,
+    sessionId: session.sessionId,
+    activityId: session.activityId,
+    sessionGeneration: 0,
+    activityGeneration: 0,
+    question: '测试查询',
+    consentId,
+  });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(service.getSearchTask(context, requestId).failureReason, 'RATE_LIMITED');
+  const cancelled = service.cancelSearchTask(context, requestId);
+  assert.equal(cancelled.status, 'cancelled');
+  assert.equal(cancelled.failureReason, undefined);
+});
+
+test('revoking consent clears a completed search result and its private consent binding', async () => {
+  const service = new TaskService({
+    consentService: { assert() {} },
+    searchProvider: { search: async () => ({ searchState: 'SUCCESS', sources: [{ title: '来源' }] }) },
+  });
+  const session = service.createSession(context, { requestId, mode: 'SEARCH' });
+  service.createSearchTask(context, {
+    requestId,
+    sessionId: session.sessionId,
+    activityId: session.activityId,
+    sessionGeneration: 0,
+    activityGeneration: 0,
+    question: '测试查询',
+    consentId,
+  });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(service.getSearchTask(context, requestId).status, 'completed');
+
+  assert.deepEqual(service.invalidateConsent(context, consentId), { tasksInvalidated: 1 });
+  const task = service.getSearchTask(context, requestId);
+  assert.equal(task.status, 'cancelled');
+  assert.equal(task.sources, undefined);
+  assert.equal(task.answer, undefined);
+  assert.equal(task.consentId, undefined);
+});
+
+for (const [upstreamCode, failureReason] of [
+  ['TIMEOUT', 'TIMEOUT'],
+  ['SEARCH_RATE_LIMITED', 'RATE_LIMITED'],
+  ['SEARCH_AUTH_FAILED', 'PROVIDER_UNAVAILABLE'],
+]) {
+  test(`search ${upstreamCode} becomes ${failureReason} without exposing upstream details`, async () => {
+    const service = new TaskService({
+      consentService: { assert() {} },
+      searchProvider: { search: async () => { const error = new Error('sensitive upstream detail'); error.code = upstreamCode; throw error; } },
+    });
+    const session = service.createSession(context, { requestId, mode: 'SEARCH' });
+    service.createSearchTask(context, {
+      requestId,
+      sessionId: session.sessionId,
+      activityId: session.activityId,
+      sessionGeneration: 0,
+      activityGeneration: 0,
+      question: '测试查询',
+      consentId,
+    });
+    await new Promise((resolve) => setImmediate(resolve));
+    const task = service.getSearchTask(context, requestId);
+    assert.equal(task.status, 'failed');
+    assert.equal(task.failureReason, failureReason);
+    assert.equal(JSON.stringify(task).includes('sensitive upstream detail'), false);
+  });
+}
+
 test('same account task and session ownership is isolated by entry point', () => {
   const service = new TaskService({ consentService: { assert() {} }, searchProvider: { search: async () => ({ sources: [] }) } });
   const web = { accountId: 'account-a', entryPointId: 'web', sessionId: 'session-web' };
