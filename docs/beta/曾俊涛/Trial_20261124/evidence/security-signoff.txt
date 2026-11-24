@@ -1,0 +1,12 @@
+[B7-CSRF] {"wrongCsrfStatus":403,"wrongCsrfCode":"ACCESS_DENIED","recordsAfterWrongCsrf":0,"correctCsrfStatus":201,"recordsAfterCorrectCsrf":1}
+✔ B7-CSRF 合法会话 + 错误 CSRF：403 且无写入副作用 (1265.1622ms)
+[B7-STALE] {"logoutStatus":204,"staleReadStatus":401,"staleReadCode":"AUTH_REQUIRED","staleWriteStatus":401,"staleWriteCode":"AUTH_REQUIRED","recordsAfterStaleWrite":0}
+✔ B7-STALE 退出后旧 Cookie：读 401、写 401，且无写入副作用 (780.7479ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2480.2549

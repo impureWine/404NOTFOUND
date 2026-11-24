@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-24 Asia/Shanghai",
+  "candidateSha": "4395c223072b75acc24310b38670723e8f11df30",
+  "layer": "Vite production preview + Edge + synthetic API responses",
+  "backendIntegration": false,
+  "cases": [
+    {
+      "name": "built production entry mounts the current React application",
+      "passed": true
+    },
+    {
+      "name": "cleared selected context is removed and blocks consent/task creation",
+      "passed": true
+    },
+    {
+      "name": "320px calendar and mobile navigation keyboard recovery",
+      "passed": true,
+      "detail": {
+        "viewport": 320,
+        "document": 320
+      }
+    }
+  ],
+  "checks": {
+    "backendResponsesSynthetic": true,
+    "externalRequestsBlocked": true,
+    "failedLocalAssets": [],
+    "pageErrors": [],
+    "staleRecordReadCount": 1,
+    "staleRecordConsentOrTaskRequests": 0
+  }
+}

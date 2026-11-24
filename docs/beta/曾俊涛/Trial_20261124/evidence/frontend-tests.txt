@@ -1,0 +1,82 @@
+
+> 404notfound-prototype@1.0.0 test
+> node --test
+
+✔ mock mode never calls fetch or claims an API success (3.3635ms)
+✔ real mode uses same-origin no-store requests and the configured CSRF header (27.0085ms)
+✔ real mode refuses writes before context has configured CSRF state (0.2818ms)
+✔ authentication methods preserve the shared request names and credential policy (2.3384ms)
+✔ identity changes discard the in-memory CSRF token even when the response is lost (0.6042ms)
+✔ a late auth context response cannot restore a token after identity invalidation (0.4896ms)
+✔ a late login response does not clear a newer auth context token (0.7295ms)
+✔ record vault uses the shared consent, list, detail, and two-step clear endpoints (2.0988ms)
+✔ API errors preserve the contract code and request id without retaining raw bodies (0.3953ms)
+✔ private API 401 clears CSRF state and notifies the identity owner (0.5725ms)
+✔ auth and record screens share public API error feedback (0.653ms)
+✔ unknown API errors preserve a safe contract message or use the screen fallback (0.1198ms)
+✔ a newer auth operation aborts and invalidates an older operation (1.2473ms)
+✔ identity invalidation aborts pending work and prevents a late result from applying (0.3331ms)
+✔ search TIMEOUT reports the search source, never the AI model (4.3213ms)
+✔ search SERVICE_UNAVAILABLE reports the search source, never the AI model (0.2509ms)
+✔ search PROVIDER_UNAVAILABLE reports the search source, never the AI model (1.2522ms)
+✔ search SEARCH_NOT_CONFIGURED reports the search source, never the AI model (0.2414ms)
+✔ search SEARCH_AUTH_FAILED reports the search source, never the AI model (0.2703ms)
+✔ search SEARCH_RATE_LIMITED reports the search source, never the AI model (0.1598ms)
+✔ model timeout retains its AI message and uses the agent task route (0.2394ms)
+✔ selected history context is verified before creating consent or an AI task (0.3097ms)
+✔ cleared selected history is removed and blocks consent and AI task creation (0.5857ms)
+✔ unverified selected history blocks task creation without disguising connection errors (0.4575ms)
+✔ model PROVIDER_UNAVAILABLE keeps an actionable retry message (0.2375ms)
+✔ model OUTPUT_INVALID keeps an actionable retry message (0.1866ms)
+✔ search cancelled with no code keeps a search-specific fallback (0.1594ms)
+✔ search expired with no code keeps a search-specific fallback (0.0706ms)
+✔ search failed with UNKNOWN keeps a search-specific fallback (0.0628ms)
+✔ desktop breathing never advances before start and follows 4/6-second phases (2.3343ms)
+✔ desktop breathing pauses without counting hidden time and resumes at the same phase (1.0929ms)
+✔ collapse/reset and dispose prevent old timer callbacks from publishing into the next exercise (1.0104ms)
+✔ desktop breathing completes once and cancels its timer even after a delayed tick (0.9614ms)
+✔ desktop starts as one compact pet without opening a workspace window (1.8742ms)
+✔ expansion preserves the bottom-right anchor and clamps to the display work area (1.0637ms)
+✔ only the actual pet may open allowlisted workspace routes (1.2114ms)
+✔ recovery shortcut restores a hidden pet and disables click-through (1.0625ms)
+✔ preload exposes only fixed routes and event subscriptions can be removed (2.9871ms)
+✔ switching away disposes the owned animation loop and all lifecycle listeners (1.4281ms)
+✔ hiding the page pauses motion and never auto-resumes when visible again (0.3149ms)
+✔ pagehide cancels outstanding animation callbacks before they can draw again (0.2396ms)
+✔ history detail renders the actual title and CONVERSATION body (3.976ms)
+✔ history detail renders the actual title and EMOTION body (0.339ms)
+✔ history detail renders the actual title and WORRY_OBJECT body (0.2591ms)
+✔ history detail renders the actual title and REHEARSAL_DRAFT body (0.2785ms)
+✔ query history shows the saved question, excerpt, uncertainty and original source (0.9482ms)
+✔ query detail renders the complete saved snapshot, including sources without excerpts (3.7402ms)
+✔ legacy query detail marks backfilled data and falls back to unique evidence sources (0.4942ms)
+✔ deposit detail never reveals a body before active retrieval (0.2563ms)
+✔ history escapes saved markup and refuses executable source links (0.3353ms)
+✔ missing detail content reports an explicit problem rather than a blank success panel (0.307ms)
+✔ search results show uncertainty and source freshness without making unsafe links executable (10.0181ms)
+✔ ready training never starts a timer or advances before explicit start (2.21ms)
+✔ breathing follows phase boundaries, skips zero hold and supports an optional hold (0.2477ms)
+✔ pause freezes phase, progress and elapsed time; resume only adds active time (0.6016ms)
+✔ completion clamps the clock and cancels timers, including delayed background callbacks (0.2361ms)
+✔ stale callbacks cannot publish events after pause, reset/restart, exit or dispose (0.3279ms)
+✔ guided steps only move on explicit actions, preserve pause and allow revisiting before completion (0.2217ms)
+✔ pause-organize and worksheet complete only explicitly, not when timers elapse (0.1659ms)
+✔ all four training definitions release timers after pause, resume and exit (0.2544ms)
+✔ invalid content and breathing settings fail before allocating a timer (0.6389ms)
+✔ page hide pauses without auto-resume; page exit and unmount cancel all owned work (0.3907ms)
+✔ all four trainings pause on window hide and discard stale work on page exit (0.9279ms)
+✔ all static web entry pages are present and local references resolve (24.6707ms)
+✔ day6 handoff documents the actual candidate boundaries (1.2254ms)
+ℹ tests 65
+ℹ suites 0
+ℹ pass 65
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1961.0437
+npm notice
+npm notice New major version of npm available! 11.16.0 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice
