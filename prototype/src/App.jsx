@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { ArrowLeft, Menu, X } from 'lucide-react';
 import { AuthDialog } from './auth/AuthDialog.jsx';
 import { useAuth } from './auth/useAuth.js';
-import { Sidebar, SiteTopbar, ToolsSection } from './components/SiteChrome.jsx';
+import { Sidebar, SiteTopbar } from './components/SiteChrome.jsx';
+import { ActivityDirectory, HomeOverview } from './components/WorkspaceDirectories.jsx';
 import { RecordVault } from './records/RecordVault.jsx';
 import { RecordsPanel } from './records/RecordsPanel.jsx';
 import { Dialogue } from './live/Dialogue.jsx';
@@ -16,6 +17,7 @@ import './live/live.css';
 
 const aliases = { 'worry-room': 'worry', 'info-query': 'search', 'emotion-card': 'emotion', 'things-organize': 'things', 'profile': 'settings' };
 const titles = { notes: '文字备忘与全部历史', 'query-records': '查询记录', home: '首页', companion: '陪伴交流', records: '陪伴记录', calendar: '情绪日历', worry: '烦恼物件化', rehearsal: '对话排练', 'rehearsal-records': '我的排练表达', deposit: '烦恼寄存所', things: '事情整理', search: '信息查询', emotion: '情绪命名卡', games: '减压练习与小游戏', training: '五感安定', breathing: '呼吸调节', 'pause-organize': '暂停整理', 'task-splitting': '任务拆分', marbles: '禅意编曲弹珠机', pressure: '屏幕无损发泄', 'private-text': '文字焚化与黑洞', settings: '个人主页与隐私设置', login: '登录', register: '注册' };
+const miniGames = ['pressure', 'private-text', 'marbles'];
 const readRoute = () => { const value = location.hash.slice(1); return aliases[value] || (titles[value] ? value : 'home'); };
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false), [route, setRoute] = useState(readRoute), [selection, setSelection] = useState(null);
@@ -58,13 +60,19 @@ export default function App() {
   else if (['training','breathing','pause-organize','task-splitting'].includes(route)) content = <Training definition={({ training: 'FIVE_SENSES', breathing: 'BREATHING', 'pause-organize': 'PAUSE_ORGANIZE', 'task-splitting': 'TASK_SPLIT' })[route]} onExit={() => navigate('games')} onOrganize={text => navigate('things', text)} />;
   else if (route === 'private-text') content = <PrivateText />;
   else if (route === 'marbles' || route === 'pressure') content = <PhysicsGame mode={route === 'pressure' ? 'pressure' : 'marbles'} />;
-  else if (route === 'games') content = <section className="live-records recent-card"><h2>减压练习与小游戏</h2>{['breathing','training','pause-organize','task-splitting','pressure','private-text','marbles'].map(key => <button key={key} onClick={() => navigate(key)}>{titles[key]}</button>)}<p>固定训练与小游戏在本机执行，不需要模型服务；未开始不推进，暂停冻结，离开页面会停止。</p></section>;
-  else content = <><section className="guest-hero"><div className="guest-hero-copy"><h2>先和自己待一会儿，再决定下一步。</h2><p>所有功能页面都可以直接浏览。对话和查询会调用真实服务；记录与账户内容登录后读取和保存。</p><button className="button button-primary" onClick={() => navigate('companion')}>开始体验</button><button className="button button-outline" onClick={() => navigate('calendar')}>打开情绪日历</button></div></section><ToolsSection onNavigate={navigate} /><section className="live-records recent-card"><h3>我的内容</h3>{['notes','records','calendar','worry','deposit','rehearsal-records','query-records','settings'].map(key => <button key={key} onClick={() => navigate(key)}>{titles[key]}</button>)}</section></>;
-  return <div className={`current-home ${new URLSearchParams(location.search).get('overlay') === 'pressure' ? 'desktop-overlay' : ''}`}><button ref={mobileToggle} className="mobile-home-bar" onClick={() => setMobileOpen(value => !value)} aria-label="切换导航" aria-expanded={mobileOpen} aria-controls="primary-sidebar">{mobileOpen ? <X /> : <Menu />}<strong>404NOTFOUND</strong></button>
+  else if (route === 'games') content = <ActivityDirectory titles={titles} />;
+  else content = <HomeOverview titles={titles} onNavigate={navigate} />;
+  const desktopOverlay = new URLSearchParams(location.search).get('overlay') === 'pressure';
+  return <div className={`current-home ${desktopOverlay ? 'desktop-overlay' : ''}`}><button ref={mobileToggle} className="mobile-home-bar" onClick={() => setMobileOpen(value => !value)} aria-label="切换导航" aria-expanded={mobileOpen} aria-controls="primary-sidebar">{mobileOpen ? <X /> : <Menu />}<strong>404NOTFOUND</strong></button>
     <Sidebar mobileOpen={mobileOpen} closeMobile={() => setMobileOpen(false)} authenticated={authenticated} nickname={nickname} onLogin={auth.openAuth} onAccount={showAccount} onLogout={auth.logout} activePage={route} onNavigate={navigate} />
     <div className="home-workspace"><SiteTopbar title={titles[route]} dateLabel={new Date().toLocaleDateString('zh-CN')} authStatus={auth.status} nickname={nickname} showAccount={showAccount} activePage={route} onNavigate={navigate} /><main className="home-main"><div className="home-content">
       {auth.pageNotice && <div className="home-auth-notice" role="status">{auth.pageNotice}{auth.logoutPending && <button onClick={auth.retryLogout}>重新核实退出</button>}</div>}
-      <div key={`${route}:${['training','breathing','pause-organize','task-splitting'].includes(route) ? auth.identityKey : identityEpoch.current}`} className="live-route">{content}</div>
+      <div key={`${route}:${['training','breathing','pause-organize','task-splitting'].includes(route) ? auth.identityKey : identityEpoch.current}`} className="live-route">
+        {miniGames.includes(route) && !desktopOverlay && <a className="game-back-link" href="#games">
+          <ArrowLeft size={17} aria-hidden="true" />返回减压小游戏
+        </a>}
+        {content}
+      </div>
       <p className="demo-disclaimer">账号身份与私密数据由服务端校验。AI 输出可能出错，不提供诊断或治疗保证。桌面与微信部署说明见仓库文档。</p>
     </div></main></div>
     {auth.authView && <AuthDialog mode={auth.authView} status={auth.status} profile={auth.profile} busy={auth.busy} error={auth.error} notice={auth.notice} onModeChange={auth.openAuth} onClose={auth.closeAuth} onSubmit={auth.submit} onLogout={auth.logout} />}

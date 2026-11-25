@@ -5,9 +5,24 @@
 .live-records article p { white-space: pre-wrap; overflow-wrap: anywhere; }
 .live-records [role=log] { max-height: 55vh; overflow: auto; }
 .live-records .record-message { padding: 14px; margin: 8px 0; background: #eff5f1; border-radius: 10px; }
-.worry-shape { display: grid; place-items: center; width: 130px; height: 100px; font-size: 64px; color: #658475; background: #e0eadf; border-radius: 45%; }
-.shape-STONE { background: #dddcd8; border-radius: 45% 55% 32% 40%; }
-.shape-NOTE { border-radius: 3px; background: #f1e4b6; }
+
+.game-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid #c9d9d1;
+  border-radius: 8px;
+  color: #294c40;
+  background: #fff;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.game-back-link:hover { background: #edf4ef; }
+.game-back-link:focus-visible { outline: 3px solid #2f7968; outline-offset: 3px; }
+.game-back-link + .live-records { margin-top: 12px; }
 
 body:has(.desktop-overlay) { background: transparent; }
 .desktop-overlay { background: transparent !important; }

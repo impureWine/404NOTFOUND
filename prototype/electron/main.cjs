@@ -1,11 +1,13 @@
-const { app, BrowserWindow, globalShortcut, ipcMain, session, screen } = require('electron');
+const { app, BrowserWindow, dialog, globalShortcut, ipcMain, session, screen } = require('electron');
 const path = require('node:path');
 let petWindow=null,workspaceWindow=null,pressureWindow=null,clickThrough=false,expanded=false;
+let workspaceNavigation=0,trustedCertificate=null;
 const routes=new Set(['home','companion','things','calendar','deposit','notes','emotion','rehearsal','search','games','settings']);
+const hostedSite='https://8.139.6.60';
 const isPetSender=event=>Boolean(petWindow&&!petWindow.isDestroyed()&&event.sender===petWindow.webContents);
 function applicationUrl(route='home') {
   if(!routes.has(route))throw new Error('不支持的桌面入口');
-  const target=new URL(process.env.DESKTOP_APP_URL||'http://127.0.0.1:5174');
+  const target=new URL(process.env.DESKTOP_APP_URL||hostedSite);
   if(!['http:','https:'].includes(target.protocol)||target.username||target.password||target.pathname!=='/'||target.search||target.hash)throw new Error('DESKTOP_APP_URL 必须为受信任的应用根地址');
   if(target.protocol!=='https:'&&!['127.0.0.1','localhost'].includes(target.hostname))throw new Error('非本机地址必须使用 HTTPS');
   target.hash=route==='home'?'':route;return target;
@@ -31,7 +33,13 @@ function openWorkspace(route='home'){
     protectWindow(workspaceWindow,target);workspaceWindow.on('closed',()=>{workspaceWindow=null;});
   }
   const current=workspaceWindow;
-  current.loadURL(target.href).catch(()=>{if(!current.isDestroyed())current.loadURL('data:text/html;charset=utf-8,'+encodeURIComponent('<h1>工作台尚未连接</h1><p>请先启动前后端服务，再从桌宠重新打开工作台。</p>'));});
+  const navigation=++workspaceNavigation;
+  current.loadURL(target.href).catch(()=>{
+    if(navigation===workspaceNavigation&&!current.isDestroyed()){
+      const notice='<h1>工作台暂时无法打开</h1><p>请检查网络和站点证书，再从桌宠重试。</p>';
+      current.loadURL('data:text/html;charset=utf-8,'+encodeURIComponent(notice)).catch(()=>{});
+    }
+  });
   current.show();current.focus();
 }
 function openPressure(){
@@ -64,6 +72,26 @@ app.whenReady().then(()=>{
   ipcMain.on('pet:close',event=>{if(isPetSender(event))app.quit();});
   globalShortcut.register('Alt+Shift+P',()=>{if(petWindow&&!petWindow.isDestroyed()){setClickThrough(false);petWindow.show();petWindow.focus();}});
   createPetWindow();
+});
+app.on('certificate-error',(event,contents,url,error,certificate,callback)=>{
+  const window=[workspaceWindow,pressureWindow].find(candidate=>candidate&&!candidate.isDestroyed()&&candidate.webContents===contents);
+  const now=Date.now()/1000;
+  const eligible=window&&new URL(url).origin===hostedSite
+    &&['net::ERR_CERT_AUTHORITY_INVALID','net::ERR_CERT_COMMON_NAME_INVALID'].includes(error)
+    &&certificate.subjectName===new URL(hostedSite).hostname
+    &&certificate.validStart<=now&&now<certificate.validExpiry&&certificate.fingerprint;
+  if(!eligible){callback(false);return;}
+  event.preventDefault();
+  if(trustedCertificate!==certificate.fingerprint){
+    const choice=dialog.showMessageBoxSync(window,{
+      type:'warning',title:'工作台证书需要确认',
+      message:'系统无法验证工作台的 HTTPS 证书。',
+      detail:`站点：${hostedSite}\n证书指纹：${certificate.fingerprint}\n请向站点管理员核对指纹。确认一致后，可在本次桌宠运行期间信任此证书。`,
+      buttons:['取消','本次信任'],defaultId:0,cancelId:0,noLink:true
+    });
+    if(choice===1)trustedCertificate=certificate.fingerprint;
+  }
+  callback(trustedCertificate===certificate.fingerprint);
 });
 app.on('before-quit',()=>{globalShortcut.unregister('Alt+Shift+P');if(petWindow&&!petWindow.isDestroyed()){setClickThrough(false);petWindow.destroy();}petWindow=null;});
 app.on('window-all-closed',()=>{if(process.platform!=='darwin')app.quit();});
