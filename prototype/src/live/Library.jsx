@@ -1,6 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { apiClient } from '../api/client.js';
 import { clearOwned, id, saveContent, updateContent } from './business.js';
+import './worry-objects.css';
+
+const worryShapes = [
+  { code: 'TANGLE', name: '线团' },
+  { code: 'STONE', name: '石头' },
+  { code: 'NOTE', name: '便利贴' },
+];
+
+function WorryShape({ code }) {
+  return <span className={`worry-art worry-art--${code.toLowerCase()}`} aria-hidden="true">
+    <span /><span /><span />
+  </span>;
+}
+
+function WorryShapePicker({ value, onChange }) {
+  return <fieldset className="worry-picker">
+    <legend>选择物件形状</legend>
+    <div className="worry-options">
+      {worryShapes.map(({ code, name }) => <label className="worry-option" key={code}>
+        <input type="radio" name="worry-shape" value={code} checked={value === code}
+          onChange={() => onChange(code)} />
+        <span className="worry-option-face">
+          <span className="worry-preview"><WorryShape code={code} /></span>
+          <span className="worry-option-name">{name}</span>
+          <span className="worry-selection-mark" aria-hidden="true" />
+        </span>
+      </label>)}
+    </div>
+  </fieldset>;
+}
 const defaults = kind => kind === 'WORRY_OBJECT' ? { title: '', shapeCode: 'TANGLE', body: '' } : kind === 'DEPOSIT' ? { title: '', body: '', reopenAt: '' } : { title: '', scene: '', expressions: [''] };
 const names = { QUERY: '查询记录', WORRY_OBJECT: '烦恼物件', DEPOSIT: '烦恼寄存所', REHEARSAL_DRAFT: '排练表达' };
 export function Library({ kind, authenticated = false, onOrganize }) {
@@ -47,7 +77,8 @@ export function Library({ kind, authenticated = false, onOrganize }) {
     </section>}
     {kind !== 'QUERY' && <form onSubmit={save}><h3>{editing ? '编辑' : '新增'}{names[kind]}</h3><fieldset disabled={busy}>
       <label>标题<input maxLength={80} value={content.title} onChange={event => patch({ title: event.target.value })} /></label>
-      {kind === 'WORRY_OBJECT' && <><label>形状<select value={content.shapeCode} onChange={event => patch({ shapeCode: event.target.value })}><option value="TANGLE">线团</option><option value="STONE">石头</option><option value="NOTE">便利贴</option></select></label><div className={`worry-shape shape-${content.shapeCode}`} aria-label="本次物件形状">{content.shapeCode === 'TANGLE' ? '〰' : content.shapeCode === 'STONE' ? '●' : '▤'}</div></>}
+      {kind === 'WORRY_OBJECT' && <WorryShapePicker value={content.shapeCode}
+        onChange={shapeCode => patch({ shapeCode })} />}
       {kind === 'REHEARSAL_DRAFT' ? <><label>场景<textarea required maxLength={4000} value={content.scene} onChange={event => patch({ scene: event.target.value })} /></label>{content.expressions.map((text, index) => <label key={index}>认可的表达 {index + 1}<textarea required maxLength={4000} value={text} onChange={event => patch({ expressions: content.expressions.map((value, i) => i === index ? event.target.value : value) })} /></label>)}<button type="button" disabled={content.expressions.length >= 20} onClick={() => patch({ expressions: [...content.expressions, ''] })}>添加表达</button></> : <label>{kind === 'DEPOSIT' ? '暂时放下的事' : '这件烦恼的描述'}<textarea required maxLength={4000} value={content.body} onChange={event => patch({ body: event.target.value })} /></label>}
       {kind === 'DEPOSIT' && <label>再打开时间<input type="datetime-local" required value={content.reopenAt} onChange={event => patch({ reopenAt: event.target.value })} /></label>}
       <p>{authenticated ? '只有确认保存才会提交并加密存入数据库。' : '登录后才能把内容保存到本人账户；当前填写不会上传。'}{kind === 'DEPOSIT' ? '寄存内容到期后仍需主动取出。' : ''}</p><button type="submit" disabled={!authenticated}>确认保存</button>{editing && <button type="button" onClick={() => { setEditing(null); setContent(defaults(kind)); }}>取消编辑</button>}
