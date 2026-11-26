@@ -33,7 +33,7 @@
 
 .workspace-tool-columns {
   display: grid;
-  grid-template-columns: minmax(240px, 4fr) minmax(0, 8fr);
+  grid-template-columns: minmax(0, 8fr) minmax(240px, 4fr);
   align-items: start;
   gap: 16px;
 }
@@ -49,7 +49,7 @@
   background: white;
 }
 
-.workspace-tool:has(> .workspace-tool-editor) { max-width: 900px; }
+
 .workspace-tool-panel-heading {
   display: flex;
   flex-wrap: wrap;
@@ -171,3 +171,63 @@
 @media (max-width: 540px) {
   .workspace-tool .workspace-tool-field-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+.workspace-tool .workspace-dialogue-form {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.workspace-tool .workspace-dialogue-form > fieldset { margin: 0; }
+.workspace-history label { overflow-wrap: anywhere; }
+
+.calendar-record-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  align-items: start;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.live-records .calendar-record-workspace > form { margin: 0; border-top-color: #e7edeb; }
+.calendar-history-panel { min-width: 0; padding: 20px; border: 1px solid #e7edeb; border-radius: 16px; }
+.calendar-history-panel h4 { margin: 0; font-size: 15px; }
+.calendar-history-panel p { overflow-wrap: anywhere; }
+
+.workspace-settings-stack { display: grid; gap: 16px; min-width: 0; }
+.workspace-settings .workspace-settings-preference {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+
+.workspace-settings-counts { list-style: none; margin: 8px 0 0; padding: 0; }
+.workspace-settings-counts li + li { border-top: 1px solid var(--tool-line); }
+.workspace-settings-counts a,
+.workspace-settings-counts li > span {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 16px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 4px;
+  min-height: 44px;
+  font-size: 14px;
+}
+.workspace-settings-counts a:hover { background: var(--tool-soft); }
+.workspace-settings-counts a:focus-visible { outline-offset: -2px; }
+.workspace-settings-counts .record-count { font-variant-numeric: tabular-nums; }
+.workspace-settings-counts svg { color: var(--tool-muted); }
+.workspace-settings .workspace-tool-note + .workspace-tool-fields { margin-top: 14px; }
+.workspace-settings .workspace-tool-note { margin-top: 6px; }
+.workspace-settings .workspace-settings-services { margin-top: 16px; }
+
+@media (max-width: 1050px) {
+  .calendar-record-workspace { grid-template-columns: minmax(0, 1fr); }
+}
+
+html:has(.workspace-tool) { scrollbar-gutter: stable; }

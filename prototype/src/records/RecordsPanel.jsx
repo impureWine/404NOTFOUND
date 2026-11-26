@@ -149,6 +149,8 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
     } catch (value) { setError(value.message); }
     finally { locked.current = false; setBusy(false); }
   }}>{className ? '清除' : '清除此条'}</button>;
+  const recordPagination = cursor && <button type="button" disabled={loading || busy} onClick={more}>加载更多</button>;
+  const recordDetail = detail && <section className={emotion ? undefined : 'workspace-tool-detail'} aria-label="记录详情"><h4>{detail.title}</h4>{detail.content?.messages?.map((message, index) => <p className="record-message" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}{detail.content?.recordDate && <p>{detail.content.recordDate} · {detail.content.note}</p>}<button type="button" onClick={() => setDetail(null)}>关闭详情</button></section>;
   return <section className={emotion ? 'live-records recent-card' : 'live-records workspace-tool'}>
     {emotion ? <div className="section-heading"><h3>情绪日历</h3><span>{readOnly ? '访客预览 · 不读取个人记录' : '本人账户 · 真实服务'}</span></div> :
       <header className="workspace-tool-heading"><h2>陪伴记录</h2><p>回看你在此入口主动保存的对话。</p></header>}
@@ -192,16 +194,13 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
       </button>
       {clearButton(item, 'workspace-tool-clear')}
     </li>)}</ul>}
-    {emotion && !readOnly && <ul className="live-record-list">{visibleItems.map(item => <li key={item.id}>
-      <button type="button" onClick={() => view(item)}>{item.content?.recordDate || new Date(item.createdAt).toLocaleDateString()} · {item.title}</button>
-      {clearButton(item)}
-      {emotion && <><p>{item.content.emotionCodes.join('、') || '未命名'} · 强度：{item.content.intensity ?? '跳过'}</p><p>{item.content.note}</p>
-        <button type="button" disabled={busy} onClick={() => { setEditing(item); setContent({ title: item.title, ...item.content }); setDetail(null); }}>编辑</button></>}
-    </li>)}</ul>}
-    {cursor && <button type="button" disabled={loading || busy} onClick={more}>加载更多</button>}
-    {detail && <section className={emotion ? undefined : 'workspace-tool-detail'} aria-label="记录详情"><h4>{detail.title}</h4>{detail.content?.messages?.map((message, index) => <p className="record-message" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}{detail.content?.recordDate && <p>{detail.content.recordDate} · {detail.content.note}</p>}<button type="button" onClick={() => setDetail(null)}>关闭详情</button></section>}
+    {!emotion && <>
+    {recordPagination}
+    {recordDetail}
+    </>}
     </RecordBody>
-    {emotion && !readOnly && <form className="calendar-editor" onSubmit={save}><h4>{editing ? '编辑情绪记录' : '记录这一天'}</h4>
+    {emotion && !readOnly && <div className="calendar-record-workspace">
+      <form className="calendar-editor" onSubmit={save}><h4>{editing ? '编辑情绪记录' : '记录这一天'}</h4>
       {!emotion && <p>在这里整理并保存已有对话。此表单不会生成 AI 回复，也不会保存独立演示页面中的预设回复。</p>}
       <fieldset disabled={busy}><label>标题（可选）<input value={content.title} maxLength={80} onChange={event => patch({ title: event.target.value })} /></label>
       {emotion ? <>
@@ -214,6 +213,19 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
       <button type="submit">{busy ? '正在保存…' : '确认保存到本人账户'}</button>
       {editing && <button type="button" onClick={() => { setEditing(null); setContent(fresh(kind)); }}>取消编辑</button>}
       </fieldset>
-    </form>}
+    </form>
+      <section className="calendar-history-panel" aria-labelledby="calendar-history-title">
+        <h4 id="calendar-history-title">已保存的情绪记录</h4>
+        {!visibleItems.length && !loading && !loadError && <p>{selectedDay ? '这一天暂无记录。' : '本月暂无记录。'}</p>}
+    {visibleItems.length > 0 && <ul className="live-record-list">{visibleItems.map(item => <li key={item.id}>
+      <button type="button" onClick={() => view(item)}>{item.content?.recordDate || new Date(item.createdAt).toLocaleDateString()} · {item.title}</button>
+      {clearButton(item)}
+      {emotion && <><p>{item.content.emotionCodes.join('、') || '未命名'} · 强度：{item.content.intensity ?? '跳过'}</p><p>{item.content.note}</p>
+        <button type="button" disabled={busy} onClick={() => { setEditing(item); setContent({ title: item.title, ...item.content }); setDetail(null); }}>编辑</button></>}
+    </li>)}</ul>}
+        {recordPagination}
+        {recordDetail}
+      </section>
+    </div>}
   </section>;
 }
