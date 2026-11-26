@@ -57,7 +57,10 @@ export default function App() {
   else if (route === 'search') content = <Search initialText={initialText} />;
   else if (['worry','deposit','rehearsal-records','query-records'].includes(route)) content = <Library kind={({ 'query-records': 'QUERY', worry: 'WORRY_OBJECT', deposit: 'DEPOSIT', 'rehearsal-records': 'REHEARSAL_DRAFT' })[route]} authenticated={authenticated} onOrganize={text => navigate('things', text)} />;
   else if (route === 'emotion') content = <Naming onChoose={navigate} />;
-  else if (route === 'settings') content = authenticated ? <Settings onLogout={auth.logout} /> : <section className="live-records recent-card"><h2>个人主页与隐私设置</h2><p>访客可以浏览此页。登录后会从服务端读取个人资料、隐私偏好和账户设置。</p><button type="button" onClick={() => auth.openAuth('login')}>登录账户</button></section>;
+  else if (route === 'settings') content = authenticated ? <Settings onLogout={auth.logout} /> : <section className="live-records workspace-tool">
+    <header className="workspace-tool-heading"><h2>个人主页与隐私设置</h2><p>登录后可查看个人资料、隐私偏好和账户设置。</p></header>
+    <div className="workspace-tool-panel"><button type="button" className="workspace-tool-primary" onClick={() => auth.openAuth('login')}>登录账户</button></div>
+  </section>;
   else if (['training','breathing','pause-organize','task-splitting'].includes(route)) content = <Training definition={({ training: 'FIVE_SENSES', breathing: 'BREATHING', 'pause-organize': 'PAUSE_ORGANIZE', 'task-splitting': 'TASK_SPLIT' })[route]} onExit={() => navigate('games')} onOrganize={text => navigate('things', text)} />;
   else if (route === 'private-text') content = <PrivateText />;
   else if (route === 'marbles' || route === 'pressure') content = <PhysicsGame mode={route === 'pressure' ? 'pressure' : 'marbles'} />;

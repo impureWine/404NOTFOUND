@@ -70,12 +70,11 @@ export function Dialogue({ mode = 'LISTEN', initialText = '' }) {
     </header>
     {error && <p className="workspace-tool-feedback" role="alert">{error}</p>}{notice && <p className="workspace-tool-feedback" role="status">{notice}</p>}
     {busy && <p className="workspace-tool-feedback" role="status">{operation === 'reply' ? '正在生成回复，你可以停止本次等待。' : operation === 'save' ? '正在保存本次选择，请稍候。' : '正在确认会话状态，请稍候。'}</p>}
-    <form className="workspace-tool-panel workspace-tool-editor" onSubmit={send}><fieldset className="workspace-tool-fields" disabled={busy}>
+    <form className="workspace-tool-columns workspace-dialogue-form" onSubmit={send}>
+      <fieldset className="workspace-tool-panel workspace-tool-fields" disabled={busy} aria-label="本次对话">
       {mode === 'REHEARSE' && <fieldset className="workspace-tool-setup"><legend>排练设定</legend><div className="workspace-tool-field-grid">{Object.entries({ scene: '场景', counterpart: '对方角色', goal: '本次目标', style: '对话风格' }).map(([key, label]) => <label key={key}>{label}<input required maxLength={key === 'goal' ? 1000 : key === 'style' ? 200 : 80} value={simulation[key]} onChange={event => setSimulation(current => ({ ...current, [key]: event.target.value }))} /></label>)}</div></fieldset>}
       <h3>对话内容</h3>
       <div role="log" aria-live="polite">{messages.map(message => <div className="record-message" key={message.id}><strong>{message.role === 'USER' ? '你' : message.safety ? '安全提示' : 'AI'}：</strong>{message.content}{mode === 'REHEARSE' && message.role === 'USER' && <label><input type="checkbox" checked={selected.includes(message.id)} onChange={event => setSelected(current => event.target.checked ? [...current, message.id] : current.filter(value => value !== message.id))} />认可并选择这句表达</label>}</div>)}</div>
-      <button type="button" onClick={async () => { try { const result = await apiClient.listRecords({ kind: 'CONVERSATION', limit: 20, ...(historyCursor ? { cursor: historyCursor } : {}) }); if (live.current) { setHistory(current => historyCursor ? [...current, ...result.items] : result.items); setHistoryCursor(result.nextCursor); } } catch (value) { if (live.current) setError(value.message); } }}>{historyCursor ? '加载更多本人对话记录' : '选择本人已保存的对话'}</button>
-      {history.map(record => <label key={record.id}><input type="checkbox" checked={historyIds.includes(record.id)} onChange={event => setHistoryIds(current => event.target.checked ? [...current, record.id] : current.filter(value => value !== record.id))} />本轮携带：{record.title}</label>)}
       <label>本次输入<textarea placeholder={mode === 'REHEARSE' ? '写下准备开口的第一句话…' : '写下此刻想说的内容…'} required maxLength={4000} value={draft} onChange={event => setDraft(event.target.value)} /></label>
       <fieldset className="workspace-tool-consent"><legend>本轮发送范围</legend>
       <label><input type="checkbox" checked={context} onChange={event => setContext(event.target.checked)} />本轮同时发送上方临时对话（最多 4000 字）</label>
@@ -87,6 +86,13 @@ export function Dialogue({ mode = 'LISTEN', initialText = '' }) {
       <button type="button" disabled={!messages.length || messages.length > 20} onClick={save}>主动保存{mode === 'REHEARSE' ? '所选表达' : '本次对话'}</button>
       {session.current && <><button type="button" onClick={() => act(session.current.state === 'paused' ? 'RESUME' : 'PAUSE')}>{session.current.state === 'paused' ? '继续' : '暂停'}</button><button type="button" onClick={() => act('RESTART')}>重来</button><button type="button" onClick={() => act('END')}>结束并清空</button></>}
       </div>
-    </fieldset></form>{operation === 'reply' && <button type="button" onClick={() => controller.current?.abort()}>停止本次请求</button>}
+      </fieldset>
+      <fieldset className="workspace-tool-panel workspace-tool-fields workspace-history" disabled={busy} aria-labelledby="dialogue-history-heading">
+        <h3 id="dialogue-history-heading">已保存对话</h3>
+        <p>选择要随本轮发送的对话。</p>
+      <button type="button" onClick={async () => { try { const result = await apiClient.listRecords({ kind: 'CONVERSATION', limit: 20, ...(historyCursor ? { cursor: historyCursor } : {}) }); if (live.current) { setHistory(current => historyCursor ? [...current, ...result.items] : result.items); setHistoryCursor(result.nextCursor); } } catch (value) { if (live.current) setError(value.message); } }}>{historyCursor ? '加载更多本人对话记录' : '选择本人已保存的对话'}</button>
+      {history.map(record => <label key={record.id}><input type="checkbox" checked={historyIds.includes(record.id)} onChange={event => setHistoryIds(current => event.target.checked ? [...current, record.id] : current.filter(value => value !== record.id))} />本轮携带：{record.title}</label>)}
+      </fieldset>
+    </form>{operation === 'reply' && <button type="button" onClick={() => controller.current?.abort()}>停止本次请求</button>}
   </section>;
 }
