@@ -138,17 +138,33 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
     const meta = emotionMeta(record);
     return <><span className="calendar-day-back-date">{localDateLabel(date)}</span>{records.length ? <><strong>{meta.emoji} {meta.label}</strong><span>{record.content.intensity ? `强度 ${record.content.intensity} / 5` : '强度未填写'}</span><small>{record.content.note || '没有补充备注'}</small></> : <><strong>{readOnly ? '访客预览' : recordsUnknown ? loading ? '正在读取记录' : '记录状态未确认' : '还没有记录'}</strong><span>{readOnly ? '无法读取本人记录' : recordsUnknown ? '尚不能确认这一天有无记录' : '点击可将日期带入下方表单'}</span></>}</>;
   };
-  return <section className="live-records recent-card">
-    <div className="section-heading"><h3>{emotion ? '情绪日历' : '陪伴记录'}</h3><span>{readOnly ? '访客预览 · 不读取个人记录' : '本人账户 · 真实服务'}</span></div>
+  const RecordBody = emotion ? React.Fragment : 'div';
+  const clearButton = (item, className) => <button type="button" className={className} disabled={busy} onClick={async () => {
+    if (locked.current) return;
+    locked.current = true;
+    setBusy(true);
+    setError('');
+    try {
+      if (await clearOwned(item)) { setDetail(null); setRevision(value => value + 1); }
+    } catch (value) { setError(value.message); }
+    finally { locked.current = false; setBusy(false); }
+  }}>{className ? '清除' : '清除此条'}</button>;
+  return <section className={emotion ? 'live-records recent-card' : 'live-records workspace-tool'}>
+    {emotion ? <div className="section-heading"><h3>情绪日历</h3><span>{readOnly ? '访客预览 · 不读取个人记录' : '本人账户 · 真实服务'}</span></div> :
+      <header className="workspace-tool-heading"><h2>陪伴记录</h2><p>回看你在此入口主动保存的对话。</p></header>}
+    <RecordBody {...(emotion ? {} : { className: 'workspace-tool-panel' })}>
+    {!emotion && (
+      <div className="workspace-tool-panel-heading"><h3>已保存对话</h3>
+        {!readOnly && <button type="button" disabled={busy || loading} onClick={() => setRevision(value => value + 1)}><RefreshCw size={15} aria-hidden="true" /> 刷新</button>}
+      </div>)}
     {readOnly && <div className="calendar-guest-notice" role="status"><span><CalendarDays size={16} />访客预览</span><p>{emotion ? '日历可浏览和选择日期；登录并连接服务后可读取本人记录。' : '页面可浏览；登录并连接服务后可读取本人陪伴记录。'}</p>{onLogin && <button type="button" onClick={onLogin}>登录或注册</button>}</div>}
     {error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
     {emotion && <div className="calendar-toolbar">
       <label className="calendar-month-picker"><span>查看月份</span><input aria-label="查看月份" type="month" required value={month} disabled={busy} onChange={event => { if (event.target.value) { setMonth(event.target.value); setSelectedDay(''); setFlippedDay(null); } }} /></label>
       {!readOnly && <button className="calendar-refresh" type="button" disabled={busy || loading} onClick={() => setRevision(value => value + 1)}><RefreshCw size={15} />重新读取</button>}
     </div>}
-    {!emotion && !readOnly && <button type="button" disabled={busy || loading} onClick={() => setRevision(value => value + 1)}>重新读取</button>}
     {loading && <p role="status">正在从服务端读取…</p>}
-    {!loading && !items.length && !emotion && <p>{readOnly ? '登录后读取本人陪伴记录。' : '暂无主动保存的记录。'}</p>}
+    {!readOnly && !loading && !loadError && !items.length && !emotion && <p className="workspace-tool-empty">暂无主动保存的记录。</p>}
     {emotion && <div className="calendar-layout">
       <section className="calendar-month-card" aria-label={`${monthLabel}情绪日历`}>
         <div className="calendar-card-heading"><div><span className="calendar-eyebrow">每天留下一点痕迹</span><h4>{monthLabel}</h4></div><div className="calendar-month-actions"><button type="button" aria-label="上一个月" onClick={() => changeMonth(-1)} disabled={busy}><ChevronLeft size={18} /></button><button type="button" aria-label="下一个月" onClick={() => changeMonth(1)} disabled={busy}><ChevronRight size={18} /></button></div></div>
@@ -169,14 +185,22 @@ export function RecordsPanel({ kind, readOnly = false, onLogin }) {
         <section className="calendar-selected-card"><div className="calendar-card-heading"><div><span className="calendar-eyebrow">选中的一天</span><h4>{selectedDay ? localDateLabel(selectedDay) : '点击一张日历卡'}</h4></div><Heart size={19} /></div>{selectedRecords.length ? <p>{selectedRecords[0].content.note || '这一天没有补充备注。'}</p> : <p>{readOnly ? '这是只读空状态预览。登录并连接服务后，才会读取这一天的本人记录。' : recordsUnknown ? '记录尚未确认。请等待读取完成，失败时可点击重新读取。' : '选择日期后，可以在下方表单记录心情。空白日子也值得被保留。'}</p>}<button type="button" className="calendar-link-button" onClick={() => { setSelectedDay(''); setEditing(null); setFlippedDay(null); }}>查看整月</button></section>
       </aside>
     </div>}
-    {!readOnly && <ul className="live-record-list">{visibleItems.map(item => <li key={item.id}>
+    {!emotion && !readOnly && visibleItems.length > 0 && <ul className="workspace-tool-list">{visibleItems.map(item => <li key={item.id}>
+      <button className="workspace-tool-row" type="button" onClick={() => view(item)} aria-current={detail?.id === item.id ? 'true' : undefined}>
+        <span><strong>{item.title}</strong>{item.createdAt && <time dateTime={item.createdAt}>{new Date(item.createdAt).toLocaleDateString('zh-CN')}</time>}</span>
+        <ChevronRight size={16} aria-hidden="true" />
+      </button>
+      {clearButton(item, 'workspace-tool-clear')}
+    </li>)}</ul>}
+    {emotion && !readOnly && <ul className="live-record-list">{visibleItems.map(item => <li key={item.id}>
       <button type="button" onClick={() => view(item)}>{item.content?.recordDate || new Date(item.createdAt).toLocaleDateString()} · {item.title}</button>
-      <button type="button" disabled={busy} onClick={async () => { if (locked.current) return; locked.current = true; setBusy(true); setError(''); try { if (await clearOwned(item)) { setDetail(null); setRevision(value => value + 1); } } catch (value) { setError(value.message); } finally { locked.current = false; setBusy(false); } }}>清除此条</button>
+      {clearButton(item)}
       {emotion && <><p>{item.content.emotionCodes.join('、') || '未命名'} · 强度：{item.content.intensity ?? '跳过'}</p><p>{item.content.note}</p>
         <button type="button" disabled={busy} onClick={() => { setEditing(item); setContent({ title: item.title, ...item.content }); setDetail(null); }}>编辑</button></>}
     </li>)}</ul>}
     {cursor && <button type="button" disabled={loading || busy} onClick={more}>加载更多</button>}
-    {detail && <section aria-label="记录详情"><h4>{detail.title}</h4>{detail.content?.messages?.map((message, index) => <p className="record-message" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}{detail.content?.recordDate && <p>{detail.content.recordDate} · {detail.content.note}</p>}<button type="button" onClick={() => setDetail(null)}>关闭详情</button></section>}
+    {detail && <section className={emotion ? undefined : 'workspace-tool-detail'} aria-label="记录详情"><h4>{detail.title}</h4>{detail.content?.messages?.map((message, index) => <p className="record-message" key={index}><strong>{message.role === 'USER' ? '用户' : '助手'}：</strong>{message.content}</p>)}{detail.content?.recordDate && <p>{detail.content.recordDate} · {detail.content.note}</p>}<button type="button" onClick={() => setDetail(null)}>关闭详情</button></section>}
+    </RecordBody>
     {emotion && !readOnly && <form className="calendar-editor" onSubmit={save}><h4>{editing ? '编辑情绪记录' : '记录这一天'}</h4>
       {!emotion && <p>在这里整理并保存已有对话。此表单不会生成 AI 回复，也不会保存独立演示页面中的预设回复。</p>}
       <fieldset disabled={busy}><label>标题（可选）<input value={content.title} maxLength={80} onChange={event => patch({ title: event.target.value })} /></label>

@@ -64,23 +64,29 @@ export function Dialogue({ mode = 'LISTEN', initialText = '' }) {
       setNotice(`已完成：${action === 'END' ? '结束并清空本次临时内容' : action === 'PAUSE' ? '暂停' : action === 'RESUME' ? '继续' : '重来'}`);
     } catch (value) { setError(value.message); } finally { lock.current = false; setOperation(''); }
   };
-  return <section className="live-records recent-card" aria-busy={busy}><h2>{mode === 'REHEARSE' ? '平行宇宙排练室' : mode === 'ORGANIZE' ? '事情整理' : '陪伴交流'}</h2>
-    <p>访客可以查看并填写本页；发送需要可用的模型服务，默认不保存。</p>
-    {error && <p role="alert">{error}</p>}{notice && <p role="status">{notice}</p>}
-    {!messages.length && !busy && !error && <p role="status">先写下你愿意分享的内容，勾选本轮授权后发送；回复不会自动保存。</p>}
-    {busy && <p role="status">{operation === 'reply' ? '正在生成回复，你可以停止本次等待。' : operation === 'save' ? '正在保存本次选择，请稍候。' : '正在确认会话状态，请稍候。'}</p>}
-    <form onSubmit={send}><fieldset disabled={busy}>
-      {mode === 'REHEARSE' && Object.entries({ scene: '场景', counterpart: '对方角色', goal: '本次目标', style: '对话风格' }).map(([key, label]) => <label key={key}>{label}<input required maxLength={key === 'goal' ? 1000 : key === 'style' ? 200 : 80} value={simulation[key]} onChange={event => setSimulation(current => ({ ...current, [key]: event.target.value }))} /></label>)}
+  return <section className="live-records workspace-tool" aria-busy={busy}>
+    <header className="workspace-tool-heading"><h2>{mode === 'REHEARSE' ? '平行宇宙排练室' : mode === 'ORGANIZE' ? '事情整理' : '陪伴交流'}</h2>
+      <p>{mode === 'REHEARSE' ? '先设定对话场景，再练习你想说的话。' : mode === 'ORGANIZE' ? '写下眼前的事，把线索和下一步慢慢理清。' : '从此刻愿意说的一句话开始。'} 授权后才会发送给模型，回复由你主动保存。</p>
+    </header>
+    {error && <p className="workspace-tool-feedback" role="alert">{error}</p>}{notice && <p className="workspace-tool-feedback" role="status">{notice}</p>}
+    {busy && <p className="workspace-tool-feedback" role="status">{operation === 'reply' ? '正在生成回复，你可以停止本次等待。' : operation === 'save' ? '正在保存本次选择，请稍候。' : '正在确认会话状态，请稍候。'}</p>}
+    <form className="workspace-tool-panel workspace-tool-editor" onSubmit={send}><fieldset className="workspace-tool-fields" disabled={busy}>
+      {mode === 'REHEARSE' && <fieldset className="workspace-tool-setup"><legend>排练设定</legend><div className="workspace-tool-field-grid">{Object.entries({ scene: '场景', counterpart: '对方角色', goal: '本次目标', style: '对话风格' }).map(([key, label]) => <label key={key}>{label}<input required maxLength={key === 'goal' ? 1000 : key === 'style' ? 200 : 80} value={simulation[key]} onChange={event => setSimulation(current => ({ ...current, [key]: event.target.value }))} /></label>)}</div></fieldset>}
+      <h3>对话内容</h3>
       <div role="log" aria-live="polite">{messages.map(message => <div className="record-message" key={message.id}><strong>{message.role === 'USER' ? '你' : message.safety ? '安全提示' : 'AI'}：</strong>{message.content}{mode === 'REHEARSE' && message.role === 'USER' && <label><input type="checkbox" checked={selected.includes(message.id)} onChange={event => setSelected(current => event.target.checked ? [...current, message.id] : current.filter(value => value !== message.id))} />认可并选择这句表达</label>}</div>)}</div>
       <button type="button" onClick={async () => { try { const result = await apiClient.listRecords({ kind: 'CONVERSATION', limit: 20, ...(historyCursor ? { cursor: historyCursor } : {}) }); if (live.current) { setHistory(current => historyCursor ? [...current, ...result.items] : result.items); setHistoryCursor(result.nextCursor); } } catch (value) { if (live.current) setError(value.message); } }}>{historyCursor ? '加载更多本人对话记录' : '选择本人已保存的对话'}</button>
       {history.map(record => <label key={record.id}><input type="checkbox" checked={historyIds.includes(record.id)} onChange={event => setHistoryIds(current => event.target.checked ? [...current, record.id] : current.filter(value => value !== record.id))} />本轮携带：{record.title}</label>)}
-      <label>本次输入<textarea required maxLength={4000} value={draft} onChange={event => setDraft(event.target.value)} /></label>
+      <label>本次输入<textarea placeholder={mode === 'REHEARSE' ? '写下准备开口的第一句话…' : '写下此刻想说的内容…'} required maxLength={4000} value={draft} onChange={event => setDraft(event.target.value)} /></label>
+      <fieldset className="workspace-tool-consent"><legend>本轮发送范围</legend>
       <label><input type="checkbox" checked={context} onChange={event => setContext(event.target.checked)} />本轮同时发送上方临时对话（最多 4000 字）</label>
       <label><input type="checkbox" required checked={allowed} onChange={event => setAllowed(event.target.checked)} />同意将本次明确选择的内容发送给模型处理</label>
-      <button type="submit" disabled={!allowed || !draft.trim() || session.current?.state === 'paused'}>发送</button>
+      </fieldset>
+      <div className="workspace-tool-actions">
+      <button type="submit" className="workspace-tool-primary" disabled={!allowed || !draft.trim() || session.current?.state === 'paused'}>发送</button>
       {mode === 'REHEARSE' && <button type="button" disabled={!selected.length || !allowed} onClick={event => send(event, true)}>整理所选本人表达</button>}
       <button type="button" disabled={!messages.length || messages.length > 20} onClick={save}>主动保存{mode === 'REHEARSE' ? '所选表达' : '本次对话'}</button>
       {session.current && <><button type="button" onClick={() => act(session.current.state === 'paused' ? 'RESUME' : 'PAUSE')}>{session.current.state === 'paused' ? '继续' : '暂停'}</button><button type="button" onClick={() => act('RESTART')}>重来</button><button type="button" onClick={() => act('END')}>结束并清空</button></>}
+      </div>
     </fieldset></form>{operation === 'reply' && <button type="button" onClick={() => controller.current?.abort()}>停止本次请求</button>}
   </section>;
 }
