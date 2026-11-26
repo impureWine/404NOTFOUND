@@ -1,0 +1,33 @@
+.private-text-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 3fr) minmax(0, 7fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.private-text-tool textarea { min-height: 148px; }
+.private-text-stage {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+}
+
+.live-route .private-text-stage canvas {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 16px;
+  background: #18101a;
+}
+
+.private-text-stage figcaption {
+  min-height: 1.5em;
+  margin: 8px 0 0;
+  color: var(--tool-muted);
+  font-size: 14px;
+}
+
+@media (max-width: 1050px) {
+  .private-text-layout { grid-template-columns: minmax(0, 1fr); }
+  .private-text-tool textarea { min-height: 100px; }
+}
