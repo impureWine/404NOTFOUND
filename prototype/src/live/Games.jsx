@@ -1,29 +1,115 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createGameLoop } from './game-loop.js';
+import { createTextScene, drawTextScene, stageHeight, stageWidth, textSceneFont } from './text-effects.js';
+import './private-text.css';
 import { useTextDestructionState } from '../req14/useTextDestructionState.js';
 
 export function PrivateText() {
-  const { text, setBuffer: setText, inputRef, destroy: destroyBuffer, clear: clearBuffer } = useTextDestructionState();
-  const [effect, setEffect] = useState('burn'), [active, setActive] = useState(false);
-  const canvas = useRef(null), frame = useRef(0), particles = useRef([]), privateText = useRef('');
-  const clear = () => { privateText.current = ''; particles.current = []; clearBuffer(); setActive(false); cancelAnimationFrame(frame.current); canvas.current?.getContext('2d').clearRect(0, 0, 800, 420); };
-  useEffect(() => { const erase = () => { privateText.current = ''; particles.current = []; cancelAnimationFrame(frame.current); setText(''); setActive(false); };
-    window.addEventListener('pagehide', erase); return () => { window.removeEventListener('pagehide', erase); privateText.current = ''; particles.current = []; cancelAnimationFrame(frame.current); }; }, []);
-  const destroy = () => {
-    const letters = Array.from(text); if (!letters.length) return;
-    particles.current = letters.map((letter, index) => ({ letter, x: 50 + index % 35 * 19, y: 80 + Math.floor(index / 35) * 28, vx: (Math.random() - .5) * 5, vy: -Math.random() * 4 }));
-    privateText.current = ''; destroyBuffer(); setActive(true); const start = performance.now();
-    const render = now => {
-      const ctx = canvas.current?.getContext('2d'); if (!ctx) return;
-      ctx.clearRect(0, 0, 800, 420); ctx.font = '18px sans-serif'; const progress = (now - start) / 1800;
-      if (progress >= 1) { particles.current = []; setActive(false); return; }
-      ctx.globalAlpha = 1 - progress;
-      for (const particle of particles.current) { if (effect === 'blackhole') { particle.x += (400 - particle.x) * .055; particle.y += (210 - particle.y) * .055; } else { particle.x += particle.vx; particle.y += effect === 'burn' ? particle.vy - .6 : (particle.vy += .15); }
-        ctx.fillStyle = effect === 'burn' ? '#bb6549' : '#47645a'; ctx.fillText(particle.letter, particle.x, particle.y); }
-      ctx.globalAlpha = 1; frame.current = requestAnimationFrame(render);
-    }; frame.current = requestAnimationFrame(render);
-  };
-  return <section className="live-records recent-card"><h2>文字焚化与重力黑洞</h2><p>文字只在本页私有内存中短暂停留，不调用 API、不写浏览器存储。销毁或离开页面时清理。</p><label>想放下的话<textarea ref={inputRef} maxLength={300} autoComplete="off" spellCheck={false} disabled={active} value={text} onChange={event => { privateText.current = event.target.value; setText(event.target.value); }} /></label><label>方式<select disabled={active} value={effect} onChange={event => setEffect(event.target.value)}><option value="burn">焚化</option><option value="shred">粉碎</option><option value="blackhole">黑洞</option></select></label><button disabled={!text || active} onClick={destroy}>销毁本页文字</button><button onClick={clear}>立即清空</button><canvas width="800" height="420" ref={canvas} aria-label="文字消散动画" /></section>;
+  const { text, setBuffer, inputRef, destroy: destroyBuffer, clear: clearBuffer } = useTextDestructionState();
+  const [effect, setEffect] = useState('burn');
+  const [active, setActive] = useState(false);
+  const [status, setStatus] = useState('');
+  const canvas = useRef(null);
+  const frame = useRef(0);
+  const scene = useRef(null);
+
+  const stop = useCallback(() => {
+    cancelAnimationFrame(frame.current);
+    frame.current = 0;
+    scene.current = null;
+  }, []);
+
+  useEffect(() => {
+    const ctx = canvas.current?.getContext('2d');
+    if (ctx) drawTextScene(ctx, effect);
+
+    function endOnExit() {
+      stop();
+      clearBuffer();
+      if (ctx) drawTextScene(ctx, effect);
+      setActive(false);
+      setStatus('');
+    }
+    function endWhenHidden() {
+      if (document.hidden && scene.current) endOnExit();
+    }
+    window.addEventListener('pagehide', endOnExit);
+    document.addEventListener('visibilitychange', endWhenHidden);
+    return () => {
+      window.removeEventListener('pagehide', endOnExit);
+      document.removeEventListener('visibilitychange', endWhenHidden);
+      stop();
+      ctx?.clearRect(0, 0, stageWidth, stageHeight);
+    };
+  }, [effect, stop, clearBuffer]);
+
+  function clear() {
+    stop();
+    clearBuffer();
+    const ctx = canvas.current?.getContext('2d');
+    if (ctx) drawTextScene(ctx, effect);
+    setActive(false);
+    setStatus('文字已清空');
+  }
+
+  function render(now) {
+    const current = scene.current;
+    if (!current) return;
+    const progress = (now - current.started) / current.duration;
+    if (progress >= 1) {
+      stop();
+      drawTextScene(current.ctx, current.effect);
+      setActive(false);
+      setStatus('文字已销毁');
+      return;
+    }
+    drawTextScene(current.ctx, current.effect, current.letters, Math.max(0, progress));
+    frame.current = requestAnimationFrame(render);
+  }
+
+  function destroy() {
+    if (!text.trim() || scene.current) return;
+    const ctx = canvas.current?.getContext('2d');
+    if (!ctx || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      destroyBuffer();
+      setStatus('文字已销毁');
+      return;
+    }
+    ctx.font = textSceneFont;
+    scene.current = {
+      ctx, effect, started: performance.now(),
+      duration: effect === 'blackhole' ? 2900 : effect === 'burn' ? 2600 : 1700,
+      letters: createTextScene(text, letter => ctx.measureText(letter).width),
+    };
+    destroyBuffer();
+    setActive(true);
+    setStatus('正在销毁文字');
+    frame.current = requestAnimationFrame(render);
+  }
+
+  return <section className="live-records workspace-tool private-text-tool">
+    <header className="workspace-tool-heading">
+      <h2>文字焚化与重力黑洞</h2>
+      <p>写下想放下的话，选择一种方式让它消散。文字只在本页内存中短暂停留。</p>
+    </header>
+    <div className="private-text-layout">
+      <div className="workspace-tool-panel workspace-tool-fields">
+        <label>想放下的话<textarea ref={inputRef} maxLength={300} autoComplete="off" spellCheck={false}
+          disabled={active} value={text} onChange={event => { setBuffer(event.target.value); setStatus(''); }} /></label>
+        <label>销毁方式<select disabled={active} value={effect} onChange={event => { setEffect(event.target.value); setStatus(''); }}>
+          <option value="burn">焚化</option><option value="blackhole">重力黑洞</option><option value="shred">粉碎</option>
+        </select></label>
+        <div className="workspace-tool-actions">
+          <button type="button" className="workspace-tool-primary" disabled={!text.trim() || active} onClick={destroy}>销毁本页文字</button>
+          <button type="button" disabled={!text && !active} onClick={clear}>立即清空</button>
+        </div>
+      </div>
+      <figure className="private-text-stage">
+        <canvas width={stageWidth} height={stageHeight} ref={canvas} aria-label="文字消散动画" />
+        <figcaption role="status">{status}</figcaption>
+      </figure>
+    </div>
+  </section>;
 }
 
 export function PhysicsGame({ mode = 'marbles' }) {
