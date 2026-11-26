@@ -1,0 +1,173 @@
+.workspace-tool {
+  --tool-ink: #33403f;
+  --tool-muted: #566460;
+  --tool-rose: #8f3e5b;
+  --tool-tint: #f7e9ef;
+  --tool-line: #e4eae7;
+  --tool-soft: #f5f7f6;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0;
+  color: var(--tool-ink);
+  overflow-wrap: anywhere;
+}
+
+.workspace-tool-heading {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 16px;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 16px;
+  background: var(--tool-tint);
+}
+
+.workspace-tool h2,
+.workspace-tool h3,
+.workspace-tool h4 { margin: 0; line-height: 1.35; }
+.workspace-tool h2 { font-size: clamp(22px, 2.4vw, 28px); }
+.workspace-tool h3 { font-size: 16px; }
+.workspace-tool p { margin: 0; line-height: 1.65; }
+.workspace-tool-heading p,
+.workspace-tool .workspace-tool-note,
+.workspace-tool .workspace-tool-fields > p { color: var(--tool-muted); font-size: 14px; }
+
+.workspace-tool-columns {
+  display: grid;
+  grid-template-columns: minmax(240px, 4fr) minmax(0, 8fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.workspace-tool-columns.is-single { grid-template-columns: minmax(0, 1fr); }
+
+.workspace-tool .workspace-tool-panel {
+  min-width: 0;
+  margin: 0;
+  padding: clamp(16px, 2.5vw, 24px);
+  border: 1px solid var(--tool-line);
+  border-radius: 16px;
+  background: white;
+}
+
+.workspace-tool:has(> .workspace-tool-editor) { max-width: 900px; }
+.workspace-tool-panel-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.workspace-tool-list { list-style: none; padding: 0; margin: 10px 0; }
+.workspace-tool-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--tool-line);
+}
+
+.workspace-tool .workspace-tool-empty,
+.workspace-tool .workspace-tool-detail,
+.workspace-tool .workspace-tool-feedback {
+  margin: 12px 0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--tool-soft);
+  font-size: 14px;
+}
+
+.workspace-tool .workspace-tool-empty { color: var(--tool-muted); }
+.workspace-tool .workspace-tool-detail > * + * { margin-top: 10px; }
+.workspace-tool .record-message { background: var(--tool-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
+.workspace-tool-detail .record-message { background: white; }
+.workspace-tool-detail a { text-decoration: underline; text-underline-offset: 3px; }
+
+.workspace-tool .workspace-tool-fields,
+.workspace-tool .workspace-tool-field-grid {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+}
+
+.workspace-tool h3 + .workspace-tool-fields { margin-top: 14px; }
+.workspace-tool .workspace-tool-field-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.workspace-tool .workspace-tool-fields :is(label, fieldset):not(.worry-option) {
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+}
+
+.workspace-tool .workspace-tool-fields .worry-picker { padding: 0; }
+.workspace-tool :is(input:not([type='checkbox'], [type='radio']), textarea, select) {
+  min-height: 44px;
+  min-width: 0;
+  max-width: 100%;
+  border-color: #becbc6;
+  color: var(--tool-ink);
+  background: #fcfdfc;
+  font-size: 16px;
+}
+
+.workspace-tool :is(input, textarea, select):focus-visible { outline: 2px solid var(--tool-rose); outline-offset: 1px; }
+.workspace-tool input[type='checkbox'] { flex: 0 0 18px; margin: 0; accent-color: var(--tool-rose); }
+
+.workspace-tool .workspace-tool-setup,
+.workspace-tool .workspace-tool-consent {
+  padding: 12px 14px;
+  border: 1px solid var(--tool-line);
+  border-radius: 8px;
+}
+
+.workspace-tool :is(.workspace-tool-setup, .workspace-tool-consent) legend { padding: 0 5px; font-weight: 600; }
+.workspace-tool .workspace-tool-consent { display: grid; gap: 8px; background: var(--tool-soft); }
+.workspace-tool .workspace-tool-consent label { min-height: 30px; }
+.workspace-tool [role='log']:empty { display: none; }
+.workspace-tool-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+.workspace-tool button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  max-width: 100%;
+  margin: 0;
+  border-color: #cdd7d2;
+  color: var(--tool-ink);
+  background: white;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.workspace-tool button:not(:disabled):hover { background: var(--tool-soft); }
+.workspace-tool button:disabled { cursor: not-allowed; }
+.workspace-tool .workspace-tool-fields > button { justify-self: start; }
+
+.workspace-tool button.workspace-tool-primary {
+  border-color: var(--tool-rose);
+  background: var(--tool-rose);
+  color: white;
+  font-weight: 600;
+}
+
+.workspace-tool button.workspace-tool-primary:not(:disabled):hover { background: #733049; }
+.workspace-tool button.workspace-tool-row { justify-content: space-between; width: 100%; padding: 8px; border-color: transparent; text-align: left; }
+.workspace-tool-row > span { min-width: 0; }
+.workspace-tool-row strong, .workspace-tool-row time { display: block; }
+.workspace-tool-row time { margin-top: 3px; color: var(--tool-muted); font-size: 12px; }
+.workspace-tool-row svg { flex: none; color: var(--tool-muted); }
+.workspace-tool button.workspace-tool-row[aria-current='true'] { background: var(--tool-tint); }
+.workspace-tool button.workspace-tool-clear { border-color: transparent; color: var(--tool-rose); }
+.workspace-tool .record-tags { margin: 8px 0 0; }
+.workspace-tool .record-tags button { border-radius: 8px; }
+.workspace-tool .record-tags button[aria-pressed='true'] { border-color: var(--tool-rose); background: var(--tool-tint); color: var(--tool-rose); }
+
+@media (max-width: 1050px) {
+  .workspace-tool-columns { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 540px) {
+  .workspace-tool .workspace-tool-field-grid { grid-template-columns: minmax(0, 1fr); }
+}

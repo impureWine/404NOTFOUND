@@ -14,6 +14,7 @@ import { Naming } from './live/Naming.jsx';
 import { Settings } from './live/Settings.jsx';
 import { PhysicsGame, PrivateText } from './live/Games.jsx';
 import './live/live.css';
+import './components/workspace-tools.css';
 
 const aliases = { 'worry-room': 'worry', 'info-query': 'search', 'emotion-card': 'emotion', 'things-organize': 'things', 'profile': 'settings' };
 const titles = { notes: '文字备忘与全部历史', 'query-records': '查询记录', home: '首页', companion: '陪伴交流', records: '陪伴记录', calendar: '情绪日历', worry: '烦恼物件化', rehearsal: '对话排练', 'rehearsal-records': '我的排练表达', deposit: '烦恼寄存所', things: '事情整理', search: '信息查询', emotion: '情绪命名卡', games: '减压练习与小游戏', training: '五感安定', breathing: '呼吸调节', 'pause-organize': '暂停整理', 'task-splitting': '任务拆分', marbles: '禅意编曲弹珠机', pressure: '屏幕无损发泄', 'private-text': '文字焚化与黑洞', settings: '个人主页与隐私设置', login: '登录', register: '注册' };
